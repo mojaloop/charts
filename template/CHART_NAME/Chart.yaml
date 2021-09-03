@@ -1,0 +1,27 @@
+annotations:
+  category: core
+apiVersion: v2
+appVersion: 1.0
+dependencies:
+  - condition: SUBCHART_NAME.enabled
+    name: SUBCHART_NAME
+    repository: https://charts.bitnami.com/bitnami
+    version: A.X.X
+  - name: common
+    repository: "file://../moja-common"
+    tags:
+      - moja-common
+    version: 1.0.0
+description: Helm Chart for <CHARTNAME>
+engine: gotpl
+home: https://github.com/mojaloop
+icon: http://mojaloop.io/images/logo.png
+keywords:
+  - mojaloop
+maintainers:
+  - email: containers@bitnami.com
+    name: Bitnami
+name: <CHARTNAME>
+sources:
+  - https://github.com/mojaloop/charts
+version: 0.1.0
