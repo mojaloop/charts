@@ -1,28 +1,30 @@
+{{/* vim: set filetype=mustache: */}}
+
 {{/*
 Return the proper main image name
 */}}
-{{- define "<CHARTNAME>.image" -}}
+{{- define "fspiop-transfer-api-svc.image" -}}
 {{ include "common.images.image" (dict "imageRoot" .Values.image "global" .Values.global) }}
 {{- end -}}
 
 {{/*
 Return the proper image name (for the init container volume-permissions image)
 */}}
-{{- define "<CHARTNAME>.volumePermissions.image" -}}
+{{- define "fspiop-transfer-api-svc.volumePermissions.image" -}}
 {{- include "common.images.image" ( dict "imageRoot" .Values.volumePermissions.image "global" .Values.global ) -}}
 {{- end -}}
 
 {{/*
 Return the proper Docker Image Registry Secret Names
 */}}
-{{- define "<CHARTNAME>.imagePullSecrets" -}}
-{{- include "common.images.pullSecrets" (dict "images" (list .Values.image .Values.volumePermissions.image) "global" .Values.global) -}}
+{{- define "fspiop-transfer-api-svc.imagePullSecrets" -}}
+{{- include "common.images.pullSecrets" (dict "images" (list .Values.image) "global" .Values.global) -}}
 {{- end -}}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "<CHARTNAME>.serviceAccountName" -}}
+{{- define "fspiop-transfer-api-svc.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create -}}
     {{ default (printf "%s-foo" (include "common.names.fullname" .)) .Values.serviceAccount.name }}
 {{- else -}}
@@ -33,10 +35,8 @@ Create the name of the service account to use
 {{/*
 Compile all warnings into a single message.
 */}}
-{{- define "<CHARTNAME>.validateValues" -}}
+{{- define "fspiop-transfer-api-svc.validateValues" -}}
 {{- $messages := list -}}
-{{- $messages := append $messages (include "<CHARTNAME>.validateValues.foo" .) -}}
-{{- $messages := append $messages (include "<CHARTNAME>.validateValues.bar" .) -}}
 {{- $messages := without $messages "" -}}
 {{- $message := join "\n" $messages -}}
 
@@ -44,4 +44,3 @@ Compile all warnings into a single message.
 {{-   printf "\nVALUES VALIDATION:\n%s" $message -}}
 {{- end -}}
 {{- end -}}
-

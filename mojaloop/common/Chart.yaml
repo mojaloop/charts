@@ -15,9 +15,9 @@ keywords:
 maintainers:
   - email: containers@bitnami.com
     name: Bitnami
-name: moja-common
+name: common
 sources:
   - https://github.com/mojaloop/charts
   - http://www.bitnami.com/
 type: library
-version: 1.8.0
+version: 1.0.0

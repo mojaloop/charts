@@ -356,7 +356,7 @@ ingress:
   ## @param ingress.extraHosts An array with additional hostname(s) to be covered with the ingress record
   ## e.g:
   ## extraHosts:
-  ##   - name: %%COMPONENT_NAME%%.local
+  ##   - name: <CHARTNAME>.local
   ##     path: /
   ##
   extraHosts: []
@@ -374,8 +374,8 @@ ingress:
   ## e.g:
   ## extraTls:
   ## - hosts:
-  ##     - %%COMPONENT_NAME%%.local
-  ##   secretName: %%COMPONENT_NAME%%.local-tls
+  ##     - <CHARTNAME>.local
+  ##   secretName: <CHARTNAME>.local-tls
   ##
   extraTls: []
   ## @param ingress.secrets Custom TLS certificates as secrets
@@ -387,7 +387,7 @@ ingress:
   ## Please see README.md for more information
   ## e.g:
   ## secrets:
-  ##   - name: %%COMPONENT_NAME%%.local-tls
+  ##   - name: <CHARTNAME>.local-tls
   ##     key: |-
   ##       -----BEGIN RSA PRIVATE KEY-----
   ##       ...

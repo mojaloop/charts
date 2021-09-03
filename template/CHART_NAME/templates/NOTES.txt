@@ -3,8 +3,8 @@
 {{- if .Values.diagnosticMode.enabled }}
 The chart has been deployed in diagnostic mode. All probes have been disabled and the command has been overwritten with:
 
-  command: {{- include "moja.common.tplvalues.render" (dict "value" .Values.diagnosticMode.command "context" $) | nindent 4 }}
-  args: {{- include "moja.common.tplvalues.render" (dict "value" .Values.diagnosticMode.args "context" $) | nindent 4 }}
+  command: {{- include "common.tplvalues.render" (dict "value" .Values.diagnosticMode.command "context" $) | nindent 4 }}
+  args: {{- include "common.tplvalues.render" (dict "value" .Values.diagnosticMode.args "context" $) | nindent 4 }}
 
 Get the list of pods by executing:
 
@@ -24,5 +24,5 @@ In order to replicate the container startup scripts execute this command:
 
 {{- end }}
 
-{{- include "moja.common.warnings.rollingTag" .Values.image }}
+{{- include "common.warnings.rollingTag" .Values.image }}
 {{- include "<CHARTNAME>.validateValues" . }}

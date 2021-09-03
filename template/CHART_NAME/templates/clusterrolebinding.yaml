@@ -1,20 +1,20 @@
 kind: ClusterRoleBinding
-apiVersion: {{ include "moja.common.capabilities.rbac.apiVersion" . }}
+apiVersion: {{ include "common.capabilities.rbac.apiVersion" . }}
 metadata:
-  name: {{ template "moja.common.names.fullname" . }}
+  name: {{ template "common.names.fullname" . }}
   namespace: {{ .Release.Namespace | quote }}
-  labels: {{- include "moja.common.labels.standard" . | nindent 4 }}
-    app.kubernetes.io/component: %%COMPONENT_NAME%%
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+    app.kubernetes.io/component: <CHARTNAME>
     {{- if .Values.commonLabels }}
-    {{- include "moja.common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
     {{- end }}
   {{- if .Values.commonAnnotations }}
-  annotations: {{- include "moja.common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
+  annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
   {{- end }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: {{ template "moja.common.names.fullname" . }}
+  name: {{ template "common.names.fullname" . }}
 subjects:
   - kind: ServiceAccount
     name: {{ template "<CHARTNAME>.serviceAccountName" . }}

@@ -19,7 +19,7 @@ $ helm dependency update
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "moja.common.names.fullname" . }}
+  name: {{ include "common.names.fullname" . }}
 data:
   myvalue: "Hello World"
 ```
@@ -253,9 +253,9 @@ When we store sensitive data for a deployment in a secret, some times we want to
 apiVersion: v1
 kind: Secret
 metadata:
-  name: {{ include "moja.common.names.fullname" . }}
+  name: {{ include "common.names.fullname" . }}
   labels:
-    app: {{ include "moja.common.names.fullname" . }}
+    app: {{ include "common.names.fullname" . }}
 type: Opaque
 data:
   password: {{ .Values.password | b64enc | quote }}
@@ -267,8 +267,8 @@ data:
         - name: PASSWORD
           valueFrom:
             secretKeyRef:
-              name: {{ include "moja.common.secrets.name" (dict "existingSecret" .Values.existingSecret "context" $) }}
-              key: {{ include "moja.common.secrets.key" (dict "existingSecret" .Values.existingSecret "key" "password") }}
+              name: {{ include "common.secrets.name" (dict "existingSecret" .Values.existingSecret "context" $) }}
+              key: {{ include "common.secrets.key" (dict "existingSecret" .Values.existingSecret "key" "password") }}
 ...
 
 # values.yaml
@@ -286,7 +286,7 @@ keyMapping:
 {{- $validateValueConf00 := (dict "valueKey" "path.to.value00" "secret" "secretName" "field" "password-00") -}}
 {{- $validateValueConf01 := (dict "valueKey" "path.to.value01" "secret" "secretName" "field" "password-01") -}}
 
-{{ include "moja.common.validations.values.multiple.empty" (dict "required" (list $validateValueConf00 $validateValueConf01) "context" $) }}
+{{ include "common.validations.values.multiple.empty" (dict "required" (list $validateValueConf00 $validateValueConf01) "context" $) }}
 ```
 
 If we force those values to be empty we will see some alerts

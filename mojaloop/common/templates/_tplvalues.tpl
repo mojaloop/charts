@@ -2,9 +2,9 @@
 {{/*
 Renders a value that contains template.
 Usage:
-{{ include "moja.common.tplvalues.render" ( dict "value" .Values.path.to.the.Value "context" $) }}
+{{ include "common.tplvalues.render" ( dict "value" .Values.path.to.the.Value "context" $) }}
 */}}
-{{- define "moja.common.tplvalues.render" -}}
+{{- define "common.tplvalues.render" -}}
     {{- if typeIs "string" .value }}
         {{- tpl .value .context }}
     {{- else }}

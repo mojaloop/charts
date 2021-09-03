@@ -1,9 +1,9 @@
 {{/* vim: set filetype=mustache: */}}
 {{/*
 Return  the proper Storage Class
-{{ include "moja.common.storage.class" ( dict "persistence" .Values.path.to.the.persistence "global" $) }}
+{{ include "common.storage.class" ( dict "persistence" .Values.path.to.the.persistence "global" $) }}
 */}}
-{{- define "moja.common.storage.class" -}}
+{{- define "common.storage.class" -}}
 
 {{- $storageClass := .persistence.storageClass -}}
 {{- if .global -}}
