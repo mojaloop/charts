@@ -15,6 +15,9 @@ global:
   ##
   imagePullSecrets: []
   storageClass: ""
+  kafka:
+    host: kafka
+    port: 9092
 
 podAffinityPreset: ""
 ## @param podAntiAffinityPreset Pod anti-affinity preset. Ignored if `main.affinity` is set. Allowed values: `soft` or `hard`
@@ -95,25 +98,65 @@ image:
   debug: false
 
 replicaCount: 1
-command: '["node", "src/api/index.js"]'
+command: 
+  - node
+  - src/api/index.js
 
 ## Enable diagnostic mode in the deployment
 ##
 diagnosticMode:
   ## @param diagnosticMode.enabled Enable diagnostic mode (all probes will be disabled and the command will be overridden)
   ##
-  enabled: false
+  enabled: true
   ## @param diagnosticMode.command Command to override all containers in the deployment
   ##
-  command:
-    - sleep
+  command: 
+    - node
+    - src/api/index.js
   ## @param diagnosticMode.args Args to override all containers in the deployment
   ##
   args:
-    - infinity
+    - --inspect=0.0.0.0:{{ .Values.diagnosticMode.debug.port }}
+  
+  ## @param diagnosticMode.debug config to override all debug information
+  ##
+  debug:
+    internalPort: 9229
+    port: 9229
+
+## @param initContainers Add additional init containers to the %%MAIN_CONTAINER_NAME%% pod(s)
+## ref: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
+## e.g:
+## initContainers:
+##  - name: your-image-name
+##    image: your-image
+##    imagePullPolicy: Always
+##    command: ['sh', '-c', 'echo "hello world"']
+##
+# initContainers: []
+initContainers:
+  - name: wait-for-kafka
+    image: solsson/kafka
+    imagePullPolicy: IfNotPresent
+    command:
+      - sh
+      - -c
+      - until ./bin/kafka-broker-api-versions.sh --bootstrap-server ${KAFKA_HOST}:${KAFKA_PORT}; 
+        do
+          echo --------------------;
+          echo Waiting for Kafka...;
+          sleep 2; 
+        done;
+        echo ====================; 
+        echo Kafka ok!;
+    env:
+      - name: KAFKA_HOST
+        value: '{{ include "common.kafka.host" . }}'
+      - name: KAFKA_PORT
+        value: '{{ include "common.kafka.port" . }}'
 
 init:
-  enabled: true
+  enabled: false
   image:
     name: wait-for-kafka
     repository: solsson/kafka
@@ -151,11 +194,23 @@ metrics:
     defaultLabels:
       serviceName: ml-service
 
+kafka:
+  fullnameOverride: HELLO
+  # port: 90925
+
 config:
   # this can be set if the dependency chart for kafka is disabled. If 'kafka_host' is commented out, then the name of the dependency chart will be used.
-  kafka_host: '$release_name-kafka'
-  kafka_port: 9092
-  kafka_partitioner: 'murmur2_random'
+  # kafka:
+  #   host: ''
+  #   port: 9092
+  #   partitioner: murmur2_random
+    # secretName: ''
+  admin-api:
+    host: ''
+    port: 80
+  # kafka_host: '$release_name-kafka'
+  # kafka_port: 9092
+  kafka_partitioner: murmur2_random
   central_services_host: '$release_name-centralledger-service'
   central_services_port: 80
   security:
@@ -189,10 +244,6 @@ config:
     truncate_extensions: true
   resource_versions: 'transfers=1.1,participants=1.1,quotes=1.0'
 
-# service:
-#   type: ClusterIP
-#   externalPort: 80
-#   internalPort: 3000
 service:
   name: api
   internalPort: 3000
@@ -340,7 +391,6 @@ serviceAccount:
 
 configFiles:
   default.json: |
-    {{- $kafkaHost := ( .Values.config.kafka_host | replace "$release_name" .Release.Name ) -}}
     {{- $centralServicesHost := ( .Values.config.central_services_host | replace "$release_name" .Release.Name ) -}}
     {
         "PORT": {{ .Values.service.internalPort }},
@@ -431,9 +481,9 @@ configFiles:
                                 "consumeTimeout": 1000
                             },
                             "rdkafkaConf": {
+                                "metadata.broker.list": {{ printf "%s:%s" (include "common.kafka.host" .) (include "common.kafka.port" .) | quote}},
                                 "client.id": "ml-con-notification-event",
                                 "group.id": "ml-group-notification-event",
-                                "metadata.broker.list": "{{ $kafkaHost }}:{{ .Values.config.kafka_port }}",
                                 "socket.keepalive.enable": true,
                                 "allow.auto.create.topics": true
                             },
@@ -452,7 +502,7 @@ configFiles:
                                 "messageCharset": "utf8"
                             },
                             "rdkafkaConf": {
-                                "metadata.broker.list": "{{ $kafkaHost }}:{{ .Values.config.kafka_port }}",
+                                "metadata.broker.list": {{ printf "%s:%s" (include "common.kafka.host" .) (include "common.kafka.port" .) | quote}},
                                 "client.id": "ml-prod-transfer-prepare",
                                 "event_cb": true,
                                 "dr_cb": false,
@@ -471,7 +521,7 @@ configFiles:
                                 "messageCharset": "utf8"
                             },
                             "rdkafkaConf": {
-                                "metadata.broker.list": "{{ $kafkaHost }}:{{ .Values.config.kafka_port }}",
+                                "metadata.broker.list": {{ printf "%s:%s" (include "common.kafka.host" .) (include "common.kafka.port" .) | quote}},
                                 "client.id": "ml-prod-transfer-fulfil",
                                 "event_cb": true,
                                 "dr_cb": false,
@@ -490,7 +540,7 @@ configFiles:
                                 "messageCharset": "utf8"
                             },
                             "rdkafkaConf": {
-                                "metadata.broker.list": "{{ $kafkaHost }}:{{ .Values.config.kafka_port }}",
+                                "metadata.broker.list": {{ printf "%s:%s" (include "common.kafka.host" .) (include "common.kafka.port" .) | quote}},
                                 "client.id": "ml-prod-transfer-get",
                                 "event_cb": true,
                                 "dr_cb": false,
@@ -515,8 +565,13 @@ sidecar:
     repository: mojaloop/event-sidecar
     tag: v11.0.1
     pullPolicy: IfNotPresent
-    command: '["npm", "run", "start"]'
+    command: 
+      - npm
+      - run
+      - start
   service:
+    name: api
+    port: 4001
     internalPort: 4001
   readinessProbe:
     enabled: true
@@ -531,6 +586,7 @@ sidecar:
     initialDelaySeconds: 90
     periodSeconds: 15
   config:
+    kafka_partitioner: murmur2_random
     event_log_grpc_host: localhost
     event_log_grpc_port: 50051
     event_log_filter: 'audit:*, log:info, log:warn, log:error'
@@ -540,7 +596,6 @@ sidecar:
 
   configFiles:
     default.json: |
-      {{- $kafkaHost := ( .Values.config.kafka_host | replace "$release_name" .Release.Name ) -}}
       {
         "PORT": {{ .Values.sidecar.service.internalPort }},
         "EVENT_LOGGER_GRPC_HOST": "{{ .Values.sidecar.config.event_log_grpc_host }}",
@@ -574,7 +629,7 @@ sidecar:
                   "messageCharset": "utf8"
                 },
                 "rdkafkaConf": {
-                  "metadata.broker.list": "{{ $kafkaHost }}:{{ .Values.config.kafka_port }}",
+                  "metadata.broker.list": {{ printf "%s:%s" (include "common.kafka.host" .) (include "common.kafka.port" .) | quote}},
                   "client.id": "es-prod-event",
                   "event_cb": true,
                   "dr_cb": true,
@@ -583,7 +638,7 @@ sidecar:
                 },
                 "topicConf": {
                   "request.required.acks": "all",
-                  "partitioner": "{{ .Values.config.kafka_partitioner }}"
+                  "partitioner": "{{ .Values.sidecar.config.kafka_partitioner }}"
                 }
               }
             }

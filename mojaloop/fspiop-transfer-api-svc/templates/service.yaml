@@ -27,5 +27,11 @@ spec:
       port: {{ .Values.service.port }}
       targetPort: {{ .Values.service.internalPort }}
       protocol: TCP
+  {{- if .Values.diagnosticMode.enabled }}
+    - name: debug
+      port: {{ .Values.diagnosticMode.debug.port }}
+      targetPort: {{ .Values.diagnosticMode.debug.internalPort }}
+      protocol: TCP
+  {{- end }}
   selector: {{- include "common.labels.matchLabels" . | nindent 4 }}
     app.kubernetes.io/component: {{ template "common.names.chart" . }}

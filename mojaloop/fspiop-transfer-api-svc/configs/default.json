@@ -1,4 +1,3 @@
-{{- $kafkaHost := ( .Values.config.kafka_host | replace "$release_name" .Release.Name ) -}}
 {{- $centralServicesHost := ( .Values.config.central_services_host | replace "$release_name" .Release.Name ) -}}
 {
     "PORT": {{ .Values.service.internalPort }},
@@ -91,7 +90,7 @@
                         "rdkafkaConf": {
                             "client.id": "ml-con-notification-event",
                             "group.id": "ml-group-notification-event",
-                            "metadata.broker.list": "{{ $kafkaHost }}:{{ .Values.config.kafka_port }}",
+                            "metadata.broker.list": "{{ include 'common.kafka.host' . }}:{{ include 'common.kafka.port' . }}",
                             "socket.keepalive.enable": true,
                             "allow.auto.create.topics": true
                         },
@@ -110,7 +109,7 @@
                             "messageCharset": "utf8"
                         },
                         "rdkafkaConf": {
-                            "metadata.broker.list": "{{ $kafkaHost }}:{{ .Values.config.kafka_port }}",
+                            "metadata.broker.list": "{{ include 'common.kafka.host' . }}:{{ include 'common.kafka.port' . }}",
                             "client.id": "ml-prod-transfer-prepare",
                             "event_cb": true,
                             "dr_cb": false,
@@ -129,7 +128,7 @@
                             "messageCharset": "utf8"
                         },
                         "rdkafkaConf": {
-                            "metadata.broker.list": "{{ $kafkaHost }}:{{ .Values.config.kafka_port }}",
+                            "metadata.broker.list": "{{ include 'common.kafka.host' . }}:{{ include 'common.kafka.port' . }}",
                             "client.id": "ml-prod-transfer-fulfil",
                             "event_cb": true,
                             "dr_cb": false,
@@ -148,7 +147,7 @@
                             "messageCharset": "utf8"
                         },
                         "rdkafkaConf": {
-                            "metadata.broker.list": "{{ $kafkaHost }}:{{ .Values.config.kafka_port }}",
+                            "metadata.broker.list": "{{ include 'common.kafka.host' . }}:{{ include 'common.kafka.port' . }}",
                             "client.id": "ml-prod-transfer-get",
                             "event_cb": true,
                             "dr_cb": false,
