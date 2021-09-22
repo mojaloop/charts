@@ -2,8 +2,13 @@
 Get fully qualified kafka name.
 */}}
 {{- define "common.kafka.fullname" -}}
-  {{- if .Values.kafka.fullnameOverride -}}
-    {{- .Values.kafka.fullnameOverride | trunc 63 | trimSuffix "-" -}}
+  {{- if .Values.kafka -}}
+    {{- if .Values.kafka.fullnameOverride -}}
+      {{- .Values.kafka.fullnameOverride | trunc 63 | trimSuffix "-" -}}
+    {{- else -}}
+      {{- $name := default "kafka" .Values.kafka.nameOverride -}}
+      {{ printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" }}
+    {{- end -}}
   {{- else -}}
     {{- $name := default "kafka" .Values.kafka.nameOverride -}}
     {{ printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" }}
@@ -14,18 +19,38 @@ Get fully qualified kafka name.
 Get kafka port.
 */}}
 {{- define "common.kafka.port" -}}
-  {{- if .Values.global }}
-    {{- if .Values.global.kafka }}
-        {{- if .Values.global.kafka.port }}
-            {{- default 9092 .Values.global.kafka.port -}}
-        {{- else -}}
-            {{- default 9092 .Values.kafka.port -}}
-        {{- end -}}
+  {{- if .Values.kafka -}}
+    {{- if .Values.kafka.port -}}
+        {{- default 9092 .Values.kafka.port -}}
     {{- else -}}
-          {{- default 9092 .Values.kafka.port -}}
+      {{- if .Values.global -}}
+        {{- if .Values.global.kafka -}}
+          {{- if .Values.global.kafka.port -}}
+            {{- default 9092 .Values.global.kafka.port -}}
+          {{- else -}}
+            {{- print "9092" -}}
+          {{- end -}}
+        {{- else -}}
+          {{- print "9092" -}}
+        {{- end -}}
+      {{- else -}}
+        {{- print "9092" -}}  
+      {{- end -}}
     {{- end -}}
   {{- else -}}
-    {{- default 9092 .Values.kafka.port -}}
+    {{- if .Values.global -}}
+      {{- if .Values.global.kafka -}}
+        {{- if .Values.global.kafka.port -}}
+          {{- default 9092 .Values.global.kafka.port -}}
+        {{- else -}}
+          {{- print "9092" -}}
+        {{- end -}}
+      {{- else -}}
+        {{- print "9092" -}}
+      {{- end -}}
+    {{- else -}}
+      {{- print "9092" -}}  
+    {{- end -}}
   {{- end -}}
 {{- end -}}
 
@@ -33,21 +58,37 @@ Get kafka port.
 Get fully qualified kafka host.
 */}}
 {{- define "common.kafka.host" -}}
-{{- if .Values.global }}
-    {{- if .Values.global.kafka }}
-        {{- if .Values.global.kafka.host }}
+  {{- if .Values.kafka -}}
+    {{- if .Values.kafka.host -}}
+      {{ printf "%s" .Values.kafka.host }}
+    {{- else -}}
+      {{- if .Values.global -}}
+        {{- if .Values.global.kafka -}}
+          {{- if .Values.global.kafka.host -}}
             {{- printf "%s" .Values.global.kafka.host -}}
-        {{- else -}}
+          {{- else -}}
             {{- printf "%s" (include "common.kafka.fullname" .) -}}
+          {{- end -}}
+        {{- else -}}
+          {{- printf "%s" (include "common.kafka.fullname" .) -}}  
         {{- end -}}
-     {{- else -}}
-         {{- printf "%s" (include "common.kafka.fullname" .) -}}
-     {{- end -}}
-{{- else -}}
-     {{- if .Values.ldap.existingSecret -}}
-         {{- printf "%s" .Values.ldap.existingSecret -}}
-     {{- else -}}
-        {{- printf "%s" (include "common.kafka.fullname" .) -}}
-     {{- end -}}
-{{- end -}}
+      {{- else -}}
+        {{- printf "%s" (include "common.kafka.fullname" .) -}}  
+      {{- end -}}
+    {{- end -}}
+  {{- else -}}
+    {{- if .Values.global -}}
+      {{- if .Values.global.kafka -}}
+        {{- if .Values.global.kafka.host -}}
+          {{- printf "%s" .Values.global.kafka.host -}}
+        {{- else -}}
+          {{- printf "%s" (include "common.kafka.fullname" .) -}}
+        {{- end -}}
+      {{- else -}}
+        {{- printf "%s" (include "common.kafka.fullname" .) -}}  
+      {{- end -}}
+    {{- else -}}
+      {{- printf "%s" (include "common.kafka.fullname" .) -}}  
+    {{- end -}}
+  {{- end -}}
 {{- end -}}

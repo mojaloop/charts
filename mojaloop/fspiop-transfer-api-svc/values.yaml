@@ -15,6 +15,7 @@ global:
   ##
   imagePullSecrets: []
   storageClass: ""
+  # This can be overridden by the main kafka element.
   kafka:
     host: kafka
     port: 9092
@@ -107,7 +108,7 @@ command:
 diagnosticMode:
   ## @param diagnosticMode.enabled Enable diagnostic mode (all probes will be disabled and the command will be overridden)
   ##
-  enabled: true
+  enabled: false
   ## @param diagnosticMode.command Command to override all containers in the deployment
   ##
   command: 
@@ -194,8 +195,12 @@ metrics:
     defaultLabels:
       serviceName: ml-service
 
-kafka:
-  fullnameOverride: HELLO
+kafka: {}
+  ## This is the same as setting the host explicitly, i.e. will set the host as set below. It is included to support importing Kafka charts as a dependency.
+  # fullnameOverride: kafka
+  ## This will override the name of kafka and add the release prefix, e.g. '<RELEASE_NAME>-<nameOverride>'.
+  # nameOverride: kafka
+  # host: kafka
   # port: 90925
 
 config:
