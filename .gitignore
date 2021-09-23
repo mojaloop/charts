@@ -28,4 +28,5 @@ launch.json
 *.log
 # Helm
 requirements.lock
+Chart.lock
 **/charts

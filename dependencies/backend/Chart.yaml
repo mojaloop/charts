@@ -43,3 +43,13 @@ dependencies:
       - backend
       - kafka
     version: 8.8.7
+  - name: kowl
+    alias: kowl
+    condition: kowl.enabled
+    repository: "https://raw.githubusercontent.com/cloudhut/charts/master/archives"
+    tags:
+      - mojaloop
+      - dependency
+      - backend
+      - kafka
+    version: 2.0.1

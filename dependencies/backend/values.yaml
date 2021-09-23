@@ -1,9 +1,13 @@
 ## Values configuration for Mojaloop Backend Dependencies
+# helm repo add bitnami https://charts.bitnami.com/bitnami
+# helm repo add cloudhut https://raw.githubusercontent.com/cloudhut/charts/master/archives
 # helm install backend ./dependencies/backend
+# helm upgrade backend ./dependencies/backend --install
 
 ################################################################
 ## Kafka Backend Dependency
 kafka:
+  enabled: true
   ## Installation
   # https://bitnami.com/stack/kafka/helm
   # https://github.com/bitnami/charts/blob/master/bitnami/kafka
@@ -1290,6 +1294,7 @@ kafka:
 ################################################################
 ## MySQL Backend Dependency
 mysql:
+  enabled: true
   ## Installation
   # https://bitnami.com/stack/mysql/helm
   # https://github.com/bitnami/charts/tree/master/bitnami/mysql
@@ -2320,3 +2325,32 @@ mysql:
       ## ref: https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#prometheusspec
       ##
       additionalLabels: {}
+
+################################################################
+## Kowl Backend Dependency
+kowl:
+  enabled: true
+  resources:
+    limits:
+      cpu: 500m
+      memory: 256Mi
+    requests:
+      cpu: 10m
+      memory: 64Mi
+
+  kowl:
+    # See reference config: https://github.com/cloudhut/kowl/blob/master/docs/config/kowl.yaml)
+    config:
+      kafka:
+        brokers:
+          - kafka-headless:9092
+
+  ingress:
+    enabled: true
+    hosts:
+      - host: kowl.local
+        paths: ['/']
+    tls: []
+    #  - secretName: chart-example-tls
+    #    hosts:
+    #      - chart-example.local
