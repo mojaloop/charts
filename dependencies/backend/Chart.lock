@@ -1,0 +1,9 @@
+dependencies:
+- name: kafka
+  repository: https://charts.bitnami.com/bitnami
+  version: 14.1.1
+- name: mysql
+  repository: https://charts.bitnami.com/bitnami
+  version: 8.8.7
+digest: sha256:89219dc2191ee41565d00b9a349e9576931a55353a13812b7e964f1d90c0184b
+generated: "2021-09-23T16:55:02.411133+02:00"

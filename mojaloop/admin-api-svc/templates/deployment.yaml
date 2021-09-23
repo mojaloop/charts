@@ -104,9 +104,14 @@ spec:
             periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
           {{- end }}
           volumeMounts:
-            - name: {{ template "common.names.fullname" . }}-config-volume
-              mountPath: /opt/ml-api-adapter/config
+            - name: config-volume
+              mountPath: /opt/central-ledger/config
           env:
+            - name: CLEDG_DATABASE__PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: '{{ include "common.backends.mysql.secret.name" . }}'
+                  key: '{{ include "common.backends.mysql.secret.key" . }}'
             - name: LOG_LEVEL
               value: {{ .Values.config.log_level | quote}}
             - name: LOG_FILTER
@@ -164,7 +169,7 @@ spec:
             periodSeconds: {{ .Values.sidecar.livenessProbe.periodSeconds }}
           {{- end }}
           volumeMounts:
-            - name: {{ template "common.names.fullname" . }}-sidecar-volume
+            - name: sidecar-volume
               mountPath: /opt/event-sidecar/config
           env:
             - name: LOG_LEVEL
@@ -177,14 +182,16 @@ spec:
               value: {{ .Values.sidecar.config.event_log_metadata_only | quote }}
         {{- end }}
       volumes:
-        - name: {{ template "common.names.fullname" . }}-config-volume
+        - name: config-volume
           configMap:
             name: {{ template "common.names.fullname" . }}-config
             items:
             - key: default.json
               path: default.json
+            - key: knexfile.js
+              path: knexfile.js
         {{- if .Values.sidecar.enabled }}
-        - name: {{ template "common.names.fullname" . }}-sidecar-volume
+        - name: sidecar-volume
           configMap:
             name: {{ template "common.names.fullname" . }}-sidecar
             items:

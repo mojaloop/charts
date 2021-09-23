@@ -15,10 +15,14 @@ global:
   ##
   imagePullSecrets: []
   storageClass: ""
-  # This can be overridden by the main kafka element.
+  # This can be overridden by defining the kafka element.
   kafka:
     host: kafka
     port: 9092
+  # This can be overridden by defining the adminApiSvc element.
+  adminApiSvc: {}
+    # host: admin-api-svc
+    # port: 80
 
 podAffinityPreset: ""
 ## @param podAntiAffinityPreset Pod anti-affinity preset. Ignored if `main.affinity` is set. Allowed values: `soft` or `hard`
@@ -152,37 +156,21 @@ initContainers:
         echo Kafka ok!;
     env:
       - name: KAFKA_HOST
-        value: '{{ include "common.kafka.host" . }}'
+        value: '{{ include "common.backends.kafka.host" . }}'
       - name: KAFKA_PORT
-        value: '{{ include "common.kafka.port" . }}'
-
-init:
-  enabled: false
-  image:
-    name: wait-for-kafka
-    repository: solsson/kafka
-    tag: latest
-    pullPolicy: IfNotPresent
-    command: "until ./bin/kafka-broker-api-versions.sh --bootstrap-server $kafka_host:$kafka_port; do echo waiting for Kafka; sleep 2; done;"
-    env: {}
-    ## Env example
-    # env:
-    #   envItem1:
-    #     name: hello
-    #     value: world
-    #
+        value: '{{ include "common.backends.kafka.port" . }}'
 
 readinessProbe:
   enabled: true
   httpGet:
     path: /health
-  initialDelaySeconds: 120
+  initialDelaySeconds: 15
   periodSeconds: 15
 livenessProbe:
   enabled: true
   httpGet:
     path: /health
-  initialDelaySeconds: 90
+  initialDelaySeconds: 15
   periodSeconds: 15
 
 ## metric configuration for prometheus instrumentation
@@ -201,7 +189,15 @@ kafka: {}
   ## This will override the name of kafka and add the release prefix, e.g. '<RELEASE_NAME>-<nameOverride>'.
   # nameOverride: kafka
   # host: kafka
-  # port: 90925
+  # port: 9092
+
+adminApiSvc: {}
+  ## This is the same as setting the host explicitly, i.e. will set the host as set below. It is included to support importing Kafka charts as a dependency.
+  # fullnameOverride: admin-api-svc
+  ## This will override the name of kafka and add the release prefix, e.g. '<RELEASE_NAME>-<nameOverride>'.
+  # nameOverride: admin-api-svc
+  # host: admin-api-svc
+  # port: 80
 
 config:
   # this can be set if the dependency chart for kafka is disabled. If 'kafka_host' is commented out, then the name of the dependency chart will be used.
@@ -250,7 +246,6 @@ config:
   resource_versions: 'transfers=1.1,participants=1.1,quotes=1.0'
 
 service:
-  name: api
   internalPort: 3000
   ## @param service.type %%MAIN_CONTAINER_NAME%% service type
   ##
@@ -396,11 +391,10 @@ serviceAccount:
 
 configFiles:
   default.json: |
-    {{- $centralServicesHost := ( .Values.config.central_services_host | replace "$release_name" .Release.Name ) -}}
     {
         "PORT": {{ .Values.service.internalPort }},
-        "ENDPOINT_SOURCE_URL": "http://{{ $centralServicesHost }}:{{ .Values.config.central_services_port }}",
-        "ENDPOINT_HEALTH_URL": "http://{{ $centralServicesHost }}:{{ .Values.config.central_services_port }}{{ .Values.config.central_services_health_endpoint_param }}",
+        "ENDPOINT_SOURCE_URL": {{ printf "http://%s:%s" (include "common.backends.mojaloop.adminApiSvc.host" .) (include "common.backends.mojaloop.adminApiSvc.port" .) | quote}},
+        "ENDPOINT_HEALTH_URL": {{ printf "http://%s:%s%s" (include "common.backends.mojaloop.adminApiSvc.host" .) (include "common.backends.mojaloop.adminApiSvc.port" .) .Values.config.central_services_health_endpoint_param | quote}},
         "ENDPOINT_CACHE_CONFIG": {
             "expiresIn": 180000,
             "generateTimeout": 30000
@@ -486,7 +480,7 @@ configFiles:
                                 "consumeTimeout": 1000
                             },
                             "rdkafkaConf": {
-                                "metadata.broker.list": {{ printf "%s:%s" (include "common.kafka.host" .) (include "common.kafka.port" .) | quote}},
+                                "metadata.broker.list": {{ printf "%s:%s" (include "common.backends.kafka.host" .) (include "common.backends.kafka.port" .) | quote}},
                                 "client.id": "ml-con-notification-event",
                                 "group.id": "ml-group-notification-event",
                                 "socket.keepalive.enable": true,
@@ -507,7 +501,7 @@ configFiles:
                                 "messageCharset": "utf8"
                             },
                             "rdkafkaConf": {
-                                "metadata.broker.list": {{ printf "%s:%s" (include "common.kafka.host" .) (include "common.kafka.port" .) | quote}},
+                                "metadata.broker.list": {{ printf "%s:%s" (include "common.backends.kafka.host" .) (include "common.backends.kafka.port" .) | quote}},
                                 "client.id": "ml-prod-transfer-prepare",
                                 "event_cb": true,
                                 "dr_cb": false,
@@ -526,7 +520,7 @@ configFiles:
                                 "messageCharset": "utf8"
                             },
                             "rdkafkaConf": {
-                                "metadata.broker.list": {{ printf "%s:%s" (include "common.kafka.host" .) (include "common.kafka.port" .) | quote}},
+                                "metadata.broker.list": {{ printf "%s:%s" (include "common.backends.kafka.host" .) (include "common.backends.kafka.port" .) | quote}},
                                 "client.id": "ml-prod-transfer-fulfil",
                                 "event_cb": true,
                                 "dr_cb": false,
@@ -545,7 +539,7 @@ configFiles:
                                 "messageCharset": "utf8"
                             },
                             "rdkafkaConf": {
-                                "metadata.broker.list": {{ printf "%s:%s" (include "common.kafka.host" .) (include "common.kafka.port" .) | quote}},
+                                "metadata.broker.list": {{ printf "%s:%s" (include "common.backends.kafka.host" .) (include "common.backends.kafka.port" .) | quote}},
                                 "client.id": "ml-prod-transfer-get",
                                 "event_cb": true,
                                 "dr_cb": false,
@@ -634,7 +628,7 @@ sidecar:
                   "messageCharset": "utf8"
                 },
                 "rdkafkaConf": {
-                  "metadata.broker.list": {{ printf "%s:%s" (include "common.kafka.host" .) (include "common.kafka.port" .) | quote}},
+                  "metadata.broker.list": {{ printf "%s:%s" (include "common.backends.kafka.host" .) (include "common.backends.kafka.port" .) | quote}},
                   "client.id": "es-prod-event",
                   "event_cb": true,
                   "dr_cb": true,

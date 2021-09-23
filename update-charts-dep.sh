@@ -13,7 +13,11 @@ find ./ -name "charts"| xargs rm -Rf
 find ./ -name "tmpcharts"| xargs rm -Rf
 
 declare -a charts=(
-        $(find ./mojaloop -mindepth 1 -maxdepth 1 -type d)
+        dependencies/backend
+        mojaloop/common
+        mojaloop/admin-api-svc
+        mojaloop/fspiop-transfer-api-svc
+        mojaloop/mojaloop
     )
 
 echo "Updating all Charts..."

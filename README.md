@@ -7,6 +7,12 @@
 [![CircleCI](https://circleci.com/gh/mojaloop/charts.svg?style=svg)](https://circleci.com/gh/mojaloop/charts)
 
 ## Quick Links
+
 - [http://mojaloop.io/charts/repo/](http://mojaloop.io/charts/repo/index.yaml) Mojaloop Published Helm Repo
 - [Documentation - Deploying Mojaloop](https://docs.mojaloop.io/documentation/deployment-guide)
 - [Helm v3 Docs](https://docs.helm.sh/)
+
+## Todo
+
+- [ ] Truncate names (e.g. configMaps, secrets, etc) within Kubernetes specification
+- ..

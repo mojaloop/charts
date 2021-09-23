@@ -1,0 +1,12 @@
+dependencies:
+- name: common
+  repository: file://../common
+  version: 1.0.0
+- name: fspiop-transfer-api-svc
+  repository: file://../fspiop-transfer-api-svc
+  version: 12.0.0
+- name: admin-api-svc
+  repository: file://../admin-api-svc
+  version: 12.0.0
+digest: sha256:dda168173828608e8751c65af807400cf60ded92edb1a7b29c1d2f462e80e4d3
+generated: "2021-09-23T16:32:19.662652+02:00"
