@@ -5,5 +5,8 @@ dependencies:
 - name: mysql
   repository: https://charts.bitnami.com/bitnami
   version: 8.8.7
-digest: sha256:89219dc2191ee41565d00b9a349e9576931a55353a13812b7e964f1d90c0184b
-generated: "2021-09-23T16:55:02.411133+02:00"
+- name: kowl
+  repository: https://raw.githubusercontent.com/cloudhut/charts/master/archives
+  version: 2.0.1
+digest: sha256:8fa33ca32f1a5f6487b651f740a0d1c704835e5bf58975ad27b597cefdc3529f
+generated: "2021-09-23T17:36:05.095719+02:00"
