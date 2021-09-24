@@ -14,8 +14,7 @@
 
 ## Todo
 
-- [ ] Truncate names (e.g. configMaps, secrets, etc) within Kubernetes specification
-- ..
+- Refer to task list on [Helm v14.0.0 PoC #2459](https://github.com/mojaloop/project/issues/2459) story.
 
 ## Examples
 
