@@ -195,7 +195,7 @@ initContainers:
       - name: DB_DATABASE
         value: '{{ include "common.backends.mysql.database" . }}'
   - name: run-migration
-    image: '{{ template "fspiop-transfer-api-svc.image" . }}'
+    image: '{{ template "admin-api-svc.image" . }}'
     imagePullPolicy: IfNotPresent
     command:
       - sh
