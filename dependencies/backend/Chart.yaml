@@ -53,3 +53,14 @@ dependencies:
       - backend
       - kafka
     version: 2.0.1
+  - name: keto
+    alias: keto
+    condition: keto.enabled
+    repository: "https://k8s.ory.sh/helm/charts"
+    tags:
+      - mojaloop
+      - dependency
+      - backend
+      - keto
+      - bof
+    version: 0.19.5
