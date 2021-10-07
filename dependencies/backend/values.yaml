@@ -2631,3 +2631,6 @@ keto:
     enabled: false
     spec:
       minAvailable: 1
+
+wso2:
+  config: 

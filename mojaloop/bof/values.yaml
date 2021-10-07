@@ -1,0 +1,18 @@
+## Installation
+# helm upgrade bof ./mojaloop/bof --install 
+
+# Default values for bof.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+global:
+  keto:
+    host: keto
+    readPort: 4466
+    writePort: 4467
+  wso2:
+    identityServer:
+      host: "identity-server"
+      port: 9443
+
+role-assignment-service: {}
