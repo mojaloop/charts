@@ -8,5 +8,8 @@ dependencies:
 - name: kowl
   repository: https://raw.githubusercontent.com/cloudhut/charts/master/archives
   version: 2.0.1
-digest: sha256:8fa33ca32f1a5f6487b651f740a0d1c704835e5bf58975ad27b597cefdc3529f
-generated: "2021-09-23T17:36:05.095719+02:00"
+- name: keto
+  repository: https://k8s.ory.sh/helm/charts
+  version: 0.19.5
+digest: sha256:8eea5d55b0cf6ef3ad0eac5fa16db820da4c0e09fccdce4f91e6b38dc57de2ad
+generated: "2021-10-07T00:39:07.271381+05:30"

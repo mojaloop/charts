@@ -1,0 +1,20 @@
+apiVersion: v1
+description: API service for assigning roles and participants to users
+name: role-assignment-service
+version: 1.0.0
+appVersion: "0.0.5"
+home: http://mojaloop.io
+icon: http://mojaloop.io/images/logo.png
+sources:
+  - https://github.com/mojaloop/mojaloop
+  - https://github.com/mojaloop/helm
+  - https://github.com/mojaloop/role-assignment-service
+maintainers:
+  - name: Vijaya Kumar Guthi
+    email: vijaya.guthi@modusbox.com
+dependencies:
+  - name: common
+    repository: "file://../common"
+    tags:
+      - moja-common
+    version: 1.0.0
