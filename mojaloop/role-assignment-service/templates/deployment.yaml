@@ -105,7 +105,7 @@ spec:
           {{- end }}
           volumeMounts:
             - name: {{ template "common.names.fullname" . }}-config-volume
-              mountPath: /opt/ml-api-adapter/config
+              mountPath: /opt/role-assignment-service/config
           # env: {}
 
         {{- if .Values.sidecar.enabled }}
