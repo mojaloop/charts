@@ -10,8 +10,8 @@ sources:
   - https://github.com/mojaloop/helm
   - https://github.com/mojaloop/role-assignment-service
 maintainers:
-  - name: Miguel de Barros
-    email: miguel.debarros@modusbox.com
+  - name: Vijaya Kumar Guthi
+    email: vijaya.guthi@modusbox.com
 dependencies:
   - name: common
     repository: "file://../common"

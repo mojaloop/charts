@@ -351,9 +351,9 @@ configFiles:
         "expiresIn": 180000,
         "generateTimeout": 30000
       },
-      "CENTRAL_SERVICE_ADMIN_URL": "http://central-ledger:3001",
-      "ORY_KETO_READ_SERVICE_URL": "http://keto:4466",
-      "ORY_KETO_WRITE_SERVICE_URL": "http://keto:4467",
+      "CENTRAL_SERVICE_ADMIN_URL": {{ printf "http://%s:%s" (include "common.backends.mojaloop.adminApiSvc.host" .) (include "common.backends.mojaloop.adminApiSvc.port" .) | quote}},
+      "ORY_KETO_READ_SERVICE_URL": {{ printf "http://%s:%s" (include "common.backends.keto.host" .) (include "common.backends.keto.readPort" .) | quote}},
+      "ORY_KETO_WRITE_SERVICE_URL": {{ printf "http://%s:%s" (include "common.backends.keto.host" .) (include "common.backends.keto.writePort" .) | quote}},
       "WSO2IS_USER_LIST_URL": "https://identity-server:9443/scim2/Users",
       "WSO2_USER": "admin",
       "WSO2_PASSWORD": "admin",
