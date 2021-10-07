@@ -2522,7 +2522,7 @@ keto:
 
   secret:
     # -- Switch to false to prevent creating the secret
-    enabled: false
+    enabled: true
     # ... and choose a different name for a secret you provide like this
     # nameOverride: "MyOtherName"
     secretAnnotations:

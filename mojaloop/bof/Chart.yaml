@@ -36,3 +36,10 @@ dependencies:
       - mojaloop
       - role-assignment-service
     version: 1.0.0
+  - name: reporting-hub-bop-shell
+    condition: reporting-hub-bop-shell.enabled
+    repository: "file://../reporting-hub-bop-shell"
+    tags:
+      - mojaloop
+      - reporting-hub-bop-shell
+    version: 1.0.0

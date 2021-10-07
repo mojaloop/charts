@@ -6,8 +6,11 @@
 # Declare variables to be passed into your templates.
 
 global:
+  adminApiSvc:
+    host: "test1-centralledger-service"
+    port: 80
   keto:
-    host: keto
+    host: "keto"
     readPort: 4466
     writePort: 4467
   wso2:
