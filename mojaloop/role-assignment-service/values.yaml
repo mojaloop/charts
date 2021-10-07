@@ -409,6 +409,5 @@ sidecar:
     initialDelaySeconds: 90
     periodSeconds: 15
   config: {}
-
   configFiles:
     default.json: {}
