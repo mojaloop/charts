@@ -7,7 +7,7 @@
 
 global:
   adminApiSvc:
-    host: "test1-centralledger-service"
+    host: "centralledger-service"
     port: 80
   keto:
     host: "keto"
