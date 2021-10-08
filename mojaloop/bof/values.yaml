@@ -18,4 +18,11 @@ global:
       host: "identity-server"
       port: 9443
 
-role-assignment-service: {}
+role-assignment-service:
+  enabled: true
+
+reporting-hub-bop-shell:
+  enabled: true
+
+security-role-perm-operator-svc:
+  enabled: true
