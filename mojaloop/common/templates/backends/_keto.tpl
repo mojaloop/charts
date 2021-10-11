@@ -30,6 +30,20 @@ Get keto write port.
 {{- end -}}
 
 {{/*
+Get keto read URL.
+*/}}
+{{- define "common.backends.keto.readURL" -}}
+  {{- default "http://keto-read:80" (default .Values.global.keto.readURL .Values.keto.readURL) -}}
+{{- end -}}
+
+{{/*
+Get keto write URL.
+*/}}
+{{- define "common.backends.keto.writeURL" -}}
+  {{- default "http://keto-write:80" (default .Values.global.keto.writeURL .Values.keto.writeURL) -}}
+{{- end -}}
+
+{{/*
 Get fully qualified keto host.
 */}}
 {{- define "common.backends.keto.host" -}}

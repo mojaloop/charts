@@ -183,7 +183,12 @@ metrics:
       serviceName: role-assignment-service
 
 adminApiSvc: {}
+
 keto: {}
+# keto:
+#   readURL: 'http://keto-read'
+#   writeURL: 'http://keto-write'
+
 wso2:
   identityServer: {}
 
@@ -348,8 +353,8 @@ configFiles:
         "generateTimeout": 30000
       },
       "CENTRAL_SERVICE_ADMIN_URL": {{ printf "http://%s:%s" (include "common.backends.mojaloop.adminApiSvc.host" .) (include "common.backends.mojaloop.adminApiSvc.port" .) | quote}},
-      "ORY_KETO_READ_SERVICE_URL": {{ printf "http://%s:%s" (include "common.backends.keto.host" .) (include "common.backends.keto.readPort" .) | quote}},
-      "ORY_KETO_WRITE_SERVICE_URL": {{ printf "http://%s:%s" (include "common.backends.keto.host" .) (include "common.backends.keto.writePort" .) | quote}},
+      "ORY_KETO_READ_SERVICE_URL": {{ include "common.backends.keto.readURL" . | quote }},
+      "ORY_KETO_WRITE_SERVICE_URL": {{ include "common.backends.keto.writeURL" . | quote }},
       "WSO2IS_USER_LIST_URL": {{ printf "https://%s:%s/scim2/Users" (include "common.backends.wso2.identityServer.host" .) (include "common.backends.wso2.identityServer.port" .) | quote}},
       "WSO2_USER": "admin",
       "WSO2_PASSWORD": "admin",

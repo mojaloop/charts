@@ -179,6 +179,9 @@ metrics:
       serviceName: security-role-perm-operator-svc
 
 keto: {}
+# keto:
+#   readURL: 'http://keto-read'
+#   writeURL: 'http://keto-write'
 
 mojalooprole: {}
 
@@ -254,8 +257,8 @@ configFiles:
       "WATCH_RESOURCE_VERSION": {{ include "common.backends.mojalooprole.resourceVersion" . | quote }},
       "WATCH_RESOURCE_PLURAL": {{ include "common.backends.mojalooprole.resourcePlural" . | quote }},
       "WATCH_NAMESPACE": {{ .Release.Namespace | quote }},
-      "ORY_KETO_READ_SERVICE_URL": {{ printf "http://%s:%s" (include "common.backends.keto.host" .) (include "common.backends.keto.readPort" .) | quote}},
-      "ORY_KETO_WRITE_SERVICE_URL": {{ printf "http://%s:%s" (include "common.backends.keto.host" .) (include "common.backends.keto.writePort" .) | quote}},
+      "ORY_KETO_READ_SERVICE_URL": {{ include "common.backends.keto.readURL" . | quote }},
+      "ORY_KETO_WRITE_SERVICE_URL": {{ include "common.backends.keto.writeURL" . | quote }},
       "KETO_QUEUE_PROCESS_INTERVAL_MS": 1000
     }
 

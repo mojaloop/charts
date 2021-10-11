@@ -2546,8 +2546,11 @@ keto:
           port: 4467
       namespaces:
         - id: 0
-          name: sample
+          name: role
+        - id: 1
+          name: permission
       dsn: memory
+
     autoMigrate: false
 
   resources: {}
