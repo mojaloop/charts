@@ -78,15 +78,15 @@ containerSecurityContext:
   runAsUser: 1001
 
 image:
-  # registry: docker.io
-  repository: test-image7
-  tag: 'latest'
+  registry: docker.io
+  repository: mojaloop/reporting-hub-bop-shell
+  tag: v1.6.2
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
   ##
-  #pullPolicy: IfNotPresent
-  pullPolicy: Never
+  pullPolicy: IfNotPresent
+
   ## Optionally specify an array of imagePullSecrets.
   ## Secrets must be manually created in the namespace.
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
@@ -193,8 +193,8 @@ config:
     LOGIN_URL: http://your-login-url
     LOGOUT_URL: http://your-logout-url
     AUTH_ENABLED: true
-    REMOTE_1_URL: http://localhost:8081
-    REMOTE_2_URL: http://localhost:8082
+    REMOTE_1_URL: http://reporting-hub-bop-role-ui.local
+    REMOTE_2_URL: http://reporting-hub-bop-trx-ui.local
 
 service:
   internalPort: 8080

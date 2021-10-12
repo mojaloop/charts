@@ -113,14 +113,14 @@ diagnosticMode:
   enabled: false
   ## @param diagnosticMode.command Command to override all containers in the deployment
   ##
-  command: 
+  command:
     - npm
     - start
   ## @param diagnosticMode.args Args to override all containers in the deployment
   ##
   args:
     - --inspect=0.0.0.0:{{ .Values.diagnosticMode.debug.port }}
-  
+
   ## @param diagnosticMode.debug config to override all debug information
   ##
   debug:
@@ -144,13 +144,13 @@ initContainers: []
 #     command:
 #       - sh
 #       - -c
-#       - until ./bin/kafka-broker-api-versions.sh --bootstrap-server ${KAFKA_HOST}:${KAFKA_PORT}; 
+#       - until ./bin/kafka-broker-api-versions.sh --bootstrap-server ${KAFKA_HOST}:${KAFKA_PORT};
 #         do
 #           echo --------------------;
 #           echo Waiting for Kafka...;
-#           sleep 2; 
+#           sleep 2;
 #         done;
-#         echo ====================; 
+#         echo ====================;
 #         echo Kafka ok!;
 #     env:
 #       - name: KAFKA_HOST
@@ -377,8 +377,7 @@ configFiles:
         "ADMIN_ROLE_6c1ec084-86d4-4915-ba81-6c59b87a65a6"
       ],
       "CORS_WHITELIST": [
-        "http://localhost:3010",
-        "http://localhost:3012"
+        "http://reporting-hub-bop-shell.local"
       ]
     }
 
@@ -388,7 +387,7 @@ sidecar:
     repository: mojaloop/event-sidecar
     tag: v11.0.1
     pullPolicy: IfNotPresent
-    command: 
+    command:
       - npm
       - run
       - start
