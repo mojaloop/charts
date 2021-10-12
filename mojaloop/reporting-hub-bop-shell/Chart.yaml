@@ -10,8 +10,8 @@ sources:
   - https://github.com/mojaloop/helm
   - https://github.com/mojaloop/reporting-hub-bop-shell
 maintainers:
-  - name: Vijaya Kumar Guthi
-    email: vijaya.guthi@modusbox.com
+  - name: Kevin Christopher Leyow
+    email: kevin.leyow@modusbox.com
 dependencies:
   - name: common
     repository: "file://../common"
