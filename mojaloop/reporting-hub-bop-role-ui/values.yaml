@@ -182,22 +182,15 @@ metrics:
     timeout: 5000
     prefix: moja_
     defaultLabels:
-      serviceName: reporting-hub-bop-shell
+      serviceName: reporting-hub-bop-role-ui
 
 config:
   env:
-    AUTH_API_BASE_URL: /
-    AUTH_MOCK_API: true
-    REMOTE_API_BASE_URL: /
-    REMOTE_MOCK_API: false
-    LOGIN_URL: http://your-login-url
-    LOGOUT_URL: http://your-logout-url
-    AUTH_ENABLED: true
-    REMOTE_1_URL: http://localhost:8081
-    REMOTE_2_URL: http://localhost:8082
+    REACT_APP_API_BASE_URL: http://localhost:3008/
+    REACT_APP_MOCK_API: false
 
 service:
-  internalPort: 8080
+  internalPort: 8081
   ## @param service.type %%MAIN_CONTAINER_NAME%% service type
   ##
   type: ClusterIP
@@ -251,7 +244,7 @@ ingress:
   apiVersion:
   ## @param ingress.hostname Default host for the ingress record
   ##
-  hostname: reporting-hub-bop-shell.local
+  hostname: reporting-hub-bop-role-ui.local
   ## @param ingress.path Default path for the ingress record
   ## NOTE: You may need to set this to '/*' in order to use this with ALB ingress controllers
   ##
