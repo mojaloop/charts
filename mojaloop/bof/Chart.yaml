@@ -43,3 +43,17 @@ dependencies:
       - mojaloop
       - reporting-hub-bop-shell
     version: 1.0.0
+  - name: reporting-hub-bop-role-ui
+    condition: reporting-hub-bop-role-ui.enabled
+    repository: "file://../reporting-hub-bop-role-ui"
+    tags:
+      - mojaloop
+      - reporting-hub-bop-role-ui
+    version: 1.0.0
+  - name: reporting-hub-bop-trx-ui
+    condition: reporting-hub-bop-trx-ui.enabled
+    repository: "file://../reporting-hub-bop-trx-ui"
+    tags:
+      - mojaloop
+      - reporting-hub-bop-trx-ui
+    version: 1.0.0
