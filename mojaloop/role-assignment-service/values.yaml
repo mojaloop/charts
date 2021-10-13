@@ -377,7 +377,8 @@ configFiles:
         "ADMIN_ROLE_6c1ec084-86d4-4915-ba81-6c59b87a65a6"
       ],
       "CORS_WHITELIST": [
-        "http://reporting-hub-bop-shell.local"
+        "http://reporting-hub-bop-shell.local",
+        "http://reporting-hub-bop-role-ui.local"
       ]
     }
 
