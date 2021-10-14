@@ -43,3 +43,10 @@ dependencies:
       - mojaloop
       - reporting-hub-bop-shell
     version: 1.0.0
+  - name: security-role-perm-operator-svc
+    condition: security-role-perm-operator-svc.enabled
+    repository: "file://../security-role-perm-operator-svc"
+    tags:
+      - mojaloop
+      - security-role-perm-operator-svc
+    version: 1.0.0
