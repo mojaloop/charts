@@ -4,6 +4,9 @@
 # helm install backend ./dependencies/backend
 # helm upgrade backend ./dependencies/backend --install
 
+global:
+  mojalooprole: {}
+
 ################################################################
 ## Kafka Backend Dependency
 kafka:
@@ -2543,8 +2546,11 @@ keto:
           port: 4467
       namespaces:
         - id: 0
-          name: sample
+          name: role
+        - id: 1
+          name: permission
       dsn: memory
+
     autoMigrate: false
 
   resources: {}
@@ -2634,3 +2640,5 @@ keto:
 
 wso2:
   config: 
+
+mojalooprole: {}

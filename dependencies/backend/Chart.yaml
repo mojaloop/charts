@@ -64,3 +64,8 @@ dependencies:
       - keto
       - bof
     version: 0.19.5
+  - name: common
+    repository: "file://../../mojaloop/common"
+    tags:
+      - moja-common
+    version: 1.0.0
