@@ -64,6 +64,17 @@ dependencies:
       - keto
       - bof
     version: 0.19.5
+  - name: oathkeeper
+    alias: oathkeeper
+    condition: oathkeeper.enabled
+    repository: "https://k8s.ory.sh/helm/charts"
+    tags:
+      - mojaloop
+      - dependency
+      - backend
+      - oathkeeper
+      - bof
+    version: 0.19.5
   - name: common
     repository: "file://../../mojaloop/common"
     tags:

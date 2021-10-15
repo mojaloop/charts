@@ -19,7 +19,7 @@ Get fully qualified keto name.
 Get wso2 identity-server host.
 */}}
 {{- define "common.backends.wso2.identityServer.host" -}}
-  {{- default 4466 (default .Values.global.wso2.identityServer.host .Values.wso2.identityServer.host) -}}
+  {{- default "localhost" (default .Values.global.wso2.identityServer.host .Values.wso2.identityServer.host) -}}
 {{- end -}}
 
 {{/*
@@ -27,4 +27,11 @@ Get wso2 identity-server port.
 */}}
 {{- define "common.backends.wso2.identityServer.port" -}}
   {{- default 4467 (default .Values.global.wso2.identityServer.port .Values.wso2.identityServer.port) -}}
+{{- end -}}
+
+{{/*
+Get wso2 introspection url.
+*/}}
+{{- define "common.backends.wso2.introspectionURL" -}}
+  {{- default 4467 (default .Values.global.wso2.introspectionURL .Values.wso2.introspectionURL) -}}
 {{- end -}}
