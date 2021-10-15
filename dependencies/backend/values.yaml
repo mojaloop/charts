@@ -2643,6 +2643,7 @@ oathkeeper:
   # -- If enabled, a demo deployment with exemplary access rules and JSON Web Key Secrets will be generated.
   demo: false
 
+  fullnameOverride: "oathkeeper"
   # -- Configures the Kubernetes service
   service:
     # -- Configures the Kubernetes service for the proxy port.
@@ -2912,16 +2913,15 @@ oathkeeper:
   # -- Configures controller setup
   maester:
     enabled: true
+    oathkeeperFullnameOverride: 'oathkeeper'
 
   # -- PodDistributionBudget configuration
   pdb:
     enabled: false
     spec:
       minAvailable: 1
-
-  # oathkeeper-maester:
-    # oathkeeperFullnameOverride: "Specify the oathkeeper fullname here"
-
+  oathkeeper-maester:
+    fullnameOverride: 'oathkeeper-maester'
 
 wso2:
   config: 
