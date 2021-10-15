@@ -11,8 +11,11 @@ dependencies:
 - name: keto
   repository: https://k8s.ory.sh/helm/charts
   version: 0.19.5
+- name: oathkeeper
+  repository: https://k8s.ory.sh/helm/charts
+  version: 0.19.5
 - name: common
   repository: file://../../mojaloop/common
   version: 1.0.0
-digest: sha256:57ee82700c8f1a321b84d7c98cd74b8f369b03ebf02acc65431fa345c5207c13
-generated: "2021-10-08T19:40:39.98943+05:30"
+digest: sha256:4478210ae137363835cfc41949735f0641c152de42e9425f3c01e7810b9754db
+generated: "2021-10-15T01:25:33.074837+05:30"
