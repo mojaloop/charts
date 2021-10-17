@@ -66,7 +66,7 @@ tolerations: []
 ## @param podSecurityContext.fsGroup Set %%MAIN_CONTAINER_NAME%% pod's Security Context fsGroup
 ##
 podSecurityContext:
-  enabled: false
+  enabled: true
   fsGroup: 1001
 ## Configure Container Security Context
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
@@ -74,13 +74,13 @@ podSecurityContext:
 ## @param containerSecurityContext.runAsUser Set %%MAIN_CONTAINER_NAME%% containers' Security Context runAsUser
 ##
 containerSecurityContext:
-  enabled: false
+  enabled: true
   runAsUser: 1001
 
 image:
   registry: docker.io
   repository: mojaloop/reporting-hub-bop-role-ui
-  tag: v1.3.1
+  tag: v1.3.2
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -162,15 +162,15 @@ initContainers: []
 
 
 readinessProbe:
-  enabled: false
+  enabled: true
   httpGet:
-    path: /health
+    path: /
   initialDelaySeconds: 15
   periodSeconds: 15
 livenessProbe:
-  enabled: false
+  enabled: true
   httpGet:
-    path: /health
+    path: /
   initialDelaySeconds: 15
   periodSeconds: 15
 
