@@ -80,12 +80,13 @@ containerSecurityContext:
 image:
   registry: docker.io
   repository: mojaloop/reporting-hub-bop-shell
-  tag: v1.6.0
+  tag: v1.6.3
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
   ##
   pullPolicy: IfNotPresent
+
   ## Optionally specify an array of imagePullSecrets.
   ## Secrets must be manually created in the namespace.
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
@@ -99,12 +100,12 @@ image:
   debug: false
 
 replicaCount: 1
-command:
+
+# Disable command so the defaults defined in the Docker image are used.
+# command:
   # - sleep
   # - infinity
-  - caddy
-  - run
-  - "--watch"
+
 
 ## Enable diagnostic mode in the deployment
 ##
@@ -114,14 +115,14 @@ diagnosticMode:
   enabled: false
   ## @param diagnosticMode.command Command to override all containers in the deployment
   ##
-  command: 
+  command:
     - npm
     - start
   ## @param diagnosticMode.args Args to override all containers in the deployment
   ##
   args:
     - --inspect=0.0.0.0:{{ .Values.diagnosticMode.debug.port }}
-  
+
   ## @param diagnosticMode.debug config to override all debug information
   ##
   debug:
@@ -145,13 +146,13 @@ initContainers: []
 #     command:
 #       - sh
 #       - -c
-#       - until ./bin/kafka-broker-api-versions.sh --bootstrap-server ${KAFKA_HOST}:${KAFKA_PORT}; 
+#       - until ./bin/kafka-broker-api-versions.sh --bootstrap-server ${KAFKA_HOST}:${KAFKA_PORT};
 #         do
 #           echo --------------------;
 #           echo Waiting for Kafka...;
-#           sleep 2; 
+#           sleep 2;
 #         done;
-#         echo ====================; 
+#         echo ====================;
 #         echo Kafka ok!;
 #     env:
 #       - name: KAFKA_HOST
@@ -161,15 +162,15 @@ initContainers: []
 
 
 readinessProbe:
-  enabled: false
+  enabled: true
   httpGet:
-    path: /health
+    path: /
   initialDelaySeconds: 15
   periodSeconds: 15
 livenessProbe:
-  enabled: false
+  enabled: true
   httpGet:
-    path: /health
+    path: /
   initialDelaySeconds: 15
   periodSeconds: 15
 
@@ -185,16 +186,15 @@ metrics:
 
 config:
   env:
-  - AUTH_API_BASE_URL=/
-  - AUTH_MOCK_API=true
-  - REMOTE_API_BASE_URL=/
-  - REMOTE_MOCK_API=false
-  - LOGIN_URL=https://your-login-url
-  - LOGOUT_URL=https://your-logout-url
-  - AUTH_ENABLED=true
-  - PUBLIC_PATH=https://localhost:8080/
-  - REMOTE_1_URL=https://localhost:8081
-  - REMOTE_2_URL=https://localhost:8082
+    AUTH_API_BASE_URL: /
+    AUTH_MOCK_API: true
+    REMOTE_API_BASE_URL: /
+    REMOTE_MOCK_API: false
+    LOGIN_URL: http://your-login-url
+    LOGOUT_URL: http://your-logout-url
+    AUTH_ENABLED: true
+    REMOTE_1_URL: http://reporting-hub-bop-role-ui.local
+    REMOTE_2_URL: http://reporting-hub-bop-trx-ui.local
 
 service:
   internalPort: 8080
