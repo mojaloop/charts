@@ -43,6 +43,13 @@ dependencies:
       - mojaloop
       - reporting-hub-bop-shell
     version: 1.0.0
+  - name: reporting-hub-bop-api-svc
+    condition: reporting-hub-bop-api-svc.enabled
+    repository: "file://../reporting-hub-bop-api-svc"
+    tags:
+      - mojaloop
+      - reporting-hub-bop-api-svc
+    version: 1.0.0
   - name: security-role-perm-operator-svc
     condition: security-role-perm-operator-svc.enabled
     repository: "file://../security-role-perm-operator-svc"

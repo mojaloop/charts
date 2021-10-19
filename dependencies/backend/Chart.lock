@@ -4,7 +4,10 @@ dependencies:
   version: 14.1.1
 - name: mysql
   repository: https://charts.bitnami.com/bitnami
-  version: 8.8.7
+  version: 8.8.8
+- name: mongodb
+  repository: https://charts.bitnami.com/bitnami
+  version: 10.28.1
 - name: kowl
   repository: https://raw.githubusercontent.com/cloudhut/charts/master/archives
   version: 2.0.1
@@ -17,5 +20,5 @@ dependencies:
 - name: common
   repository: file://../../mojaloop/common
   version: 1.0.0
-digest: sha256:4478210ae137363835cfc41949735f0641c152de42e9425f3c01e7810b9754db
-generated: "2021-10-15T01:25:33.074837+05:30"
+digest: sha256:28ecb241f1c3476a7a912d5bdc6ebcc4912f016ace2a852a86973e4f9c607723
+generated: "2021-10-19T03:06:06.012547174+03:00"

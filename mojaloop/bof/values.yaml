@@ -24,5 +24,8 @@ role-assignment-service:
 reporting-hub-bop-shell:
   enabled: true
 
+reporting-hub-bop-api-svc:
+  enabled: true
+
 security-role-perm-operator-svc:
   enabled: true
