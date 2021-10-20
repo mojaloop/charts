@@ -2752,17 +2752,18 @@ oathkeeper:
             # see https://is.docs.wso2.com/en/latest/learn/invoke-the-oauth-introspection-endpoint/ for what credentials
             # will need to be configured here
             # also, this does not seem to be settable via environment variable, which means it is 
-            authorization: "Basic SOME WORKING AUTH HERE"
-            cache:
-              # disabled to make debugging easier. enable for caching.
-              enabled: false
-              ttl: "60s"
+              authorization: "Basic SOMExWORKINGxAUTHxHERE"
+              # cache:
+              #   # disabled to make debugging easier. enable for caching.
+              #   enabled: false
+              #   ttl: "60s"
       authorizers:
         remote_json:
           enabled: true
           config:
             # the check URL for Keto. This will be POST'd to. See https://www.ory.sh/keto/docs/reference/rest-api#operation/postCheck
             remote: http://internal-keto-url-here/check
+            payload: "{\"subject\":\"{{ .Subject }}\"}"
       mutators:
         id_token:
           enabled: true
@@ -2788,9 +2789,9 @@ oathkeeper:
                 - unauthorized
                 - forbidden
                 request: 
-                header:
-                  accept:
-                  - text/html
+                  header:
+                    accept:
+                    - text/html
       serve:
         proxy:
           port: 4455
@@ -2810,7 +2811,7 @@ oathkeeper:
     # -- set to true for this helm chart to manage the secret
     # -- set to false for this helm chart to NOT manage the secret
     # -- defaults to true
-    manage: false
+    manage: true
 
     # -- name of the secret to use. If empty, defaults to {{ include "oathkeeper.fullname" . }}
     name: "oathkeeper-jwks"
@@ -2922,6 +2923,8 @@ oathkeeper:
       minAvailable: 1
   oathkeeper-maester:
     fullnameOverride: 'oathkeeper-maester'
+    oathkeeperFullnameOverride: 'oathkeeper'
+
 
 wso2:
   config: 
