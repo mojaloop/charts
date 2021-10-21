@@ -186,12 +186,13 @@ metrics:
 
 config:
   env:
-    AUTH_API_BASE_URL: /
+    # AUTH_API_BASE_URL: /
     AUTH_MOCK_API: true
     REMOTE_API_BASE_URL: /
     REMOTE_MOCK_API: false
     LOGIN_URL: http://your-login-url
     LOGOUT_URL: http://your-logout-url
+    AUTH_TOKEN_ENDPOINT: http://your-whoami-url
     AUTH_ENABLED: true
     REMOTE_1_URL: http://reporting-hub-bop-role-ui.local
     REMOTE_2_URL: http://reporting-hub-bop-trx-ui.local
