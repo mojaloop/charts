@@ -42,7 +42,17 @@ dependencies:
       - dependency
       - backend
       - kafka
-    version: 8.8.7
+    version: 8.8.8
+  - name: mongodb
+    alias: mongodb
+    condition: mongodb.enabled
+    repository: "https://charts.bitnami.com/bitnami"
+    tags:
+      - mojaloop
+      - dependency
+      - backend
+      - mongodb
+    version: 10.28.1
   - name: kowl
     alias: kowl
     condition: kowl.enabled
