@@ -64,3 +64,10 @@ dependencies:
       - mojaloop
       - reporting-hub-bop-trx-ui
     version: 1.0.0
+  - name: security-hub-bop-kratos-ui
+    condition: security-hub-bop-kratos-ui.enabled
+    repository: "file://../security-hub-bop-kratos-ui"
+    tags:
+      - mojaloop
+      - security-hub-bop-kratos-ui
+    version: 1.0.0

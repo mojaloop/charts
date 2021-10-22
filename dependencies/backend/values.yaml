@@ -3014,7 +3014,7 @@ kratos:
     identitySchemas:
       "identity.default.schema.json": |
         {
-          "$id": "https://schemas.ory.sh/presets/kratos/quickstart/email-password/identity.schema.json",
+          "$id": "https://mojaloop.io/kratos-schema/identity.schema.json",
           "$schema": "http://json-schema.org/draft-07/schema#",
           "title": "Person",
           "type": "object",
@@ -3023,42 +3023,19 @@ kratos:
               "type": "object",
               "properties": {
                 "email": {
-                  "type": "string",
-                  "format": "email",
                   "title": "E-Mail",
-                  "minLength": 3,
-                  "ory.sh/kratos": {
-                    "credentials": {
-                      "password": {
-                        "identifier": true
-                      }
-                    },
-                    "verification": {
-                      "via": "email"
-                    },
-                    "recovery": {
-                      "via": "email"
-                    }
-                  }
+                  "type": "string",
+                  "format": "email"
+                },
+                "subject": {
+                  "title": "Subject",
+                  "type": "string"
                 },
                 "name": {
-                  "type": "object",
-                  "properties": {
-                    "first": {
-                      "title": "First Name",
-                      "type": "string"
-                    },
-                    "last": {
-                      "title": "Last Name",
-                      "type": "string"
-                    }
-                  }
+                  "title": "Name",
+                  "type": "string"
                 }
-              },
-              "required": [
-                "email"
-              ],
-              "additionalProperties": false
+              }
             }
           }
         }
@@ -3116,20 +3093,45 @@ kratos:
           - http://127.0.0.1:4455
 
         methods:
-          password:
+          oidc:
             enabled: true
+            config:
+              providers:
+              - id: idp
+                provider: generic
+                # TODO both the client_id and client_secret need to be set appropriately to the client supporting authorization code grants with openid
+                # TODO these can alternatively be set via environment variable from a k8s secret
+                client_id: provide-client-id-here
+                client_secret: provide-client-secret-here
+                # mapper_url: file:///etc/config2/oidc.jsonnet
+                mapper_url: base64://bG9jYWwgY2xhaW1zID0gc3RkLmV4dFZhcignY2xhaW1zJyk7Cgp7CiAgaWRlbnRpdHk6IHsKICAgIHRyYWl0czogewogICAgICBlbWFpbDogY2xhaW1zLmVtYWlsLAogICAgICBuYW1lOiBjbGFpbXMubmFtZSwKICAgICAgc3ViamVjdDogY2xhaW1zLnN1YgogICAgfSwKICB9LAp9
+                # issuer_url is the OpenID Connect Server URL. You can leave this empty if `provider` is not set to `generic`.
+                # If set, neither `auth_url` nor `token_url` are required.
+                # issuer_url: http://openid-connect-provider/
 
+                # auth_url is the authorize url, typically something like: https://example.org/oauth2/auth
+                # Should only be used when the OAuth2 / OpenID Connect server is not supporting OpenID Connect Discovery and when
+                # `provider` is set to `generic`.
+                auth_url: http://openid-connect-provider/oauth2/auth
+
+                # token_url is the token url, typically something like: https://example.org/oauth2/token
+                # Should only be used when the OAuth2 / OpenID Connect server is not supporting OpenID Connect Discovery and when
+                # `provider` is set to `generic`.
+                token_url: http://openid-connect-provider/oauth2/token
+                # scope:
+                # # TODO adjust requested scope based on IdP (WSO2) documentation
+                # - openid
         flows:
-          error:
-            ui_url: http://127.0.0.1:4455/error
+          # error:
+          #   ui_url: http://127.0.0.1:4455/error
 
-          settings:
-            ui_url: http://127.0.0.1:4455/settings
-            privileged_session_max_age: 15m
+          # settings:
+          #   ui_url: http://127.0.0.1:4455/settings
+          #   privileged_session_max_age: 15m
 
-          recovery:
-            enabled: true
-            ui_url: http://127.0.0.1:4455/recovery
+          # recovery:
+          #   enabled: true
+          #   ui_url: http://127.0.0.1:4455/recovery
 
           verification:
             enabled: true
@@ -3137,22 +3139,21 @@ kratos:
             after:
               default_browser_return_url: http://127.0.0.1:4455/
 
-          logout:
-            after:
-              default_browser_return_url: http://127.0.0.1:4455/auth/login
-
           login:
             ui_url: http://127.0.0.1:4455/auth/login
             lifespan: 10m
+
+          logout:
+            after:
+              default_browser_return_url: http://127.0.0.1:4455/auth/login
 
           registration:
             lifespan: 10m
             ui_url: http://127.0.0.1:4455/auth/registration
             after:
-              password:
+              oidc:
                 hooks:
-                  -
-                    hook: session
+                  - hook: session
       secrets:
         cookie:
           - PLEASE-CHANGE-ME-I-AM-VERY-INSECURE
@@ -3162,7 +3163,7 @@ kratos:
           memory: 128MB
           iterations: 2
           salt_length: 16
-          key_length: 16
+          key_length: 32
       identity:
         default_schema_url: file:///etc/config/identity.default.schema.json
 
@@ -3328,7 +3329,7 @@ kratos:
 
 ## Ory kratos-selfservice-ui-node
 kratos-selfservice-ui-node:
-  enabled: true
+  enabled: false
 
   nameOverride: ""
   fullnameOverride: "kratos-selfservice-ui-node"
