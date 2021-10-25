@@ -1,0 +1,33 @@
+apiVersion: mojaloop.io/v1
+kind: MojaloopRole
+metadata:
+  name: {{ template "common.names.fullname" . }}
+  namespace: mojaloop
+spec:
+  role: REPORTING_API_ROLE
+  permissions:
+    - transfer.transferId
+    - transfer.transfer.transactionId
+    - transfer.quoteId
+    - transfer.amount
+    - transfer.currency
+    - transfer.createdAt
+    - transfer.transferState
+    - transfer.transactionType
+    - transfer.errorCode
+    - transfer.settlementWindowId
+    - transfer.settlementId
+    - transfer.payerDFSP
+    - transfer.payeeDFSP
+    - transfer.payerParty
+    - transfer.payeeParty
+    - transfer.partyLookupEvents
+    - transfer.quoteEvents
+    - transfer.transferEvents
+    - transfer.settlementEvents
+    - transferSummary.count
+    - transferSummary.amount
+    - transferSummary.errorCode
+    - transferSummary.payerDFSP
+    - transferSummary.payeeDFSP
+    - transferSummary.currency
