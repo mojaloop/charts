@@ -3006,6 +3006,48 @@ kratos:
       #      - chart-example.local
 
   kratos:
+    log:
+      ## Leak Sensitive Log Values ##
+      #
+      # If set will leak sensitive values (e.g. emails) in the logs.
+      #
+      # Set this value using environment variables on
+      # - Linux/macOS:
+      #    $ export LOG_LEAK_SENSITIVE_VALUES=<value>
+      # - Windows Command Line (CMD):
+      #    > set LOG_LEAK_SENSITIVE_VALUES=<value>
+      #
+      leak_sensitive_values: false
+      ## format ##
+      #
+      # The log format can either be text or JSON.
+      #
+      # One of:
+      # - json
+      # - text
+      #
+      # Set this value using environment variables on
+      # - Linux/macOS:
+      #    $ export LOG_FORMAT=<value>
+      # - Windows Command Line (CMD):
+      #    > set LOG_FORMAT=<value>
+      #
+      format: text
+      ## level ##
+      #
+      # Debug enables stack traces on errors. Can also be set using environment variable LOG_LEVEL.
+      #
+      # Default value: info
+      #
+      # One of:
+      # - trace
+      # - debug
+      # - info
+      # - warning
+      # - error
+      # - fatal
+      # - panic
+      level: info
     development: false
     # -- Enable the initialization job. Required to work with a DB
     autoMigrate: false
