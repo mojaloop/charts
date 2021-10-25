@@ -2359,6 +2359,24 @@ kowl:
     #      - chart-example.local
 
 ################################################################
+## MongoDB Backend Dependency
+mongodb:
+  enabled: true
+  fullnameOverride: "mongodb"
+
+  auth:
+    rootUser: root
+    rootPassword: "rootPassword"
+    username: "user"
+    password: "password"
+    database: "default"
+
+  resources:
+    requests:
+      cpu: 10m
+      memory: 256Mi
+
+################################################################
 ## Ory Keto Backend Dependency
 keto:
   enabled: true
@@ -2488,7 +2506,7 @@ keto:
       # kubernetes.io/tls-acme: "true"
       hosts:
         - host: chart-example.local
-          paths: 
+          paths:
             - path: /read
               pathType: Prefix
       tls: []
@@ -2503,7 +2521,7 @@ keto:
       # kubernetes.io/tls-acme: "true"
       hosts:
         - host: chart-example.local
-          paths: 
+          paths:
             - path: /write
               pathType: Prefix
       tls: []
@@ -2696,7 +2714,7 @@ oathkeeper:
   #     kubernetes.io/tls-acme: "true"
       hosts:
         - host: proxy.oathkeeper.localhost
-          paths: 
+          paths:
             - path: /
               pathType: ImplementationSpecific
   #    tls: []
@@ -2715,7 +2733,7 @@ oathkeeper:
   #      kubernetes.io/tls-acme: "true"
       hosts:
         - host: api.oathkeeper.localhost
-          paths: 
+          paths:
             - path: /
               pathType: ImplementationSpecific
   #    tls: []
@@ -2823,7 +2841,7 @@ oathkeeper:
     # -- default filename of JWKS (mounted as secret)
     filename: mutator.id_token.jwks.json
 
-  deployment: 
+  deployment:
     resources: {}
     #  We usually recommend not to specify default resources and to leave this as a conscious
     #  choice for the user. This also increases chances charts run on environments with little
@@ -3478,6 +3496,6 @@ kratos-selfservice-ui-node:
 
 ## WSO2 Config
 wso2:
-  config: 
+  config:
 
 mojalooprole: {}

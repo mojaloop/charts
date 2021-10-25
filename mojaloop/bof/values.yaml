@@ -1,5 +1,5 @@
 ## Installation
-# helm upgrade bof ./mojaloop/bof --install 
+# helm upgrade bof ./mojaloop/bof --install
 
 # Default values for bof.
 # This is a YAML-formatted file.
@@ -22,6 +22,12 @@ role-assignment-service:
   enabled: true
 
 reporting-hub-bop-shell:
+  enabled: true
+
+reporting-hub-bop-api-svc:
+  enabled: true
+
+reporting-events-processor-svc:
   enabled: true
 
 security-role-perm-operator-svc:
