@@ -137,7 +137,7 @@ spec:
             - name: EVENT_STORE_DB_URL
               value: mongodb://$(EVENT_DB_USER):$(EVENT_DB_PASSWORD)@$(EVENT_DB_HOST):$(EVENT_DB_PORT)/$(EVENT_DB_NAME)
             {{- if .Values.auth }}
-            - name: AUTH_URL
+            - name: ORY_KETO_READ_URL
               value: '{{ include "common.backends.keto.readURL" . }}'
             {{- end }}
 

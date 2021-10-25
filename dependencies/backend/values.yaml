@@ -2376,6 +2376,13 @@ mongodb:
       cpu: 10m
       memory: 256Mi
 
+  persistence:
+    enabled: false
+    accessModes:
+      - ReadWriteOnce
+    size: 8Gi
+    annotations: {}
+
 ################################################################
 ## Ory Keto Backend Dependency
 keto:
