@@ -2926,6 +2926,11 @@ oathkeeper:
   oathkeeper-maester:
     fullnameOverride: 'oathkeeper-maester'
     oathkeeperFullnameOverride: 'oathkeeper'
+    deployment:
+      envs:
+      - name: authorizersAvailable
+        value: allow,deny,noop,remote_json
+
 
 ## Ory Kratos
 kratos:
