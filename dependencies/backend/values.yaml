@@ -2549,6 +2549,8 @@ keto:
           name: role
         - id: 1
           name: permission
+        - id: 2
+          name: participant
       dsn: memory
 
     autoMigrate: false
@@ -2928,6 +2930,11 @@ oathkeeper:
 ## Ory Kratos
 kratos:
   enabled: true
+  ## Overriding the image to older one because of some schema changes not compatible with kratios UI implemented
+  ## This can be reverted when we upgrade the kratos-ui according to the new schema
+  image:
+    repository: oryd/kratos
+    tag: v0.5.5-alpha.1-sqlite
   # -- Number of replicas in deployment
   replicaCount: 1
   # -- Deployment update strategy
@@ -3202,8 +3209,11 @@ kratos:
       hashers:
         argon2:
           parallelism: 1
-          memory: 128MB
-          iterations: 2
+          ## This one is changed in the new kratos version
+          ## This change is because the kratos docker image version is overridden to older version. See the comments at image parameter above.
+          # memory: "128MB"
+          memory: 120000
+          iterations: 3
           salt_length: 16
           key_length: 32
       identity:

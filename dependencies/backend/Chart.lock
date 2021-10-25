@@ -24,4 +24,4 @@ dependencies:
   repository: file://../../mojaloop/common
   version: 1.0.0
 digest: sha256:94fcda06556dec1928c4d39d97207336baa72802ca97b37edcc82bcb098ce4e6
-generated: "2021-10-21T01:42:26.280628+05:30"
+generated: "2021-10-25T18:34:56.489576+05:30"

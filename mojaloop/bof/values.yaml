@@ -29,3 +29,9 @@ security-role-perm-operator-svc:
 
 security-hub-bop-kratos-ui:
   enabled: true
+
+reporting-hub-bop-role-ui:
+  enabled: true
+
+reporting-hub-bop-trx-ui:
+  enabled: true
