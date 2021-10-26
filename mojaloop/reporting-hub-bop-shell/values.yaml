@@ -80,7 +80,7 @@ containerSecurityContext:
 image:
   registry: docker.io
   repository: mojaloop/reporting-hub-bop-shell
-  tag: v1.6.3
+  tag: v1.8.0
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -192,7 +192,7 @@ config:
     REMOTE_MOCK_API: false
     LOGIN_URL: http://your-login-url
     LOGOUT_URL: http://your-logout-url
-    AUTH_TOKEN_ENDPOINT: http://your-whoami-url
+    AUTH_TOKEN_URL: http://your-whoami-url
     AUTH_ENABLED: true
     REMOTE_1_URL: http://reporting-hub-bop-role-ui.local
     REMOTE_2_URL: http://reporting-hub-bop-trx-ui.local
