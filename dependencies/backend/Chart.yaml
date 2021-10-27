@@ -96,17 +96,6 @@ dependencies:
       - kratos
       - bof
     version: 0.19.6
-  - name: kratos-selfservice-ui-node
-    alias: kratos-selfservice-ui-node
-    condition: kratos-selfservice-ui-node.enabled
-    repository: "https://k8s.ory.sh/helm/charts"
-    tags:
-      - mojaloop
-      - dependency
-      - backend
-      - kratos-selfservice-ui-node
-      - bof
-    version: 0.19.6
   - name: common
     repository: "file://../../mojaloop/common"
     tags:
