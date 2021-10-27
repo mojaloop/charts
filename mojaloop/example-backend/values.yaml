@@ -1172,7 +1172,7 @@ kafka:
     serviceMonitor:
       ## @param metrics.serviceMonitor.enabled if `true`, creates a Prometheus Operator ServiceMonitor (requires `metrics.kafka.enabled` or `metrics.jmx.enabled` to be `true`)
       ##
-      enabled: true
+      enabled: false
       ## @param metrics.serviceMonitor.namespace Namespace in which Prometheus is running
       ##
       namespace: ""
@@ -2305,7 +2305,7 @@ mysql:
     serviceMonitor:
       ## @param metrics.serviceMonitor.enabled Create ServiceMonitor Resource for scraping metrics using PrometheusOperator
       ##
-      enabled: true
+      enabled: false
       ## @param metrics.serviceMonitor.namespace Specify the namespace in which the serviceMonitor resource will be created
       ##
       namespace: ""
@@ -2330,6 +2330,8 @@ mysql:
 
 ################################################################
 ## Kowl Backend Dependency
+# NB: kowl turned off for the time being as the chart in the repo does not work with k8s v1.22 
+#     though the chart source appears to have been updated.
 kowl:
   enabled: false
   resources:
@@ -2349,12 +2351,19 @@ kowl:
 
   ingress:
     enabled: true
+    className: ""
+    annotations: {}
+      # kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: "true"
     hosts:
-      - host: kowl.local
-        paths: ['/']
+      - host: chart-example.local
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
     tls: []
     #  - secretName: chart-example-tls
     #    hosts:
+<<<<<<< HEAD:mojaloop/example-backend/values.yaml
     #      - chart-example.local
 
 ################################################################
@@ -4726,3 +4735,6 @@ wso2:
     secrets:
       wso2-is-admin-creds:
         password: "admin"
+=======
+    #      - chart-example.local
+>>>>>>> b5b8df8 (added version testing, scripts dir and tinkered with values files):dependencies/backend/values.yaml

@@ -368,6 +368,7 @@ ingress:
   ##       -----END CERTIFICATE-----
   ##
   secrets: []
+  className: "nginx"
 
 podAnnotations: {}
 
