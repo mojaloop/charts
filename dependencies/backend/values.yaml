@@ -2332,7 +2332,7 @@ mysql:
 ################################################################
 ## Kowl Backend Dependency
 kowl:
-  enabled: true
+  enabled: false
   resources:
     limits:
       cpu: 500m
@@ -2506,20 +2506,20 @@ keto:
 
   ingress:
     read:
-      enabled: false
+      enabled: true
       className: ""
       annotations: {}
       # kubernetes.io/ingress.class: nginx
       # kubernetes.io/tls-acme: "true"
       hosts:
-        - host: chart-example.local
+        - host: keto.local
           paths:
             - path: /read
               pathType: Prefix
       tls: []
-      #  - secretName: chart-example-tls
+      #  - secretName: keto-tls
       #    hosts:
-      #      - chart-example.local
+      #      - keto.local
     write:
       enabled: false
       className: ""
@@ -2527,14 +2527,14 @@ keto:
       # kubernetes.io/ingress.class: nginx
       # kubernetes.io/tls-acme: "true"
       hosts:
-        - host: chart-example.local
+        - host: keto.local
           paths:
             - path: /write
               pathType: Prefix
       tls: []
-      #  - secretName: chart-example-tls
+      #  - secretName: keto-tls
       #    hosts:
-      #      - chart-example.local
+      #      - keto.local
 
   service:
     read:
@@ -2714,19 +2714,21 @@ oathkeeper:
     # -- Configure ingress for the proxy port.
     proxy:
       # -- En-/Disable the proxy ingress.
-      enabled: false
+      enabled: true
       className: ""
       annotations: {}
   #     kubernetes.io/ingress.class: nginx
   #     kubernetes.io/tls-acme: "true"
       hosts:
-        - host: proxy.oathkeeper.localhost
-          paths:
-            - path: /
+        - host: www-bof.local
+          paths: 
+            - path: /proxy(/|$)(.*)
               pathType: ImplementationSpecific
+              annotations:
+                nginx.ingress.kubernetes.io/rewrite-target: /$2
   #    tls: []
   #        hosts:
-  #          - proxy.oathkeeper.local
+  #          - www-bof.local
   #      - secretName: oathkeeper-proxy-example-tls
 
     api:
@@ -2739,13 +2741,13 @@ oathkeeper:
   #      kubernetes.io/ingress.class: nginx
   #      kubernetes.io/tls-acme: "true"
       hosts:
-        - host: api.oathkeeper.localhost
+        - host: api-oathkeeper.local
           paths:
             - path: /
               pathType: ImplementationSpecific
   #    tls: []
   #      hosts:
-  #        - api.oathkeeper.local
+  #        - api-oathkeeper.local
   #      - secretName: oathkeeper-api-example-tls
 
   # -- Configure ORY Oathkeeper itself
@@ -2754,7 +2756,7 @@ oathkeeper:
     #   https://github.com/ory/oathkeeper/blob/master/docs/config.yaml
     config:
       log:
-        level: trace
+        level: info
       access_rules:
         matching_strategy: regexp
       authenticators:
@@ -2768,18 +2770,16 @@ oathkeeper:
             # in, for example, the JWT, if we ever have more
             extra_from: "@this"
             # kratos will be configured to put the subject from the IdP here
-            subject_from: "identity.id"
+            subject_from: "identity.traits.subject"
             only:
             - ory_kratos_session
         oauth2_introspection:
           enabled: true
           config:
-            introspection_url: https://whatever/the/wso2/url/is/oauth2/introspect
+            introspection_url: https://wso2-identity-server.local:9443/oauth2/introspect
             introspection_request_headers:
-            # see https://is.docs.wso2.com/en/latest/learn/invoke-the-oauth-introspection-endpoint/ for what credentials
-            # will need to be configured here
-            # also, this does not seem to be settable via environment variable, which means it is 
-              authorization: "Basic SOMExWORKINGxAUTHxHERE"
+              # Configure the following with base64 encoded string contains admin:password of wso2 server
+              authorization: "Basic YWRtaW46YWRtaW4="
               # cache:
               #   # disabled to make debugging easier. enable for caching.
               #   enabled: false
@@ -2789,14 +2789,14 @@ oathkeeper:
           enabled: true
           config:
             # the check URL for Keto. This will be POST'd to. See https://www.ory.sh/keto/docs/reference/rest-api#operation/postCheck
-            remote: http://internal-keto-url-here/check
-            payload: "{\"subject\":\"{{ .Subject }}\"}"
+            remote: http://keto-read/check
+            payload: ""
       mutators:
         id_token:
           enabled: true
           config:
             # this should be the internal base URL for the API service, which will look something like the below
-            issuer_url: http://whatever-oathkeeper-internal-is-api:4456/
+            issuer_url: http://oathkeeper-api:4456/
       errors:
         fallback:
           - json
@@ -2810,7 +2810,7 @@ oathkeeper:
             enabled: true
             config:
               # set this to whatever the main URL is, it'll ensure that browser errors redirect there
-              to: https://whatever-external-main-url-is/
+              to: http://www-bof.local/
               when:
               - error:
                 - unauthorized
@@ -3011,36 +3011,37 @@ kratos:
 
   ingress:
     admin:
-      enabled: false
+      enabled: true
       className: ""
       annotations: {}
         # kubernetes.io/ingress.class: nginx
         # kubernetes.io/tls-acme: "true"
       hosts:
-        - host: kratos.admin.local.com
+        - host: kratos-admin.local
           paths: 
             - path: /
               pathType: ImplementationSpecific
       tls: []
-      #  - secretName: chart-example-tls
+      #  - secretName: kratos-admin-tls
       #    hosts:
-      #      - chart-example.local
+      #      - kratos-admin.local
     public:
-      enabled: false
+      enabled: true
       className: ""
-      annotations: {}
+      annotations:
+        nginx.ingress.kubernetes.io/rewrite-target: /$2
         # kubernetes.io/ingress.class: nginx
         # kubernetes.io/tls-acme: "true"
       hosts:
         -
-          host: kratos.public.local.com
+          host: www-bof.local
           paths: 
-            - path: /
+            - path: /kratos(/|$)(.*)
               pathType: ImplementationSpecific
       tls: []
-      #  - secretName: chart-example-tls
+      #  - secretName: kratos-public-tls
       #    hosts:
-      #      - chart-example.local
+      #      - www-bof.local
 
   kratos:
     log:
@@ -3119,47 +3120,14 @@ kratos:
           }
         }
 
-  # -- You can customize the emails kratos is sending (also uncomment config.courier.template_override_path below)
-  #  Note: If you are setting config.courier.template_override_path you need to supply overrides for all templates.
-  #        It is currently not possible to overrides only selected methods.
-  #
-  #  emailTemplates:
-  #    recovery:
-  #      valid:
-  #        subject: Recover access to your account
-  #        body: |-
-  #          Hi, please recover access to your account by clicking the following link:
-  #
-  #          <a href="{{ .RecoveryURL }}">{{ .RecoveryURL }}</a>
-  #        plainBody: Hi, please recover access to your account by clicking the following link: {{ .RecoveryURL }}
-  #      invalid:
-  #        subject: Account access attempted
-  #        body: |-
-  #          Hi, you (or someone else) entered this email address when trying to recover access to an account.
-  #
-  #          However, this email address is not on our database of registered users and therefore the attempt has failed. If this was you, check if you signed up using a different address. If this was not you, please ignore this email.
-  #        plainBody: Hi, you (or someone else) entered this email address when trying to recover access to an account.
-  #    verification:
-  #      valid:
-  #        subject: Please verify your email address
-  #        body: |-
-  #          Hi, please verify your account by clicking the following link:
-  #
-  #          <a href="{{ .VerificationURL }}">{{ .VerificationURL }}</a>
-  #        plainBody: Hi, please verify your account by clicking the following link: {{ .VerificationURL }}
-  #      invalid:
-  #        subject:
-  #        body:
-  #        plainBody:
-
     config:
       dsn: memory
-      courier:
-        smtp:
-          connection_uri: smtps://test:test@mailslurper:1025/?skip_ssl_verify=true&legacy_ssl=true
+      # courier:
+      #   smtp:
+      #     connection_uri: smtps://test:test@mailslurper:1025/?skip_ssl_verify=true&legacy_ssl=true
       serve:
         public:
-          base_url: http://127.0.0.1:4455/
+          base_url: http://www-bof.local/kratos/
           port: 4433
           cors:
             enabled: true
@@ -3167,9 +3135,9 @@ kratos:
           port: 4434
 
       selfservice:
-        default_browser_return_url: http://127.0.0.1:4455/
+        default_browser_return_url: http://www-bof.local/
         whitelisted_return_urls:
-          - http://127.0.0.1:4455
+          - http://www-bof.local/
 
         methods:
           oidc:
@@ -3186,49 +3154,49 @@ kratos:
                 mapper_url: base64://bG9jYWwgY2xhaW1zID0gc3RkLmV4dFZhcignY2xhaW1zJyk7Cgp7CiAgaWRlbnRpdHk6IHsKICAgIHRyYWl0czogewogICAgICBlbWFpbDogY2xhaW1zLmVtYWlsLAogICAgICBuYW1lOiBjbGFpbXMubmFtZSwKICAgICAgc3ViamVjdDogY2xhaW1zLnN1YgogICAgfSwKICB9LAp9
                 # issuer_url is the OpenID Connect Server URL. You can leave this empty if `provider` is not set to `generic`.
                 # If set, neither `auth_url` nor `token_url` are required.
-                # issuer_url: http://openid-connect-provider/
+                issuer_url: https://wso2-identity-server.local:9443/oauth2/oidcdiscovery
 
                 # auth_url is the authorize url, typically something like: https://example.org/oauth2/auth
                 # Should only be used when the OAuth2 / OpenID Connect server is not supporting OpenID Connect Discovery and when
                 # `provider` is set to `generic`.
-                auth_url: http://openid-connect-provider/oauth2/auth
+                # auth_url: http://openid-connect-provider/oauth2/auth
 
                 # token_url is the token url, typically something like: https://example.org/oauth2/token
                 # Should only be used when the OAuth2 / OpenID Connect server is not supporting OpenID Connect Discovery and when
                 # `provider` is set to `generic`.
-                token_url: http://openid-connect-provider/oauth2/token
-                # scope:
+                # token_url: http://openid-connect-provider/oauth2/token
+                scope:
                 # # TODO adjust requested scope based on IdP (WSO2) documentation
-                # - openid
+                - openid
         flows:
           # error:
-          #   ui_url: http://127.0.0.1:4455/error
+          #   ui_url: http://www-bof.local/selfui/error
 
           # settings:
-          #   ui_url: http://127.0.0.1:4455/settings
+          #   ui_url: http://www-bof.local/selfui/settings
           #   privileged_session_max_age: 15m
 
           # recovery:
           #   enabled: true
-          #   ui_url: http://127.0.0.1:4455/recovery
+          #   ui_url: http://www-bof.local/selfui/recovery
 
-          verification:
-            enabled: true
-            ui_url: http://127.0.0.1:4455/verify
-            after:
-              default_browser_return_url: http://127.0.0.1:4455/
+          # verification:
+          #   enabled: true
+          #   ui_url: http://www-bof.local/selfui/verify
+          #   after:
+          #     default_browser_return_url: http://www-bof.local/selfui/
 
           login:
-            ui_url: http://127.0.0.1:4455/auth/login
+            ui_url: http://www-bof.local/selfui/auth/login
             lifespan: 10m
 
           logout:
             after:
-              default_browser_return_url: http://127.0.0.1:4455/auth/login
+              default_browser_return_url: https://wso2-identity-server.local:9443/oidc/logout
 
           registration:
             lifespan: 10m
-            ui_url: http://127.0.0.1:4455/auth/registration
+            ui_url: http://www-bof.local/selfui/auth/
             after:
               oidc:
                 hooks:
