@@ -1,59 +1,59 @@
 {{/*
-Get fully qualified reporting-db name.
+Get fully qualified reportingDB name.
 */}}
-{{- define "common.backends.reporting-db.fullname" -}}
-  {{- if .Values.reporting-db -}}
-    {{- if .Values.reporting-db.fullnameOverride -}}
-      {{- .Values.reporting-db.fullnameOverride | trunc 63 | trimSuffix "-" -}}
+{{- define "common.backends.reportingDB.fullname" -}}
+  {{- if .Values.reportingDB -}}
+    {{- if .Values.reportingDB.fullnameOverride -}}
+      {{- .Values.reportingDB.fullnameOverride | trunc 63 | trimSuffix "-" -}}
     {{- else -}}
-      {{- $name := default "reporting-db" .Values.reporting-db.nameOverride -}}
+      {{- $name := default "reporting-db" .Values.reportingDB.nameOverride -}}
       {{ printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" }}
     {{- end -}}
   {{- else -}}
-    {{- $name := default "reporting-db" .Values.reporting-db.nameOverride -}}
+    {{- $name := default "reporting-db" .Values.reportingDB.nameOverride -}}
     {{ printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" }}
   {{- end -}}
 {{- end -}}
 
 {{/*
-Get reporting-db port.
+Get reportingDB port.
 */}}
-{{- define "common.backends.reporting-db.port" -}}
-  {{- default 3306 (default .Values.global.reporting-db.port .Values.reporting-db.port) -}}
+{{- define "common.backends.reportingDB.port" -}}
+  {{- default 3306 (default .Values.global.reportingDB.port .Values.reportingDB.port) -}}
 {{- end -}}
 
 
 {{/*
-Get fully qualified reporting-db host.
+Get fully qualified reportingDB host.
 */}}
-{{- define "common.backends.reporting-db.host" -}}
-  {{- default (include "common.backends.reporting-db.fullname" .) (default .Values.global.reporting-db.host .Values.reporting-db.host) -}}
+{{- define "common.backends.reportingDB.host" -}}
+  {{- default (include "common.backends.reportingDB.fullname" .) (default .Values.global.reportingDB.host .Values.reportingDB.host) -}}
 {{- end -}}
 
 {{/*
-Get reporting-db user.
+Get reportingDB user.
 */}}
-{{- define "common.backends.reporting-db.user" -}}
-  {{- default "nouser" (default .Values.global.reporting-db.user .Values.reporting-db.user) -}}
+{{- define "common.backends.reportingDB.user" -}}
+  {{- default "nouser" (default .Values.global.reportingDB.user .Values.reportingDB.user) -}}
 {{- end -}}
 
 {{/*
-Get reporting-db database.
+Get reportingDB database.
 */}}
-{{- define "common.backends.reporting-db.database" -}}
-  {{- default "nodatabase" (default .Values.global.reporting-db.database .Values.reporting-db.database) -}}
+{{- define "common.backends.reportingDB.database" -}}
+  {{- default "nodatabase" (default .Values.global.reportingDB.database .Values.reportingDB.database) -}}
 {{- end -}}
 
 {{/*
-Get fully qualified reporting-db secret.name
+Get fully qualified reportingDB secret.name
 */}}
-{{- define "common.backends.reporting-db.secret.name" -}}
-  {{- default (include "common.backends.reporting-db.fullname" .) (default .Values.global.reporting-db.secret.name .Values.reporting-db.secret.name) -}}
+{{- define "common.backends.reportingDB.secret.name" -}}
+  {{- default (include "common.backends.reportingDB.fullname" .) (default .Values.global.reportingDB.secret.name .Values.reportingDB.secret.name) -}}
 {{- end -}}
 
 {{/*
-Get fully qualified reporting-db secret.key
+Get fully qualified reportingDB secret.key
 */}}
-{{- define "common.backends.reporting-db.secret.key" -}}
-  {{- default (include "common.backends.reporting-db.fullname" .) (default .Values.global.reporting-db.secret.key .Values.reporting-db.secret.key) -}}
+{{- define "common.backends.reportingDB.secret.key" -}}
+  {{- default (include "common.backends.reportingDB.fullname" .) (default .Values.global.reportingDB.secret.key .Values.reportingDB.secret.key) -}}
 {{- end -}}

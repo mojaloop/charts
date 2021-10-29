@@ -14,7 +14,7 @@ global:
   ## The following is the database configuration of the reporting DB
   ## For testing / development, it can be pointed to the main centralledger database
   ## but for production use, please point this to the reporting database which can be a replica of the main database
-  reporting-db:
+  reportingDB:
     host: centralledger-mysql
     port: 3306
     user: central_ledger
@@ -34,7 +34,7 @@ global:
       name: mongodb
       key: mongodb-password
 
-reporting-db:
+reportingDB:
   ## This is the same as setting the host explicitly, i.e. will set the host as set below. It is included to support importing MySQL charts as a dependency.
   # fullnameOverride: reporting-db
   ## This will override the name of kafka and add the release prefix, e.g. '<RELEASE_NAME>-<nameOverride>'.

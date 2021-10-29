@@ -19,7 +19,7 @@ global:
       userListURL: "http://wso2-identity-server.local:9443/scim2/Users"
       username: 'admin'
       password: 'admin'
-  reporting-db:
+  reportingDB:
     host: centralledger-mysql
     port: 3306
     user: user

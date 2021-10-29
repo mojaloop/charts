@@ -106,18 +106,18 @@ spec:
           env:
             # Central Ledger DB
             - name: CLDB_HOST
-              value: '{{ include "common.backends.reporting-db.host" . }}'
+              value: '{{ include "common.backends.reportingDB.host" . }}'
             - name: CLDB_PORT
-              value: '{{ include "common.backends.reporting-db.port" . }}'
+              value: '{{ include "common.backends.reportingDB.port" . }}'
             - name: CLDB_NAME
-              value: '{{ include "common.backends.reporting-db.database" . }}'
+              value: '{{ include "common.backends.reportingDB.database" . }}'
             - name: CLDB_USER
-              value: '{{ include "common.backends.reporting-db.user" . }}'
+              value: '{{ include "common.backends.reportingDB.user" . }}'
             - name: CLDB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: '{{ include "common.backends.reporting-db.secret.name" . }}'
-                  key: '{{ include "common.backends.reporting-db.secret.key" . }}'
+                  name: '{{ include "common.backends.reportingDB.secret.name" . }}'
+                  key: '{{ include "common.backends.reportingDB.secret.key" . }}'
             - name: CENTRAL_LEDGER_DB_URL
               value: mysql://$(CLDB_USER):$(CLDB_PASSWORD)@$(CLDB_HOST):$(CLDB_PORT)/$(CLDB_NAME)
             # Event Store
