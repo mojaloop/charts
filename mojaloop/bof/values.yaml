@@ -37,7 +37,12 @@ global:
     secret:
       name: mongodb
       key: mongodb-password
+  kafka:
+    host: test1-kafka-headless
+    port: 9092
+    topic: topic-event
 
+## Backend API services
 role-assignment-service:
   enabled: true
   ingress:
@@ -52,19 +57,28 @@ role-assignment-service:
       - USER_ROLE_abc7a2fd-4acf-4547-a194-1673f63eb37c
       - ADMIN_ROLE_6c1ec084-86d4-4915-ba81-6c59b87a65a6
 
+reporting-hub-bop-api-svc:
+  enabled: true
+  ingress:
+    enabled: true
+    hostname: api-bof.local
+    path: /proxy/transfers(/|$)(.*)
+    annotations:
+      nginx.ingress.kubernetes.io/rewrite-target: /$2
+
+## Front-end UI services
+### Shell and helper UI services
 reporting-hub-bop-shell:
   enabled: true
   ingress:
     hostname: www-bof.local
-
-reporting-hub-bop-api-svc:
-  enabled: true
-
-reporting-events-processor-svc:
-  enabled: true
-
-security-role-perm-operator-svc:
-  enabled: true
+  env:
+    LOGIN_URL: /kratos/self-service/registration/browser
+    LOGOUT_URL: /kratos/self-service/browser/flows/logout
+    AUTH_TOKEN_URL: /kratos/sessions/whoami
+    AUTH_ENABLED: true
+    REMOTE_1_URL: http://reporting-hub-bop-role-ui.local
+    REMOTE_2_URL: http://reporting-hub-bop-trx-ui.local
 
 security-hub-bop-kratos-ui:
   enabled: true
@@ -74,15 +88,32 @@ security-hub-bop-kratos-ui:
     annotations:
       nginx.ingress.kubernetes.io/rewrite-target: /$2
 
-
+### Micro-frontends
 reporting-hub-bop-role-ui:
   enabled: true
+  ingress:
+    enabled: true
+    pathType: ImplementationSpecific
+    hostname: reporting-hub-bop-role-ui.local
   config:
     env:
       REACT_APP_API_BASE_URL: http://www-bof.local/proxy/iam
 
 reporting-hub-bop-trx-ui:
   enabled: true
+  ingress:
+    enabled: true
+    pathType: ImplementationSpecific
+    hostname: reporting-hub-bop-trx-ui.local
   config:
     env:
       REACT_APP_API_BASE_URL: http://www-bof.local/proxy/transfers
+
+## Other services
+security-role-perm-operator-svc:
+  enabled: true
+
+reporting-events-processor-svc:
+  enabled: true
+
+
