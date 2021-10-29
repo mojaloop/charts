@@ -15,10 +15,10 @@ global:
   ##
   imagePullSecrets: []
   storageClass: ""
-  # This can be overridden by the main kafka element.
-  # keto:
-  #   host: keto
-  #   port: 4466
+  keto: {}
+  adminApiSvc: {}
+  wso2:
+    identityServer: {}
 
 podAffinityPreset: ""
 ## @param podAntiAffinityPreset Pod anti-affinity preset. Ignored if `main.affinity` is set. Allowed values: `soft` or `hard`
@@ -339,8 +339,7 @@ serviceAccount:
   name: ""
 
 configFiles:
-  default.json: |
-    {
+  default.json: {
       "PORT": 3008,
       "HOST": "0.0.0.0",
       "INSPECT": {
@@ -352,12 +351,12 @@ configFiles:
         "expiresIn": 180000,
         "generateTimeout": 30000
       },
-      "CENTRAL_SERVICE_ADMIN_URL": {{ printf "http://%s:%s" (include "common.backends.mojaloop.adminApiSvc.host" .) (include "common.backends.mojaloop.adminApiSvc.port" .) | quote}},
-      "ORY_KETO_READ_SERVICE_URL": {{ include "common.backends.keto.readURL" . | quote }},
-      "ORY_KETO_WRITE_SERVICE_URL": {{ include "common.backends.keto.writeURL" . | quote }},
-      "WSO2IS_USER_LIST_URL": {{ include "common.backends.wso2.identityServer.userListURL" . | quote}},
-      "WSO2_USER": {{ include "common.backends.wso2.identityServer.username" . | quote}},
-      "WSO2_PASSWORD": {{ include "common.backends.wso2.identityServer.password" . | quote}},
+      "CENTRAL_SERVICE_ADMIN_URL": '{{ printf "http://%s:%s" (include "common.backends.mojaloop.adminApiSvc.host" .) (include "common.backends.mojaloop.adminApiSvc.port" .) }}',
+      "ORY_KETO_READ_SERVICE_URL": '{{ include "common.backends.keto.readURL" . }}',
+      "ORY_KETO_WRITE_SERVICE_URL": '{{ include "common.backends.keto.writeURL" . }}',
+      "WSO2IS_USER_LIST_URL": '{{ include "common.backends.wso2.identityServer.userListURL" . }}',
+      "WSO2_USER": '{{ include "common.backends.wso2.identityServer.username" . }}',
+      "WSO2_PASSWORD": '{{ include "common.backends.wso2.identityServer.password" . }}',
       "ERROR_HANDLING": {
         "includeCauseExtension": true,
         "truncateExtensions": true
