@@ -9,19 +9,20 @@
 ##
 global:
   # This can be overridden by the main keto element.
-  keto: { }
-  # keto:
-  #   readURL: 'http://keto-read'
-  #   writeURL: 'http://keto-write'
-  mysql:
-    host: mysql-secondary
+  keto:
+    readURL: 'http://keto-read'
+  ## The following is the database configuration of the reporting DB
+  ## For testing / development, it can be pointed to the main centralledger database
+  ## but for production use, please point this to the reporting database which can be a replica of the main database
+  reporting-db:
+    host: centralledger-mysql
     port: 3306
-    user: user
-    database: default
+    user: central_ledger
+    database: central_ledger
     # secret: {}
     secret:
-      name: mysql
-      key: mysql-replication-password
+      name: centralledger-mysql
+      key: mysql-password
 
   mongodb:
     host: mongodb
@@ -33,17 +34,17 @@ global:
       name: mongodb
       key: mongodb-password
 
-mysql:
+reporting-db:
   ## This is the same as setting the host explicitly, i.e. will set the host as set below. It is included to support importing MySQL charts as a dependency.
-  # fullnameOverride: mysql
+  # fullnameOverride: reporting-db
   ## This will override the name of kafka and add the release prefix, e.g. '<RELEASE_NAME>-<nameOverride>'.
-  # nameOverride: mysql
-  # host: mysql
+  # nameOverride: reporting-db
+  # host: reporting-db
   # port: 90925
   # user: central_ledger
   # database: central_ledger
   secret: {}
-  #   name: mysql
+  #   name: reporting-db
   #   key: password
 
 mongodb:

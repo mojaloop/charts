@@ -10,19 +10,52 @@ global:
     host: "centralledger-service"
     port: 80
   keto:
-    host: "keto"
-    readPort: 4466
-    writePort: 4467
+    readURL: "http://keto-read:80"
+    writeURL: "http://keto-write:80"
   wso2:
     identityServer:
-      host: "identity-server"
+      host: "wso2-identity-server.local"
       port: 9443
+      userListURL: "http://wso2-identity-server.local:9443/scim2/Users"
+      username: 'admin'
+      password: 'admin'
+  reporting-db:
+    host: centralledger-mysql
+    port: 3306
+    user: user
+    database: default
+    # secret: {}
+    secret:
+      name: mysql
+      key: mysql-replication-password
+  mongodb:
+    host: mongodb
+    port: 27017
+    user: user
+    database: default
+    # secret: {}
+    secret:
+      name: mongodb
+      key: mongodb-password
 
 role-assignment-service:
   enabled: true
+  ingress:
+    enabled: true
+    hostname: api-bof.local
+    path: /proxy/iam(/|$)(.*)
+    annotations:
+      nginx.ingress.kubernetes.io/rewrite-target: /$2
+  configFiles:
+    default.json:
+      ROLES_LIST:
+      - USER_ROLE_abc7a2fd-4acf-4547-a194-1673f63eb37c
+      - ADMIN_ROLE_6c1ec084-86d4-4915-ba81-6c59b87a65a6
 
 reporting-hub-bop-shell:
   enabled: true
+  ingress:
+    hostname: www-bof.local
 
 reporting-hub-bop-api-svc:
   enabled: true
@@ -35,9 +68,21 @@ security-role-perm-operator-svc:
 
 security-hub-bop-kratos-ui:
   enabled: true
+  ingress:
+    hostname: www-bof.local
+    path: /selfui/auth(/|$)(.*)
+    annotations:
+      nginx.ingress.kubernetes.io/rewrite-target: /$2
+
 
 reporting-hub-bop-role-ui:
   enabled: true
+  config:
+    env:
+      REACT_APP_API_BASE_URL: http://www-bof.local/proxy/iam
 
 reporting-hub-bop-trx-ui:
   enabled: true
+  config:
+    env:
+      REACT_APP_API_BASE_URL: http://www-bof.local/proxy/transfers

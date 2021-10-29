@@ -30,8 +30,29 @@ Get wso2 identity-server port.
 {{- end -}}
 
 {{/*
+Get wso2 identity-server username.
+*/}}
+{{- define "common.backends.wso2.identityServer.username" -}}
+  {{- default "admin" (default .Values.global.wso2.identityServer.username .Values.wso2.identityServer.username) -}}
+{{- end -}}
+
+{{/*
+Get wso2 identity-server password.
+*/}}
+{{- define "common.backends.wso2.identityServer.password" -}}
+  {{- default "admin" (default .Values.global.wso2.identityServer.password .Values.wso2.identityServer.password) -}}
+{{- end -}}
+
+{{/*
+Get wso2 user list url.
+*/}}
+{{- define "common.backends.wso2.identityServer.userListURL" -}}
+  {{- default "http://wso2-identity-server.local:9443/scim2/Users" (default .Values.global.wso2.identityServer.userListURL .Values.wso2.identityServer.userListURL) -}}
+{{- end -}}
+
+{{/*
 Get wso2 introspection url.
 */}}
-{{- define "common.backends.wso2.introspectionURL" -}}
-  {{- default 4467 (default .Values.global.wso2.introspectionURL .Values.wso2.introspectionURL) -}}
+{{- define "common.backends.wso2.identityServer.introspectionURL" -}}
+  {{- default "https://wso2-identity-server.local:9443/oauth2/introspect" (default .Values.global.wso2.identityServer.introspectionURL .Values.wso2.identityServer.introspectionURL) -}}
 {{- end -}}

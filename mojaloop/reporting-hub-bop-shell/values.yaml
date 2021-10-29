@@ -186,13 +186,12 @@ metrics:
 
 config:
   env:
-    # AUTH_API_BASE_URL: /
-    AUTH_MOCK_API: true
+    AUTH_MOCK_API: false
     REMOTE_API_BASE_URL: /
     REMOTE_MOCK_API: false
-    LOGIN_URL: http://your-login-url
-    LOGOUT_URL: http://your-logout-url
-    AUTH_TOKEN_URL: http://your-whoami-url
+    LOGIN_URL: /kratos/self-service/registration/browser
+    LOGOUT_URL: /kratos/self-service/browser/flows/logout
+    AUTH_TOKEN_URL: /kratos/sessions/whoami
     AUTH_ENABLED: true
     REMOTE_1_URL: http://reporting-hub-bop-role-ui.local
     REMOTE_2_URL: http://reporting-hub-bop-trx-ui.local

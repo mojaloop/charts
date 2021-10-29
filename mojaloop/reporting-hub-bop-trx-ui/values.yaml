@@ -186,7 +186,7 @@ metrics:
 
 config:
   env:
-    REACT_APP_API_BASE_URL: http://localhost:3008/
+    REACT_APP_API_BASE_URL: http://reporting-hub-bop-api-svc.local
     REACT_APP_MOCK_API: false
 
 service:
