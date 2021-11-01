@@ -331,6 +331,3 @@ serviceAccount:
 
 configFiles:
   default.json: {}
-
-sidecar:
-  enabled: false
