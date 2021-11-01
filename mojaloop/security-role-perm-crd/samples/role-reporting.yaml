@@ -1,8 +1,7 @@
 apiVersion: mojaloop.io/v1
 kind: MojaloopRole
 metadata:
-  name: {{ template "common.names.fullname" . }}
-  namespace: {{ .Release.Namespace | quote }}
+  name: {{ template "common.names.fullname" . }}-reporting-role
 spec:
   role: REPORTING_API_ROLE
   permissions:

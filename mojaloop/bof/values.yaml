@@ -114,7 +114,7 @@ reporting-hub-bop-trx-ui:
 
 ## Other services
 security-role-perm-operator-svc:
-  enabled: false
+  enabled: true
 
 reporting-events-processor-svc:
   enabled: true
