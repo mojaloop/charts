@@ -1,3 +1,7 @@
+## @section Global parameters
+global:
+  mojalooprole: {}
+
 ## Mojaloop Role configuration
 ##
 mojalooprole:

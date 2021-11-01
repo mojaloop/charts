@@ -41,6 +41,7 @@ global:
     host: test1-kafka-headless
     port: 9092
     topic: topic-event
+  mojalooprole: {}
 
 ## Backend API services
 role-assignment-service:
@@ -113,9 +114,8 @@ reporting-hub-bop-trx-ui:
 
 ## Other services
 security-role-perm-operator-svc:
-  enabled: true
+  enabled: false
 
 reporting-events-processor-svc:
   enabled: true
-
 
