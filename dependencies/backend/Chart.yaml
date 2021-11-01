@@ -74,6 +74,18 @@ dependencies:
       - keto
       - bof
     version: 0.19.5
+  - name: mysql
+    alias: keto-db
+    condition: keto-db.enabled
+    repository: "https://charts.bitnami.com/bitnami"
+    tags:
+      - mojaloop
+      - dependency
+      - backend
+      - mysql
+      - keto
+      - bof
+    version: 8.8.8
   - name: oathkeeper
     alias: oathkeeper
     condition: oathkeeper.enabled
@@ -96,4 +108,16 @@ dependencies:
       - kratos
       - bof
     version: 0.19.6
+  - name: mysql
+    alias: kratos-db
+    condition: kratos-db.enabled
+    repository: "https://charts.bitnami.com/bitnami"
+    tags:
+      - mojaloop
+      - dependency
+      - backend
+      - mysql
+      - kratos
+      - bof
+    version: 8.8.8
 
