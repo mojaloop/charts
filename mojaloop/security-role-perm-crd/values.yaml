@@ -1,0 +1,9 @@
+## Mojaloop Role configuration
+##
+mojalooprole:
+  resourceKind: "MojaloopRole"
+  resourceListKind: "MojaloopRoleList"
+  resourceGroup: "mojaloop.io"
+  resourceVersion: "v1"
+  resourceSingular: "mojalooprole"
+  resourcePlural: "mojalooproles"

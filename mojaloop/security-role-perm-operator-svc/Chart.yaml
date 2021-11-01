@@ -18,3 +18,9 @@ dependencies:
     tags:
       - moja-common
     version: 1.0.0
+  - name: security-role-perm-crd
+    repository: "file://../security-role-perm-crd"
+    condition: installCRDs
+    tags:
+      - security-role-perm-crd
+    version: 1.0.0

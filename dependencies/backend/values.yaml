@@ -5,7 +5,6 @@
 # helm upgrade backend ./dependencies/backend --install
 
 global:
-  mojalooprole: {}
 
 ################################################################
 ## Kafka Backend Dependency
@@ -3381,4 +3380,3 @@ kratos:
 wso2:
   config:
 
-mojalooprole: {}
