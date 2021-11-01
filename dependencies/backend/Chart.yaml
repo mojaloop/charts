@@ -96,8 +96,4 @@ dependencies:
       - kratos
       - bof
     version: 0.19.6
-  - name: common
-    repository: "file://../../mojaloop/common"
-    tags:
-      - moja-common
-    version: 1.0.0
+
