@@ -16,6 +16,7 @@ global:
   imagePullSecrets: []
   storageClass: ""
   mojalooprole: {}
+  keto: {}
 
 podAffinityPreset: ""
 ## @param podAntiAffinityPreset Pod anti-affinity preset. Ignored if `main.affinity` is set. Allowed values: `soft` or `hard`
@@ -251,14 +252,13 @@ serviceAccount:
   name: ""
 
 configFiles:
-  default.json: |
-    {
-      "WATCH_RESOURCE_GROUP": {{ include "common.backends.mojalooprole.resourceGroup" . | quote }},
-      "WATCH_RESOURCE_VERSION": {{ include "common.backends.mojalooprole.resourceVersion" . | quote }},
-      "WATCH_RESOURCE_PLURAL": {{ include "common.backends.mojalooprole.resourcePlural" . | quote }},
-      "WATCH_NAMESPACE": {{ .Release.Namespace | quote }},
-      "ORY_KETO_READ_SERVICE_URL": {{ include "common.backends.keto.readURL" . | quote }},
-      "ORY_KETO_WRITE_SERVICE_URL": {{ include "common.backends.keto.writeURL" . | quote }},
+  default.json: {
+      "WATCH_RESOURCE_GROUP": '{{ include "common.backends.mojalooprole.resourceGroup" . }}',
+      "WATCH_RESOURCE_VERSION": '{{ include "common.backends.mojalooprole.resourceVersion" . }}',
+      "WATCH_RESOURCE_PLURAL": '{{ include "common.backends.mojalooprole.resourcePlural" . }}',
+      "WATCH_NAMESPACE": '{{ .Release.Namespace }}',
+      "ORY_KETO_READ_SERVICE_URL": '{{ include "common.backends.keto.readURL" . }}',
+      "ORY_KETO_WRITE_SERVICE_URL": '{{ include "common.backends.keto.writeURL" . }}',
       "KETO_QUEUE_PROCESS_INTERVAL_MS": 1000
     }
 

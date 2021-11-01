@@ -84,7 +84,18 @@ dependencies:
       - backend
       - oathkeeper
       - bof
-    version: 0.19.5
+    version: 0.19.6
+  - name: kratos
+    alias: kratos
+    condition: kratos.enabled
+    repository: "https://k8s.ory.sh/helm/charts"
+    tags:
+      - mojaloop
+      - dependency
+      - backend
+      - kratos
+      - bof
+    version: 0.19.6
   - name: common
     repository: "file://../../mojaloop/common"
     tags:

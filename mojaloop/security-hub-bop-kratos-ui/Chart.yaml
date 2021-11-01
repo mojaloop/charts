@@ -1,0 +1,20 @@
+apiVersion: v1
+description: This is the UI for Kratos.
+name: security-hub-bop-kratos-ui
+version: 1.0.0
+appVersion: "0.1.0"
+home: http://mojaloop.io
+icon: http://mojaloop.io/images/logo.png
+sources:
+  - https://github.com/mojaloop/mojaloop
+  - https://github.com/mojaloop/helm
+  - https://github.com/modusbox/kratos-ui-oidcer
+maintainers:
+  - name: Vijaya Kumar Guthi
+    email: vijaya.guthi@modusbox.com
+dependencies:
+  - name: common
+    repository: "file://../common"
+    tags:
+      - moja-common
+    version: 1.0.0

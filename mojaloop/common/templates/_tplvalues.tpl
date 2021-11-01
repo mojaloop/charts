@@ -11,3 +11,11 @@ Usage:
         {{- tpl (.value | toYaml) .context }}
     {{- end }}
 {{- end -}}
+
+{{- define "common.tplvalues.renderToJson" -}}
+    {{- if typeIs "string" .value }}
+        {{- tpl .value .context | fromYaml | toPrettyJson |squote }}
+    {{- else }}
+        {{- tpl (.value | toYaml) .context | fromYaml | toPrettyJson }}
+    {{- end }}
+{{- end -}}

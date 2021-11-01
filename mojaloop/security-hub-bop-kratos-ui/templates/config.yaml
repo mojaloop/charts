@@ -10,7 +10,7 @@ metadata:
 data:
 {{- range $fileName, $fileContents := .Values.configFiles }}
   {{ $fileName }}: |
-  {{- include "common.tplvalues.renderToJson" ( dict "value" $fileContents "context" $ ) | nindent 4 }}
+  {{- include "common.tplvalues.render" ( dict "value" $fileContents "context" $ ) | nindent 4 }}
 {{- end }}
 
 ---
@@ -29,4 +29,20 @@ data:
   {{ $fileName }}: |
 {{- include "common.tplvalues.render" ( dict "value" $fileContents "context" $ ) | nindent 4 }}
 {{- end }}
+{{- end }}
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "common.names.fullname" . }}-config-env
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+    app.kubernetes.io/component: {{ template "common.names.name" . }}
+    {{- if .Values.commonLabels }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
+    {{- end }}
+data:
+{{- range $k, $v := .Values.config.env }}
+  {{ $k }}: {{ quote $v }}
 {{- end }}

@@ -8,63 +8,13 @@
 ## @param global.storageClass Global StorageClass for Persistent Volume(s)
 ##
 global:
-  # This can be overridden by the main keto element.
-  keto:
-    readURL: 'http://keto-read'
-  ## The following is the database configuration of the reporting DB
-  ## For testing / development, it can be pointed to the main centralledger database
-  ## but for production use, please point this to the reporting database which can be a replica of the main database
-  reportingDB:
-    host: centralledger-mysql
-    port: 3306
-    user: central_ledger
-    database: central_ledger
-    # secret: {}
-    secret:
-      name: centralledger-mysql
-      key: mysql-password
-
-  mongodb:
-    host: mongodb
-    port: 27017
-    user: user
-    database: default
-    # secret: {}
-    secret:
-      name: mongodb
-      key: mongodb-password
-
-reportingDB:
-  ## This is the same as setting the host explicitly, i.e. will set the host as set below. It is included to support importing MySQL charts as a dependency.
-  # fullnameOverride: reporting-db
-  ## This will override the name of kafka and add the release prefix, e.g. '<RELEASE_NAME>-<nameOverride>'.
-  # nameOverride: reporting-db
-  # host: reporting-db
-  # port: 90925
-  # user: central_ledger
-  # database: central_ledger
-  secret: {}
-  #   name: reporting-db
-  #   key: password
-
-mongodb:
-  ## This is the same as setting the host explicitly, i.e. will set the host as set below. It is included to support importing MySQL charts as a dependency.
-  # fullnameOverride: mongodb
-  ## This will override the name of mongodb and add the release prefix, e.g. '<RELEASE_NAME>-<nameOverride>'.
-  # nameOverride: mongodb
-  # host: mongodb
-  # port: 27017
-  # user: event_store
-  # database: event_store
-  secret: {}
-  #   name: mongodb
-  #   key: password
-
-  # This can be overridden by the main keto element.
-keto: { }
-  # keto:
-  #   readURL: 'http://keto-read'
-  #   writeURL: 'http://keto-write'
+  imageRegistry: ""
+  ## E.g.
+  ## imagePullSecrets:
+  ##   - myRegistryKeySecretName
+  ##
+  imagePullSecrets: []
+  storageClass: ""
 
 podAffinityPreset: ""
 ## @param podAntiAffinityPreset Pod anti-affinity preset. Ignored if `main.affinity` is set. Allowed values: `soft` or `hard`
@@ -124,14 +74,15 @@ containerSecurityContext:
   runAsUser: 1001
 
 image:
-  registry: docker.io
-  repository: mojaloop/reporting-hub-bop-api-svc
-  tag: v1.0.13
+  registry: ghcr.io
+  repository: modusbox/oidcer
+  tag: latest
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
   ##
   pullPolicy: IfNotPresent
+
   ## Optionally specify an array of imagePullSecrets.
   ## Secrets must be manually created in the namespace.
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
@@ -145,11 +96,12 @@ image:
   debug: false
 
 replicaCount: 1
-command:
+
+# Disable command so the defaults defined in the Docker image are used.
+# command:
   # - sleep
   # - infinity
-  - npm
-  - start
+
 
 ## Enable diagnostic mode in the deployment
 ##
@@ -183,34 +135,58 @@ diagnosticMode:
 ##    command: ['sh', '-c', 'echo "hello world"']
 ##
 initContainers: []
+# initContainers:
+#   - name: wait-for-keto
+#     image: some-image-for-waiting-kafka
+#     imagePullPolicy: IfNotPresent
+#     command:
+#       - sh
+#       - -c
+#       - until ./bin/kafka-broker-api-versions.sh --bootstrap-server ${KAFKA_HOST}:${KAFKA_PORT};
+#         do
+#           echo --------------------;
+#           echo Waiting for Kafka...;
+#           sleep 2;
+#         done;
+#         echo ====================;
+#         echo Kafka ok!;
+#     env:
+#       - name: KAFKA_HOST
+#         value: '{{ include "common.backends.kafka.host" . }}'
+#       - name: KAFKA_PORT
+#         value: '{{ include "common.backends.kafka.port" . }}'
+
 
 readinessProbe:
   enabled: true
   httpGet:
-    path: /health
+    path: /healthz
   initialDelaySeconds: 15
   periodSeconds: 15
 livenessProbe:
   enabled: true
   httpGet:
-    path: /health
+    path: /healthz
   initialDelaySeconds: 15
   periodSeconds: 15
 
 ## metric configuration for prometheus instrumentation
 metrics:
   ## flag to enable/disable the metrics end-points
-  enabled: true
+  enabled: false
   config:
     timeout: 5000
     prefix: moja_
     defaultLabels:
-      serviceName: reporting-hub-bop-api-svc
+      serviceName: security-hub-bop-kratos-ui
 
-config: {}
+config:
+  env:
+    ROCKET_PORT: 80
+    ROCKET_REGISTRATION_ENDPOINT: "http://kratos-public/self-service/registration/flows"
 
 service:
-  internalPort: 3000
+  internalPort: 80
   ## @param service.type %%MAIN_CONTAINER_NAME%% service type
   ##
   type: ClusterIP
@@ -264,7 +240,7 @@ ingress:
   apiVersion:
   ## @param ingress.hostname Default host for the ingress record
   ##
-  hostname: reporting-hub-bop-api-svc.local
+  hostname: security-hub-bop-kratos-ui.local
   ## @param ingress.path Default path for the ingress record
   ## NOTE: You may need to set this to '/*' in order to use this with ALB ingress controllers
   ##
@@ -335,8 +311,6 @@ ingress:
 
 podAnnotations: {}
 
-auth: false
-
 ## RBAC configuration
 ##
 rbac:
@@ -349,36 +323,14 @@ rbac:
 serviceAccount:
   ## @param serviceAccount.create Specifies whether a ServiceAccount should be created
   ##
-  create: false
+  create: true
   ## @param serviceAccount.name The name of the ServiceAccount to use.
   ## If not set and create is true, a name is generated using the common.names.fullname template
   ##
   name: ""
 
+configFiles:
+  default.json: {}
+
 sidecar:
   enabled: false
-  image:
-    repository: mojaloop/event-sidecar
-    tag: v11.0.1
-    pullPolicy: IfNotPresent
-    command:
-      - npm
-      - run
-      - start
-  service:
-    name: api
-    port: 4001
-    internalPort: 4001
-  readinessProbe:
-    enabled: true
-    httpGet:
-      path: /health
-    initialDelaySeconds: 120
-    periodSeconds: 15
-  livenessProbe:
-    enabled: true
-    httpGet:
-      path: /health
-    initialDelaySeconds: 90
-    periodSeconds: 15
-  config: {}

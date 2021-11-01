@@ -18,7 +18,7 @@ spec:
       app.kubernetes.io/component: {{ template "common.names.chart" . }}
   template:
     metadata:
-      annotations:
+      annotations: 
         checksum/config: {{ include (print $.Template.BasePath "/config.yaml") . | sha256sum }}
       {{- if .Values.podAnnotations }}
       {{- include "common.tplvalues.render" (dict "value" .Values.podAnnotations "context" $) | nindent 8 }}
@@ -34,8 +34,8 @@ spec:
         {{- include "common.tplvalues.render" (dict "value" .Values.podLabels "context" $) | nindent 8 }}
         {{- end }}
     spec:
-      serviceAccountName: {{ template "reporting-hub-bop-api-svc.serviceAccountName" . }}
-      {{- include "reporting-hub-bop-api-svc.imagePullSecrets" . | nindent 6 }}
+      serviceAccountName: {{ template "security-hub-bop-kratos-ui.serviceAccountName" . }}
+      {{- include "security-hub-bop-kratos-ui.imagePullSecrets" . | nindent 6 }}
       {{- if .Values.hostAliases }}
       hostAliases: {{- include "common.tplvalues.render" (dict "value" .Values.hostAliases "context" $) | nindent 8 }}
       {{- end }}
@@ -43,8 +43,8 @@ spec:
       affinity: {{- include "common.tplvalues.render" ( dict "value" .Values.affinity "context" $) | nindent 8 }}
       {{- else }}
       affinity:
-        podAffinity: {{- include "common.affinities.pods" (dict "type" .Values.podAffinityPreset "component" "reporting-hub-bop-api-svc" "context" $) | nindent 10 }}
-        podAntiAffinity: {{- include "common.affinities.pods" (dict "type" .Values.podAntiAffinityPreset "component" "reporting-hub-bop-api-svc" "context" $) | nindent 10 }}
+        podAffinity: {{- include "common.affinities.pods" (dict "type" .Values.podAffinityPreset "component" "security-hub-bop-kratos-ui" "context" $) | nindent 10 }}
+        podAntiAffinity: {{- include "common.affinities.pods" (dict "type" .Values.podAntiAffinityPreset "component" "security-hub-bop-kratos-ui" "context" $) | nindent 10 }}
         nodeAffinity: {{- include "common.affinities.nodes" (dict "type" .Values.nodeAffinityPreset.type "key" .Values.nodeAffinityPreset.key "values" .Values.nodeAffinityPreset.values) | nindent 10 }}
       {{- end }}
       {{- if .Values.nodeSelector }}
@@ -65,7 +65,7 @@ spec:
         {{- end }}
       containers:
         - name: {{ .Chart.Name }}
-          image: {{ template "reporting-hub-bop-api-svc.image" . }}
+          image: {{ template "security-hub-bop-kratos-ui.image" . }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           {{- if .Values.containerSecurityContext.enabled }}
           securityContext: {{- omit .Values.containerSecurityContext "enabled" | toYaml | nindent 12 }}
@@ -103,43 +103,13 @@ spec:
             initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
           {{- end }}
-          env:
-            # Central Ledger DB
-            - name: CLDB_HOST
-              value: '{{ include "common.backends.reportingDB.host" . }}'
-            - name: CLDB_PORT
-              value: '{{ include "common.backends.reportingDB.port" . }}'
-            - name: CLDB_NAME
-              value: '{{ include "common.backends.reportingDB.database" . }}'
-            - name: CLDB_USER
-              value: '{{ include "common.backends.reportingDB.user" . }}'
-            - name: CLDB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: '{{ include "common.backends.reportingDB.secret.name" . }}'
-                  key: '{{ include "common.backends.reportingDB.secret.key" . }}'
-            - name: CENTRAL_LEDGER_DB_URL
-              value: mysql://$(CLDB_USER):$(CLDB_PASSWORD)@$(CLDB_HOST):$(CLDB_PORT)/$(CLDB_NAME)
-            # Event Store
-            - name: EVENT_DB_HOST
-              value: '{{ include "common.backends.mongodb.host" . }}'
-            - name: EVENT_DB_PORT
-              value: '{{ include "common.backends.mongodb.port" . }}'
-            - name: EVENT_DB_NAME
-              value: '{{ include "common.backends.mongodb.database" . }}'
-            - name: EVENT_DB_USER
-              value: '{{ include "common.backends.mongodb.user" . }}'
-            - name: EVENT_DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: '{{ include "common.backends.mongodb.secret.name" . }}'
-                  key: '{{ include "common.backends.mongodb.secret.key" . }}'
-            - name: EVENT_STORE_DB_URL
-              value: mongodb://$(EVENT_DB_USER):$(EVENT_DB_PASSWORD)@$(EVENT_DB_HOST):$(EVENT_DB_PORT)/$(EVENT_DB_NAME)
-            {{- if .Values.auth }}
-            - name: ORY_KETO_READ_URL
-              value: '{{ include "common.backends.keto.readURL" . }}'
-            {{- end }}
+          volumeMounts:
+            - name: {{ template "common.names.fullname" . }}-config-volume
+              mountPath: /opt/app/config
+          envFrom:
+          - configMapRef:
+              name: {{ template "common.names.fullname" . }}-config-env
+
 
         {{- if .Values.sidecar.enabled }}
         - name: {{ .Chart.Name }}-sidecar
@@ -168,6 +138,9 @@ spec:
             initialDelaySeconds: {{ .Values.sidecar.livenessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.sidecar.livenessProbe.periodSeconds }}
           {{- end }}
+          volumeMounts:
+            - name: {{ template "common.names.fullname" . }}-sidecar-volume
+              mountPath: /opt/event-sidecar/config
           env:
             - name: LOG_LEVEL
               value: {{ .Values.sidecar.config.log_level | quote }}
@@ -177,4 +150,19 @@ spec:
               value: {{ .Values.sidecar.config.event_log_filter | quote }}
             - name: EVENT_SDK_LOG_METADATA_ONLY
               value: {{ .Values.sidecar.config.event_log_metadata_only | quote }}
+        {{- end }}
+      volumes:
+        - name: {{ template "common.names.fullname" . }}-config-volume
+          configMap:
+            name: {{ template "common.names.fullname" . }}-config
+            items:
+            - key: default.json
+              path: default.json
+        {{- if .Values.sidecar.enabled }}
+        - name: {{ template "common.names.fullname" . }}-sidecar-volume
+          configMap:
+            name: {{ template "common.names.fullname" . }}-sidecar
+            items:
+            - key: default.json
+              path: default.json
         {{- end }}
