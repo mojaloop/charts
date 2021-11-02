@@ -1,9 +1,10 @@
 ## RISK: For Poc, I added all the rules, need to sort out this after everything working
 ## TODO: Remove the unneccessary permissions and also we can change the kind to Role if we want namespaced permissions
-kind: ClusterRole
+kind: Role
 apiVersion: {{ include "common.capabilities.rbac.apiVersion" . }}
 metadata:
   name: {{ template "common.names.fullname" . }}
+  namespace: {{ .Release.Namespace | quote }}
   labels: {{- include "common.labels.standard" . | nindent 4 }}
     app.kubernetes.io/component: {{ template "common.names.name" . }}
     {{- if .Values.commonLabels }}

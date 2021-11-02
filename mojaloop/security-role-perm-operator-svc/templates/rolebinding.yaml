@@ -1,8 +1,9 @@
 ## TODO: We can change this to RoleBinding if we want our service to be limited to a single namespace
-kind: ClusterRoleBinding
+kind: RoleBinding
 apiVersion: {{ include "common.capabilities.rbac.apiVersion" . }}
 metadata:
   name: {{ template "common.names.fullname" . }}
+  namespace: {{ .Release.Namespace | quote }}
   labels: {{- include "common.labels.standard" . | nindent 4 }}
     app.kubernetes.io/component: {{ template "common.names.name" . }}
     {{- if .Values.commonLabels }}
@@ -13,7 +14,7 @@ metadata:
   {{- end }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
+  kind: Role
   name: {{ template "common.names.fullname" . }}
 subjects:
   - kind: ServiceAccount
