@@ -77,19 +77,28 @@ function install_v14poc_charts {
 }
 
 function post_install_health_checks {
+        TIMEOUT=20 #seconds
         printf  "==> checking health endpoints to verify deployment\n" 
-        if [[ `curl -s http://admin-api-svc.local/health | \
-            perl -nle '$count++ while /OK+/g; END {print $count}' ` -lt 2 ]] ; then
-                printf "    Error: admin-api-svc endpoint healthcheck failed\n"
-                exit 1 
-        fi
+        for ep in ${HEALTH_ENDPOINTS_LIST[@]}; do
+                printf  "Endpoint: $ep   "
+                        i=0
+                        while [ ${i} -le ${TIMEOUT} ] ; do
+                                if [[  `curl -s http://$ep.local/health | \
+                                        perl -nle '$count++ while /OK+/g; END {print $count}' ` -lt 2 ]] ; then
+                                        i=$(( i + 10 ))
+                                        sleep 10 
+                                else 
+                                        printf "[ok] \n"
+                                        break
+                                fi    
+                        done 
+                        if [ $i -gt $TIMEOUT ] ; then  
+                                printf "[failed]\n"            
+                                printf "Error: $ep endpoint healthcheck failed\n"
+                                exit 1  
+                        fi        
+        done
 
-        if [[ `curl -s http://transfer-api-svc.local/health | \
-            perl -nle '$count++ while /OK+/g; END {print $count}' ` -lt 2 ]] ; then
-                printf "    Error: transfer-api-svc endpoint healthcheck failed\n"
-                exit 1 
-        fi
-        printf " $RELEASE_NAME configuration of mojaloop passes endpoint health checks\n"
 }
 
 function set_versions_to_test {
@@ -224,6 +233,7 @@ export KUBECONFIG="/etc/rancher/k3s/k3s.yaml"
 DEFAULT_VERSION="v1.22" # default version to test
 DEFAULT_K8S_USER="vagrant"
 
+HEALTH_ENDPOINTS_LIST=("admin-api-svc" "transfer-api-svc")
 CURRENT_K8S_VERSIONS=("v1.20" "v1.21"  "v1.22")
 versions_list=(" ")
 nginx_version=""
