@@ -1,5 +1,3 @@
-## RISK: For Poc, I added all the rules, need to sort out this after everything working
-## TODO: Remove the unneccessary permissions and also we can change the kind to Role if we want namespaced permissions
 kind: Role
 apiVersion: {{ include "common.capabilities.rbac.apiVersion" . }}
 metadata:
