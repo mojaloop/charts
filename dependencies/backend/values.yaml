@@ -2799,6 +2799,12 @@ oathkeeper:
           config:
             # this should be the internal base URL for the API service, which will look something like the below
             issuer_url: http://oathkeeper-api:4456/
+        header:
+          # Set enabled to true if the authenticator should be enabled and false to disable the authenticator. Defaults to false.
+          enabled: true
+          config:
+            headers:
+              X-User: '{{ print .Subject }}'
       errors:
         fallback:
           - json
