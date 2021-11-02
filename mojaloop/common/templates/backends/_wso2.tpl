@@ -44,6 +44,13 @@ Get wso2 identity-server password.
 {{- end -}}
 
 {{/*
+Get wso2 identity-server secretName (contains username and password).
+*/}}
+{{- define "common.backends.wso2.identityServer.secretName" -}}
+  {{- default "wso2-is-admin-creds" (default .Values.global.wso2.identityServer.secretName .Values.wso2.identityServer.secretName) -}}
+{{- end -}}
+
+{{/*
 Get wso2 user list url.
 */}}
 {{- define "common.backends.wso2.identityServer.userListURL" -}}

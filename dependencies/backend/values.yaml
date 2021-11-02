@@ -4709,3 +4709,15 @@ keto-db:
       ##
       additionalLabels: {}
 
+################################################################
+## WSO2 Identity Server external configuration
+## Currently the wso2 identity server is not included in this helm chart
+## There is an example provided here to run a wso2 identity server using docker-compose method for now
+## TODO: helm chart of the wso2 is to be included here
+wso2:
+  identityServer:
+    createSecrets: true
+    secrets:
+      wso2-is-admin-creds:
+        username: "admin"
+        password: "admin"

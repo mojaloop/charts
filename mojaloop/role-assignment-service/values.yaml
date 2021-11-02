@@ -192,7 +192,8 @@ keto: {}
 wso2:
   identityServer: {}
 
-config: {}
+config:
+  wso2SecretName: '{{ include "common.backends.wso2.identityServer.secretName" . }}'
 
 service:
   internalPort: 3008
