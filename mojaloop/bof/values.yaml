@@ -29,7 +29,7 @@ global:
     # secret: {}
     secret:
       name: mysql
-      key: mysql-replication-password
+      key: mysql-password
   mongodb:
     host: mongodb
     port: 27017
