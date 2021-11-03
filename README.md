@@ -8,10 +8,16 @@
 
 ## Quick Links
 
-- [http://mojaloop.io/charts/repo/](http://mojaloop.io/charts/repo/index.yaml) Mojaloop Published Helm Repo
+- [http://docs.mojaloop.io/charts/](http://docs.mojaloop.io/charts/) Mojaloop Published Helm Repo
 - [Documentation - Deploying Mojaloop](https://docs.mojaloop.io/documentation/deployment-guide)
 - [Helm v3 Docs](https://docs.helm.sh/)
 
+
+## Published Helm Chart Repo
+
+```
+helm repo add http://docs.mojaloop.io/charts/repo
+```
 ## Todo
 
 - Refer to task list on [Helm v14.0.0 PoC #2459](https://github.com/mojaloop/project/issues/2459) story.
