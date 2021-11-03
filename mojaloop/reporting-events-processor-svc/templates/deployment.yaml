@@ -84,9 +84,9 @@ spec:
             - name: KAFKA_CLIENT_ID
               value: {{ .Values.kafka.clientId }}
             - name: KAFKA_HOST
-              value: '{{ include "common.backends.kafka.host" . }}'
+              value: '{{ include "common.backends.centralbroker.host" . }}'
             - name: KAFKA_PORT
-              value: '{{ include "common.backends.kafka.port" . }}'
+              value: '{{ include "common.backends.centralbroker.port" . }}'
             - name: KAFKA_URI
               value: $(KAFKA_HOST):$(KAFKA_PORT)
             # Event Store

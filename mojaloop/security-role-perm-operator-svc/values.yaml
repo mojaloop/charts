@@ -158,9 +158,9 @@ initContainers: []
 #         echo Kafka ok!;
 #     env:
 #       - name: KAFKA_HOST
-#         value: '{{ include "common.backends.kafka.host" . }}'
+#         value: '{{ include "common.backends.centralbroker.host" . }}'
 #       - name: KAFKA_PORT
-#         value: '{{ include "common.backends.kafka.port" . }}'
+#         value: '{{ include "common.backends.centralbroker.port" . }}'
 
 
 readinessProbe:

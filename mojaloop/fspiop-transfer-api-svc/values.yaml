@@ -156,9 +156,9 @@ initContainers:
         echo Kafka ok!;
     env:
       - name: KAFKA_HOST
-        value: '{{ include "common.backends.kafka.host" . }}'
+        value: '{{ include "common.backends.centralbroker.host" . }}'
       - name: KAFKA_PORT
-        value: '{{ include "common.backends.kafka.port" . }}'
+        value: '{{ include "common.backends.centralbroker.port" . }}'
 
 readinessProbe:
   enabled: true
@@ -480,7 +480,7 @@ configFiles:
                                 "consumeTimeout": 1000
                             },
                             "rdkafkaConf": {
-                                "metadata.broker.list": {{ printf "%s:%s" (include "common.backends.kafka.host" .) (include "common.backends.kafka.port" .) | quote}},
+                                "metadata.broker.list": {{ printf "%s:%s" (include "common.backends.centralbroker.host" .) (include "common.backends.centralbroker.port" .) | quote}},
                                 "client.id": "ml-con-notification-event",
                                 "group.id": "ml-group-notification-event",
                                 "socket.keepalive.enable": true,
@@ -501,7 +501,7 @@ configFiles:
                                 "messageCharset": "utf8"
                             },
                             "rdkafkaConf": {
-                                "metadata.broker.list": {{ printf "%s:%s" (include "common.backends.kafka.host" .) (include "common.backends.kafka.port" .) | quote}},
+                                "metadata.broker.list": {{ printf "%s:%s" (include "common.backends.centralbroker.host" .) (include "common.backends.centralbroker.port" .) | quote}},
                                 "client.id": "ml-prod-transfer-prepare",
                                 "event_cb": true,
                                 "dr_cb": false,
@@ -520,7 +520,7 @@ configFiles:
                                 "messageCharset": "utf8"
                             },
                             "rdkafkaConf": {
-                                "metadata.broker.list": {{ printf "%s:%s" (include "common.backends.kafka.host" .) (include "common.backends.kafka.port" .) | quote}},
+                                "metadata.broker.list": {{ printf "%s:%s" (include "common.backends.centralbroker.host" .) (include "common.backends.centralbroker.port" .) | quote}},
                                 "client.id": "ml-prod-transfer-fulfil",
                                 "event_cb": true,
                                 "dr_cb": false,
@@ -539,7 +539,7 @@ configFiles:
                                 "messageCharset": "utf8"
                             },
                             "rdkafkaConf": {
-                                "metadata.broker.list": {{ printf "%s:%s" (include "common.backends.kafka.host" .) (include "common.backends.kafka.port" .) | quote}},
+                                "metadata.broker.list": {{ printf "%s:%s" (include "common.backends.centralbroker.host" .) (include "common.backends.centralbroker.port" .) | quote}},
                                 "client.id": "ml-prod-transfer-get",
                                 "event_cb": true,
                                 "dr_cb": false,
@@ -628,7 +628,7 @@ sidecar:
                   "messageCharset": "utf8"
                 },
                 "rdkafkaConf": {
-                  "metadata.broker.list": {{ printf "%s:%s" (include "common.backends.kafka.host" .) (include "common.backends.kafka.port" .) | quote}},
+                  "metadata.broker.list": {{ printf "%s:%s" (include "common.backends.centralbroker.host" .) (include "common.backends.centralbroker.port" .) | quote}},
                   "client.id": "es-prod-event",
                   "event_cb": true,
                   "dr_cb": true,
