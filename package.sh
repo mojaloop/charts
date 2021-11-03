@@ -2,7 +2,8 @@
 
 set -e
 
-LOCAL_HELM_MOJALOOP_REPO_URI=${HELM_MOJALOOP_REPO_URI:-'https://docs.mojaloop.io/helm/repo'}
+#LOCAL_HELM_MOJALOOP_REPO_URI=${HELM_MOJALOOP_REPO_URI:-'https://docs.mojaloop.io/charts/repo'}
+LOCAL_HELM_MOJALOOP_REPO_URI=https://docs.mojaloop.io/charts/repo
 
 #
 # Script to Package all charts, and create an index.yaml in ./repo directory
