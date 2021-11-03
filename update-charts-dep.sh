@@ -13,7 +13,7 @@ find ./ -name "charts"| xargs rm -Rf
 find ./ -name "tmpcharts"| xargs rm -Rf
 
 declare -a charts=(
-        dependencies/backend
+        mojaloop/example-backend
         mojaloop/common
         mojaloop/admin-api-svc
         mojaloop/fspiop-transfer-api-svc
