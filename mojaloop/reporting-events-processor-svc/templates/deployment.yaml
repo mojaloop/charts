@@ -91,18 +91,18 @@ spec:
               value: $(KAFKA_HOST):$(KAFKA_PORT)
             # Event Store
             - name: EVENT_DB_HOST
-              value: '{{ include "common.backends.mongodb.host" . }}'
+              value: '{{ include "common.backends.reportingEventsDB.host" . }}'
             - name: EVENT_DB_PORT
-              value: '{{ include "common.backends.mongodb.port" . }}'
+              value: '{{ include "common.backends.reportingEventsDB.port" . }}'
             - name: EVENT_DB_NAME
-              value: '{{ include "common.backends.mongodb.database" . }}'
+              value: '{{ include "common.backends.reportingEventsDB.database" . }}'
             - name: EVENT_DB_USER
-              value: '{{ include "common.backends.mongodb.user" . }}'
+              value: '{{ include "common.backends.reportingEventsDB.user" . }}'
             - name: EVENT_DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: '{{ include "common.backends.mongodb.secret.name" . }}'
-                  key: '{{ include "common.backends.mongodb.secret.key" . }}'
+                  name: '{{ include "common.backends.reportingEventsDB.secret.name" . }}'
+                  key: '{{ include "common.backends.reportingEventsDB.secret.key" . }}'
             - name: MONGO_DB_URI
               value: mongodb://$(EVENT_DB_USER):$(EVENT_DB_PASSWORD)@$(EVENT_DB_HOST):$(EVENT_DB_PORT)/$(EVENT_DB_NAME)
             - name: MONGO_DB_DBNAME

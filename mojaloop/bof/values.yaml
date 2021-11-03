@@ -30,14 +30,14 @@ global:
     secret:
       name: mysql
       key: mysql-password
-  mongodb:
-    host: mongodb
+  reportingEventsDB:
+    host: reporting-events-db
     port: 27017
     user: user
     database: default
     # secret: {}
     secret:
-      name: mongodb
+      name: reporting-events-db
       key: mongodb-password
   kafka:
     host: test1-kafka-headless

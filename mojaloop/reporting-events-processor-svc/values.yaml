@@ -12,14 +12,14 @@ global:
   kafka:
     host: kafka
 
-  mongodb:
-    host: mongodb
+  reportingEventsDB:
+    host: reporting-events-db
     port: 27017
     user: user
     database: default
     # secret: {}
     secret:
-      name: mongodb
+      name: reporting-events-db
       key: mongodb-password
 
 kafka:
@@ -27,17 +27,17 @@ kafka:
   consumerGroup: group
   clientId: client-id
 
-mongodb:
+reportingEventsDB:
   ## This is the same as setting the host explicitly, i.e. will set the host as set below. It is included to support importing MySQL charts as a dependency.
-  # fullnameOverride: mongodb
-  ## This will override the name of mongodb and add the release prefix, e.g. '<RELEASE_NAME>-<nameOverride>'.
-  # nameOverride: mongodb
-  # host: mongodb
+  # fullnameOverride: reporting-events-db
+  ## This will override the name of reporting-events-db and add the release prefix, e.g. '<RELEASE_NAME>-<nameOverride>'.
+  # nameOverride: reporting-events-db
+  # host: reporting-events-db
   # port: 27017
   # user: event_store
   # database: event_store
   secret: {}
-  #   name: mongodb
+  #   name: reporting-events-db
   #   key: password
 
 podAffinityPreset: ""

@@ -2359,9 +2359,9 @@ kowl:
 
 ################################################################
 ## MongoDB Backend Dependency
-mongodb:
+reporting-events-db:
   enabled: true
-  fullnameOverride: "mongodb"
+  fullnameOverride: "reporting-events-db"
 
   auth:
     rootUser: root
