@@ -1,13 +1,5 @@
 #!/usr/bin/env bash
-# test application running in multiple versions of kubernetes 
-##
-# Bash Niceties
-##
-
-# keep track of the last executed command
-trap 'last_command=$current_command; current_command=$BASH_COMMAND' DEBUG
-# echo an error message before exiting
-#trap ' echo "\"${last_command}\" command filed with exit code $?."' EXIT
+# test application running in multiple versions of kubernetes ]
 
 # exit on unset vars
 set -u
@@ -38,6 +30,29 @@ function add_helm_repos {
         su - vagrant -c "helm repo update > /dev/null 2>&1 "
 }
 
+function update_charts {
+  ## update the PoC charts and dependencies
+        declare -a charts=(
+                dependencies/backend
+                mojaloop/common
+                mojaloop/admin-api-svc
+                mojaloop/fspiop-transfer-api-svc
+                mojaloop/mojaloop
+        )
+
+        printf "==> Updating helm Charts...\n"
+        for chart in "${charts[@]}"
+        do
+                printf  "    Updating chart: $chart    "
+                rm -rf $BASE_DIR/charts/$chart/charts 
+                if [[ `helm dep up $BASE_DIR/charts/$chart --skip-refresh 2>&1 | grep "Error" ` != "" ]] ; then 
+                        printf "[failed]\n"
+                        printf "Error updating chart:  %s \n" $chart 
+                else 
+                        printf "[ok]\n" $?
+                fi
+        done
+}
 
 function install_v14poc_charts {
   printf "\n========================================================================================\n"
@@ -94,7 +109,7 @@ function post_install_health_checks {
                         done 
                         if [ $i -gt $TIMEOUT ] ; then  
                                 printf "[failed]\n"            
-                                printf "Error: $ep endpoint healthcheck failed\n"
+                                printf "Error: curl -s http://$ep.local/health  endpoint healthcheck failed\n"
                                 exit 1  
                         fi        
         done
@@ -201,7 +216,7 @@ function showUsage {
 		echo "Incorrect number of arguments passed to function $0"
 		exit 1
 	else
-echo  "USAGE: $0 [-m mode] [-v version(s)] [-u user] [-t secs] [-u user] [-h|H]
+echo  "USAGE: $0 [-m mode] [-v version(s)] [-u user] [-t secs] [-u user] [-r] [-h|H]
 Example 1 : version-test.sh -m noinstall # helm install charts on current k8s & ingress 
 Example 2 : version-test.sh -m install -v all  # tests charts against k8s versions 1.20,1.21 and 1.22
 
@@ -210,6 +225,7 @@ Options:
 -t timeout_secs .... seconds to wait for helm chart install (default:800)
 -v k8s versions .... all|v1.20|v1.21|v1.22 (default :  v1.22)
 -u user ............ non root user to run helm and k8s commands (default : vagrant)
+-r ................. refresh the PoC helm charts (default: refresh if mode is install ; otherwise not)
 -h|H ............... display this message
 "
 	fi
@@ -224,7 +240,7 @@ Options:
 ##
 SCRIPTNAME=$0
 # Program paths
-#BASE_DIR=$( cd $(dirname "$0")/../.. ; pwd )
+BASE_DIR=$( cd $(dirname "$0")/../.. ; pwd )
 MOJALOOP_WORKING_DIR=/vagrant/charts
 BACKEND_NAME="be" 
 RELEASE_NAME="ml"
@@ -251,7 +267,7 @@ fi
 # fi
 
 # Process command line options as required
-while getopts "m:t:u:v:hH" OPTION ; do
+while getopts "m:t:u:v:rhH" OPTION ; do
    case "${OPTION}" in
         m)	mode="${OPTARG}"
         ;;
@@ -260,6 +276,8 @@ while getopts "m:t:u:v:hH" OPTION ; do
         v)	versions="${OPTARG}"
         ;;
         u)      k8s_user="${OPTARG}"
+        ;;
+        r)      refresh_update_helm="true"
         ;;
         h|H)	showUsage
                 exit 0
@@ -308,6 +326,7 @@ if [[ "$mode" == "install" ]]  ; then
 	printf " -m install specified => k8s and nginx version(s) will be installed\n"
         add_hosts
         add_helm_repos
+        update_charts
         set_versions_to_test
 
         # for each k8s version -> install server -> install charts -> check
@@ -317,6 +336,10 @@ elif [[ "$mode" == "noinstall" ]]  ; then
         # just install the charts against already installed k8s
 	printf " k8s and nginx ingress will not be installed\n"
         printf " ignoring and/or clearing any setting for -v flag\n "
+        if [[ ! -z ${refresh_update_helm+x} ]] ; then 
+            add_helm_repos
+            update_charts
+        fi 
         versions=$DEFAULT_VERSION 
         install_v14poc_charts
         post_install_health_checks
