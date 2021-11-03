@@ -1,0 +1,356 @@
+## @section Global parameters
+## Global Docker image parameters
+## Please, note that this will override the image parameters, including dependencies, configured to use the global value
+## Current available global Docker image parameters: imageRegistry, imagePullSecrets and storageClass
+
+## @param global.imageRegistry Global Docker image registry
+## @param global.imagePullSecrets Global Docker registry secret names as an array
+## @param global.storageClass Global StorageClass for Persistent Volume(s)
+##
+global:
+  # This can be overridden by the main keto element.
+  keto:
+    readURL: 'http://keto-read'
+  ## The following is the database configuration of the reporting DB
+  ## For testing / development, it can be pointed to the main centralledger database
+  ## but for production use, please point this to the reporting database which can be a replica of the main database
+  reportingDB:
+    host: centralledger-mysql
+    port: 3306
+    user: central_ledger
+    database: central_ledger
+    # secret: {}
+    secret:
+      name: centralledger-mysql
+      key: mysql-password
+
+  reportingEventsDB:
+    host: reporting-events-db
+    port: 27017
+    user: user
+    database: default
+    # secret: {}
+    secret:
+      name: reporting-events-db
+      key: mongodb-password
+
+reportingDB:
+  ## This is the same as setting the host explicitly, i.e. will set the host as set below. It is included to support importing MySQL charts as a dependency.
+  # fullnameOverride: reporting-db
+  ## This will override the name of kafka and add the release prefix, e.g. '<RELEASE_NAME>-<nameOverride>'.
+  # nameOverride: reporting-db
+  # host: reporting-db
+  # port: 90925
+  # user: central_ledger
+  # database: central_ledger
+  secret: {}
+  #   name: reporting-db
+  #   key: password
+
+reportingEventsDB:
+  ## This is the same as setting the host explicitly, i.e. will set the host as set below. It is included to support importing MySQL charts as a dependency.
+  # fullnameOverride: reporting-events-db
+  ## This will override the name of reporting-events-db and add the release prefix, e.g. '<RELEASE_NAME>-<nameOverride>'.
+  # nameOverride: reporting-events-db
+  # host: reporting-events-db
+  # port: 27017
+  # user: event_store
+  # database: event_store
+  secret: {}
+  #   name: reporting-events-db
+  #   key: password
+
+  # This can be overridden by the main keto element.
+keto: { }
+  # keto:
+  #   readURL: 'http://keto-read'
+  #   writeURL: 'http://keto-write'
+
+podAffinityPreset: ""
+## @param podAntiAffinityPreset Pod anti-affinity preset. Ignored if `main.affinity` is set. Allowed values: `soft` or `hard`
+## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity
+##
+podAntiAffinityPreset: soft
+## Node affinity preset
+## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity
+##
+
+nodeAffinityPreset:
+  ## @param nodeAffinityPreset.type Node affinity preset type. Ignored if `main.affinity` is set. Allowed values: `soft` or `hard`
+  ##
+  type: ""
+  ## @param nodeAffinityPreset.key Node label key to match. Ignored if `main.affinity` is set
+  ##
+  key: ""
+  ## @param nodeAffinityPreset.values Node label values to match. Ignored if `main.affinity` is set
+  ## E.g.
+  ## values:
+  ##   - e2e-az1
+  ##   - e2e-az2
+  ##
+  values: []
+## @param affinity Affinity for %%MAIN_CONTAINER_NAME%% pods assignment
+## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
+## NOTE: `podAffinityPreset`, `main.podAntiAffinityPreset`, and `main.nodeAffinityPreset` will be ignored when it's set
+##
+
+## Pod scheduling preferences.
+## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
+affinity: {}
+
+## Node labels for pod assignment
+## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector
+nodeSelector: {}
+
+## Set toleration for scheduler
+## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+tolerations: []
+
+## Configure Pods Security Context
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
+## @param podSecurityContext.enabled Enabled %%MAIN_CONTAINER_NAME%% pods' Security Context
+## @param podSecurityContext.fsGroup Set %%MAIN_CONTAINER_NAME%% pod's Security Context fsGroup
+##
+podSecurityContext:
+  enabled: true
+  fsGroup: 1001
+## Configure Container Security Context
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
+## @param containerSecurityContext.enabled Enabled %%MAIN_CONTAINER_NAME%% containers' Security Context
+## @param containerSecurityContext.runAsUser Set %%MAIN_CONTAINER_NAME%% containers' Security Context runAsUser
+##
+containerSecurityContext:
+  enabled: true
+  runAsUser: 1001
+
+image:
+  registry: docker.io
+  repository: mojaloop/reporting-hub-bop-api-svc
+  tag: v1.0.13
+  ## Specify a imagePullPolicy
+  ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
+  ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+  ##
+  pullPolicy: IfNotPresent
+  ## Optionally specify an array of imagePullSecrets.
+  ## Secrets must be manually created in the namespace.
+  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+  ## e.g:
+  ## pullSecrets:
+  ##   - myRegistryKeySecretName
+  ##
+  pullSecrets: []
+  ## Enable debug mode
+  ##
+  debug: false
+
+replicaCount: 1
+command:
+  # - sleep
+  # - infinity
+  - npm
+  - start
+
+## Enable diagnostic mode in the deployment
+##
+diagnosticMode:
+  ## @param diagnosticMode.enabled Enable diagnostic mode (all probes will be disabled and the command will be overridden)
+  ##
+  enabled: false
+  ## @param diagnosticMode.command Command to override all containers in the deployment
+  ##
+  command:
+    - npm
+    - start
+  ## @param diagnosticMode.args Args to override all containers in the deployment
+  ##
+  args:
+    - --inspect=0.0.0.0:{{ .Values.diagnosticMode.debug.port }}
+
+  ## @param diagnosticMode.debug config to override all debug information
+  ##
+  debug:
+    internalPort: 9229
+    port: 9229
+
+## @param initContainers Add additional init containers to the %%MAIN_CONTAINER_NAME%% pod(s)
+## ref: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
+## e.g:
+## initContainers:
+##  - name: your-image-name
+##    image: your-image
+##    imagePullPolicy: Always
+##    command: ['sh', '-c', 'echo "hello world"']
+##
+initContainers: []
+
+readinessProbe:
+  enabled: true
+  httpGet:
+    path: /health
+  initialDelaySeconds: 15
+  periodSeconds: 15
+livenessProbe:
+  enabled: true
+  httpGet:
+    path: /health
+  initialDelaySeconds: 15
+  periodSeconds: 15
+
+## metric configuration for prometheus instrumentation
+metrics:
+  ## flag to enable/disable the metrics end-points
+  enabled: true
+  config:
+    timeout: 5000
+    prefix: moja_
+    defaultLabels:
+      serviceName: reporting-hub-bop-api-svc
+
+config: {}
+
+service:
+  internalPort: 3000
+  ## @param service.type %%MAIN_CONTAINER_NAME%% service type
+  ##
+  type: ClusterIP
+  ## @param service.port %%MAIN_CONTAINER_NAME%% service HTTP port
+  ##
+  port: 80
+  ## @param service.httpsPort %%MAIN_CONTAINER_NAME%% service HTTPS port
+  ##
+  httpsPort: 443
+  ## Node ports to expose
+  ## @param service.nodePorts.http Node port for HTTP
+  ## @param service.nodePorts.https Node port for HTTPS
+  ## NOTE: choose port between <30000-32767>
+  ##
+  nodePorts:
+    http:
+    https:
+  ## @param service.clusterIP %%MAIN_CONTAINER_NAME%% service Cluster IP
+  ## e.g.:
+  ## clusterIP: None
+  ##
+  clusterIP:
+  ## @param service.loadBalancerIP %%MAIN_CONTAINER_NAME%% service Load Balancer IP
+  ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-loadbalancer
+  ##
+  loadBalancerIP:
+  ## @param service.loadBalancerSourceRanges %%MAIN_CONTAINER_NAME%% service Load Balancer sources
+  ## ref: https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/#restrict-access-for-loadbalancer-service
+  ## e.g:
+  ## loadBalancerSourceRanges:
+  ##   - 10.10.10.0/24
+  ##
+  loadBalancerSourceRanges: []
+  ## @param service.externalTrafficPolicy %%MAIN_CONTAINER_NAME%% service external traffic policy
+  ## ref http://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip
+  ##
+  externalTrafficPolicy: Cluster
+  ## @param service.annotations Additional custom annotations for %%MAIN_CONTAINER_NAME%% service
+  ##
+  annotations: {}
+
+ingress:
+  ## @param ingress.enabled Enable ingress record generation for %%MAIN_CONTAINER_NAME%%
+  ##
+  enabled: true
+  ## @param ingress.pathType Ingress path type
+  ##
+  pathType: ImplementationSpecific
+  ## @param ingress.apiVersion Force Ingress API version (automatically detected if not set)
+  ##
+  apiVersion:
+  ## @param ingress.hostname Default host for the ingress record
+  ##
+  hostname: reporting-hub-bop-api-svc.local
+  ## @param ingress.path Default path for the ingress record
+  ## NOTE: You may need to set this to '/*' in order to use this with ALB ingress controllers
+  ##
+  path: /
+  ## @param ingress.annotations Additional custom annotations for the ingress record
+  ## NOTE: If `ingress.certManager=true`, annotation `kubernetes.io/tls-acme: "true"` will automatically be added
+  ##
+  annotations: {}
+  ## @param ingress.tls Enable TLS configuration for the host defined at `ingress.hostname` parameter
+  ## TLS certificates will be retrieved from a TLS secret with name: `{{- printf "%s-tls" .Values.ingress.hostname }}`
+  ## You can:
+  ##   - Use the `ingress.secrets` parameter to create this TLS secret
+  ##   - Relay on cert-manager to create it by setting `ingress.certManager=true`
+  ##   - Relay on Helm to create self-signed certificates by setting `ingress.selfSigned=true`
+  ##
+  tls: false
+  ## @param ingress.certManager Add the corresponding annotations for cert-manager integration
+  ##
+  certManager: false
+  ## @param ingress.selfSigned Create a TLS secret for this ingress record using self-signed certificates generated by Helm
+  ##
+  selfSigned: false
+  ## @param ingress.extraHosts An array with additional hostname(s) to be covered with the ingress record
+  ## e.g:
+  ## extraHosts:
+  ##   - name: transfer-api-svc.local
+  ##     path: /
+  ##
+  extraHosts: []
+  ## @param ingress.extraPaths An array with additional arbitrary paths that may need to be added to the ingress under the main host
+  ## e.g:
+  ## extraPaths:
+  ## - path: /*
+  ##   backend:
+  ##     serviceName: ssl-redirect
+  ##     servicePort: use-annotation
+  ##
+  extraPaths: []
+  ## @param ingress.extraTls TLS configuration for additional hostname(s) to be covered with this ingress record
+  ## ref: https://kubernetes.io/docs/concepts/services-networking/ingress/#tls
+  ## e.g:
+  ## extraTls:
+  ## - hosts:
+  ##     - transfer-api-svc.local
+  ##   secretName: transfer-api-svc.local-tls
+  ##
+  extraTls: []
+  ## @param ingress.secrets Custom TLS certificates as secrets
+  ## NOTE: 'key' and 'certificate' are expected in PEM format
+  ## NOTE: 'name' should line up with a 'secretName' set further up
+  ## If it is not set and you're using cert-manager, this is unneeded, as it will create a secret for you with valid certificates
+  ## If it is not set and you're NOT using cert-manager either, self-signed certificates will be created valid for 365 days
+  ## It is also possible to create and manage the certificates outside of this helm chart
+  ## Please see README.md for more information
+  ## e.g:
+  ## secrets:
+  ##   - name: transfer-api-svc.local-tls
+  ##     key: |-
+  ##       -----BEGIN RSA PRIVATE KEY-----
+  ##       ...
+  ##       -----END RSA PRIVATE KEY-----
+  ##     certificate: |-
+  ##       -----BEGIN CERTIFICATE-----
+  ##       ...
+  ##       -----END CERTIFICATE-----
+  ##
+  secrets: []
+
+podAnnotations: {}
+
+auth: false
+
+## RBAC configuration
+##
+rbac:
+  ## @param rbac.create Specifies whether RBAC resources should be created
+  ##
+  create: false
+
+## ServiceAccount configuration
+##
+serviceAccount:
+  ## @param serviceAccount.create Specifies whether a ServiceAccount should be created
+  ##
+  create: false
+  ## @param serviceAccount.name The name of the ServiceAccount to use.
+  ## If not set and create is true, a name is generated using the common.names.fullname template
+  ##
+  name: ""
