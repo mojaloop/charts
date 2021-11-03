@@ -74,18 +74,18 @@ jobs:
           name: Placeholder for setup
           command: echo "Placeholder for setup - Nothing to do here"
 
-  # test:
-  #   executor: default-docker-helm
-  #   steps:
-  #     - checkout
-  #     - run:
-  #         <<: *defaults_Dependencies
-  #     - run:
-  #         <<: *defaults_environment
-  #     - run:
-  #         name: Linting Helm Charts
-  #         command: |
-  #           bash lint-charts.sh
+  test:
+    executor: default-docker-helm
+    steps:
+      - checkout
+      - run:
+          <<: *defaults_Dependencies
+      - run:
+          <<: *defaults_environment
+      - run:
+          name: Linting Helm Charts
+          command: |
+            bash lint-charts.sh
 
   # audit-licenses:
   #   executor: default-machine
@@ -201,13 +201,13 @@ workflows:
           filters:
             tags:
               only: /.*/
-      # - test:
-      #     context: org-global
-      #     requires:
-      #       - setup
-      #     filters:
-      #       tags:
-      #         only: /.*/
+      - test:
+          context: org-global
+          requires:
+            - setup
+          filters:
+            tags:
+              only: /.*/
       # - audit-licenses:
       #     context: org-global
       #     requires:
@@ -217,8 +217,8 @@ workflows:
       #         only: /.*/
       - build:
           context: org-global
-          requires: []
-            # - test
+          requires:
+            - test
             # - audit-licenses
           filters:
             tags:
