@@ -12,12 +12,12 @@
 - [Documentation - Deploying Mojaloop](https://docs.mojaloop.io/documentation/deployment-guide)
 - [Helm v3 Docs](https://docs.helm.sh/)
 
-
 ## Published Helm Chart Repo
 
-```
+```bash
 helm repo add http://docs.mojaloop.io/charts/repo
 ```
+
 ## Todo
 
 - Refer to task list on [Helm v14.0.0 PoC #2459](https://github.com/mojaloop/project/issues/2459) story.
