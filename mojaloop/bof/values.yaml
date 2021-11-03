@@ -17,9 +17,10 @@ global:
       host: "wso2-identity-server.local"
       port: 9443
       userListURL: "http://wso2-identity-server.local:9443/scim2/Users"
-      # username: 'admin'
-      # password: 'admin'
-      secretName: 'wso2-is-admin-creds'
+      user: 'admin'
+      secret:
+        name: wso2-is-admin-creds
+        key: password
   reportingDB:
     host: centralledger-mysql
     port: 3306

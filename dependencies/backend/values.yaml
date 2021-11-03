@@ -4725,5 +4725,4 @@ wso2:
     createSecrets: true
     secrets:
       wso2-is-admin-creds:
-        username: "admin"
         password: "admin"

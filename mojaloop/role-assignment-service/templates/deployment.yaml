@@ -107,19 +107,11 @@ spec:
             - name: {{ template "common.names.fullname" . }}-config-volume
               mountPath: /opt/role-assignment-service/config
           env:
-            {{- if .Values.config.wso2SecretName }}
-            - name: ROLE_ASSIGNMENT_SERVICE_WSO2_USER
-              valueFrom:
-                secretKeyRef:
-                  name: {{- include "common.tplvalues.render" ( dict "value" .Values.config.wso2SecretName "context" $ ) | indent 1 }}
-                  key: username
             - name: ROLE_ASSIGNMENT_SERVICE_WSO2_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{- include "common.tplvalues.render" ( dict "value" .Values.config.wso2SecretName "context" $ ) | indent 1 }}
-                  key: password
-            {{- end}}
-
+                  name: '{{ include "common.backends.wso2.identityServer.secret.name" . }}'
+                  key: '{{ include "common.backends.wso2.identityServer.secret.key" . }}'
       volumes:
         - name: {{ template "common.names.fullname" . }}-config-volume
           configMap:

@@ -32,23 +32,25 @@ Get wso2 identity-server port.
 {{/*
 Get wso2 identity-server username.
 */}}
-{{- define "common.backends.wso2.identityServer.username" -}}
-  {{- default "admin" (default .Values.global.wso2.identityServer.username .Values.wso2.identityServer.username) -}}
+{{- define "common.backends.wso2.identityServer.user" -}}
+  {{- default "admin" (default .Values.global.wso2.identityServer.user .Values.wso2.identityServer.user) -}}
+{{- end -}}
+
+
+{{/*
+Get wso2 identity-server secret.name
+*/}}
+{{- define "common.backends.wso2.identityServer.secret.name" -}}
+  {{- default "wso2-is-admin-creds" (default .Values.global.wso2.identityServer.secret.name .Values.wso2.identityServer.secret.name) -}}
 {{- end -}}
 
 {{/*
-Get wso2 identity-server password.
+Get wso2 identity-server secret.key
 */}}
-{{- define "common.backends.wso2.identityServer.password" -}}
-  {{- default "admin" (default .Values.global.wso2.identityServer.password .Values.wso2.identityServer.password) -}}
+{{- define "common.backends.wso2.identityServer.secret.key" -}}
+  {{- default "password" (default .Values.global.wso2.identityServer.secret.key .Values.wso2.identityServer.secret.key) -}}
 {{- end -}}
 
-{{/*
-Get wso2 identity-server secretName (contains username and password).
-*/}}
-{{- define "common.backends.wso2.identityServer.secretName" -}}
-  {{- default "wso2-is-admin-creds" (default .Values.global.wso2.identityServer.secretName .Values.wso2.identityServer.secretName) -}}
-{{- end -}}
 
 {{/*
 Get wso2 user list url.
