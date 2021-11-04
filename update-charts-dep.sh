@@ -13,10 +13,16 @@ find ./ -name "charts"| xargs rm -Rf
 find ./ -name "tmpcharts"| xargs rm -Rf
 
 declare -a charts=(
+        # Example Backend Dependency Charts
         mojaloop/example-backend
+        # Common Charts
         mojaloop/common
+        # Mojaloop BoF Charts
+        ## placeholder
+        # Mojaloop Core Charts
         mojaloop/admin-api-svc
         mojaloop/fspiop-transfer-api-svc
+        # Main Mojaloop Helm Chart 
         mojaloop/mojaloop
     )
 
