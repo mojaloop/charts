@@ -1,6 +1,6 @@
 apiVersion: v2
 name: backend
-description: A Helm chart for Mojaloop Backend Dependencies
+description: A Helm chart containing example Mojaloop Backend Dependencies. This should be used for development/poc purposes only!
 
 # A chart can be either an 'application' or a 'library' chart.
 #

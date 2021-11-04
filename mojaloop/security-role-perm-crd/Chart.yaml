@@ -1,4 +1,4 @@
-apiVersion: v1
+apiVersion: v2
 description: Custom Resource Definition (CRD) for mojaloop role-permission mappings
 name: security-role-perm-crd
 version: 1.0.0

@@ -1,4 +1,4 @@
-apiVersion: v1
+apiVersion: v2
 description: Reporting API service
 name: reporting-hub-bop-api-svc
 version: 1.0.0

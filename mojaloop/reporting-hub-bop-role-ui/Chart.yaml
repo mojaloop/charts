@@ -1,4 +1,4 @@
-apiVersion: v1
+apiVersion: v2
 description: >-
   This is the role microfrontend of the BizOps framework that handles role and
   participant assignment.

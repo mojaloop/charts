@@ -1,18 +1,22 @@
 #!/usr/bin/env bash
 
 #
-# Script to update all Helm Chart Dependencies
+# Script to Lint all charts
 #
 
-set -eux
+echo "Linting all Charts..."
 
-trap 'echo "Dep update failed...exiting. Please fix me!"' ERR
+set -e
 
-echo "Removing old charts..."
-find ./ -name "charts"| xargs rm -Rf
-find ./ -name "tmpcharts"| xargs rm -Rf
+LOCAL_HELM_MOJALOOP_REPO_URI=${HELM_MOJALOOP_REPO_URI:-'https://docs.mojaloop.io/helm/repo'}
 
-declare -a charts=(
+trap 'echo "Command failed...exiting. Please fix me!"' ERR
+
+
+if [ "$1" ]; then
+    declare -a charts=("$1")
+else
+    declare -a charts=(
         # Example Backend Dependency Charts
         mojaloop/example-backend
         # Common Charts
@@ -35,18 +39,18 @@ declare -a charts=(
         # Main Mojaloop Helm Chart 
         mojaloop/mojaloop
     )
+fi
 
-echo "Updating all Charts..."
+echo "\n"
+
 for chart in "${charts[@]}"
 do
-    echo "---=== Updating $chart ===---"
-    helm dep up "$chart" --skip-refresh
+    echo "---=== Linting $chart ===---"
+    helm lint $chart
 done
 
-set +x
-
 echo "\
-Chart updates completed.\n \
+Chart linting completed.\n \
 Ensure you check the output for any errors. \n \
 Ignore any http errors when connecting to \"local\" chart repository.\n \
 \n \

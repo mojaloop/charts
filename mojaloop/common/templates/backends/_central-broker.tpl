@@ -1,7 +1,7 @@
 {{/*
 Get fully qualified kafka name.
 */}}
-{{- define "common.backends.kafka.fullname" -}}
+{{- define "common.backends.centralbroker.fullname" -}}
   {{- if .Values.kafka -}}
     {{- if .Values.kafka.fullnameOverride -}}
       {{- .Values.kafka.fullnameOverride | trunc 63 | trimSuffix "-" -}}
@@ -18,13 +18,13 @@ Get fully qualified kafka name.
 {{/*
 Get kafka port.
 */}}
-{{- define "common.backends.kafka.port" -}}
+{{- define "common.backends.centralbroker.port" -}}
   {{- default 9092 (default .Values.global.kafka.port .Values.kafka.port) -}}
 {{- end -}}
 
 {{/*
 Get fully qualified kafka host.
 */}}
-{{- define "common.backends.kafka.host" -}}
-  {{- default (include "common.backends.kafka.fullname" .) (default .Values.global.kafka.host .Values.kafka.host) -}}
+{{- define "common.backends.centralbroker.host" -}}
+  {{- default (include "common.backends.centralbroker.fullname" .) (default .Values.global.kafka.host .Values.kafka.host) -}}
 {{- end -}}

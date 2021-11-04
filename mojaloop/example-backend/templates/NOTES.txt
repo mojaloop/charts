@@ -1,4 +1,6 @@
-Backend dependencies have been deployed.
+Mojaloop Example Backend dependencies have been deployed.
+
+Note that this chart should only be used for development or proof-of-concept purposes.
 
 Post-installation checks:
 

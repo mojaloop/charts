@@ -1,4 +1,4 @@
-apiVersion: v1
+apiVersion: v2
 description: This is the Shell application that accommodates BizOps microfrontends.
 name: reporting-hub-bop-shell
 version: 1.0.0
