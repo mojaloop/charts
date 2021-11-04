@@ -200,11 +200,11 @@ workflows:
             branches:
               ignore:
                 - master
-      - setup:
-          context: org-global
-          filters:
-            tags:
-              only: /.*/
+      # - setup:
+      #     context: org-global
+      #     filters:
+      #       tags:
+      #         only: /.*/
       # - test:
       #     context: org-global
       #     requires:
