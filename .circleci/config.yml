@@ -66,13 +66,13 @@ executors:
 # A map of CircleCI jobs
 ##
 jobs:
-  setup:
-    executor: default-docker-helm
-    steps:
-      - checkout
-      - run:
-          name: Placeholder for setup
-          command: echo "Placeholder for setup - Nothing to do here"
+  # setup:
+  #   executor: default-docker-helm
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         name: Placeholder for setup
+  #         command: echo "Placeholder for setup - Nothing to do here"
 
   # test:
   #   executor: default-docker-helm
