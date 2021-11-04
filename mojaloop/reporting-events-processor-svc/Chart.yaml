@@ -1,4 +1,4 @@
-apiVersion: v1
+apiVersion: v2
 description: Reporting Events Processor
 name: reporting-events-processor-svc
 version: 1.0.0
