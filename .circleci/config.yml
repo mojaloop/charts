@@ -74,18 +74,18 @@ jobs:
           name: Placeholder for setup
           command: echo "Placeholder for setup - Nothing to do here"
 
-  test:
-    executor: default-docker-helm
-    steps:
-      - checkout
-      - run:
-          <<: *defaults_Dependencies
-      - run:
-          <<: *defaults_environment
-      - run:
-          name: Linting Helm Charts
-          command: |
-            bash lint-charts.sh
+  # test:
+  #   executor: default-docker-helm
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         <<: *defaults_Dependencies
+  #     - run:
+  #         <<: *defaults_environment
+  #     - run:
+  #         name: Linting Helm Charts
+  #         command: |
+  #           bash lint-charts.sh
 
   # audit-licenses:
   #   executor: default-machine
@@ -128,7 +128,7 @@ jobs:
   #         path: /tmp/license-scanner/results
   #         prefix: licenses
 
-  build:
+  build-and-test:
     executor: default-docker-helm
     steps:
       - checkout
@@ -140,6 +140,10 @@ jobs:
           name: Update Helm Charts
           command: |
             bash update-charts-dep.sh
+      - run:
+          name: Linting Helm Charts
+          command: |
+            bash lint-charts.sh
 
   deploy:
     executor: default-docker-helm
@@ -201,13 +205,13 @@ workflows:
           filters:
             tags:
               only: /.*/
-      - test:
-          context: org-global
-          requires:
-            - setup
-          filters:
-            tags:
-              only: /.*/
+      # - test:
+      #     context: org-global
+      #     requires:
+      #       - setup
+      #     filters:
+      #       tags:
+      #         only: /.*/
       # - audit-licenses:
       #     context: org-global
       #     requires:
@@ -215,10 +219,10 @@ workflows:
       #     filters:
       #       tags:
       #         only: /.*/
-      - build:
+      - build-and-test:
           context: org-global
-          requires:
-            - test
+          requires: []
+            # - test
             # - audit-licenses
           filters:
             tags:
@@ -226,7 +230,7 @@ workflows:
       - deploy:
           context: org-global
           requires:
-            - build
+            - build-and-test
           filters:
             tags:
               only: /v[0-9]+(\.[0-9]+)*/
