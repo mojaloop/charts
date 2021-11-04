@@ -1,4 +1,4 @@
-apiVersion: v1
+apiVersion: v2
 description: API service for assigning roles and participants to users
 name: role-assignment-service
 version: 1.0.0
