@@ -1,0 +1,124 @@
+apiVersion: v2
+name: backend
+description: A Helm chart containing example Mojaloop Backend Dependencies. This should be used for development/poc purposes only!
+
+# A chart can be either an 'application' or a 'library' chart.
+#
+# Application charts are a collection of templates that can be packaged into versioned archives
+# to be deployed.
+#
+# Library charts provide useful utilities or functions for the chart developer. They're included as
+# a dependency of application charts to inject those utilities and functions into the rendering
+# pipeline. Library charts do not define any templates and therefore cannot be deployed.
+type: application
+
+# This is the chart version. This version number should be incremented each time you make changes
+# to the chart and its templates, including the app version.
+# Versions are expected to follow Semantic Versioning (https://semver.org/)
+version: 0.1.0
+
+# This is the version number of the application being deployed. This version number should be
+# incremented each time you make changes to the application. Versions are not expected to
+# follow Semantic Versioning. They should reflect the version the application is using.
+# It is recommended to use it with quotes.
+appVersion: "1.16.0"
+dependencies:
+  - name: kafka
+    alias: kafka
+    condition: kafka.enabled
+    repository: "https://charts.bitnami.com/bitnami"
+    tags:
+      - mojaloop
+      - dependency
+      - backend
+      - kafka
+    version: 14.1.1
+  - name: mysql
+    alias: mysql
+    condition: mysql.enabled
+    repository: "https://charts.bitnami.com/bitnami"
+    tags:
+      - mojaloop
+      - dependency
+      - backend
+      - kafka
+    version: 8.8.8
+  - name: mongodb
+    alias: reporting-events-db
+    condition: reporting-events-db.enabled
+    repository: "https://charts.bitnami.com/bitnami"
+    tags:
+      - mojaloop
+      - dependency
+      - backend
+      - reporting-events-db
+      - mongodb
+    version: 10.28.1
+  - name: kowl
+    alias: kowl
+    condition: kowl.enabled
+    repository: "https://raw.githubusercontent.com/cloudhut/charts/master/archives"
+    tags:
+      - mojaloop
+      - dependency
+      - backend
+      - kafka
+    version: 2.0.1
+  - name: keto
+    alias: keto
+    condition: keto.enabled
+    repository: "https://k8s.ory.sh/helm/charts"
+    tags:
+      - mojaloop
+      - dependency
+      - backend
+      - keto
+      - bof
+    version: 0.19.5
+  - name: mysql
+    alias: keto-db
+    condition: keto-db.enabled
+    repository: "https://charts.bitnami.com/bitnami"
+    tags:
+      - mojaloop
+      - dependency
+      - backend
+      - mysql
+      - keto
+      - bof
+    version: 8.8.8
+  - name: oathkeeper
+    alias: oathkeeper
+    condition: oathkeeper.enabled
+    repository: "https://k8s.ory.sh/helm/charts"
+    tags:
+      - mojaloop
+      - dependency
+      - backend
+      - oathkeeper
+      - bof
+    version: 0.19.6
+  - name: kratos
+    alias: kratos
+    condition: kratos.enabled
+    repository: "https://k8s.ory.sh/helm/charts"
+    tags:
+      - mojaloop
+      - dependency
+      - backend
+      - kratos
+      - bof
+    version: 0.19.6
+  - name: mysql
+    alias: kratos-db
+    condition: kratos-db.enabled
+    repository: "https://charts.bitnami.com/bitnami"
+    tags:
+      - mojaloop
+      - dependency
+      - backend
+      - mysql
+      - kratos
+      - bof
+    version: 8.8.8
+

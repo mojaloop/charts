@@ -110,8 +110,8 @@ spec:
             - name: CLEDG_DATABASE__PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: '{{ include "common.backends.mysql.secret.name" . }}'
-                  key: '{{ include "common.backends.mysql.secret.key" . }}'
+                  name: '{{ include "common.backends.centraldb.secret.name" . }}'
+                  key: '{{ include "common.backends.centraldb.secret.key" . }}'
             - name: LOG_LEVEL
               value: {{ .Values.config.log_level | quote}}
             - name: LOG_FILTER

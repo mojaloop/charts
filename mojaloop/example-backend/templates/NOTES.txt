@@ -1,0 +1,28 @@
+Mojaloop Example Backend dependencies have been deployed.
+
+Note that this chart should only be used for development or proof-of-concept purposes.
+
+Post-installation checks:
+
+If this is a fresh installation, you may need to populate the databases for Ory Kratos and Ory Keto.
+You can follow the steps below to do that.
+
+1. Initialize DB for Kratos
+   a. Get the list of pods by executing:
+      kubectl get pods --namespace {{ .Release.Namespace }} -l app.kubernetes.io/instance={{ .Release.Name }}
+
+   b. Identify the pod for kratos and access the pod by executing
+      kubectl exec --namespace {{ .Release.Namespace }} -ti <NAME OF THE KRATOS POD> -c kratos -- sh
+
+   c. Run the migration command inside the pod
+      kratos migrate sql -e --yes
+
+2. Initialize DB for Keto
+   a. Get the list of pods by executing:
+      kubectl get pods --namespace {{ .Release.Namespace }} -l app.kubernetes.io/instance={{ .Release.Name }}
+
+   b. Identify the pod for keto and access the pod by executing
+      kubectl exec --namespace {{ .Release.Namespace }} -ti <NAME OF THE KETO POD> -- sh
+
+   c. Run the migration command inside the pod
+      keto migrate up -y --all-namespaces --config /etc/config/keto.yaml

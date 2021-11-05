@@ -1,0 +1,87 @@
+apiVersion: v2
+name: bof
+description: A Helm chart for Kubernetes
+
+# A chart can be either an 'application' or a 'library' chart.
+#
+# Application charts are a collection of templates that can be packaged into versioned archives
+# to be deployed.
+#
+# Library charts provide useful utilities or functions for the chart developer. They're included as
+# a dependency of application charts to inject those utilities and functions into the rendering
+# pipeline. Library charts do not define any templates and therefore cannot be deployed.
+type: application
+
+# This is the chart version. This version number should be incremented each time you make changes
+# to the chart and its templates, including the app version.
+# Versions are expected to follow Semantic Versioning (https://semver.org/)
+version: 14.0.0
+
+# This is the version number of the application being deployed. This version number should be
+# incremented each time you make changes to the application. Versions are not expected to
+# follow Semantic Versioning. They should reflect the version the application is using.
+# It is recommended to use it with quotes.
+appVersion: "14.0.0"
+dependencies:
+  - name: common
+    repository: "file://../common"
+    tags:
+      - mojaloop
+      - common
+    version: 1.0.0
+  - name: role-assignment-service
+    condition: role-assignment-service.enabled
+    repository: "file://../role-assignment-service"
+    tags:
+      - mojaloop
+      - role-assignment-service
+    version: 1.0.0
+  - name: reporting-hub-bop-shell
+    condition: reporting-hub-bop-shell.enabled
+    repository: "file://../reporting-hub-bop-shell"
+    tags:
+      - mojaloop
+      - reporting-hub-bop-shell
+    version: 1.0.0
+  - name: reporting-hub-bop-api-svc
+    condition: reporting-hub-bop-api-svc.enabled
+    repository: "file://../reporting-hub-bop-api-svc"
+    tags:
+      - mojaloop
+      - reporting-hub-bop-api-svc
+    version: 1.0.0
+  - name: reporting-events-processor-svc
+    condition: reporting-events-processor-svc.enabled
+    repository: "file://../reporting-events-processor-svc"
+    tags:
+      - mojaloop
+      - reporting-events-processor-svc
+    version: 1.0.0
+  - name: security-role-perm-operator-svc
+    condition: security-role-perm-operator-svc.enabled
+    repository: "file://../security-role-perm-operator-svc"
+    tags:
+      - mojaloop
+      - security-role-perm-operator-svc
+    version: 1.0.0
+  - name: reporting-hub-bop-role-ui
+    condition: reporting-hub-bop-role-ui.enabled
+    repository: "file://../reporting-hub-bop-role-ui"
+    tags:
+      - mojaloop
+      - reporting-hub-bop-role-ui
+    version: 1.0.0
+  - name: reporting-hub-bop-trx-ui
+    condition: reporting-hub-bop-trx-ui.enabled
+    repository: "file://../reporting-hub-bop-trx-ui"
+    tags:
+      - mojaloop
+      - reporting-hub-bop-trx-ui
+    version: 1.0.0
+  - name: security-hub-bop-kratos-ui
+    condition: security-hub-bop-kratos-ui.enabled
+    repository: "file://../security-hub-bop-kratos-ui"
+    tags:
+      - mojaloop
+      - security-hub-bop-kratos-ui
+    version: 1.0.0
