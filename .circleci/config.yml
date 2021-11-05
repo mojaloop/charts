@@ -139,7 +139,7 @@ jobs:
       - run:
           name: Update Helm Charts
           command: |
-            bash update-charts-dep.sh
+            bash ./scripts/update-charts-dep.sh
       - run:
           name: Linting Helm Charts
           command: |
