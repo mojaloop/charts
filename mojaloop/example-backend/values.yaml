@@ -2363,7 +2363,6 @@ kowl:
     tls: []
     #  - secretName: chart-example-tls
     #    hosts:
-<<<<<<< HEAD:mojaloop/example-backend/values.yaml
     #      - chart-example.local
 
 ################################################################
@@ -4735,6 +4734,4 @@ wso2:
     secrets:
       wso2-is-admin-creds:
         password: "admin"
-=======
     #      - chart-example.local
->>>>>>> b5b8df8 (added version testing, scripts dir and tinkered with values files):dependencies/backend/values.yaml
