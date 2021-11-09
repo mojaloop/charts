@@ -138,12 +138,10 @@ jobs:
           <<: *defaults_environment
       - run:
           name: Update Helm Charts
-          command: |
-            bash ./scripts/update-charts-dep.sh
+          command: ./scripts/update-charts-dep.sh
       - run:
           name: Linting Helm Charts
-          command: |
-            bash lint-charts.sh
+          command: ./scripts/lint-charts.sh
 
   deploy:
     executor: default-docker-helm
