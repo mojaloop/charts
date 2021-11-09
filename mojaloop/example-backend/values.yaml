@@ -2676,7 +2676,7 @@ keto:
       minAvailable: 1
 
 oathkeeper:
-  enabled: true
+  enabled: false
   # -- If enabled, a demo deployment with exemplary access rules and JSON Web Key Secrets will be generated.
   demo: false
 
@@ -2978,7 +2978,7 @@ oathkeeper:
 ## kratos migrate sql -e --yes
 ##
 kratos:
-  enabled: true
+  enabled: false
   ## Overriding the image to older one because of some schema changes not compatible with kratios UI implemented
   ## This can be reverted when we upgrade the kratos-ui according to the new schema
   image:
@@ -3917,7 +3917,7 @@ kratos-db:
   metrics:
     ## @param metrics.enabled Start a side-car prometheus exporter
     ##
-    enabled: true
+    enabled: false
     ## @param metrics.image.registry Exporter image registry
     ## @param metrics.image.repository Exporter image repository
     ## @param metrics.image.tag Exporter image tag (immutable tags are recommended)
@@ -4567,7 +4567,7 @@ keto-db:
   metrics:
     ## @param metrics.enabled Start a side-car prometheus exporter
     ##
-    enabled: true
+    enabled: false
     ## @param metrics.image.registry Exporter image registry
     ## @param metrics.image.repository Exporter image repository
     ## @param metrics.image.tag Exporter image tag (immutable tags are recommended)

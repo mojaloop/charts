@@ -145,6 +145,90 @@ jobs:
           command: |
             bash lint-charts.sh
 
+  install-and-test-v1-20:
+    executor: default-machine
+    steps:
+      - checkout
+      - run:
+          name: utils
+          command: |
+            whoami
+            sudo apt-get install bc
+            # install helm and give access to root user
+            sudo snap install helm --classic
+            sudo ln -s /snap/bin/helm /usr/local/bin/helm
+            # We don't need to run update-charts-dep, as package does this for us
+            ./package.sh
+      - run:
+          name: k8s-version-test
+          command: |
+            echo 'export KUBECONFIG=/home/circleci/k3s.yaml' >> $BASH_ENV
+            sudo CHARTS_WORKING_DIR=/home/circleci/project ./scripts/k8s-versions-test.sh  -m install -v v1.20 -u `whoami` -t 1000s
+          no_output_timeout: 10m
+      - run:
+          name: Get the kubectl log
+          command: |
+            kubectl get events --sort-by=.metadata.creationTimestamp > /tmp/k8s_events
+          when: on_fail
+      - store_artifacts:
+          path: /tmp/k8s_events
+
+  install-and-test-v1-21:
+    executor: default-machine
+    steps:
+      - checkout
+      - run:
+          name: utils
+          command: |
+            whoami
+            sudo apt-get install bc
+            # install helm and give access to root user
+            sudo snap install helm --classic
+            sudo ln -s /snap/bin/helm /usr/local/bin/helm
+            # We don't need to run update-charts-dep, as package does this for us
+            ./package.sh
+      - run:
+          name: k8s-version-test
+          command: |
+            echo 'export KUBECONFIG=/home/circleci/k3s.yaml' >> $BASH_ENV
+            sudo CHARTS_WORKING_DIR=/home/circleci/project ./scripts/k8s-versions-test.sh  -m install -v v1.21 -u `whoami` -t 1000s
+          no_output_timeout: 10m
+      - run:
+          name: Get the kubectl log
+          command: |
+            kubectl get events --sort-by=.metadata.creationTimestamp > /tmp/k8s_events
+          when: on_fail
+      - store_artifacts:
+          path: /tmp/k8s_events
+
+  install-and-test-v1-22:
+    executor: default-machine
+    steps:
+      - checkout
+      - run:
+          name: utils
+          command: |
+            whoami
+            sudo apt-get install bc
+            # install helm and give access to root user
+            sudo snap install helm --classic
+            sudo ln -s /snap/bin/helm /usr/local/bin/helm
+            # We don't need to run update-charts-dep, as package does this for us
+            ./package.sh
+      - run:
+          name: k8s-version-test
+          command: |
+            echo 'export KUBECONFIG=/home/circleci/k3s.yaml' >> $BASH_ENV
+            sudo CHARTS_WORKING_DIR=/home/circleci/project ./scripts/k8s-versions-test.sh  -m install -v v1.22 -u `whoami` -t 1000s
+          no_output_timeout: 10m
+      - run:
+          name: Get the kubectl log
+          command: |
+            kubectl get events --sort-by=.metadata.creationTimestamp > /tmp/k8s_events
+          when: on_fail
+      - store_artifacts:
+          path: /tmp/k8s_events
+
   deploy:
     executor: default-docker-helm
     steps:
@@ -227,6 +311,18 @@ workflows:
           filters:
             tags:
               only: /.*/
+      - install-and-test-v1-20:
+          context: org-global
+          requires: 
+            - build-and-test
+      - install-and-test-v1-21:
+          context: org-global
+          requires: 
+            - build-and-test
+      - install-and-test-v1-22:
+          context: org-global
+          requires: 
+            - build-and-test
       - deploy:
           context: org-global
           requires:

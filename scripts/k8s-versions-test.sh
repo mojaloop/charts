@@ -22,36 +22,12 @@ function add_hosts {
 function add_helm_repos { 
   ## add the helm repos required to install and run ML and the v14 PoC
         printf "==> add the helm repos required to install and run ML and the v14 PoC\n" 
-        su - vagrant -c "helm repo add mojaloop http://mojaloop.io/helm/repo/ > /dev/null 2>&1 "
-        su - vagrant -c "helm repo add kiwigrid https://kiwigrid.github.io  > /dev/null 2>&1 "
-        su - vagrant -c "helm repo add elastic https://helm.elastic.co  > /dev/null 2>&1 "
-        su - vagrant -c "helm repo add bitnami https://charts.bitnami.com/bitnami > /dev/null 2>&1 "
-        su - vagrant -c "helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx  > /dev/null 2>&1 "
-        su - vagrant -c "helm repo update > /dev/null 2>&1 "
-}
-
-function update_charts {
-  ## update the PoC charts and dependencies
-        declare -a charts=(
-                dependencies/backend
-                mojaloop/common
-                mojaloop/admin-api-svc
-                mojaloop/fspiop-transfer-api-svc
-                mojaloop/mojaloop
-        )
-
-        printf "==> Updating helm Charts...\n"
-        for chart in "${charts[@]}"
-        do
-                printf  "    Updating chart: $chart    "
-                rm -rf $BASE_DIR/charts/$chart/charts 
-                if [[ `helm dep up $BASE_DIR/charts/$chart --skip-refresh 2>&1 | grep "Error" ` != "" ]] ; then 
-                        printf "[failed]\n"
-                        printf "Error updating chart:  %s \n" $chart 
-                else 
-                        printf "[ok]\n" $?
-                fi
-        done
+        su - $k8s_user -c "helm repo add mojaloop http://mojaloop.io/helm/repo/ > /dev/null 2>&1 "
+        su - $k8s_user -c "helm repo add kiwigrid https://kiwigrid.github.io  > /dev/null 2>&1 "
+        su - $k8s_user -c "helm repo add elastic https://helm.elastic.co  > /dev/null 2>&1 "
+        su - $k8s_user -c "helm repo add bitnami https://charts.bitnami.com/bitnami > /dev/null 2>&1 "
+        su - $k8s_user -c "helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx  > /dev/null 2>&1 "
+        su - $k8s_user -c "helm repo update > /dev/null 2>&1 "
 }
 
 function install_v14poc_charts {
@@ -60,9 +36,9 @@ function install_v14poc_charts {
   printf "========================================================================================\n"
         printf "==> install backend services <$BACKEND_NAME> helm chart. Wait upto $timeout_secs secs for ready state\n "
         start_timer=$(date +%s)
+        su - $k8s_user -c "KUBECONFIG=/home/$k8s_user/k3s.yaml helm upgrade --install --wait --timeout $timeout_secs $BACKEND_NAME \
+                           $CHARTS_WORKING_DIR/mojaloop/example-backend"
         
-        su - $k8s_user -c "helm upgrade --install --wait --timeout $timeout_secs $BACKEND_NAME \
-                           $MOJALOOP_WORKING_DIR/dependencies/backend" >> /dev/null 2>&1
         end_timer=$(date +%s)
         elapsed_secs=$(echo "$end_timer - $start_timer" | bc )
         if [[ `helm status $BACKEND_NAME | grep "^STATUS:" | awk '{ print $2 }' ` = "deployed" ]] ; then 
@@ -71,22 +47,22 @@ function install_v14poc_charts {
                 echo "    Error: $BACKEND_NAME helm chart  deployment failed "
                 printf "  Command : \n"
                 printf "  su - $k8s_user -c \"helm upgrade --install --wait --timeout $timeout_secs "
-                printf "$BACKEND_NAME $MOJALOOP_WORKING_DIR/dependencies/backend\" \n "
+                printf "$CHARTS_WORKING_DIR/mojaloop/example-backend\" \n "
                 exit 1
         fi 
 
         printf "==> install v14 PoC services <$RELEASE_NAME> helm chart. Wait upto $timeout_secs secs for ready state\n"
         start_timer=$(date +%s)
-        su - $k8s_user -c "helm upgrade --install --wait --timeout $timeout_secs $RELEASE_NAME \
-                           $MOJALOOP_WORKING_DIR/mojaloop/mojaloop"  >> /dev/null 2>&1      
+        su - $k8s_user -c "KUBECONFIG=/home/$k8s_user/k3s.yaml helm upgrade --install --wait --timeout $timeout_secs $RELEASE_NAME \
+                           $CHARTS_WORKING_DIR/mojaloop/mojaloop" >> /dev/null 2>&1 
         end_timer=$(date +%s)
         elapsed_secs=$(echo "$end_timer - $start_timer" | bc )
-        if [[ `helm status $RELEASE_NAME | grep "^STATUS:" | awk '{ print $2 }' ` = "deployed" ]] ; then 
+        if [[ `KUBECONFIG=/home/$k8s_user/k3s.yaml helm status $RELEASE_NAME | grep "^STATUS:" | awk '{ print $2 }' ` = "deployed" ]] ; then 
                 printf "    helm release <$RELEASE_NAME> deployed sucessfully after <$elapsed_secs> secs \n\n "
         else 
                 printf "    Error: $RELEASE_NAME helm chart  deployment failed \n"
                 printf "    Command: su - $k8s_user -c \"helm upgrade --install --wait --timeout "
-                printf "$timeout_secs $RELEASE_NAME $MOJALOOP_WORKING_DIR/mojaloop/mojaloop\" \n "
+                printf "$timeout_secs $RELEASE_NAME $CHARTS_WORKING_DIR/mojaloop/mojaloop\" \n "
                 exit 1
         fi 
 }
@@ -146,10 +122,10 @@ function install_k8s {
                                 INSTALL_K3S_CHANNEL=$1 \
                                 INSTALL_K3S_EXEC=" --no-deploy traefik " sh  > /dev/null 2>&1
 
-        cp /etc/rancher/k3s/k3s.yaml /home/vagrant/k3s.yaml
-        chown vagrant /home/vagrant/k3s.yaml
-        chmod 600 /home/vagrant/k3s.yaml   
-        export KUBECONFIG=/home/vagrant/k3s.yaml  
+        cp /etc/rancher/k3s/k3s.yaml $HOME/k3s.yaml
+        chown $k8s_user $HOME/k3s.yaml
+        chmod 600 $HOME/k3s.yaml   
+        export KUBECONFIG=$HOME/k3s.yaml  
         sleep 30  
         if [[ `su - $k8s_user -c "kubectl get nodes " > /dev/null 2>&1 ` -ne 0 ]] ; then 
                 printf "    Error: k8s server install failed\n"
@@ -165,13 +141,15 @@ function install_k8s {
         printf "==> installing nginx-ingress version: %s\n" $nginx_version  
 
         start_timer=$(date +%s)
-        su - $k8s_user -c "helm upgrade --install --wait --timeout 300s ingress-nginx \
+        su - $k8s_user -c "KUBECONFIG=/home/$k8s_user/k3s.yaml helm upgrade --install --wait --timeout 300s ingress-nginx \
                                 ingress-nginx/ingress-nginx --version=$nginx_version $nginx_flags " >> /dev/null 2>&1
         end_timer=$(date +%s)
         elapsed_secs=$(echo "$end_timer - $start_timer" | bc )
-        #su - $k8s_user -c "kubectl get pods --all-namespaces "
-        if [[ `helm status ingress-nginx | grep "^STATUS:" | awk '{ print $2 }' ` = "deployed" ]] ; then 
-                printf "    helm install of ingress-nginx sucessfull after <$elapsed_secs> secs \n\n"
+
+        # Test lines
+        su - $k8s_user -c "KUBECONFIG=/home/$k8s_user/k3s.yaml kubectl get pods --all-namespaces"
+        if [[ `su - $k8s_user -c "KUBECONFIG=/home/$k8s_user/k3s.yaml helm status ingress-nginx | grep '^STATUS: deployed' | wc -l"` = "1" ]] ; then 
+                printf "    helm install of ingress-nginx sucessful after <$elapsed_secs> secs \n\n"
         else 
                 printf "    Error: ingress-nginx helm chart  deployment failed "
                 exit 1
@@ -195,7 +173,7 @@ function run_k8s_version_tests {
 
 function verify_user {
 # ensure that the user for k8s exists
-        if getent passwd "$k8s_user" >/dev/null; then
+        if id -u "$k8s_user" >/dev/null; then
                 return
         else
                 printf "    Error: The user %s does not exist\n" $k8s_user
@@ -241,7 +219,8 @@ Options:
 SCRIPTNAME=$0
 # Program paths
 BASE_DIR=$( cd $(dirname "$0")/../.. ; pwd )
-MOJALOOP_WORKING_DIR=/vagrant/charts
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+CHARTS_WORKING_DIR=${CHARTS_WORKING_DIR:-"/vagrant/charts"}
 BACKEND_NAME="be" 
 RELEASE_NAME="ml"
 DEFAULT_TIMEOUT_SECS="800s"
@@ -256,7 +235,7 @@ nginx_version=""
 
 if [ "$EUID" -ne 0 ]
   then echo "Please run as root"
-  exit
+  exit 1
 fi
 
 # Check arguments
@@ -326,7 +305,6 @@ if [[ "$mode" == "install" ]]  ; then
 	printf " -m install specified => k8s and nginx version(s) will be installed\n"
         add_hosts
         add_helm_repos
-        update_charts
         set_versions_to_test
 
         # for each k8s version -> install server -> install charts -> check
@@ -338,7 +316,6 @@ elif [[ "$mode" == "noinstall" ]]  ; then
         printf " ignoring and/or clearing any setting for -v flag\n "
         if [[ ! -z ${refresh_update_helm+x} ]] ; then 
             add_helm_repos
-            update_charts
         fi 
         versions=$DEFAULT_VERSION 
         install_v14poc_charts
