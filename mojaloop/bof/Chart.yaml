@@ -50,6 +50,13 @@ dependencies:
       - mojaloop
       - reporting-hub-bop-api-svc
     version: 1.0.0
+  - name: reporting-legacy-api
+    condition: reporting-legacy-api.enabled
+    repository: "file://../reporting-legacy-api"
+    tags:
+      - mojaloop
+      - reporting-legacy-api
+    version: 1.0.0
   - name: reporting-events-processor-svc
     condition: reporting-events-processor-svc.enabled
     repository: "file://../reporting-events-processor-svc"
