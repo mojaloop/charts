@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 REVISION=${GITHUB_TAG:-$GIT_SHA1}
+
 if [ -n ${GITHUB_TAG} ]; then
   COMMIT_MESSAGE="Updating development release to $REVISION"
 else 
@@ -33,7 +35,7 @@ else
 fi
 
 echo "Package helm charts..." | tee git.log 
-bash package.sh
+${DIR}/../scripts/package.sh
 
 echo "Staging general changes..." | tee git.log 
 git add -A

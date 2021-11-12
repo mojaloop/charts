@@ -156,7 +156,7 @@ jobs:
             sudo snap install helm --classic
             sudo ln -s /snap/bin/helm /usr/local/bin/helm
             # We don't need to run update-charts-dep, as package does this for us
-            ./package.sh
+            ./scripts/package.sh
       - run:
           name: k8s-version-test
           command: |
@@ -184,7 +184,7 @@ jobs:
             sudo snap install helm --classic
             sudo ln -s /snap/bin/helm /usr/local/bin/helm
             # We don't need to run update-charts-dep, as package does this for us
-            ./package.sh
+            ./scripts/package.sh
       - run:
           name: k8s-version-test
           command: |
@@ -212,7 +212,7 @@ jobs:
             sudo snap install helm --classic
             sudo ln -s /snap/bin/helm /usr/local/bin/helm
             # We don't need to run update-charts-dep, as package does this for us
-            ./package.sh
+            ./scripts/package.sh
       - run:
           name: k8s-version-test
           command: |
