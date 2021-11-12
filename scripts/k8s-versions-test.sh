@@ -36,7 +36,7 @@ function install_v14poc_charts {
   printf "========================================================================================\n"
         printf "==> install backend services <$BACKEND_NAME> helm chart. Wait upto $timeout_secs secs for ready state\n "
         start_timer=$(date +%s)
-        su - $k8s_user -c "KUBECONFIG=/home/$k8s_user/k3s.yaml helm upgrade --install --wait --timeout $timeout_secs $BACKEND_NAME \
+        su - $k8s_user -c "KUBECONFIG=/tmp/k3s.yaml helm upgrade --install --wait --timeout $timeout_secs $BACKEND_NAME \
                            $CHARTS_WORKING_DIR/mojaloop/example-backend"
         
         end_timer=$(date +%s)
@@ -53,11 +53,11 @@ function install_v14poc_charts {
 
         printf "==> install v14 PoC services <$RELEASE_NAME> helm chart. Wait upto $timeout_secs secs for ready state\n"
         start_timer=$(date +%s)
-        su - $k8s_user -c "KUBECONFIG=/home/$k8s_user/k3s.yaml helm upgrade --install --wait --timeout $timeout_secs $RELEASE_NAME \
+        su - $k8s_user -c "KUBECONFIG=/tmp/k3s.yaml helm upgrade --install --wait --timeout $timeout_secs $RELEASE_NAME \
                            $CHARTS_WORKING_DIR/mojaloop/mojaloop" >> /dev/null 2>&1 
         end_timer=$(date +%s)
         elapsed_secs=$(echo "$end_timer - $start_timer" | bc )
-        if [[ `KUBECONFIG=/home/$k8s_user/k3s.yaml helm status $RELEASE_NAME | grep "^STATUS:" | awk '{ print $2 }' ` = "deployed" ]] ; then 
+        if [[ `KUBECONFIG=/tmp/k3s.yaml helm status $RELEASE_NAME | grep "^STATUS:" | awk '{ print $2 }' ` = "deployed" ]] ; then 
                 printf "    helm release <$RELEASE_NAME> deployed sucessfully after <$elapsed_secs> secs \n\n "
         else 
                 printf "    Error: $RELEASE_NAME helm chart  deployment failed \n"
@@ -122,10 +122,11 @@ function install_k8s {
                                 INSTALL_K3S_CHANNEL=$1 \
                                 INSTALL_K3S_EXEC=" --no-deploy traefik " sh  > /dev/null 2>&1
 
-        cp /etc/rancher/k3s/k3s.yaml $HOME/k3s.yaml
-        chown $k8s_user $HOME/k3s.yaml
-        chmod 600 $HOME/k3s.yaml   
-        export KUBECONFIG=$HOME/k3s.yaml  
+
+        cp /etc/rancher/k3s/k3s.yaml /tmp/k3s.yaml
+        chown $k8s_user /tmp/k3s.yaml
+        chmod 600 /tmp/k3s.yaml   
+        export KUBECONFIG=/tmp/k3s.yaml  
         sleep 30  
         if [[ `su - $k8s_user -c "kubectl get nodes " > /dev/null 2>&1 ` -ne 0 ]] ; then 
                 printf "    Error: k8s server install failed\n"
@@ -141,14 +142,14 @@ function install_k8s {
         printf "==> installing nginx-ingress version: %s\n" $nginx_version  
 
         start_timer=$(date +%s)
-        su - $k8s_user -c "KUBECONFIG=/home/$k8s_user/k3s.yaml helm upgrade --install --wait --timeout 300s ingress-nginx \
+        su - $k8s_user -c "KUBECONFIG=/tmp/k3s.yaml helm upgrade --install --wait --timeout 600s ingress-nginx \
                                 ingress-nginx/ingress-nginx --version=$nginx_version $nginx_flags " >> /dev/null 2>&1
         end_timer=$(date +%s)
         elapsed_secs=$(echo "$end_timer - $start_timer" | bc )
 
         # Test lines
-        su - $k8s_user -c "KUBECONFIG=/home/$k8s_user/k3s.yaml kubectl get pods --all-namespaces"
-        if [[ `su - $k8s_user -c "KUBECONFIG=/home/$k8s_user/k3s.yaml helm status ingress-nginx | grep '^STATUS: deployed' | wc -l"` = "1" ]] ; then 
+        su - $k8s_user -c "KUBECONFIG=/tmp/k3s.yaml kubectl get pods --all-namespaces"
+        if [[ `KUBECONFIG=/tmp/k3s.yaml helm status ingress-nginx | grep "^STATUS:" | awk '{ print $2 }' ` = "deployed" ]] ; then 
                 printf "    helm install of ingress-nginx sucessful after <$elapsed_secs> secs \n\n"
         else 
                 printf "    Error: ingress-nginx helm chart  deployment failed "

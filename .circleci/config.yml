@@ -160,7 +160,7 @@ jobs:
       - run:
           name: k8s-version-test
           command: |
-            echo 'export KUBECONFIG=/home/circleci/k3s.yaml' >> $BASH_ENV
+            echo 'export KUBECONFIG=/tmp/k3s.yaml' >> $BASH_ENV
             sudo CHARTS_WORKING_DIR=/home/circleci/project ./scripts/k8s-versions-test.sh  -m install -v v1.20 -u `whoami` -t 1000s
           no_output_timeout: 10m
       - run:
@@ -188,7 +188,7 @@ jobs:
       - run:
           name: k8s-version-test
           command: |
-            echo 'export KUBECONFIG=/home/circleci/k3s.yaml' >> $BASH_ENV
+            echo 'export KUBECONFIG=/tmp/k3s.yaml' >> $BASH_ENV
             sudo CHARTS_WORKING_DIR=/home/circleci/project ./scripts/k8s-versions-test.sh  -m install -v v1.21 -u `whoami` -t 1000s
           no_output_timeout: 10m
       - run:
@@ -216,7 +216,7 @@ jobs:
       - run:
           name: k8s-version-test
           command: |
-            echo 'export KUBECONFIG=/home/circleci/k3s.yaml' >> $BASH_ENV
+            echo 'export KUBECONFIG=/tmp/k3s.yaml' >> $BASH_ENV
             sudo CHARTS_WORKING_DIR=/home/circleci/project ./scripts/k8s-versions-test.sh  -m install -v v1.22 -u `whoami` -t 1000s
           no_output_timeout: 10m
       - run:

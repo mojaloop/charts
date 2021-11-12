@@ -157,6 +157,23 @@ $ DATE_ISO=$(date -u +%a,\ %d\ %b\ %Y\ %H:%M:%S\ GMT) && curl -v 'http://transfe
 
 ## Debugging CI/CD
 
+### Running Locally
+
+You can run the `k8s-version-test.sh` script locally to help verify your deployment.
+
+For example:
+
+```bash
+# install k8s v1.21, and run the test
+./scripts/update-charts-dep.sh
+sudo CHARTS_WORKING_DIR=`pwd` ./scripts/k8s-versions-test.sh \
+  -m install -v v1.21 -u `whoami` -t 1000s
+
+
+```
+
+> Note: this currently doesn't work on m1 Macs! The MYSQL docker container doesn't have 
+> support for arm64 architectures
 
 ### Check the k8s event logs
 
