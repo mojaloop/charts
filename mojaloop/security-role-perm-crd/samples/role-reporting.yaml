@@ -6,7 +6,7 @@ spec:
   role: REPORTING_API_ROLE
   permissions:
     - transfer.transferId
-    - transfer.transfer.transactionId
+    - transfer.transactionId
     - transfer.quoteId
     - transfer.amount
     - transfer.currency
@@ -24,6 +24,27 @@ spec:
     - transfer.quoteEvents
     - transfer.transferEvents
     - transfer.settlementEvents
+
+    - transfers.transferId
+    - transfers.transactionId
+    - transfers.quoteId
+    - transfers.amount
+    - transfers.currency
+    - transfers.createdAt
+    - transfers.transferState
+    - transfers.transactionType
+    - transfers.errorCode
+    - transfers.settlementWindowId
+    - transfers.settlementId
+    - transfers.payerDFSP
+    - transfers.payeeDFSP
+    - transfers.payerParty
+    - transfers.payeeParty
+    - transfers.partyLookupEvents
+    - transfers.quoteEvents
+    - transfers.transferEvents
+    - transfers.settlementEvents
+
     - transferSummary.count
     - transferSummary.amount
     - transferSummary.errorCode
