@@ -3,7 +3,7 @@ entries:
   admin-api-svc:
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-12T12:55:57.151726582Z"
+    created: "2021-11-12T12:59:46.450457577Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -29,7 +29,33 @@ entries:
     version: 12.0.0
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-12T12:55:57.142255002Z"
+    created: "2021-11-12T12:59:46.437430304Z"
+    dependencies:
+    - name: common
+      repository: file://../common
+      tags:
+      - moja-common
+      version: 1.0.0
+    description: FSPIOP Transfer API Service component Helm chart for Kubernetes
+    digest: 427880b648217aef9959a9cf1ff20d73c5178ca2463dc64b652a8d9f04693048
+    home: http://mojaloop.io
+    icon: http://mojaloop.io/images/logo.png
+    maintainers:
+    - email: murthy@modusbox.com
+      name: Murthy Kakarlamudi
+    - email: miguel.debarros@modusbox.com
+      name: Miguel de Barros
+    name: admin-api-svc
+    sources:
+    - https://github.com/mojaloop/mojaloop
+    - https://github.com/mojaloop/helm
+    - https://github.com/mojaloop/ml-api-adapter
+    urls:
+    - https://docs.mojaloop.io/charts/repo/admin-api-svc-12.0.0-253.2de3c8b.tgz
+    version: 12.0.0-253.2de3c8b
+  - apiVersion: v2
+    appVersion: 11.1.6
+    created: "2021-11-12T12:59:46.434526396Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -55,7 +81,7 @@ entries:
     version: 12.0.0-249.c1edbce
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-12T12:55:57.139122138Z"
+    created: "2021-11-12T12:59:46.431257259Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -81,7 +107,7 @@ entries:
     version: 12.0.0-218.4fd12cb
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-12T12:55:57.135275189Z"
+    created: "2021-11-12T12:59:46.427200631Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -107,7 +133,7 @@ entries:
     version: 12.0.0-144.8ad40e7
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-12T12:55:57.132095934Z"
+    created: "2021-11-12T12:59:46.423742899Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -133,7 +159,7 @@ entries:
     version: 12.0.0-111.d5f09a1
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-12T12:55:57.148867615Z"
+    created: "2021-11-12T12:59:46.446152816Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -159,7 +185,7 @@ entries:
     version: 12.0.0-51.656a398
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-12T12:55:57.145169751Z"
+    created: "2021-11-12T12:59:46.441889094Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -186,7 +212,7 @@ entries:
   backend:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-11-12T12:55:57.34035631Z"
+    created: "2021-11-12T12:59:46.671237909Z"
     dependencies:
     - alias: kafka
       condition: kafka.enabled
@@ -295,7 +321,116 @@ entries:
     version: 0.1.0
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-11-12T12:55:57.255920439Z"
+    created: "2021-11-12T12:59:46.592042332Z"
+    dependencies:
+    - alias: kafka
+      condition: kafka.enabled
+      name: kafka
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - mojaloop
+      - dependency
+      - backend
+      - kafka
+      version: 14.1.1
+    - alias: mysql
+      condition: mysql.enabled
+      name: mysql
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - mojaloop
+      - dependency
+      - backend
+      - kafka
+      version: 8.8.8
+    - alias: reporting-events-db
+      condition: reporting-events-db.enabled
+      name: mongodb
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - mojaloop
+      - dependency
+      - backend
+      - reporting-events-db
+      - mongodb
+      version: 10.28.1
+    - alias: kowl
+      condition: kowl.enabled
+      name: kowl
+      repository: https://raw.githubusercontent.com/cloudhut/charts/master/archives
+      tags:
+      - mojaloop
+      - dependency
+      - backend
+      - kafka
+      version: 2.0.1
+    - alias: keto
+      condition: keto.enabled
+      name: keto
+      repository: https://k8s.ory.sh/helm/charts
+      tags:
+      - mojaloop
+      - dependency
+      - backend
+      - keto
+      - bof
+      version: 0.19.5
+    - alias: keto-db
+      condition: keto-db.enabled
+      name: mysql
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - mojaloop
+      - dependency
+      - backend
+      - mysql
+      - keto
+      - bof
+      version: 8.8.8
+    - alias: oathkeeper
+      condition: oathkeeper.enabled
+      name: oathkeeper
+      repository: https://k8s.ory.sh/helm/charts
+      tags:
+      - mojaloop
+      - dependency
+      - backend
+      - oathkeeper
+      - bof
+      version: 0.19.6
+    - alias: kratos
+      condition: kratos.enabled
+      name: kratos
+      repository: https://k8s.ory.sh/helm/charts
+      tags:
+      - mojaloop
+      - dependency
+      - backend
+      - kratos
+      - bof
+      version: 0.19.6
+    - alias: kratos-db
+      condition: kratos-db.enabled
+      name: mysql
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - mojaloop
+      - dependency
+      - backend
+      - mysql
+      - kratos
+      - bof
+      version: 8.8.8
+    description: A Helm chart containing example Mojaloop Backend Dependencies. This should be used for development/poc purposes only!
+    digest: 5368a4f31023a61f9ce42f616a39fb1f3acaefb0a3e352db966d2761c11505ab
+    name: backend
+    type: application
+    urls:
+    - https://docs.mojaloop.io/charts/repo/backend-0.1.0-253.2de3c8b.tgz
+    version: 0.1.0-253.2de3c8b
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2021-11-12T12:59:46.561085069Z"
     dependencies:
     - alias: kafka
       condition: kafka.enabled
@@ -404,7 +539,7 @@ entries:
     version: 0.1.0-249.c1edbce
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-11-12T12:55:57.23088002Z"
+    created: "2021-11-12T12:59:46.535836404Z"
     dependencies:
     - alias: kafka
       condition: kafka.enabled
@@ -513,7 +648,7 @@ entries:
     version: 0.1.0-218.4fd12cb
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-11-12T12:55:57.204886158Z"
+    created: "2021-11-12T12:59:46.509016066Z"
     dependencies:
     - alias: kafka
       condition: kafka.enabled
@@ -622,7 +757,7 @@ entries:
     version: 0.1.0-144.8ad40e7
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-11-12T12:55:57.177658897Z"
+    created: "2021-11-12T12:59:46.481169605Z"
     dependencies:
     - alias: kafka
       condition: kafka.enabled
@@ -731,7 +866,7 @@ entries:
     version: 0.1.0-111.d5f09a1
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-11-12T12:55:57.306302791Z"
+    created: "2021-11-12T12:59:46.644314362Z"
     dependencies:
     - alias: kafka
       condition: kafka.enabled
@@ -840,7 +975,7 @@ entries:
     version: 0.1.0-51.656a398
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-11-12T12:55:57.281505526Z"
+    created: "2021-11-12T12:59:46.618284244Z"
     dependencies:
     - alias: kafka
       condition: kafka.enabled
@@ -950,7 +1085,87 @@ entries:
   bof:
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-12T12:55:57.406006451Z"
+    created: "2021-11-12T12:59:46.759579225Z"
+    dependencies:
+    - name: common
+      repository: file://../common
+      tags:
+      - mojaloop
+      - common
+      version: 1.0.0
+    - condition: role-assignment-service.enabled
+      name: role-assignment-service
+      repository: file://../role-assignment-service
+      tags:
+      - mojaloop
+      - role-assignment-service
+      version: 1.0.0
+    - condition: reporting-hub-bop-shell.enabled
+      name: reporting-hub-bop-shell
+      repository: file://../reporting-hub-bop-shell
+      tags:
+      - mojaloop
+      - reporting-hub-bop-shell
+      version: 1.0.0
+    - condition: reporting-hub-bop-api-svc.enabled
+      name: reporting-hub-bop-api-svc
+      repository: file://../reporting-hub-bop-api-svc
+      tags:
+      - mojaloop
+      - reporting-hub-bop-api-svc
+      version: 1.0.0
+    - condition: reporting-legacy-api.enabled
+      name: reporting-legacy-api
+      repository: file://../reporting-legacy-api
+      tags:
+      - mojaloop
+      - reporting-legacy-api
+      version: 1.0.0
+    - condition: reporting-events-processor-svc.enabled
+      name: reporting-events-processor-svc
+      repository: file://../reporting-events-processor-svc
+      tags:
+      - mojaloop
+      - reporting-events-processor-svc
+      version: 1.0.0
+    - condition: security-role-perm-operator-svc.enabled
+      name: security-role-perm-operator-svc
+      repository: file://../security-role-perm-operator-svc
+      tags:
+      - mojaloop
+      - security-role-perm-operator-svc
+      version: 1.0.0
+    - condition: reporting-hub-bop-role-ui.enabled
+      name: reporting-hub-bop-role-ui
+      repository: file://../reporting-hub-bop-role-ui
+      tags:
+      - mojaloop
+      - reporting-hub-bop-role-ui
+      version: 1.0.0
+    - condition: reporting-hub-bop-trx-ui.enabled
+      name: reporting-hub-bop-trx-ui
+      repository: file://../reporting-hub-bop-trx-ui
+      tags:
+      - mojaloop
+      - reporting-hub-bop-trx-ui
+      version: 1.0.0
+    - condition: security-hub-bop-kratos-ui.enabled
+      name: security-hub-bop-kratos-ui
+      repository: file://../security-hub-bop-kratos-ui
+      tags:
+      - mojaloop
+      - security-hub-bop-kratos-ui
+      version: 1.0.0
+    description: A Helm chart for Kubernetes
+    digest: 86459837efd2b0e5a09444457548c492c41e35c5b27778829abfeb9221eff563
+    name: bof
+    type: application
+    urls:
+    - https://docs.mojaloop.io/charts/repo/bof-14.0.0-253.2de3c8b.tgz
+    version: 14.0.0-253.2de3c8b
+  - apiVersion: v2
+    appVersion: 14.0.0
+    created: "2021-11-12T12:59:46.738538188Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -1030,7 +1245,7 @@ entries:
     version: 14.0.0-249.c1edbce
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-12T12:55:57.389120137Z"
+    created: "2021-11-12T12:59:46.721023054Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -1110,7 +1325,7 @@ entries:
     version: 14.0.0-218.4fd12cb
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-12T12:55:57.37308841Z"
+    created: "2021-11-12T12:59:46.704469695Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -1190,7 +1405,7 @@ entries:
     version: 14.0.0-144.8ad40e7
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-12T12:55:57.356320779Z"
+    created: "2021-11-12T12:59:46.687189225Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -1270,7 +1485,7 @@ entries:
     version: 14.0.0-111.d5f09a1
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-12T12:55:57.438054729Z"
+    created: "2021-11-12T12:59:46.794712358Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -1343,7 +1558,7 @@ entries:
     version: 14.0.0-51.656a398
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-12T12:55:57.421754983Z"
+    created: "2021-11-12T12:59:46.779085664Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -1419,7 +1634,7 @@ entries:
       category: Infrastructure
     apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-12T12:55:57.443620204Z"
+    created: "2021-11-12T12:59:46.801045695Z"
     description: A Library Helm Chart for grouping common logic between bitnami charts. This chart is not deployable by itself.
     digest: 66cba8902fbc57fd9047c67e8eaef07c782b39b046030fd98818d170776833f6
     home: https://github.com/mojaloop/charts/tree/master/mojaloop/common
@@ -1445,7 +1660,33 @@ entries:
       category: Infrastructure
     apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-12T12:55:57.441226846Z"
+    created: "2021-11-12T12:59:46.7986985Z"
+    description: A Library Helm Chart for grouping common logic between bitnami charts. This chart is not deployable by itself.
+    digest: 35706f09090f4d1d12ae88aaa54c5e39911a013994f0e090f9dda8c725f799a6
+    home: https://github.com/mojaloop/charts/tree/master/mojaloop/common
+    icon: https://bitnami.com/downloads/logos/bitnami-mark.png
+    keywords:
+    - common
+    - helper
+    - template
+    - function
+    - bitnami
+    maintainers:
+    - email: containers@bitnami.com
+      name: Bitnami
+    name: common
+    sources:
+    - https://github.com/mojaloop/charts
+    - http://www.bitnami.com/
+    type: library
+    urls:
+    - https://docs.mojaloop.io/charts/repo/common-1.0.0-253.2de3c8b.tgz
+    version: 1.0.0-253.2de3c8b
+  - annotations:
+      category: Infrastructure
+    apiVersion: v2
+    appVersion: 1.0.0
+    created: "2021-11-12T12:59:46.797919067Z"
     description: A Library Helm Chart for grouping common logic between bitnami charts. This chart is not deployable by itself.
     digest: 82c9cbe957584a07ee787dcf268efcf5124c7870f59fa5b2f4b1747ea6c5d006
     home: https://github.com/mojaloop/charts/tree/master/mojaloop/common
@@ -1471,7 +1712,7 @@ entries:
       category: Infrastructure
     apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-12T12:55:57.44042213Z"
+    created: "2021-11-12T12:59:46.797109028Z"
     description: A Library Helm Chart for grouping common logic between bitnami charts. This chart is not deployable by itself.
     digest: 9d17d8345fdc3e11af00dd662edf48af35ca6459138cc72e8c2209877523ec5b
     home: https://github.com/mojaloop/charts/tree/master/mojaloop/common
@@ -1497,7 +1738,7 @@ entries:
       category: Infrastructure
     apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-12T12:55:57.439662798Z"
+    created: "2021-11-12T12:59:46.796334234Z"
     description: A Library Helm Chart for grouping common logic between bitnami charts. This chart is not deployable by itself.
     digest: 2d4fcd2780802594799736e334d5788566a268e3775afd8f17487c99c53db489
     home: https://github.com/mojaloop/charts/tree/master/mojaloop/common
@@ -1523,7 +1764,7 @@ entries:
       category: Infrastructure
     apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-12T12:55:57.438883295Z"
+    created: "2021-11-12T12:59:46.795560322Z"
     description: A Library Helm Chart for grouping common logic between bitnami charts. This chart is not deployable by itself.
     digest: 0b7ded345031131f51cbb713fe4f28d1c753f64c2d2c4dd29509528cb315e59a
     home: https://github.com/mojaloop/charts/tree/master/mojaloop/common
@@ -1549,7 +1790,7 @@ entries:
       category: Infrastructure
     apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-12T12:55:57.442853683Z"
+    created: "2021-11-12T12:59:46.800293129Z"
     description: A Library Helm Chart for grouping common logic between bitnami charts. This chart is not deployable by itself.
     digest: d900e56f7d875e38020ff15aa61b604ff96b99f472bd619d75b8d8783842c2df
     home: https://github.com/mojaloop/charts/tree/master/mojaloop/common
@@ -1575,7 +1816,7 @@ entries:
       category: Infrastructure
     apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-12T12:55:57.44202108Z"
+    created: "2021-11-12T12:59:46.799494625Z"
     description: A Library Helm Chart for grouping common logic between bitnami charts. This chart is not deployable by itself.
     digest: 63efd5d40dd5ad9219803d5d48921b986917f406d0ce478bc2fb86bf0d971c18
     home: https://github.com/mojaloop/charts/tree/master/mojaloop/common
@@ -1600,7 +1841,7 @@ entries:
   fspiop-transfer-api-svc:
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-12T12:55:57.462588826Z"
+    created: "2021-11-12T12:59:46.824880131Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -1626,7 +1867,33 @@ entries:
     version: 12.0.0
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-12T12:55:57.453260241Z"
+    created: "2021-11-12T12:59:46.812953765Z"
+    dependencies:
+    - name: common
+      repository: file://../common
+      tags:
+      - moja-common
+      version: 1.0.0
+    description: FSPIOP Transfer API Service component Helm chart for Kubernetes
+    digest: 9b9cebaf0d8e0b464240a0f00fac17810e22a8488517e5182a5c0e4ae54630e1
+    home: http://mojaloop.io
+    icon: http://mojaloop.io/images/logo.png
+    maintainers:
+    - email: murthy@modusbox.com
+      name: Murthy Kakarlamudi
+    - email: miguel.debarros@modusbox.com
+      name: Miguel de Barros
+    name: fspiop-transfer-api-svc
+    sources:
+    - https://github.com/mojaloop/mojaloop
+    - https://github.com/mojaloop/helm
+    - https://github.com/mojaloop/ml-api-adapter
+    urls:
+    - https://docs.mojaloop.io/charts/repo/fspiop-transfer-api-svc-12.0.0-253.2de3c8b.tgz
+    version: 12.0.0-253.2de3c8b
+  - apiVersion: v2
+    appVersion: 11.1.6
+    created: "2021-11-12T12:59:46.810695649Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -1652,7 +1919,7 @@ entries:
     version: 12.0.0-249.c1edbce
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-12T12:55:57.451033797Z"
+    created: "2021-11-12T12:59:46.808439736Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -1678,7 +1945,7 @@ entries:
     version: 12.0.0-218.4fd12cb
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-12T12:55:57.448850697Z"
+    created: "2021-11-12T12:59:46.80616691Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -1704,7 +1971,7 @@ entries:
     version: 12.0.0-144.8ad40e7
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-12T12:55:57.44582817Z"
+    created: "2021-11-12T12:59:46.803919882Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -1730,7 +1997,7 @@ entries:
     version: 12.0.0-111.d5f09a1
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-12T12:55:57.459079306Z"
+    created: "2021-11-12T12:59:46.821256173Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -1756,7 +2023,7 @@ entries:
     version: 12.0.0-51.656a398
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-12T12:55:57.45545772Z"
+    created: "2021-11-12T12:59:46.817339235Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -1783,7 +2050,7 @@ entries:
   mojaloop:
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-12T12:55:57.510434082Z"
+    created: "2021-11-12T12:59:46.881584412Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -1812,7 +2079,36 @@ entries:
     version: 14.0.0
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-12T12:55:57.491247098Z"
+    created: "2021-11-12T12:59:46.861267748Z"
+    dependencies:
+    - name: common
+      repository: file://../common
+      tags:
+      - mojaloop
+      - common
+      version: 1.0.0
+    - name: fspiop-transfer-api-svc
+      repository: file://../fspiop-transfer-api-svc
+      tags:
+      - mojaloop
+      - fspiop-transfer
+      version: 12.0.0
+    - name: admin-api-svc
+      repository: file://../admin-api-svc
+      tags:
+      - mojaloop
+      - admin
+      version: 12.0.0
+    description: A Helm chart for Kubernetes
+    digest: d4be5cb20885454e5e855f116de4913a2debb74ceaed7642da6d9bf17369a287
+    name: mojaloop
+    type: application
+    urls:
+    - https://docs.mojaloop.io/charts/repo/mojaloop-14.0.0-253.2de3c8b.tgz
+    version: 14.0.0-253.2de3c8b
+  - apiVersion: v2
+    appVersion: 14.0.0
+    created: "2021-11-12T12:59:46.854325521Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -1841,7 +2137,7 @@ entries:
     version: 14.0.0-249.c1edbce
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-12T12:55:57.485259978Z"
+    created: "2021-11-12T12:59:46.848251412Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -1870,7 +2166,7 @@ entries:
     version: 14.0.0-218.4fd12cb
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-12T12:55:57.478705798Z"
+    created: "2021-11-12T12:59:46.841385428Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -1899,7 +2195,7 @@ entries:
     version: 14.0.0-144.8ad40e7
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-12T12:55:57.471755085Z"
+    created: "2021-11-12T12:59:46.835149669Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -1928,7 +2224,7 @@ entries:
     version: 14.0.0-111.d5f09a1
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-12T12:55:57.503837657Z"
+    created: "2021-11-12T12:59:46.874376693Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -1957,7 +2253,7 @@ entries:
     version: 14.0.0-51.656a398
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-12T12:55:57.497893913Z"
+    created: "2021-11-12T12:59:46.868107173Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -1987,7 +2283,31 @@ entries:
   reporting-events-processor-svc:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-12T12:55:57.515875794Z"
+    created: "2021-11-12T12:59:46.888554001Z"
+    dependencies:
+    - name: common
+      repository: file://../common
+      tags:
+      - moja-common
+      version: 1.0.0
+    description: Reporting Events Processor
+    digest: d98ca1cd39905d28c8311491accdb3e86cd0492dc817ff8eada10d6a5e8796cd
+    home: http://mojaloop.io
+    icon: http://mojaloop.io/images/logo.png
+    maintainers:
+    - email: yevhen.kyriukha@modusbox.com
+      name: Yevhen Kyriukha
+    name: reporting-events-processor-svc
+    sources:
+    - https://github.com/mojaloop/mojaloop
+    - https://github.com/mojaloop/helm
+    - https://github.com/mojaloop/reporting-events-processor-svc
+    urls:
+    - https://docs.mojaloop.io/charts/repo/reporting-events-processor-svc-1.0.0-253.2de3c8b.tgz
+    version: 1.0.0-253.2de3c8b
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2021-11-12T12:59:46.887183222Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -2011,7 +2331,7 @@ entries:
     version: 1.0.0-249.c1edbce
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-12T12:55:57.514486494Z"
+    created: "2021-11-12T12:59:46.885778785Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -2035,7 +2355,7 @@ entries:
     version: 1.0.0-218.4fd12cb
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-12T12:55:57.513178039Z"
+    created: "2021-11-12T12:59:46.884383007Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -2059,7 +2379,7 @@ entries:
     version: 1.0.0-144.8ad40e7
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-12T12:55:57.511869442Z"
+    created: "2021-11-12T12:59:46.883030927Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -2083,7 +2403,7 @@ entries:
     version: 1.0.0-111.d5f09a1
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-12T12:55:57.518618333Z"
+    created: "2021-11-12T12:59:46.891439635Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -2107,7 +2427,7 @@ entries:
     version: 1.0.0-51.656a398
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-12T12:55:57.517234942Z"
+    created: "2021-11-12T12:59:46.890080069Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -2132,7 +2452,31 @@ entries:
   reporting-hub-bop-api-svc:
   - apiVersion: v2
     appVersion: 1.0.5
-    created: "2021-11-12T12:55:57.529813022Z"
+    created: "2021-11-12T12:59:46.900847954Z"
+    dependencies:
+    - name: common
+      repository: file://../common
+      tags:
+      - moja-common
+      version: 1.0.0
+    description: Reporting API service
+    digest: d1c24be3fa9d3dcba3d2af5a62a6b63179a78a2a4863a8be121f4420557778c6
+    home: http://mojaloop.io
+    icon: http://mojaloop.io/images/logo.png
+    maintainers:
+    - email: yevhen.kyriukha@modusbox.com
+      name: Yevhen Kyriukha
+    name: reporting-hub-bop-api-svc
+    sources:
+    - https://github.com/mojaloop/mojaloop
+    - https://github.com/mojaloop/helm
+    - https://github.com/mojaloop/reporting-hub-bop-api-svc
+    urls:
+    - https://docs.mojaloop.io/charts/repo/reporting-hub-bop-api-svc-1.0.0-253.2de3c8b.tgz
+    version: 1.0.0-253.2de3c8b
+  - apiVersion: v2
+    appVersion: 1.0.5
+    created: "2021-11-12T12:59:46.899171219Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -2156,7 +2500,7 @@ entries:
     version: 1.0.0-249.c1edbce
   - apiVersion: v2
     appVersion: 1.0.5
-    created: "2021-11-12T12:55:57.527105501Z"
+    created: "2021-11-12T12:59:46.897407528Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -2180,7 +2524,7 @@ entries:
     version: 1.0.0-218.4fd12cb
   - apiVersion: v2
     appVersion: 1.0.5
-    created: "2021-11-12T12:55:57.524437482Z"
+    created: "2021-11-12T12:59:46.895661102Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -2204,7 +2548,7 @@ entries:
     version: 1.0.0-144.8ad40e7
   - apiVersion: v2
     appVersion: 1.0.5
-    created: "2021-11-12T12:55:57.521755431Z"
+    created: "2021-11-12T12:59:46.893998752Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -2228,7 +2572,7 @@ entries:
     version: 1.0.0-111.d5f09a1
   - apiVersion: v2
     appVersion: 1.0.5
-    created: "2021-11-12T12:55:57.535199241Z"
+    created: "2021-11-12T12:59:46.904272309Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -2252,7 +2596,7 @@ entries:
     version: 1.0.0-51.656a398
   - apiVersion: v2
     appVersion: 1.0.5
-    created: "2021-11-12T12:55:57.532493076Z"
+    created: "2021-11-12T12:59:46.902557384Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -2277,7 +2621,31 @@ entries:
   reporting-hub-bop-role-ui:
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-12T12:55:57.545782133Z"
+    created: "2021-11-12T12:59:46.913278225Z"
+    dependencies:
+    - name: common
+      repository: file://../common
+      tags:
+      - moja-common
+      version: 1.0.0
+    description: This is the role microfrontend of the BizOps framework that handles role and participant assignment.
+    digest: dfd705a09cc6fe8fb630256097b97060886cc23d8b0d6dd01526e5c9a770d606
+    home: http://mojaloop.io
+    icon: http://mojaloop.io/images/logo.png
+    maintainers:
+    - email: kevin.leyow@modusbox.com
+      name: Kevin Christopher Leyow
+    name: reporting-hub-bop-role-ui
+    sources:
+    - https://github.com/mojaloop/mojaloop
+    - https://github.com/mojaloop/helm
+    - https://github.com/mojaloop/reporting-hub-bop-role-ui
+    urls:
+    - https://docs.mojaloop.io/charts/repo/reporting-hub-bop-role-ui-1.0.0-253.2de3c8b.tgz
+    version: 1.0.0-253.2de3c8b
+  - apiVersion: v2
+    appVersion: 1.6.0
+    created: "2021-11-12T12:59:46.911699417Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -2301,7 +2669,7 @@ entries:
     version: 1.0.0-249.c1edbce
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-12T12:55:57.543340918Z"
+    created: "2021-11-12T12:59:46.910102006Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -2325,7 +2693,7 @@ entries:
     version: 1.0.0-218.4fd12cb
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-12T12:55:57.54093052Z"
+    created: "2021-11-12T12:59:46.908495509Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -2349,7 +2717,7 @@ entries:
     version: 1.0.0-144.8ad40e7
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-12T12:55:57.538353755Z"
+    created: "2021-11-12T12:59:46.906897781Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -2373,7 +2741,7 @@ entries:
     version: 1.0.0-111.d5f09a1
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-12T12:55:57.550925884Z"
+    created: "2021-11-12T12:59:46.916478803Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -2397,7 +2765,7 @@ entries:
     version: 1.0.0-51.656a398
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-12T12:55:57.548388738Z"
+    created: "2021-11-12T12:59:46.914911337Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -2422,7 +2790,31 @@ entries:
   reporting-hub-bop-shell:
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-12T12:55:57.559224645Z"
+    created: "2021-11-12T12:59:46.925762593Z"
+    dependencies:
+    - name: common
+      repository: file://../common
+      tags:
+      - moja-common
+      version: 1.0.0
+    description: This is the Shell application that accommodates BizOps microfrontends.
+    digest: f09ae302f0128544646e94dea9714b119aa7384aa8bc465fe5707d59553ef2b8
+    home: http://mojaloop.io
+    icon: http://mojaloop.io/images/logo.png
+    maintainers:
+    - email: kevin.leyow@modusbox.com
+      name: Kevin Christopher Leyow
+    name: reporting-hub-bop-shell
+    sources:
+    - https://github.com/mojaloop/mojaloop
+    - https://github.com/mojaloop/helm
+    - https://github.com/mojaloop/reporting-hub-bop-shell
+    urls:
+    - https://docs.mojaloop.io/charts/repo/reporting-hub-bop-shell-1.0.0-253.2de3c8b.tgz
+    version: 1.0.0-253.2de3c8b
+  - apiVersion: v2
+    appVersion: 1.6.0
+    created: "2021-11-12T12:59:46.924029461Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -2446,7 +2838,7 @@ entries:
     version: 1.0.0-249.c1edbce
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-12T12:55:57.557541414Z"
+    created: "2021-11-12T12:59:46.922046172Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -2470,7 +2862,7 @@ entries:
     version: 1.0.0-218.4fd12cb
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-12T12:55:57.555973095Z"
+    created: "2021-11-12T12:59:46.920435459Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -2494,7 +2886,7 @@ entries:
     version: 1.0.0-144.8ad40e7
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-12T12:55:57.553295157Z"
+    created: "2021-11-12T12:59:46.918824155Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -2518,7 +2910,7 @@ entries:
     version: 1.0.0-111.d5f09a1
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-12T12:55:57.562342477Z"
+    created: "2021-11-12T12:59:46.928977148Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -2542,7 +2934,7 @@ entries:
     version: 1.0.0-51.656a398
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-12T12:55:57.560783878Z"
+    created: "2021-11-12T12:59:46.927386677Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -2567,7 +2959,31 @@ entries:
   reporting-hub-bop-trx-ui:
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-12T12:55:57.569205859Z"
+    created: "2021-11-12T12:59:46.938346792Z"
+    dependencies:
+    - name: common
+      repository: file://../common
+      tags:
+      - moja-common
+      version: 1.0.0
+    description: This is the role microfrontend of the BizOps framework that handles tracing of transfers.
+    digest: 2720907aa5ab0cc04aa98607f807707769440e616caa984ec65305bc3a735303
+    home: http://mojaloop.io
+    icon: http://mojaloop.io/images/logo.png
+    maintainers:
+    - email: kevin.leyow@modusbox.com
+      name: Kevin Christopher Leyow
+    name: reporting-hub-bop-trx-ui
+    sources:
+    - https://github.com/mojaloop/mojaloop
+    - https://github.com/mojaloop/helm
+    - https://github.com/mojaloop/reporting-hub-bop-trx-ui
+    urls:
+    - https://docs.mojaloop.io/charts/repo/reporting-hub-bop-trx-ui-1.0.0-253.2de3c8b.tgz
+    version: 1.0.0-253.2de3c8b
+  - apiVersion: v2
+    appVersion: 1.6.0
+    created: "2021-11-12T12:59:46.93665491Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -2591,7 +3007,7 @@ entries:
     version: 1.0.0-249.c1edbce
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-12T12:55:57.567628374Z"
+    created: "2021-11-12T12:59:46.934854531Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -2615,7 +3031,7 @@ entries:
     version: 1.0.0-218.4fd12cb
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-12T12:55:57.565428226Z"
+    created: "2021-11-12T12:59:46.933084446Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -2639,7 +3055,7 @@ entries:
     version: 1.0.0-144.8ad40e7
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-12T12:55:57.563888072Z"
+    created: "2021-11-12T12:59:46.931360056Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -2663,7 +3079,7 @@ entries:
     version: 1.0.0-111.d5f09a1
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-12T12:55:57.572318563Z"
+    created: "2021-11-12T12:59:46.941494187Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -2687,7 +3103,7 @@ entries:
     version: 1.0.0-51.656a398
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-12T12:55:57.570739596Z"
+    created: "2021-11-12T12:59:46.939939783Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -2712,7 +3128,31 @@ entries:
   role-assignment-service:
   - apiVersion: v2
     appVersion: 0.0.5
-    created: "2021-11-12T12:55:57.579865483Z"
+    created: "2021-11-12T12:59:46.951403965Z"
+    dependencies:
+    - name: common
+      repository: file://../common
+      tags:
+      - moja-common
+      version: 1.0.0
+    description: API service for assigning roles and participants to users
+    digest: 4f349524eea75fda769ce7a6f38beb5b99f18de3dfe5bcfc58ae8a870836b0aa
+    home: http://mojaloop.io
+    icon: http://mojaloop.io/images/logo.png
+    maintainers:
+    - email: vijaya.guthi@modusbox.com
+      name: Vijaya Kumar Guthi
+    name: role-assignment-service
+    sources:
+    - https://github.com/mojaloop/mojaloop
+    - https://github.com/mojaloop/helm
+    - https://github.com/mojaloop/role-assignment-service
+    urls:
+    - https://docs.mojaloop.io/charts/repo/role-assignment-service-1.0.0-253.2de3c8b.tgz
+    version: 1.0.0-253.2de3c8b
+  - apiVersion: v2
+    appVersion: 0.0.5
+    created: "2021-11-12T12:59:46.949581846Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -2736,7 +3176,7 @@ entries:
     version: 1.0.0-249.c1edbce
   - apiVersion: v2
     appVersion: 0.0.5
-    created: "2021-11-12T12:55:57.578079309Z"
+    created: "2021-11-12T12:59:46.947791503Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -2760,7 +3200,7 @@ entries:
     version: 1.0.0-218.4fd12cb
   - apiVersion: v2
     appVersion: 0.0.5
-    created: "2021-11-12T12:55:57.575755673Z"
+    created: "2021-11-12T12:59:46.945996092Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -2784,7 +3224,7 @@ entries:
     version: 1.0.0-144.8ad40e7
   - apiVersion: v2
     appVersion: 0.0.5
-    created: "2021-11-12T12:55:57.574030257Z"
+    created: "2021-11-12T12:59:46.944097412Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -2808,7 +3248,7 @@ entries:
     version: 1.0.0-111.d5f09a1
   - apiVersion: v2
     appVersion: 0.0.5
-    created: "2021-11-12T12:55:57.58331029Z"
+    created: "2021-11-12T12:59:46.956601328Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -2832,7 +3272,7 @@ entries:
     version: 1.0.0-51.656a398
   - apiVersion: v2
     appVersion: 0.0.5
-    created: "2021-11-12T12:55:57.581550306Z"
+    created: "2021-11-12T12:59:46.953262829Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -2857,7 +3297,31 @@ entries:
   security-hub-bop-kratos-ui:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2021-11-12T12:55:57.590137797Z"
+    created: "2021-11-12T12:59:46.969388725Z"
+    dependencies:
+    - name: common
+      repository: file://../common
+      tags:
+      - moja-common
+      version: 1.0.0
+    description: This is the UI for Kratos.
+    digest: 51f0ff8f5d4dbe2f3fe37679cf36997388917a7445d0838d1b2b95557eda2963
+    home: http://mojaloop.io
+    icon: http://mojaloop.io/images/logo.png
+    maintainers:
+    - email: vijaya.guthi@modusbox.com
+      name: Vijaya Kumar Guthi
+    name: security-hub-bop-kratos-ui
+    sources:
+    - https://github.com/mojaloop/mojaloop
+    - https://github.com/mojaloop/helm
+    - https://github.com/modusbox/kratos-ui-oidcer
+    urls:
+    - https://docs.mojaloop.io/charts/repo/security-hub-bop-kratos-ui-1.0.0-253.2de3c8b.tgz
+    version: 1.0.0-253.2de3c8b
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2021-11-12T12:59:46.966700235Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -2881,7 +3345,7 @@ entries:
     version: 1.0.0-249.c1edbce
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2021-11-12T12:55:57.587953033Z"
+    created: "2021-11-12T12:59:46.9640992Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -2905,7 +3369,7 @@ entries:
     version: 1.0.0-218.4fd12cb
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2021-11-12T12:55:57.586375246Z"
+    created: "2021-11-12T12:59:46.961640839Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -2929,7 +3393,7 @@ entries:
     version: 1.0.0-144.8ad40e7
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2021-11-12T12:55:57.584849798Z"
+    created: "2021-11-12T12:59:46.959165884Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -2953,7 +3417,7 @@ entries:
     version: 1.0.0-111.d5f09a1
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2021-11-12T12:55:57.593255116Z"
+    created: "2021-11-12T12:59:46.973899914Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -2977,7 +3441,7 @@ entries:
     version: 1.0.0-51.656a398
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2021-11-12T12:55:57.591716598Z"
+    created: "2021-11-12T12:59:46.972302866Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -3002,7 +3466,30 @@ entries:
   security-role-perm-crd:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-12T12:55:57.597624258Z"
+    created: "2021-11-12T12:59:46.979231861Z"
+    dependencies:
+    - name: common
+      repository: file://../common
+      tags:
+      - moja-common
+      version: 1.0.0
+    description: Custom Resource Definition (CRD) for mojaloop role-permission mappings
+    digest: 0fb1af2fb07e0ca43fc3f71f71a1ce5c4ed5cd53c4d04e88e6831f4c26807eb9
+    home: http://mojaloop.io
+    icon: http://mojaloop.io/images/logo.png
+    maintainers:
+    - email: vijaya.guthi@modusbox.com
+      name: Vijaya Kumar Guthi
+    name: security-role-perm-crd
+    sources:
+    - https://github.com/mojaloop/mojaloop
+    - https://github.com/mojaloop/charts
+    urls:
+    - https://docs.mojaloop.io/charts/repo/security-role-perm-crd-1.0.0-253.2de3c8b.tgz
+    version: 1.0.0-253.2de3c8b
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2021-11-12T12:59:46.978118492Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -3025,7 +3512,7 @@ entries:
     version: 1.0.0-249.c1edbce
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-12T12:55:57.596470219Z"
+    created: "2021-11-12T12:59:46.977014216Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -3048,7 +3535,7 @@ entries:
     version: 1.0.0-218.4fd12cb
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-12T12:55:57.595433093Z"
+    created: "2021-11-12T12:59:46.975982785Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -3071,7 +3558,7 @@ entries:
     version: 1.0.0-144.8ad40e7
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-12T12:55:57.594306669Z"
+    created: "2021-11-12T12:59:46.974939517Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -3094,7 +3581,7 @@ entries:
     version: 1.0.0-111.d5f09a1
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-12T12:55:57.600792271Z"
+    created: "2021-11-12T12:59:46.981381798Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -3117,7 +3604,7 @@ entries:
     version: 1.0.0-51.656a398
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-12T12:55:57.598839316Z"
+    created: "2021-11-12T12:59:46.980342859Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -3141,7 +3628,37 @@ entries:
   security-role-perm-operator-svc:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-12T12:55:57.617394177Z"
+    created: "2021-11-12T12:59:46.995903345Z"
+    dependencies:
+    - name: common
+      repository: file://../common
+      tags:
+      - moja-common
+      version: 1.0.0
+    - condition: installCRDs
+      name: security-role-perm-crd
+      repository: file://../security-role-perm-crd
+      tags:
+      - security-role-perm-crd
+      version: 1.0.0
+    description: Kubernetes operator watches mojaloop roles and updates keto
+    digest: 6e28a5fabfc79c48108dd90679a97f5aa69b589bd51950fff5e65f53f638d3a4
+    home: http://mojaloop.io
+    icon: http://mojaloop.io/images/logo.png
+    maintainers:
+    - email: vijaya.guthi@modusbox.com
+      name: Vijaya Kumar Guthi
+    name: security-role-perm-operator-svc
+    sources:
+    - https://github.com/mojaloop/mojaloop
+    - https://github.com/mojaloop/helm
+    - https://github.com/mojaloop/security-role-perm-operator-svc
+    urls:
+    - https://docs.mojaloop.io/charts/repo/security-role-perm-operator-svc-1.0.0-253.2de3c8b.tgz
+    version: 1.0.0-253.2de3c8b
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2021-11-12T12:59:46.992677277Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -3171,7 +3688,7 @@ entries:
     version: 1.0.0-249.c1edbce
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-12T12:55:57.61288806Z"
+    created: "2021-11-12T12:59:46.990122196Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -3201,7 +3718,7 @@ entries:
     version: 1.0.0-218.4fd12cb
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-12T12:55:57.608801145Z"
+    created: "2021-11-12T12:59:46.987255308Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -3231,7 +3748,7 @@ entries:
     version: 1.0.0-144.8ad40e7
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-12T12:55:57.604920645Z"
+    created: "2021-11-12T12:59:46.984683337Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -3261,7 +3778,7 @@ entries:
     version: 1.0.0-111.d5f09a1
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-12T12:55:57.622649189Z"
+    created: "2021-11-12T12:59:47.000933852Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -3291,7 +3808,7 @@ entries:
     version: 1.0.0-51.656a398
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-12T12:55:57.619952053Z"
+    created: "2021-11-12T12:59:46.998433649Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -3319,4 +3836,4 @@ entries:
     urls:
     - https://docs.mojaloop.io/charts/repo/security-role-perm-operator-svc-1.0.0-39.8e2f564.tgz
     version: 1.0.0-39.8e2f564
-generated: "2021-11-12T12:55:57.12885913Z"
+generated: "2021-11-12T12:59:46.420269206Z"
