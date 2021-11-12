@@ -33,7 +33,7 @@ else
 fi
 
 echo "Package helm charts..." | tee git.log 
-bash package.sh
+bash scripts/package.sh
 
 echo "Staging general changes..." | tee git.log 
 git add -A
