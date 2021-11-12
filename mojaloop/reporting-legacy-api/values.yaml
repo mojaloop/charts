@@ -24,16 +24,6 @@ global:
       name: centralledger-mysql
       key: mysql-password
 
-  reportingEventsDB:
-    host: reporting-events-db
-    port: 27017
-    user: user
-    database: default
-    # secret: {}
-    secret:
-      name: reporting-events-db
-      key: mongodb-password
-
 reportingDB:
   ## This is the same as setting the host explicitly, i.e. will set the host as set below. It is included to support importing MySQL charts as a dependency.
   # fullnameOverride: reporting-db
@@ -45,19 +35,6 @@ reportingDB:
   # database: central_ledger
   secret: {}
   #   name: reporting-db
-  #   key: password
-
-reportingEventsDB:
-  ## This is the same as setting the host explicitly, i.e. will set the host as set below. It is included to support importing MySQL charts as a dependency.
-  # fullnameOverride: reporting-events-db
-  ## This will override the name of reporting-events-db and add the release prefix, e.g. '<RELEASE_NAME>-<nameOverride>'.
-  # nameOverride: reporting-events-db
-  # host: reporting-events-db
-  # port: 27017
-  # user: event_store
-  # database: event_store
-  secret: {}
-  #   name: reporting-events-db
   #   key: password
 
   # This can be overridden by the main keto element.
@@ -125,8 +102,8 @@ containerSecurityContext:
 
 image:
   registry: docker.io
-  repository: mojaloop/reporting-hub-bop-api-svc
-  tag: v1.0.16
+  repository: mojaloop/reporting
+  tag: v10.5.1-rc7
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -185,13 +162,13 @@ diagnosticMode:
 initContainers: []
 
 readinessProbe:
-  enabled: true
+  enabled: false
   httpGet:
     path: /health
   initialDelaySeconds: 15
   periodSeconds: 15
 livenessProbe:
-  enabled: true
+  enabled: false
   httpGet:
     path: /health
   initialDelaySeconds: 15
@@ -205,7 +182,7 @@ metrics:
     timeout: 5000
     prefix: moja_
     defaultLabels:
-      serviceName: reporting-hub-bop-api-svc
+      serviceName: reporting-legacy-api
 
 config: {}
 
@@ -264,7 +241,7 @@ ingress:
   apiVersion:
   ## @param ingress.hostname Default host for the ingress record
   ##
-  hostname: reporting-hub-bop-api-svc.local
+  hostname: reporting-legacy-api.local
   ## @param ingress.path Default path for the ingress record
   ## NOTE: You may need to set this to '/*' in order to use this with ALB ingress controllers
   ##

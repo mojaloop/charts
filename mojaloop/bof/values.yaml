@@ -71,6 +71,15 @@ reporting-hub-bop-api-svc:
     annotations:
       nginx.ingress.kubernetes.io/rewrite-target: /$2
 
+reporting-legacy-api:
+  enabled: true
+  ingress:
+    enabled: true
+    hostname: api-bof.local
+    path: /proxy/reports(/|$)(.*)
+    annotations:
+      nginx.ingress.kubernetes.io/rewrite-target: /$2
+
 ## Front-end UI services
 ### Shell and helper UI services
 reporting-hub-bop-shell:
