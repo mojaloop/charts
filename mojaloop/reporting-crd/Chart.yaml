@@ -1,14 +1,13 @@
 apiVersion: v2
-description: Reporting Legacy API
-name: reporting-legacy-api
+description: Custom Resource Definition (CRD) for mojaloop reporting service
+name: reporting-crd
 version: 1.0.0
-appVersion: "1.0.5"
+appVersion: "1.0.0"
 home: http://mojaloop.io
 icon: http://mojaloop.io/images/logo.png
 sources:
   - https://github.com/mojaloop/mojaloop
-  - https://github.com/mojaloop/helm
-  - https://github.com/mojaloop/reporting-legacy-api
+  - https://github.com/mojaloop/charts
 maintainers:
   - name: Yevhen Kyriukha
     email: yevhen.kyriukha@modusbox.com
@@ -17,9 +16,4 @@ dependencies:
     repository: "file://../common"
     tags:
       - moja-common
-    version: 1.0.0
-  - name: reporting-crd
-    repository: "file://../reporting-crd"
-    tags:
-      - reporting-crd
     version: 1.0.0

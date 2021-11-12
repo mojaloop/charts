@@ -1,0 +1,13 @@
+## @section Global parameters
+global:
+  mojaloopreport: {}
+
+## Mojaloop Report configuration
+##
+mojaloopreport:
+  resourceKind: "MojaloopReport"
+  resourceListKind: "MojaloopReportList"
+  resourceGroup: "mojaloop.io"
+  resourceVersion: "v1"
+  resourceSingular: "mojaloopreport"
+  resourcePlural: "mojaloopreports"

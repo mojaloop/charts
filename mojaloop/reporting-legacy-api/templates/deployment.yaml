@@ -122,3 +122,11 @@ spec:
             - name: ORY_KETO_READ_URL
               value: '{{ include "common.backends.keto.readURL" . }}'
             {{- end }}
+            - name: WATCH_RESOURCE_GROUP
+              value: '{{ include "common.backends.mojaloopreport.resourceGroup" . }}'
+            - name: WATCH_RESOURCE_VERSION
+              value: '{{ include "common.backends.mojaloopreport.resourceVersion" . }}'
+            - name: WATCH_RESOURCE_PLURAL
+              value: '{{ include "common.backends.mojaloopreport.resourcePlural" . }}'
+            - name: WATCH_NAMESPACE
+              value: '{{ .Release.Namespace }}'
