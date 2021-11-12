@@ -186,7 +186,7 @@ metrics:
 
 config:
   env:
-    CENTRAL_LEDGER_ENDPOINT: /central-ledger
+    CENTRAL_LEDGER_ENDPOINT: http://test1-centralledger-service:80
 
 service:
   internalPort: 8084

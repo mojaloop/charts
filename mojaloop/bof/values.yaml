@@ -123,6 +123,27 @@ reporting-hub-bop-trx-ui:
     env:
       REACT_APP_API_BASE_URL: http://www-bof.local/proxy/transfers
 
+reporting-hub-bop-positions-ui:
+  enabled: true
+  ingress:
+    enabled: true
+    pathType: ImplementationSpecific
+    hostname: reporting-hub-bop-positions-ui.local
+  config:
+    env:
+      CENTRAL_LEDGER_ENDPOINT: http://test1-centralledger-service:80
+
+reporting-hub-bop-settlements-ui:
+  enabled: true
+  ingress:
+    enabled: true
+    pathType: ImplementationSpecific
+    hostname: reporting-hub-bop-settlements-ui.local
+  config:
+    env:
+      CENTRAL_LEDGER_ENDPOINT: http://test1-centralledger-service:80
+      CENTRAL_SETTLEMENTS_ENDPOINT: http://test1-centralsettlement-service:80
+
 ## Other services
 security-role-perm-operator-svc:
   enabled: true
