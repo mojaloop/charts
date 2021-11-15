@@ -2970,7 +2970,7 @@ oathkeeper:
       minAvailable: 1
   oathkeeper-maester:
     fullnameOverride: 'oathkeeper-maester'
-    oathkeeperFullnameOverride: 'oathkeeper'
+    oathkeeperFullnameOverride: 'oathkeeper-rules'
     deployment:
       envs:
       - name: authorizersAvailable
