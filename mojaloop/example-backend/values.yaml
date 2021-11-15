@@ -2982,7 +2982,7 @@ oathkeeper:
 ## kratos migrate sql -e --yes
 ##
 kratos:
-  enabled: false
+  enabled: true
   ## Overriding the image to older one because of some schema changes not compatible with kratios UI implemented
   ## This can be reverted when we upgrade the kratos-ui according to the new schema
   image:
@@ -3146,9 +3146,12 @@ kratos:
     config:
       # dsn: memory
       dsn: mysql://user:password@tcp(kratos-db:3306)/kratos?max_conns=20&max_idle_conns=4
-      # courier:
-      #   smtp:
-      #     connection_uri: smtps://test:test@mailslurper:1025/?skip_ssl_verify=true&legacy_ssl=true
+      # There seems to be some issue with the kratos charts where this
+      # is still required in the deployment even if disabled.
+      # https://github.com/ory/k8s/blob/master/helm/charts/kratos/templates/statefulset-mail.yaml#L61
+      courier:
+        smtp:
+          connection_uri: smtps://test:test@mailslurper:1025/?skip_ssl_verify=true&legacy_ssl=true
       serve:
         public:
           base_url: http://www-bof.local/kratos/
