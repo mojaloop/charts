@@ -3043,7 +3043,10 @@ kratos:
       #    hosts:
       #      - kratos-admin.local
     public:
-      enabled: true
+    ## Disabling the following required ingress for fixing an issue with ingress in K8S version 1.22+
+    ## For K8S versions less than 1.22, we can just enable this and use the config
+    ## We can't use this config in K8S 1.22+ unless we upgrade the kratos chart version
+      enabled: false
       className: ""
       annotations:
         nginx.ingress.kubernetes.io/rewrite-target: /$2
