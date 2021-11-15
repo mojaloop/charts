@@ -2969,7 +2969,7 @@ oathkeeper:
     spec:
       minAvailable: 1
   oathkeeper-maester:
-    fullnameOverride: 'oathkeeper-maester'
+    fullnameOverride: 'oathkeeper'
     oathkeeperFullnameOverride: 'oathkeeper'
     deployment:
       envs:
