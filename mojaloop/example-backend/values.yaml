@@ -2852,7 +2852,7 @@ oathkeeper:
     # This seems to be a bug in the charts - we MUST enable this, 
     # otherwise the `oathkeeper-rules` configmap isn't created, and the pods fail to start
     # See: https://github.com/ory/k8s/blob/master/helm/charts/oathkeeper/templates/configmap-rules.yaml
-    managedAccessRules: false
+    managedAccessRules: true
 
   secret:
     # -- set to true for this helm chart to manage the secret
