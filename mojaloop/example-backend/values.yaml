@@ -2968,13 +2968,13 @@ oathkeeper:
     enabled: false
     spec:
       minAvailable: 1
-  oathkeeper-maester:
-    fullnameOverride: 'oathkeeper-maester'
-    oathkeeperFullnameOverride: 'oathkeeper'
-    deployment:
-      envs:
-      - name: authorizersAvailable
-        value: allow,deny,noop,remote_json
+  # oathkeeper-maester:
+  #   fullnameOverride: 'oathkeeper'
+  #   oathkeeperFullnameOverride: 'oathkeeper'
+  #   deployment:
+  #     envs:
+  #     - name: authorizersAvailable
+  #       value: allow,deny,noop,remote_json
 
 
 ## Ory Kratos
@@ -3037,8 +3037,7 @@ kratos:
       hosts:
         - host: kratos-admin.local
           paths: 
-            - path: /
-              pathType: ImplementationSpecific
+            - /
       tls: []
       #  - secretName: kratos-admin-tls
       #    hosts:
@@ -3055,7 +3054,6 @@ kratos:
           host: www-bof.local
           paths: 
             - path: /kratos(/|$)(.*)
-              pathType: ImplementationSpecific
       tls: []
       #  - secretName: kratos-public-tls
       #    hosts:
