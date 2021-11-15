@@ -2961,20 +2961,20 @@ oathkeeper:
   # -- Configures controller setup
   maester:
     enabled: true
-    # oathkeeperFullnameOverride: 'oathkeeper'
+    oathkeeperFullnameOverride: 'oathkeeper'
 
   # -- PodDistributionBudget configuration
   pdb:
     enabled: false
     spec:
       minAvailable: 1
-  # oathkeeper-maester:
-  #   fullnameOverride: 'oathkeeper'
-  #   oathkeeperFullnameOverride: 'oathkeeper'
-  #   deployment:
-  #     envs:
-  #     - name: authorizersAvailable
-  #       value: allow,deny,noop,remote_json
+  oathkeeper-maester:
+    fullnameOverride: 'oathkeeper-maester'
+    oathkeeperFullnameOverride: 'oathkeeper'
+    deployment:
+      envs:
+      - name: authorizersAvailable
+        value: allow,deny,noop,remote_json
 
 
 ## Ory Kratos
