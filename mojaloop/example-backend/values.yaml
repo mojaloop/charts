@@ -2961,7 +2961,7 @@ oathkeeper:
   # -- Configures controller setup
   maester:
     enabled: true
-    oathkeeperFullnameOverride: 'oathkeeper-rules'
+    oathkeeperFullnameOverride: 'oathkeeper'
 
   # -- PodDistributionBudget configuration
   pdb:
@@ -2970,7 +2970,7 @@ oathkeeper:
       minAvailable: 1
   oathkeeper-maester:
     fullnameOverride: 'oathkeeper-maester'
-    oathkeeperFullnameOverride: 'oathkeeper-rules'
+    oathkeeperFullnameOverride: 'oathkeeper'
     deployment:
       envs:
       - name: authorizersAvailable
@@ -3037,7 +3037,8 @@ kratos:
       hosts:
         - host: kratos-admin.local
           paths: 
-            - /
+            - path: /
+              pathType: ImplementationSpecific
       tls: []
       #  - secretName: kratos-admin-tls
       #    hosts:
@@ -3053,7 +3054,8 @@ kratos:
         -
           host: www-bof.local
           paths: 
-            - /kratos(/|$)(.*)
+            - path: /kratos(/|$)(.*)
+              pathType: ImplementationSpecific
       tls: []
       #  - secretName: kratos-public-tls
       #    hosts:
