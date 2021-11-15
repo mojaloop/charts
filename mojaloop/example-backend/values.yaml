@@ -3053,7 +3053,7 @@ kratos:
         -
           host: www-bof.local
           paths: 
-            - path: /kratos(/|$)(.*)
+            - /kratos(/|$)(.*)
       tls: []
       #  - secretName: kratos-public-tls
       #    hosts:
