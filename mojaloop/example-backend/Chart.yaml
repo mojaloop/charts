@@ -108,7 +108,7 @@ dependencies:
       - backend
       - kratos
       - bof
-    version: 0.19.6
+    version: 0.14.1
   - name: mysql
     alias: kratos-db
     condition: kratos-db.enabled

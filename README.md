@@ -153,3 +153,48 @@ $ DATE_ISO=$(date -u +%a,\ %d\ %b\ %Y\ %H:%M:%S\ GMT) && curl -v 'http://transfe
 * Connection #0 to host transfer-api-svc.local left intact
 * Closing connection 0
 ```
+
+
+## Debugging CI/CD
+
+### Running Locally
+
+You can run the `k8s-version-test.sh` script locally to help verify your deployment.
+
+For example:
+
+```bash
+# install k8s v1.21, and run the test
+./scripts/update-charts-dep.sh
+sudo CHARTS_WORKING_DIR=`pwd` ./scripts/k8s-versions-test.sh \
+  -m install -v v1.21 -u `whoami` -t 1000s
+
+
+```
+
+> Note: this currently doesn't work on m1 Macs! The MYSQL docker container doesn't have 
+> support for arm64 architectures
+
+### Check the k8s event logs
+
+When a build fails, we write the k8s events to a log and store it as an artifact on circleci:
+
+```            
+kubectl get events --sort-by=.metadata.creationTimestamp > /tmp/k8s_events
+```
+
+You can check the output of this log to determine if the error is related to pods not starting etc.
+
+### Log in, and get pods:
+
+On CircleCI, click "Rerun job with ssh" > Copy and paste the `ssh` command into your command line
+
+```bash
+export k8s_user=circleci
+export KUBECONFIG=/home/$k8s_user/k3s.yaml
+# get pods
+kubectl get po
+
+# get events from cluster:
+kubectl get events --sort-by=.metadata.creationTimestamp
+```
