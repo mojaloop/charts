@@ -2982,6 +2982,8 @@ oathkeeper:
 ## kratos migrate sql -e --yes
 ##
 kratos:
+  # TODO: reenable this chart by default
+  # see https://github.com/mojaloop/project/issues/2578
   enabled: false
   ## Overriding the image to older one because of some schema changes not compatible with kratios UI implemented
   ## This can be reverted when we upgrade the kratos-ui according to the new schema
