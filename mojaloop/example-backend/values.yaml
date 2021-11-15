@@ -2961,7 +2961,7 @@ oathkeeper:
   # -- Configures controller setup
   maester:
     enabled: true
-    oathkeeperFullnameOverride: 'oathkeeper'
+    oathkeeperFullnameOverride: 'oathkeeper-rules'
 
   # -- PodDistributionBudget configuration
   pdb:
