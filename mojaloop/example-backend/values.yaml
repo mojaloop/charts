@@ -2852,7 +2852,7 @@ oathkeeper:
     # This seems to be a bug in the charts - we MUST enable this, 
     # otherwise the `oathkeeper-rules` configmap isn't created, and the pods fail to start
     # See: https://github.com/ory/k8s/blob/master/helm/charts/oathkeeper/templates/configmap-rules.yaml
-    managedAccessRules: true
+    managedAccessRules: false
 
   secret:
     # -- set to true for this helm chart to manage the secret
@@ -2982,14 +2982,7 @@ oathkeeper:
 ## kratos migrate sql -e --yes
 ##
 kratos:
-  # TODO: reenable this chart by default
-  # see https://github.com/mojaloop/project/issues/2578
-  enabled: false
-  ## Overriding the image to older one because of some schema changes not compatible with kratios UI implemented
-  ## This can be reverted when we upgrade the kratos-ui according to the new schema
-  image:
-    repository: oryd/kratos
-    tag: v0.5.5-alpha.1
+  enabled: true
   # -- Number of replicas in deployment
   replicaCount: 1
   # -- Deployment update strategy
@@ -3036,7 +3029,7 @@ kratos:
 
   ingress:
     admin:
-      enabled: true
+      enabled: false
       className: ""
       annotations: {}
         # kubernetes.io/ingress.class: nginx
@@ -3044,8 +3037,7 @@ kratos:
       hosts:
         - host: kratos-admin.local
           paths: 
-            - path: /
-              pathType: ImplementationSpecific
+            - /
       tls: []
       #  - secretName: kratos-admin-tls
       #    hosts:
@@ -3061,8 +3053,7 @@ kratos:
         -
           host: www-bof.local
           paths: 
-            - path: /kratos(/|$)(.*)
-              pathType: ImplementationSpecific
+            - /kratos(/|$)(.*)
       tls: []
       #  - secretName: kratos-public-tls
       #    hosts:
