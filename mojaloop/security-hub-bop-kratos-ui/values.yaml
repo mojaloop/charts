@@ -182,11 +182,11 @@ metrics:
 
 config:
   env:
-    ROCKET_PORT: 80
+    ROCKET_PORT: 8000
     ROCKET_REGISTRATION_ENDPOINT: "http://kratos-public/self-service/registration/flows"
 
 service:
-  internalPort: 80
+  internalPort: 8000
   ## @param service.type %%MAIN_CONTAINER_NAME%% service type
   ##
   type: ClusterIP
