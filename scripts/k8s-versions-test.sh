@@ -22,10 +22,6 @@ function add_hosts {
 function add_helm_repos { 
   ## add the helm repos required to install and run ML and the v14 PoC
         printf "==> add the helm repos required to install and run ML and the v14 PoC\n" 
-        su - $k8s_user -c "helm repo add mojaloop http://mojaloop.io/helm/repo/ > /dev/null 2>&1 "
-        su - $k8s_user -c "helm repo add kiwigrid https://kiwigrid.github.io  > /dev/null 2>&1 "
-        su - $k8s_user -c "helm repo add elastic https://helm.elastic.co  > /dev/null 2>&1 "
-        su - $k8s_user -c "helm repo add bitnami https://charts.bitnami.com/bitnami > /dev/null 2>&1 "
         su - $k8s_user -c "helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx  > /dev/null 2>&1 "
         su - $k8s_user -c "helm repo update > /dev/null 2>&1 "
 }
