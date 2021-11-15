@@ -31,3 +31,4 @@ requirements.lock
 Chart.lock
 **/charts
 repo
+tmp.yaml

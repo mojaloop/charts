@@ -4,7 +4,7 @@
 # Script to update all Helm Chart Dependencies
 #
 
-set -eux
+set -eu
 
 trap 'echo "Dep update failed...exiting. Please fix me!"' ERR
 
