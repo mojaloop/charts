@@ -80,7 +80,7 @@ containerSecurityContext:
 image:
   registry: docker.io
   repository: mojaloop/reporting-hub-bop-shell
-  tag: v1.8.1
+  tag: v2.0.0
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -195,6 +195,8 @@ config:
     AUTH_ENABLED: true
     REMOTE_1_URL: http://reporting-hub-bop-role-ui.local
     REMOTE_2_URL: http://reporting-hub-bop-trx-ui.local
+    REMOTE_3_URL: http://reporting-hub-bop-settlements-ui.local
+    REMOTE_4_URL: http://reporting-hub-bop-positions-ui.local
 
 service:
   internalPort: 8080
