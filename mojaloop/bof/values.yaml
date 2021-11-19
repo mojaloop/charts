@@ -9,6 +9,9 @@ global:
   adminApiSvc:
     host: "centralledger-service"
     port: 80
+  settlementSvc:
+    host: "centralsettlement-service"
+    port: 80
   keto:
     readURL: "http://keto-read:80"
     writeURL: "http://keto-write:80"
@@ -93,6 +96,8 @@ reporting-hub-bop-shell:
     AUTH_ENABLED: true
     REMOTE_1_URL: http://reporting-hub-bop-role-ui.local
     REMOTE_2_URL: http://reporting-hub-bop-trx-ui.local
+    REMOTE_3_URL: http://reporting-hub-bop-settlements-ui.local
+    REMOTE_4_URL: http://reporting-hub-bop-positions-ui.local
 
 security-hub-bop-kratos-ui:
   enabled: true
