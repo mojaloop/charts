@@ -85,6 +85,20 @@ dependencies:
       - mojaloop
       - reporting-hub-bop-trx-ui
     version: 1.0.0
+  - name: reporting-hub-bop-settlements-ui
+    condition: reporting-hub-bop-settlements-ui.enabled
+    repository: "file://../reporting-hub-bop-settlements-ui"
+    tags:
+      - mojaloop
+      - reporting-hub-bop-settlements-ui
+    version: 1.0.0
+  - name: reporting-hub-bop-positions-ui
+    condition: reporting-hub-bop-positions-ui.enabled
+    repository: "file://../reporting-hub-bop-positions-ui"
+    tags:
+      - mojaloop
+      - reporting-hub-bop-positions-ui
+    version: 1.0.0
   - name: security-hub-bop-kratos-ui
     condition: security-hub-bop-kratos-ui.enabled
     repository: "file://../security-hub-bop-kratos-ui"
