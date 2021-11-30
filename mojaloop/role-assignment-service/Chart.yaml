@@ -2,7 +2,7 @@ apiVersion: v2
 description: API service for assigning roles and participants to users
 name: role-assignment-service
 version: 1.0.0
-appVersion: "0.0.5"
+appVersion: "0.0.7"
 home: http://mojaloop.io
 icon: http://mojaloop.io/images/logo.png
 sources:

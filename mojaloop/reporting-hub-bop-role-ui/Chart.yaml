@@ -4,7 +4,7 @@ description: >-
   participant assignment.
 name: reporting-hub-bop-role-ui
 version: 1.0.0
-appVersion: "1.6.0"
+appVersion: "1.4.1"
 home: http://mojaloop.io
 icon: http://mojaloop.io/images/logo.png
 sources:
