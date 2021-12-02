@@ -3,7 +3,7 @@ entries:
   admin-api-svc:
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-30T13:46:44.083409395Z"
+    created: "2021-12-02T18:58:12.218768486Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -29,7 +29,33 @@ entries:
     version: 12.0.0
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-30T13:46:44.077510062Z"
+    created: "2021-12-02T18:58:12.215158051Z"
+    dependencies:
+    - name: common
+      repository: file://../common
+      tags:
+      - moja-common
+      version: 1.0.0
+    description: FSPIOP Transfer API Service component Helm chart for Kubernetes
+    digest: de5b6e362589d8923b2ee57670b2ee04a601a337cbe348c7705cc4154d279bfa
+    home: http://mojaloop.io
+    icon: http://mojaloop.io/images/logo.png
+    maintainers:
+    - email: murthy@modusbox.com
+      name: Murthy Kakarlamudi
+    - email: miguel.debarros@modusbox.com
+      name: Miguel de Barros
+    name: admin-api-svc
+    sources:
+    - https://github.com/mojaloop/mojaloop
+    - https://github.com/mojaloop/helm
+    - https://github.com/mojaloop/ml-api-adapter
+    urls:
+    - https://docs.mojaloop.io/charts/repo/admin-api-svc-12.0.0-573.a8ab926.tgz
+    version: 12.0.0-573.a8ab926
+  - apiVersion: v2
+    appVersion: 11.1.6
+    created: "2021-12-02T18:58:12.212184366Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -55,7 +81,7 @@ entries:
     version: 12.0.0-557.7cb0c96
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-30T13:46:44.07198088Z"
+    created: "2021-12-02T18:58:12.209205657Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -81,7 +107,7 @@ entries:
     version: 12.0.0-542.14b9339
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-30T13:46:44.066735568Z"
+    created: "2021-12-02T18:58:12.206314993Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -107,7 +133,7 @@ entries:
     version: 12.0.0-533.14b9339
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-30T13:46:44.062254945Z"
+    created: "2021-12-02T18:58:12.202432458Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -133,7 +159,7 @@ entries:
     version: 12.0.0-515.3f8d9aa
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-30T13:46:44.056009055Z"
+    created: "2021-12-02T18:58:12.195964516Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -159,7 +185,7 @@ entries:
     version: 12.0.0-477.b9fbaee
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-30T13:46:44.053207366Z"
+    created: "2021-12-02T18:58:12.191857026Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -185,7 +211,7 @@ entries:
     version: 12.0.0-459.844fc0e
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-30T13:46:44.049513262Z"
+    created: "2021-12-02T18:58:12.188402226Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -211,7 +237,7 @@ entries:
     version: 12.0.0-445.26b5988
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-30T13:46:44.046701999Z"
+    created: "2021-12-02T18:58:12.183407685Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -237,7 +263,7 @@ entries:
     version: 12.0.0-432.cc8fcb4
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-30T13:46:44.043814308Z"
+    created: "2021-12-02T18:58:12.171646461Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -263,7 +289,7 @@ entries:
     version: 12.0.0-424.f86fdcc
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-30T13:46:44.039711217Z"
+    created: "2021-12-02T18:58:12.166954623Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -289,7 +315,7 @@ entries:
     version: 12.0.0-410.9f966dc
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-30T13:46:44.03502334Z"
+    created: "2021-12-02T18:58:12.162043594Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -315,7 +341,7 @@ entries:
     version: 12.0.0-400.de07682
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-30T13:46:44.025475566Z"
+    created: "2021-12-02T18:58:12.136120204Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -341,7 +367,7 @@ entries:
     version: 12.0.0-379.240654b
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-30T13:46:44.021570257Z"
+    created: "2021-12-02T18:58:12.131779804Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -367,7 +393,7 @@ entries:
     version: 12.0.0-362.cdb3a39
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-30T13:46:44.018668437Z"
+    created: "2021-12-02T18:58:12.125474238Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -393,7 +419,7 @@ entries:
     version: 12.0.0-348.af0db22
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-30T13:46:44.015754432Z"
+    created: "2021-12-02T18:58:12.120034014Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -419,7 +445,7 @@ entries:
     version: 12.0.0-335.ba92347
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-30T13:46:44.011421533Z"
+    created: "2021-12-02T18:58:12.116928985Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -445,7 +471,7 @@ entries:
     version: 12.0.0-253.2de3c8b
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-30T13:46:44.007258006Z"
+    created: "2021-12-02T18:58:12.114020749Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -471,7 +497,7 @@ entries:
     version: 12.0.0-249.c1edbce
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-30T13:46:44.003087066Z"
+    created: "2021-12-02T18:58:12.110483429Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -497,7 +523,7 @@ entries:
     version: 12.0.0-218.4fd12cb
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-30T13:46:43.998030414Z"
+    created: "2021-12-02T18:58:12.105993513Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -523,7 +549,7 @@ entries:
     version: 12.0.0-144.8ad40e7
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-30T13:46:43.993420948Z"
+    created: "2021-12-02T18:58:12.102846627Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -549,7 +575,7 @@ entries:
     version: 12.0.0-111.d5f09a1
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-30T13:46:44.059359195Z"
+    created: "2021-12-02T18:58:12.199314451Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -575,7 +601,7 @@ entries:
     version: 12.0.0-51.656a398
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-30T13:46:44.030192604Z"
+    created: "2021-12-02T18:58:12.157016595Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -602,7 +628,7 @@ entries:
   backend:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-11-30T13:46:44.772216014Z"
+    created: "2021-12-02T18:58:13.170280759Z"
     dependencies:
     - alias: kafka
       condition: kafka.enabled
@@ -711,7 +737,116 @@ entries:
     version: 0.1.0
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-11-30T13:46:44.7426852Z"
+    created: "2021-12-02T18:58:13.123146709Z"
+    dependencies:
+    - alias: kafka
+      condition: kafka.enabled
+      name: kafka
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - mojaloop
+      - dependency
+      - backend
+      - kafka
+      version: 14.1.1
+    - alias: mysql
+      condition: mysql.enabled
+      name: mysql
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - mojaloop
+      - dependency
+      - backend
+      - kafka
+      version: 8.8.8
+    - alias: reporting-events-db
+      condition: reporting-events-db.enabled
+      name: mongodb
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - mojaloop
+      - dependency
+      - backend
+      - reporting-events-db
+      - mongodb
+      version: 10.28.1
+    - alias: kowl
+      condition: kowl.enabled
+      name: kowl
+      repository: https://raw.githubusercontent.com/cloudhut/charts/master/archives
+      tags:
+      - mojaloop
+      - dependency
+      - backend
+      - kafka
+      version: 2.0.1
+    - alias: keto
+      condition: keto.enabled
+      name: keto
+      repository: https://k8s.ory.sh/helm/charts
+      tags:
+      - mojaloop
+      - dependency
+      - backend
+      - keto
+      - bof
+      version: 0.19.5
+    - alias: keto-db
+      condition: keto-db.enabled
+      name: mysql
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - mojaloop
+      - dependency
+      - backend
+      - mysql
+      - keto
+      - bof
+      version: 8.8.8
+    - alias: oathkeeper
+      condition: oathkeeper.enabled
+      name: oathkeeper
+      repository: https://k8s.ory.sh/helm/charts
+      tags:
+      - mojaloop
+      - dependency
+      - backend
+      - oathkeeper
+      - bof
+      version: 0.19.6
+    - alias: kratos
+      condition: kratos.enabled
+      name: kratos
+      repository: https://k8s.ory.sh/helm/charts
+      tags:
+      - mojaloop
+      - dependency
+      - backend
+      - kratos
+      - bof
+      version: 0.14.1
+    - alias: kratos-db
+      condition: kratos-db.enabled
+      name: mysql
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - mojaloop
+      - dependency
+      - backend
+      - mysql
+      - kratos
+      - bof
+      version: 8.8.8
+    description: A Helm chart containing example Mojaloop Backend Dependencies. This should be used for development/poc purposes only!
+    digest: 63bf045db44a4bf8425370cf8d603c7df978cb219648422b3a182090835fcce4
+    name: backend
+    type: application
+    urls:
+    - https://docs.mojaloop.io/charts/repo/backend-0.1.0-573.a8ab926.tgz
+    version: 0.1.0-573.a8ab926
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2021-12-02T18:58:13.082987436Z"
     dependencies:
     - alias: kafka
       condition: kafka.enabled
@@ -820,7 +955,7 @@ entries:
     version: 0.1.0-557.7cb0c96
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-11-30T13:46:44.716359689Z"
+    created: "2021-12-02T18:58:13.042858725Z"
     dependencies:
     - alias: kafka
       condition: kafka.enabled
@@ -929,7 +1064,7 @@ entries:
     version: 0.1.0-542.14b9339
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-11-30T13:46:44.690129165Z"
+    created: "2021-12-02T18:58:13.003035935Z"
     dependencies:
     - alias: kafka
       condition: kafka.enabled
@@ -1038,7 +1173,7 @@ entries:
     version: 0.1.0-533.14b9339
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-11-30T13:46:44.660994755Z"
+    created: "2021-12-02T18:58:12.974047097Z"
     dependencies:
     - alias: kafka
       condition: kafka.enabled
@@ -1147,7 +1282,7 @@ entries:
     version: 0.1.0-515.3f8d9aa
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-11-30T13:46:44.60942498Z"
+    created: "2021-12-02T18:58:12.899605847Z"
     dependencies:
     - alias: kafka
       condition: kafka.enabled
@@ -1256,7 +1391,7 @@ entries:
     version: 0.1.0-477.b9fbaee
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-11-30T13:46:44.574873268Z"
+    created: "2021-12-02T18:58:12.85925626Z"
     dependencies:
     - alias: kafka
       condition: kafka.enabled
@@ -1365,7 +1500,7 @@ entries:
     version: 0.1.0-459.844fc0e
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-11-30T13:46:44.549281407Z"
+    created: "2021-12-02T18:58:12.820259049Z"
     dependencies:
     - alias: kafka
       condition: kafka.enabled
@@ -1474,7 +1609,7 @@ entries:
     version: 0.1.0-445.26b5988
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-11-30T13:46:44.52398626Z"
+    created: "2021-12-02T18:58:12.795011685Z"
     dependencies:
     - alias: kafka
       condition: kafka.enabled
@@ -1583,7 +1718,7 @@ entries:
     version: 0.1.0-432.cc8fcb4
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-11-30T13:46:44.49581109Z"
+    created: "2021-12-02T18:58:12.750423021Z"
     dependencies:
     - alias: kafka
       condition: kafka.enabled
@@ -1692,7 +1827,7 @@ entries:
     version: 0.1.0-424.f86fdcc
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-11-30T13:46:44.457326575Z"
+    created: "2021-12-02T18:58:12.710082977Z"
     dependencies:
     - alias: kafka
       condition: kafka.enabled
@@ -1801,7 +1936,7 @@ entries:
     version: 0.1.0-410.9f966dc
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-11-30T13:46:44.423879244Z"
+    created: "2021-12-02T18:58:12.681056486Z"
     dependencies:
     - alias: kafka
       condition: kafka.enabled
@@ -1910,7 +2045,7 @@ entries:
     version: 0.1.0-400.de07682
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-11-30T13:46:44.364598219Z"
+    created: "2021-12-02T18:58:12.60204822Z"
     dependencies:
     - alias: kafka
       condition: kafka.enabled
@@ -2019,7 +2154,7 @@ entries:
     version: 0.1.0-379.240654b
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-11-30T13:46:44.337474087Z"
+    created: "2021-12-02T18:58:12.567742602Z"
     dependencies:
     - alias: kafka
       condition: kafka.enabled
@@ -2128,7 +2263,7 @@ entries:
     version: 0.1.0-362.cdb3a39
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-11-30T13:46:44.299442095Z"
+    created: "2021-12-02T18:58:12.526705819Z"
     dependencies:
     - alias: kafka
       condition: kafka.enabled
@@ -2237,7 +2372,7 @@ entries:
     version: 0.1.0-348.af0db22
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-11-30T13:46:44.258728298Z"
+    created: "2021-12-02T18:58:12.49731638Z"
     dependencies:
     - alias: kafka
       condition: kafka.enabled
@@ -2346,7 +2481,7 @@ entries:
     version: 0.1.0-335.ba92347
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-11-30T13:46:44.233437683Z"
+    created: "2021-12-02T18:58:12.441066534Z"
     dependencies:
     - alias: kafka
       condition: kafka.enabled
@@ -2455,7 +2590,7 @@ entries:
     version: 0.1.0-253.2de3c8b
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-11-30T13:46:44.207253938Z"
+    created: "2021-12-02T18:58:12.403909657Z"
     dependencies:
     - alias: kafka
       condition: kafka.enabled
@@ -2564,7 +2699,7 @@ entries:
     version: 0.1.0-249.c1edbce
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-11-30T13:46:44.174788139Z"
+    created: "2021-12-02T18:58:12.373059894Z"
     dependencies:
     - alias: kafka
       condition: kafka.enabled
@@ -2673,7 +2808,7 @@ entries:
     version: 0.1.0-218.4fd12cb
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-11-30T13:46:44.148244406Z"
+    created: "2021-12-02T18:58:12.32747181Z"
     dependencies:
     - alias: kafka
       condition: kafka.enabled
@@ -2782,7 +2917,7 @@ entries:
     version: 0.1.0-144.8ad40e7
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-11-30T13:46:44.114564423Z"
+    created: "2021-12-02T18:58:12.286745204Z"
     dependencies:
     - alias: kafka
       condition: kafka.enabled
@@ -2891,7 +3026,7 @@ entries:
     version: 0.1.0-111.d5f09a1
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-11-30T13:46:44.635540854Z"
+    created: "2021-12-02T18:58:12.937061207Z"
     dependencies:
     - alias: kafka
       condition: kafka.enabled
@@ -3000,7 +3135,7 @@ entries:
     version: 0.1.0-51.656a398
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-11-30T13:46:44.398121795Z"
+    created: "2021-12-02T18:58:12.637904617Z"
     dependencies:
     - alias: kafka
       condition: kafka.enabled
@@ -3110,7 +3245,7 @@ entries:
   bof:
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-30T13:46:45.213658474Z"
+    created: "2021-12-02T18:58:13.771567369Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -3204,7 +3339,7 @@ entries:
     version: 14.0.0-445.26b5988
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-30T13:46:45.19071484Z"
+    created: "2021-12-02T18:58:13.744658308Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -3298,7 +3433,7 @@ entries:
     version: 14.0.0-432.cc8fcb4
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-30T13:46:45.171487092Z"
+    created: "2021-12-02T18:58:13.716172262Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -3392,7 +3527,7 @@ entries:
     version: 14.0.0-424.f86fdcc
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-30T13:46:45.152611857Z"
+    created: "2021-12-02T18:58:13.696467921Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -3486,7 +3621,7 @@ entries:
     version: 14.0.0-410.9f966dc
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-30T13:46:45.133558924Z"
+    created: "2021-12-02T18:58:13.669793643Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -3580,7 +3715,7 @@ entries:
     version: 14.0.0-400.de07682
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-30T13:46:45.09953854Z"
+    created: "2021-12-02T18:58:13.61239211Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -3660,7 +3795,7 @@ entries:
     version: 14.0.0-379.240654b
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-30T13:46:45.077937001Z"
+    created: "2021-12-02T18:58:13.584983351Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -3740,7 +3875,7 @@ entries:
     version: 14.0.0-362.cdb3a39
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-30T13:46:45.061075382Z"
+    created: "2021-12-02T18:58:13.559133753Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -3820,7 +3955,7 @@ entries:
     version: 14.0.0-348.af0db22
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-30T13:46:45.044619602Z"
+    created: "2021-12-02T18:58:13.53291105Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -3900,7 +4035,7 @@ entries:
     version: 14.0.0-335.ba92347
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-30T13:46:45.027814038Z"
+    created: "2021-12-02T18:58:13.512763476Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -3980,7 +4115,7 @@ entries:
     version: 14.0.0-253.2de3c8b
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-30T13:46:45.009754839Z"
+    created: "2021-12-02T18:58:13.495482533Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -4060,7 +4195,7 @@ entries:
     version: 14.0.0-249.c1edbce
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-30T13:46:44.992935344Z"
+    created: "2021-12-02T18:58:13.467730589Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -4140,7 +4275,7 @@ entries:
     version: 14.0.0-218.4fd12cb
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-30T13:46:44.976040971Z"
+    created: "2021-12-02T18:58:13.429241348Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -4220,7 +4355,7 @@ entries:
     version: 14.0.0-144.8ad40e7
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-30T13:46:44.958963246Z"
+    created: "2021-12-02T18:58:13.4092853Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -4300,7 +4435,7 @@ entries:
     version: 14.0.0-111.d5f09a1
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-30T13:46:45.232966656Z"
+    created: "2021-12-02T18:58:13.794438446Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -4373,7 +4508,7 @@ entries:
     version: 14.0.0-51.656a398
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-30T13:46:45.115344551Z"
+    created: "2021-12-02T18:58:13.635667902Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -4446,7 +4581,7 @@ entries:
     version: 14.0.0-39.8e2f564
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:44.942611293Z"
+    created: "2021-12-02T18:58:13.388371437Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -4540,7 +4675,101 @@ entries:
     version: 1.0.0
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:44.923372619Z"
+    created: "2021-12-02T18:58:13.355908713Z"
+    dependencies:
+    - name: common
+      repository: file://../common
+      tags:
+      - mojaloop
+      - common
+      version: 1.0.0
+    - condition: role-assignment-service.enabled
+      name: role-assignment-service
+      repository: file://../role-assignment-service
+      tags:
+      - mojaloop
+      - role-assignment-service
+      version: 1.0.0
+    - condition: reporting-hub-bop-shell.enabled
+      name: reporting-hub-bop-shell
+      repository: file://../reporting-hub-bop-shell
+      tags:
+      - mojaloop
+      - reporting-hub-bop-shell
+      version: 1.0.0
+    - condition: reporting-hub-bop-api-svc.enabled
+      name: reporting-hub-bop-api-svc
+      repository: file://../reporting-hub-bop-api-svc
+      tags:
+      - mojaloop
+      - reporting-hub-bop-api-svc
+      version: 1.0.0
+    - condition: reporting-legacy-api.enabled
+      name: reporting-legacy-api
+      repository: file://../reporting-legacy-api
+      tags:
+      - mojaloop
+      - reporting-legacy-api
+      version: 1.0.0
+    - condition: reporting-events-processor-svc.enabled
+      name: reporting-events-processor-svc
+      repository: file://../reporting-events-processor-svc
+      tags:
+      - mojaloop
+      - reporting-events-processor-svc
+      version: 1.0.0
+    - condition: security-role-perm-operator-svc.enabled
+      name: security-role-perm-operator-svc
+      repository: file://../security-role-perm-operator-svc
+      tags:
+      - mojaloop
+      - security-role-perm-operator-svc
+      version: 1.0.0
+    - condition: reporting-hub-bop-role-ui.enabled
+      name: reporting-hub-bop-role-ui
+      repository: file://../reporting-hub-bop-role-ui
+      tags:
+      - mojaloop
+      - reporting-hub-bop-role-ui
+      version: 1.0.0
+    - condition: reporting-hub-bop-trx-ui.enabled
+      name: reporting-hub-bop-trx-ui
+      repository: file://../reporting-hub-bop-trx-ui
+      tags:
+      - mojaloop
+      - reporting-hub-bop-trx-ui
+      version: 1.0.0
+    - condition: reporting-hub-bop-settlements-ui.enabled
+      name: reporting-hub-bop-settlements-ui
+      repository: file://../reporting-hub-bop-settlements-ui
+      tags:
+      - mojaloop
+      - reporting-hub-bop-settlements-ui
+      version: 1.0.0
+    - condition: reporting-hub-bop-positions-ui.enabled
+      name: reporting-hub-bop-positions-ui
+      repository: file://../reporting-hub-bop-positions-ui
+      tags:
+      - mojaloop
+      - reporting-hub-bop-positions-ui
+      version: 1.0.0
+    - condition: security-hub-bop-kratos-ui.enabled
+      name: security-hub-bop-kratos-ui
+      repository: file://../security-hub-bop-kratos-ui
+      tags:
+      - mojaloop
+      - security-hub-bop-kratos-ui
+      version: 1.0.0
+    description: A Helm chart for Kubernetes
+    digest: d39c3a6a26a12e2a8e3b1a904d4a1ea9ac0a334410352a27d738d31335cb07d4
+    name: bof
+    type: application
+    urls:
+    - https://docs.mojaloop.io/charts/repo/bof-1.0.0-573.a8ab926.tgz
+    version: 1.0.0-573.a8ab926
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2021-12-02T18:58:13.323514082Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -4634,7 +4863,7 @@ entries:
     version: 1.0.0-557.7cb0c96
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:44.902202163Z"
+    created: "2021-12-02T18:58:13.303728594Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -4728,7 +4957,7 @@ entries:
     version: 1.0.0-542.14b9339
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:44.870107101Z"
+    created: "2021-12-02T18:58:13.280658632Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -4822,7 +5051,7 @@ entries:
     version: 1.0.0-533.14b9339
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:44.848795179Z"
+    created: "2021-12-02T18:58:13.249307792Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -4916,7 +5145,7 @@ entries:
     version: 1.0.0-515.3f8d9aa
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:44.82849292Z"
+    created: "2021-12-02T18:58:13.219070564Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -5010,7 +5239,7 @@ entries:
     version: 1.0.0-477.b9fbaee
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:44.802662185Z"
+    created: "2021-12-02T18:58:13.199015118Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -5107,7 +5336,7 @@ entries:
       category: Infrastructure
     apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.258226178Z"
+    created: "2021-12-02T18:58:13.819420919Z"
     description: A Library Helm Chart for grouping common logic between bitnami charts. This chart is not deployable by itself.
     digest: d24ab298020b2eca115c3e8bb5b41f56df43f837fcfa46e52fd32c56dc012793
     home: https://github.com/mojaloop/charts/tree/master/mojaloop/common
@@ -5133,7 +5362,33 @@ entries:
       category: Infrastructure
     apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.25713474Z"
+    created: "2021-12-02T18:58:13.818618044Z"
+    description: A Library Helm Chart for grouping common logic between bitnami charts. This chart is not deployable by itself.
+    digest: d8d5a26a981758aff10d8fec7a07a0a2ca8dc9bc1018e6863e5c6c87c627bb1c
+    home: https://github.com/mojaloop/charts/tree/master/mojaloop/common
+    icon: https://bitnami.com/downloads/logos/bitnami-mark.png
+    keywords:
+    - common
+    - helper
+    - template
+    - function
+    - bitnami
+    maintainers:
+    - email: containers@bitnami.com
+      name: Bitnami
+    name: common
+    sources:
+    - https://github.com/mojaloop/charts
+    - http://www.bitnami.com/
+    type: library
+    urls:
+    - https://docs.mojaloop.io/charts/repo/common-1.0.0-573.a8ab926.tgz
+    version: 1.0.0-573.a8ab926
+  - annotations:
+      category: Infrastructure
+    apiVersion: v2
+    appVersion: 1.0.0
+    created: "2021-12-02T18:58:13.817556781Z"
     description: A Library Helm Chart for grouping common logic between bitnami charts. This chart is not deployable by itself.
     digest: 0c693bb6003d19b7f0768420ced960723947230d75010463c0bceeb757bf9c67
     home: https://github.com/mojaloop/charts/tree/master/mojaloop/common
@@ -5159,7 +5414,7 @@ entries:
       category: Infrastructure
     apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.255701809Z"
+    created: "2021-12-02T18:58:13.815872325Z"
     description: A Library Helm Chart for grouping common logic between bitnami charts. This chart is not deployable by itself.
     digest: 866703329c2bc994596d9408acc9dc6ff966bed4584139ed869c054b6e65b132
     home: https://github.com/mojaloop/charts/tree/master/mojaloop/common
@@ -5185,7 +5440,7 @@ entries:
       category: Infrastructure
     apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.254409325Z"
+    created: "2021-12-02T18:58:13.814637725Z"
     description: A Library Helm Chart for grouping common logic between bitnami charts. This chart is not deployable by itself.
     digest: 92376c4b0c737cab9d22eaec7973f0ac069f75b4c17377f45f9d3d00a3eacabe
     home: https://github.com/mojaloop/charts/tree/master/mojaloop/common
@@ -5211,7 +5466,7 @@ entries:
       category: Infrastructure
     apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.252688301Z"
+    created: "2021-12-02T18:58:13.813414943Z"
     description: A Library Helm Chart for grouping common logic between bitnami charts. This chart is not deployable by itself.
     digest: 61ae930008cd8dbedab1bdf5910d165a710108cb99d5ea9bda3cb50576258c44
     home: https://github.com/mojaloop/charts/tree/master/mojaloop/common
@@ -5237,7 +5492,7 @@ entries:
       category: Infrastructure
     apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.25113717Z"
+    created: "2021-12-02T18:58:13.811026031Z"
     description: A Library Helm Chart for grouping common logic between bitnami charts. This chart is not deployable by itself.
     digest: 532a9bad23a4fd285da46ce6a5a823107436ca71709f328e8afa3ba4d782cb0a
     home: https://github.com/mojaloop/charts/tree/master/mojaloop/common
@@ -5263,7 +5518,7 @@ entries:
       category: Infrastructure
     apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.250360941Z"
+    created: "2021-12-02T18:58:13.809832Z"
     description: A Library Helm Chart for grouping common logic between bitnami charts. This chart is not deployable by itself.
     digest: adba9ec2796bdba5555d7915abd41f56dce2d8bc87bde8f282777fa3a5f76b91
     home: https://github.com/mojaloop/charts/tree/master/mojaloop/common
@@ -5289,7 +5544,7 @@ entries:
       category: Infrastructure
     apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.249584846Z"
+    created: "2021-12-02T18:58:13.808553843Z"
     description: A Library Helm Chart for grouping common logic between bitnami charts. This chart is not deployable by itself.
     digest: ef3123b295e1ae0e742f4fa5e1447ac655fb324ab7798d3ecf11bc6d94c5981c
     home: https://github.com/mojaloop/charts/tree/master/mojaloop/common
@@ -5315,7 +5570,7 @@ entries:
       category: Infrastructure
     apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.248750696Z"
+    created: "2021-12-02T18:58:13.807559371Z"
     description: A Library Helm Chart for grouping common logic between bitnami charts. This chart is not deployable by itself.
     digest: 60797b1f3e9941b10f7b75be0ad84d1fec8a5da46b7ad90acd69f69b48fd01af
     home: https://github.com/mojaloop/charts/tree/master/mojaloop/common
@@ -5341,7 +5596,7 @@ entries:
       category: Infrastructure
     apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.247944967Z"
+    created: "2021-12-02T18:58:13.806355614Z"
     description: A Library Helm Chart for grouping common logic between bitnami charts. This chart is not deployable by itself.
     digest: 735670c23d293f351d658459a2ac1eb0ffb0cf30402416a79949d0413eef526b
     home: https://github.com/mojaloop/charts/tree/master/mojaloop/common
@@ -5367,7 +5622,7 @@ entries:
       category: Infrastructure
     apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.24717962Z"
+    created: "2021-12-02T18:58:13.805093039Z"
     description: A Library Helm Chart for grouping common logic between bitnami charts. This chart is not deployable by itself.
     digest: 35eba10599eaeba2e0e744b91f26ec33efc0244df544e0420a25be6b340771f1
     home: https://github.com/mojaloop/charts/tree/master/mojaloop/common
@@ -5393,7 +5648,7 @@ entries:
       category: Infrastructure
     apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.246408264Z"
+    created: "2021-12-02T18:58:13.803616572Z"
     description: A Library Helm Chart for grouping common logic between bitnami charts. This chart is not deployable by itself.
     digest: 55900d13201fa8745ac28b52fcf6fbcde9b98d6a18d1320dcfda64a8ee429adf
     home: https://github.com/mojaloop/charts/tree/master/mojaloop/common
@@ -5419,7 +5674,7 @@ entries:
       category: Infrastructure
     apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.24482321Z"
+    created: "2021-12-02T18:58:13.80160343Z"
     description: A Library Helm Chart for grouping common logic between bitnami charts. This chart is not deployable by itself.
     digest: 69a95c4f59304e5e54eb48936a9db1e7efbd4577357747f6e387c15f7d4564dd
     home: https://github.com/mojaloop/charts/tree/master/mojaloop/common
@@ -5445,7 +5700,7 @@ entries:
       category: Infrastructure
     apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.243394793Z"
+    created: "2021-12-02T18:58:13.800784518Z"
     description: A Library Helm Chart for grouping common logic between bitnami charts. This chart is not deployable by itself.
     digest: 9dca5bac2042eb1ac90ca87d8aef93b5ffc961bfc391311649cca35bc9560c96
     home: https://github.com/mojaloop/charts/tree/master/mojaloop/common
@@ -5471,7 +5726,7 @@ entries:
       category: Infrastructure
     apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.242103357Z"
+    created: "2021-12-02T18:58:13.800003688Z"
     description: A Library Helm Chart for grouping common logic between bitnami charts. This chart is not deployable by itself.
     digest: 7295a73ad8e52fe9709ca0f5eacb15a90a102aaa3b06d1a3d248834248a02499
     home: https://github.com/mojaloop/charts/tree/master/mojaloop/common
@@ -5497,7 +5752,7 @@ entries:
       category: Infrastructure
     apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.240758769Z"
+    created: "2021-12-02T18:58:13.799223914Z"
     description: A Library Helm Chart for grouping common logic between bitnami charts. This chart is not deployable by itself.
     digest: d2926b0896ecb8845439ab89ed8b23f2d58f6149b8f1b5edc4fe19a76e1df5e6
     home: https://github.com/mojaloop/charts/tree/master/mojaloop/common
@@ -5523,7 +5778,7 @@ entries:
       category: Infrastructure
     apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.239465488Z"
+    created: "2021-12-02T18:58:13.798432244Z"
     description: A Library Helm Chart for grouping common logic between bitnami charts. This chart is not deployable by itself.
     digest: 35706f09090f4d1d12ae88aaa54c5e39911a013994f0e090f9dda8c725f799a6
     home: https://github.com/mojaloop/charts/tree/master/mojaloop/common
@@ -5549,7 +5804,7 @@ entries:
       category: Infrastructure
     apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.23808793Z"
+    created: "2021-12-02T18:58:13.797635384Z"
     description: A Library Helm Chart for grouping common logic between bitnami charts. This chart is not deployable by itself.
     digest: 82c9cbe957584a07ee787dcf268efcf5124c7870f59fa5b2f4b1747ea6c5d006
     home: https://github.com/mojaloop/charts/tree/master/mojaloop/common
@@ -5575,7 +5830,7 @@ entries:
       category: Infrastructure
     apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.23685711Z"
+    created: "2021-12-02T18:58:13.796830129Z"
     description: A Library Helm Chart for grouping common logic between bitnami charts. This chart is not deployable by itself.
     digest: 9d17d8345fdc3e11af00dd662edf48af35ca6459138cc72e8c2209877523ec5b
     home: https://github.com/mojaloop/charts/tree/master/mojaloop/common
@@ -5601,7 +5856,7 @@ entries:
       category: Infrastructure
     apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.235608184Z"
+    created: "2021-12-02T18:58:13.796041729Z"
     description: A Library Helm Chart for grouping common logic between bitnami charts. This chart is not deployable by itself.
     digest: 2d4fcd2780802594799736e334d5788566a268e3775afd8f17487c99c53db489
     home: https://github.com/mojaloop/charts/tree/master/mojaloop/common
@@ -5627,7 +5882,7 @@ entries:
       category: Infrastructure
     apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.234313216Z"
+    created: "2021-12-02T18:58:13.795260467Z"
     description: A Library Helm Chart for grouping common logic between bitnami charts. This chart is not deployable by itself.
     digest: 0b7ded345031131f51cbb713fe4f28d1c753f64c2d2c4dd29509528cb315e59a
     home: https://github.com/mojaloop/charts/tree/master/mojaloop/common
@@ -5653,7 +5908,7 @@ entries:
       category: Infrastructure
     apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.251906757Z"
+    created: "2021-12-02T18:58:13.812217669Z"
     description: A Library Helm Chart for grouping common logic between bitnami charts. This chart is not deployable by itself.
     digest: d900e56f7d875e38020ff15aa61b604ff96b99f472bd619d75b8d8783842c2df
     home: https://github.com/mojaloop/charts/tree/master/mojaloop/common
@@ -5679,7 +5934,7 @@ entries:
       category: Infrastructure
     apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.24563043Z"
+    created: "2021-12-02T18:58:13.802393514Z"
     description: A Library Helm Chart for grouping common logic between bitnami charts. This chart is not deployable by itself.
     digest: 63efd5d40dd5ad9219803d5d48921b986917f406d0ce478bc2fb86bf0d971c18
     home: https://github.com/mojaloop/charts/tree/master/mojaloop/common
@@ -5704,7 +5959,7 @@ entries:
   fspiop-transfer-api-svc:
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-30T13:46:45.337220754Z"
+    created: "2021-12-02T18:58:13.90883309Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -5730,7 +5985,33 @@ entries:
     version: 12.0.0
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-30T13:46:45.333547531Z"
+    created: "2021-12-02T18:58:13.905426564Z"
+    dependencies:
+    - name: common
+      repository: file://../common
+      tags:
+      - moja-common
+      version: 1.0.0
+    description: FSPIOP Transfer API Service component Helm chart for Kubernetes
+    digest: ae5475bdd55e08bc384c81b5e02f62bd3697d1c8c965cbfeb4dfd7cd96222e0e
+    home: http://mojaloop.io
+    icon: http://mojaloop.io/images/logo.png
+    maintainers:
+    - email: murthy@modusbox.com
+      name: Murthy Kakarlamudi
+    - email: miguel.debarros@modusbox.com
+      name: Miguel de Barros
+    name: fspiop-transfer-api-svc
+    sources:
+    - https://github.com/mojaloop/mojaloop
+    - https://github.com/mojaloop/helm
+    - https://github.com/mojaloop/ml-api-adapter
+    urls:
+    - https://docs.mojaloop.io/charts/repo/fspiop-transfer-api-svc-12.0.0-573.a8ab926.tgz
+    version: 12.0.0-573.a8ab926
+  - apiVersion: v2
+    appVersion: 11.1.6
+    created: "2021-12-02T18:58:13.90211003Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -5756,7 +6037,7 @@ entries:
     version: 12.0.0-557.7cb0c96
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-30T13:46:45.32984313Z"
+    created: "2021-12-02T18:58:13.898606375Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -5782,7 +6063,7 @@ entries:
     version: 12.0.0-542.14b9339
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-30T13:46:45.326150853Z"
+    created: "2021-12-02T18:58:13.895198664Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -5808,7 +6089,7 @@ entries:
     version: 12.0.0-533.14b9339
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-30T13:46:45.322348125Z"
+    created: "2021-12-02T18:58:13.892548581Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -5834,7 +6115,7 @@ entries:
     version: 12.0.0-515.3f8d9aa
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-30T13:46:45.316059528Z"
+    created: "2021-12-02T18:58:13.885020584Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -5860,7 +6141,7 @@ entries:
     version: 12.0.0-477.b9fbaee
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-30T13:46:45.313835832Z"
+    created: "2021-12-02T18:58:13.881315897Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -5886,7 +6167,7 @@ entries:
     version: 12.0.0-459.844fc0e
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-30T13:46:45.311583686Z"
+    created: "2021-12-02T18:58:13.876864461Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -5912,7 +6193,7 @@ entries:
     version: 12.0.0-445.26b5988
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-30T13:46:45.309391902Z"
+    created: "2021-12-02T18:58:13.872526459Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -5938,7 +6219,7 @@ entries:
     version: 12.0.0-432.cc8fcb4
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-30T13:46:45.306034062Z"
+    created: "2021-12-02T18:58:13.867189486Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -5964,7 +6245,7 @@ entries:
     version: 12.0.0-424.f86fdcc
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-30T13:46:45.302196132Z"
+    created: "2021-12-02T18:58:13.863532383Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -5990,7 +6271,7 @@ entries:
     version: 12.0.0-410.9f966dc
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-30T13:46:45.298291744Z"
+    created: "2021-12-02T18:58:13.859811778Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -6016,7 +6297,7 @@ entries:
     version: 12.0.0-400.de07682
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-30T13:46:45.290509343Z"
+    created: "2021-12-02T18:58:13.85281787Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -6042,7 +6323,7 @@ entries:
     version: 12.0.0-379.240654b
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-30T13:46:45.285690343Z"
+    created: "2021-12-02T18:58:13.848377219Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -6068,7 +6349,7 @@ entries:
     version: 12.0.0-362.cdb3a39
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-30T13:46:45.281528269Z"
+    created: "2021-12-02T18:58:13.84500051Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -6094,7 +6375,7 @@ entries:
     version: 12.0.0-348.af0db22
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-30T13:46:45.277530741Z"
+    created: "2021-12-02T18:58:13.841671606Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -6120,7 +6401,7 @@ entries:
     version: 12.0.0-335.ba92347
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-30T13:46:45.273480035Z"
+    created: "2021-12-02T18:58:13.838192944Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -6146,7 +6427,7 @@ entries:
     version: 12.0.0-253.2de3c8b
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-30T13:46:45.269362935Z"
+    created: "2021-12-02T18:58:13.834614027Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -6172,7 +6453,7 @@ entries:
     version: 12.0.0-249.c1edbce
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-30T13:46:45.26485764Z"
+    created: "2021-12-02T18:58:13.829151836Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -6198,7 +6479,7 @@ entries:
     version: 12.0.0-218.4fd12cb
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-30T13:46:45.262697788Z"
+    created: "2021-12-02T18:58:13.825342663Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -6224,7 +6505,7 @@ entries:
     version: 12.0.0-144.8ad40e7
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-30T13:46:45.260492154Z"
+    created: "2021-12-02T18:58:13.821703269Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -6250,7 +6531,7 @@ entries:
     version: 12.0.0-111.d5f09a1
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-30T13:46:45.318253353Z"
+    created: "2021-12-02T18:58:13.888845811Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -6276,7 +6557,7 @@ entries:
     version: 12.0.0-51.656a398
   - apiVersion: v2
     appVersion: 11.1.6
-    created: "2021-11-30T13:46:45.294407235Z"
+    created: "2021-12-02T18:58:13.856333325Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -6303,7 +6584,7 @@ entries:
   mojaloop:
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-30T13:46:45.53568218Z"
+    created: "2021-12-02T18:58:14.13513454Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -6332,7 +6613,36 @@ entries:
     version: 14.0.0
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-30T13:46:45.52865571Z"
+    created: "2021-12-02T18:58:14.125275755Z"
+    dependencies:
+    - name: common
+      repository: file://../common
+      tags:
+      - mojaloop
+      - common
+      version: 1.0.0
+    - name: fspiop-transfer-api-svc
+      repository: file://../fspiop-transfer-api-svc
+      tags:
+      - mojaloop
+      - fspiop-transfer
+      version: 12.0.0
+    - name: admin-api-svc
+      repository: file://../admin-api-svc
+      tags:
+      - mojaloop
+      - admin
+      version: 12.0.0
+    description: A Helm chart for Kubernetes
+    digest: ffc3f96423298f4665f2a8a555033594f2933d0780cff99f3a48853b6bfdcb1b
+    name: mojaloop
+    type: application
+    urls:
+    - https://docs.mojaloop.io/charts/repo/mojaloop-14.0.0-573.a8ab926.tgz
+    version: 14.0.0-573.a8ab926
+  - apiVersion: v2
+    appVersion: 14.0.0
+    created: "2021-12-02T18:58:14.114081723Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -6361,7 +6671,7 @@ entries:
     version: 14.0.0-557.7cb0c96
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-30T13:46:45.522315121Z"
+    created: "2021-12-02T18:58:14.105268803Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -6390,7 +6700,7 @@ entries:
     version: 14.0.0-542.14b9339
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-30T13:46:45.512785307Z"
+    created: "2021-12-02T18:58:14.096386363Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -6419,7 +6729,7 @@ entries:
     version: 14.0.0-533.14b9339
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-30T13:46:45.502668816Z"
+    created: "2021-12-02T18:58:14.089980216Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -6448,7 +6758,7 @@ entries:
     version: 14.0.0-515.3f8d9aa
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-30T13:46:45.488540296Z"
+    created: "2021-12-02T18:58:14.075411061Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -6477,7 +6787,7 @@ entries:
     version: 14.0.0-477.b9fbaee
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-30T13:46:45.478600169Z"
+    created: "2021-12-02T18:58:14.066401919Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -6506,7 +6816,7 @@ entries:
     version: 14.0.0-459.844fc0e
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-30T13:46:45.47126274Z"
+    created: "2021-12-02T18:58:14.057413596Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -6535,7 +6845,7 @@ entries:
     version: 14.0.0-445.26b5988
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-30T13:46:45.46492085Z"
+    created: "2021-12-02T18:58:14.046264214Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -6564,7 +6874,7 @@ entries:
     version: 14.0.0-432.cc8fcb4
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-30T13:46:45.457943869Z"
+    created: "2021-12-02T18:58:14.035912691Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -6593,7 +6903,7 @@ entries:
     version: 14.0.0-424.f86fdcc
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-30T13:46:45.451660692Z"
+    created: "2021-12-02T18:58:14.02412483Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -6622,7 +6932,7 @@ entries:
     version: 14.0.0-410.9f966dc
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-30T13:46:45.444063922Z"
+    created: "2021-12-02T18:58:14.017049914Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -6651,7 +6961,7 @@ entries:
     version: 14.0.0-400.de07682
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-30T13:46:45.428202204Z"
+    created: "2021-12-02T18:58:13.999429637Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -6680,7 +6990,7 @@ entries:
     version: 14.0.0-379.240654b
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-30T13:46:45.418180315Z"
+    created: "2021-12-02T18:58:13.989978387Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -6709,7 +7019,7 @@ entries:
     version: 14.0.0-362.cdb3a39
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-30T13:46:45.408678929Z"
+    created: "2021-12-02T18:58:13.979746985Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -6738,7 +7048,7 @@ entries:
     version: 14.0.0-348.af0db22
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-30T13:46:45.402401367Z"
+    created: "2021-12-02T18:58:13.967629151Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -6767,7 +7077,7 @@ entries:
     version: 14.0.0-335.ba92347
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-30T13:46:45.392380676Z"
+    created: "2021-12-02T18:58:13.957714734Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -6796,7 +7106,7 @@ entries:
     version: 14.0.0-253.2de3c8b
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-30T13:46:45.380882645Z"
+    created: "2021-12-02T18:58:13.945871173Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -6825,7 +7135,7 @@ entries:
     version: 14.0.0-249.c1edbce
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-30T13:46:45.369387325Z"
+    created: "2021-12-02T18:58:13.93627435Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -6854,7 +7164,7 @@ entries:
     version: 14.0.0-218.4fd12cb
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-30T13:46:45.358886182Z"
+    created: "2021-12-02T18:58:13.925382022Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -6883,7 +7193,7 @@ entries:
     version: 14.0.0-144.8ad40e7
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-30T13:46:45.348006988Z"
+    created: "2021-12-02T18:58:13.917758521Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -6912,7 +7222,7 @@ entries:
     version: 14.0.0-111.d5f09a1
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-30T13:46:45.496045869Z"
+    created: "2021-12-02T18:58:14.082662751Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -6941,7 +7251,7 @@ entries:
     version: 14.0.0-51.656a398
   - apiVersion: v2
     appVersion: 14.0.0
-    created: "2021-11-30T13:46:45.437556582Z"
+    created: "2021-12-02T18:58:14.008965793Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -6971,7 +7281,7 @@ entries:
   reporting-events-processor-svc:
   - apiVersion: v2
     appVersion: 1.1.0
-    created: "2021-11-30T13:46:45.573387817Z"
+    created: "2021-12-02T18:58:14.19046313Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -6995,7 +7305,31 @@ entries:
     version: 1.0.0
   - apiVersion: v2
     appVersion: 1.1.0
-    created: "2021-11-30T13:46:45.570874988Z"
+    created: "2021-12-02T18:58:14.188567537Z"
+    dependencies:
+    - name: common
+      repository: file://../common
+      tags:
+      - moja-common
+      version: 1.0.0
+    description: Reporting Events Processor
+    digest: 7cde9ea28f8517c6f16b9a69296a794fc9da5e2df59f7b458b557f6e0cc987e2
+    home: http://mojaloop.io
+    icon: http://mojaloop.io/images/logo.png
+    maintainers:
+    - email: yevhen.kyriukha@modusbox.com
+      name: Yevhen Kyriukha
+    name: reporting-events-processor-svc
+    sources:
+    - https://github.com/mojaloop/mojaloop
+    - https://github.com/mojaloop/helm
+    - https://github.com/mojaloop/reporting-events-processor-svc
+    urls:
+    - https://docs.mojaloop.io/charts/repo/reporting-events-processor-svc-1.0.0-573.a8ab926.tgz
+    version: 1.0.0-573.a8ab926
+  - apiVersion: v2
+    appVersion: 1.1.0
+    created: "2021-12-02T18:58:14.186232828Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -7019,7 +7353,7 @@ entries:
     version: 1.0.0-557.7cb0c96
   - apiVersion: v2
     appVersion: 1.1.0
-    created: "2021-11-30T13:46:45.568391755Z"
+    created: "2021-12-02T18:58:14.183951304Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -7043,7 +7377,7 @@ entries:
     version: 1.0.0-542.14b9339
   - apiVersion: v2
     appVersion: 1.1.0
-    created: "2021-11-30T13:46:45.565934684Z"
+    created: "2021-12-02T18:58:14.181088711Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -7067,7 +7401,7 @@ entries:
     version: 1.0.0-533.14b9339
   - apiVersion: v2
     appVersion: 1.1.0
-    created: "2021-11-30T13:46:45.564048631Z"
+    created: "2021-12-02T18:58:14.178271182Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -7091,7 +7425,7 @@ entries:
     version: 1.0.0-515.3f8d9aa
   - apiVersion: v2
     appVersion: 1.1.0
-    created: "2021-11-30T13:46:45.561227048Z"
+    created: "2021-12-02T18:58:14.173791227Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -7115,7 +7449,7 @@ entries:
     version: 1.0.0-477.b9fbaee
   - apiVersion: v2
     appVersion: 1.1.0
-    created: "2021-11-30T13:46:45.559059243Z"
+    created: "2021-12-02T18:58:14.171573986Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -7139,7 +7473,7 @@ entries:
     version: 1.0.0-459.844fc0e
   - apiVersion: v2
     appVersion: 1.1.0
-    created: "2021-11-30T13:46:45.557658454Z"
+    created: "2021-12-02T18:58:14.169322195Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -7163,7 +7497,7 @@ entries:
     version: 1.0.0-445.26b5988
   - apiVersion: v2
     appVersion: 1.1.0
-    created: "2021-11-30T13:46:45.556144461Z"
+    created: "2021-12-02T18:58:14.167078088Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -7187,7 +7521,7 @@ entries:
     version: 1.0.0-432.cc8fcb4
   - apiVersion: v2
     appVersion: 1.1.0
-    created: "2021-11-30T13:46:45.55476285Z"
+    created: "2021-12-02T18:58:14.164823696Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -7211,7 +7545,7 @@ entries:
     version: 1.0.0-424.f86fdcc
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.553347274Z"
+    created: "2021-12-02T18:58:14.162602535Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -7235,7 +7569,7 @@ entries:
     version: 1.0.0-410.9f966dc
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.551932084Z"
+    created: "2021-12-02T18:58:14.158258383Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -7259,7 +7593,7 @@ entries:
     version: 1.0.0-400.de07682
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.549112628Z"
+    created: "2021-12-02T18:58:14.154433096Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -7283,7 +7617,7 @@ entries:
     version: 1.0.0-379.240654b
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.546939321Z"
+    created: "2021-12-02T18:58:14.152637064Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -7307,7 +7641,7 @@ entries:
     version: 1.0.0-362.cdb3a39
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.545521121Z"
+    created: "2021-12-02T18:58:14.150583215Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -7331,7 +7665,7 @@ entries:
     version: 1.0.0-348.af0db22
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.544116344Z"
+    created: "2021-12-02T18:58:14.148361957Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -7355,7 +7689,7 @@ entries:
     version: 1.0.0-335.ba92347
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.542704004Z"
+    created: "2021-12-02T18:58:14.146221959Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -7379,7 +7713,7 @@ entries:
     version: 1.0.0-253.2de3c8b
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.541332831Z"
+    created: "2021-12-02T18:58:14.144332253Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -7403,7 +7737,7 @@ entries:
     version: 1.0.0-249.c1edbce
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.539886799Z"
+    created: "2021-12-02T18:58:14.142516861Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -7427,7 +7761,7 @@ entries:
     version: 1.0.0-218.4fd12cb
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.538525406Z"
+    created: "2021-12-02T18:58:14.139564564Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -7451,7 +7785,7 @@ entries:
     version: 1.0.0-144.8ad40e7
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.53713549Z"
+    created: "2021-12-02T18:58:14.136776147Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -7475,7 +7809,7 @@ entries:
     version: 1.0.0-111.d5f09a1
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.562607217Z"
+    created: "2021-12-02T18:58:14.17602327Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -7499,7 +7833,7 @@ entries:
     version: 1.0.0-51.656a398
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.550502919Z"
+    created: "2021-12-02T18:58:14.15601124Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -7524,7 +7858,7 @@ entries:
   reporting-hub-bop-api-svc:
   - apiVersion: v2
     appVersion: 1.0.5
-    created: "2021-11-30T13:46:45.625819108Z"
+    created: "2021-12-02T18:58:14.251393414Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -7548,7 +7882,31 @@ entries:
     version: 1.0.0
   - apiVersion: v2
     appVersion: 1.0.25
-    created: "2021-11-30T13:46:45.62325485Z"
+    created: "2021-12-02T18:58:14.249562613Z"
+    dependencies:
+    - name: common
+      repository: file://../common
+      tags:
+      - moja-common
+      version: 1.0.0
+    description: Reporting API service
+    digest: 76e311a2833368865b55639022ae15a15d94bddd8b6c6a307efcc0e99c9690ef
+    home: http://mojaloop.io
+    icon: http://mojaloop.io/images/logo.png
+    maintainers:
+    - email: yevhen.kyriukha@modusbox.com
+      name: Yevhen Kyriukha
+    name: reporting-hub-bop-api-svc
+    sources:
+    - https://github.com/mojaloop/mojaloop
+    - https://github.com/mojaloop/helm
+    - https://github.com/mojaloop/reporting-hub-bop-api-svc
+    urls:
+    - https://docs.mojaloop.io/charts/repo/reporting-hub-bop-api-svc-1.0.0-573.a8ab926.tgz
+    version: 1.0.0-573.a8ab926
+  - apiVersion: v2
+    appVersion: 1.0.25
+    created: "2021-12-02T18:58:14.247491902Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -7572,7 +7930,7 @@ entries:
     version: 1.0.0-557.7cb0c96
   - apiVersion: v2
     appVersion: 1.0.5
-    created: "2021-11-30T13:46:45.621472032Z"
+    created: "2021-12-02T18:58:14.244954737Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -7596,7 +7954,7 @@ entries:
     version: 1.0.0-542.14b9339
   - apiVersion: v2
     appVersion: 1.0.5
-    created: "2021-11-30T13:46:45.618872045Z"
+    created: "2021-12-02T18:58:14.242288256Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -7620,7 +7978,7 @@ entries:
     version: 1.0.0-533.14b9339
   - apiVersion: v2
     appVersion: 1.0.5
-    created: "2021-11-30T13:46:45.616184063Z"
+    created: "2021-12-02T18:58:14.239542758Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -7644,7 +8002,7 @@ entries:
     version: 1.0.0-515.3f8d9aa
   - apiVersion: v2
     appVersion: 1.0.5
-    created: "2021-11-30T13:46:45.610807002Z"
+    created: "2021-12-02T18:58:14.233847551Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -7668,7 +8026,7 @@ entries:
     version: 1.0.0-477.b9fbaee
   - apiVersion: v2
     appVersion: 1.0.5
-    created: "2021-11-30T13:46:45.608071323Z"
+    created: "2021-12-02T18:58:14.231139711Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -7692,7 +8050,7 @@ entries:
     version: 1.0.0-459.844fc0e
   - apiVersion: v2
     appVersion: 1.0.5
-    created: "2021-11-30T13:46:45.604600688Z"
+    created: "2021-12-02T18:58:14.22851113Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -7716,7 +8074,7 @@ entries:
     version: 1.0.0-445.26b5988
   - apiVersion: v2
     appVersion: 1.0.5
-    created: "2021-11-30T13:46:45.602359437Z"
+    created: "2021-12-02T18:58:14.225839152Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -7740,7 +8098,7 @@ entries:
     version: 1.0.0-432.cc8fcb4
   - apiVersion: v2
     appVersion: 1.0.5
-    created: "2021-11-30T13:46:45.600650827Z"
+    created: "2021-12-02T18:58:14.223161746Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -7764,7 +8122,7 @@ entries:
     version: 1.0.0-424.f86fdcc
   - apiVersion: v2
     appVersion: 1.0.5
-    created: "2021-11-30T13:46:45.598924483Z"
+    created: "2021-12-02T18:58:14.220513956Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -7788,7 +8146,7 @@ entries:
     version: 1.0.0-410.9f966dc
   - apiVersion: v2
     appVersion: 1.0.5
-    created: "2021-11-30T13:46:45.597128258Z"
+    created: "2021-12-02T18:58:14.217912507Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -7812,7 +8170,7 @@ entries:
     version: 1.0.0-400.de07682
   - apiVersion: v2
     appVersion: 1.0.5
-    created: "2021-11-30T13:46:45.593578488Z"
+    created: "2021-12-02T18:58:14.212544347Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -7836,7 +8194,7 @@ entries:
     version: 1.0.0-379.240654b
   - apiVersion: v2
     appVersion: 1.0.5
-    created: "2021-11-30T13:46:45.590913819Z"
+    created: "2021-12-02T18:58:14.209919814Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -7860,7 +8218,7 @@ entries:
     version: 1.0.0-362.cdb3a39
   - apiVersion: v2
     appVersion: 1.0.5
-    created: "2021-11-30T13:46:45.589080377Z"
+    created: "2021-12-02T18:58:14.207277024Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -7884,7 +8242,7 @@ entries:
     version: 1.0.0-348.af0db22
   - apiVersion: v2
     appVersion: 1.0.5
-    created: "2021-11-30T13:46:45.587348597Z"
+    created: "2021-12-02T18:58:14.2047452Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -7908,7 +8266,7 @@ entries:
     version: 1.0.0-335.ba92347
   - apiVersion: v2
     appVersion: 1.0.5
-    created: "2021-11-30T13:46:45.585434254Z"
+    created: "2021-12-02T18:58:14.202154846Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -7932,7 +8290,7 @@ entries:
     version: 1.0.0-253.2de3c8b
   - apiVersion: v2
     appVersion: 1.0.5
-    created: "2021-11-30T13:46:45.583406039Z"
+    created: "2021-12-02T18:58:14.199497656Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -7956,7 +8314,7 @@ entries:
     version: 1.0.0-249.c1edbce
   - apiVersion: v2
     appVersion: 1.0.5
-    created: "2021-11-30T13:46:45.581681869Z"
+    created: "2021-12-02T18:58:14.196403196Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -7980,7 +8338,7 @@ entries:
     version: 1.0.0-218.4fd12cb
   - apiVersion: v2
     appVersion: 1.0.5
-    created: "2021-11-30T13:46:45.579814929Z"
+    created: "2021-12-02T18:58:14.194725363Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -8004,7 +8362,7 @@ entries:
     version: 1.0.0-144.8ad40e7
   - apiVersion: v2
     appVersion: 1.0.5
-    created: "2021-11-30T13:46:45.57639195Z"
+    created: "2021-12-02T18:58:14.192920783Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -8028,7 +8386,7 @@ entries:
     version: 1.0.0-111.d5f09a1
   - apiVersion: v2
     appVersion: 1.0.5
-    created: "2021-11-30T13:46:45.613537187Z"
+    created: "2021-12-02T18:58:14.237336497Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -8052,7 +8410,7 @@ entries:
     version: 1.0.0-51.656a398
   - apiVersion: v2
     appVersion: 1.0.5
-    created: "2021-11-30T13:46:45.595301355Z"
+    created: "2021-12-02T18:58:14.215158515Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -8077,7 +8435,7 @@ entries:
   reporting-hub-bop-role-ui:
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.665902202Z"
+    created: "2021-12-02T18:58:14.311686346Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -8100,8 +8458,32 @@ entries:
     - https://docs.mojaloop.io/charts/repo/reporting-hub-bop-role-ui-1.0.0.tgz
     version: 1.0.0
   - apiVersion: v2
+    appVersion: 1.4.2
+    created: "2021-12-02T18:58:14.3100024Z"
+    dependencies:
+    - name: common
+      repository: file://../common
+      tags:
+      - moja-common
+      version: 1.0.0
+    description: This is the role microfrontend of the BizOps framework that handles role and participant assignment.
+    digest: 1eef2c32bf090b4d61a1c9769bdd298e31774a76bd189b8063d6092b24e5e648
+    home: http://mojaloop.io
+    icon: http://mojaloop.io/images/logo.png
+    maintainers:
+    - email: kevin.leyow@modusbox.com
+      name: Kevin Christopher Leyow
+    name: reporting-hub-bop-role-ui
+    sources:
+    - https://github.com/mojaloop/mojaloop
+    - https://github.com/mojaloop/helm
+    - https://github.com/mojaloop/reporting-hub-bop-role-ui
+    urls:
+    - https://docs.mojaloop.io/charts/repo/reporting-hub-bop-role-ui-1.0.0-573.a8ab926.tgz
+    version: 1.0.0-573.a8ab926
+  - apiVersion: v2
     appVersion: 1.4.1
-    created: "2021-11-30T13:46:45.664097829Z"
+    created: "2021-12-02T18:58:14.307578634Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -8125,7 +8507,7 @@ entries:
     version: 1.0.0-557.7cb0c96
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.66183617Z"
+    created: "2021-12-02T18:58:14.305997773Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -8149,7 +8531,7 @@ entries:
     version: 1.0.0-542.14b9339
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.659874348Z"
+    created: "2021-12-02T18:58:14.304369444Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -8173,7 +8555,7 @@ entries:
     version: 1.0.0-533.14b9339
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.658297558Z"
+    created: "2021-12-02T18:58:14.302813121Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -8197,7 +8579,7 @@ entries:
     version: 1.0.0-515.3f8d9aa
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.655071751Z"
+    created: "2021-12-02T18:58:14.299641562Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -8221,7 +8603,7 @@ entries:
     version: 1.0.0-477.b9fbaee
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.653478602Z"
+    created: "2021-12-02T18:58:14.298031972Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -8245,7 +8627,7 @@ entries:
     version: 1.0.0-459.844fc0e
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.65182064Z"
+    created: "2021-12-02T18:58:14.295255367Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -8269,7 +8651,7 @@ entries:
     version: 1.0.0-445.26b5988
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.650163868Z"
+    created: "2021-12-02T18:58:14.288751586Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -8293,7 +8675,7 @@ entries:
     version: 1.0.0-432.cc8fcb4
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.647774086Z"
+    created: "2021-12-02T18:58:14.286136636Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -8317,7 +8699,7 @@ entries:
     version: 1.0.0-424.f86fdcc
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.646181265Z"
+    created: "2021-12-02T18:58:14.283739134Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -8341,7 +8723,7 @@ entries:
     version: 1.0.0-410.9f966dc
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.644534269Z"
+    created: "2021-12-02T18:58:14.281286211Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -8365,7 +8747,7 @@ entries:
     version: 1.0.0-400.de07682
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.641235905Z"
+    created: "2021-12-02T18:58:14.276225901Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -8389,7 +8771,7 @@ entries:
     version: 1.0.0-379.240654b
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.639553314Z"
+    created: "2021-12-02T18:58:14.273898132Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -8413,7 +8795,7 @@ entries:
     version: 1.0.0-362.cdb3a39
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.637899049Z"
+    created: "2021-12-02T18:58:14.269724973Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -8437,7 +8819,7 @@ entries:
     version: 1.0.0-348.af0db22
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.635458894Z"
+    created: "2021-12-02T18:58:14.267004958Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -8461,7 +8843,7 @@ entries:
     version: 1.0.0-335.ba92347
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.633884511Z"
+    created: "2021-12-02T18:58:14.264337284Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -8485,7 +8867,7 @@ entries:
     version: 1.0.0-253.2de3c8b
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.63223357Z"
+    created: "2021-12-02T18:58:14.261673198Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -8509,7 +8891,7 @@ entries:
     version: 1.0.0-249.c1edbce
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.630649233Z"
+    created: "2021-12-02T18:58:14.258978235Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -8533,7 +8915,7 @@ entries:
     version: 1.0.0-218.4fd12cb
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.629063414Z"
+    created: "2021-12-02T18:58:14.256694406Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -8557,7 +8939,7 @@ entries:
     version: 1.0.0-144.8ad40e7
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.62746336Z"
+    created: "2021-12-02T18:58:14.254948275Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -8581,7 +8963,7 @@ entries:
     version: 1.0.0-111.d5f09a1
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.656672363Z"
+    created: "2021-12-02T18:58:14.301196234Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -8605,7 +8987,7 @@ entries:
     version: 1.0.0-51.656a398
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.642891138Z"
+    created: "2021-12-02T18:58:14.278809977Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -8630,7 +9012,7 @@ entries:
   reporting-hub-bop-shell:
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.708568135Z"
+    created: "2021-12-02T18:58:14.373665873Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -8654,7 +9036,31 @@ entries:
     version: 1.0.0
   - apiVersion: v2
     appVersion: 2.0.2
-    created: "2021-11-30T13:46:45.706881255Z"
+    created: "2021-12-02T18:58:14.37090775Z"
+    dependencies:
+    - name: common
+      repository: file://../common
+      tags:
+      - moja-common
+      version: 1.0.0
+    description: This is the Shell application that accommodates BizOps microfrontends.
+    digest: ff9c63333d6ea5b787994fae9be6da0c8c2d247849eaff1f885fcda0520a76e0
+    home: http://mojaloop.io
+    icon: http://mojaloop.io/images/logo.png
+    maintainers:
+    - email: kevin.leyow@modusbox.com
+      name: Kevin Christopher Leyow
+    name: reporting-hub-bop-shell
+    sources:
+    - https://github.com/mojaloop/mojaloop
+    - https://github.com/mojaloop/helm
+    - https://github.com/mojaloop/reporting-hub-bop-shell
+    urls:
+    - https://docs.mojaloop.io/charts/repo/reporting-hub-bop-shell-1.0.0-573.a8ab926.tgz
+    version: 1.0.0-573.a8ab926
+  - apiVersion: v2
+    appVersion: 2.0.2
+    created: "2021-12-02T18:58:14.368116388Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -8678,7 +9084,7 @@ entries:
     version: 1.0.0-557.7cb0c96
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.705205926Z"
+    created: "2021-12-02T18:58:14.365450586Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -8702,7 +9108,7 @@ entries:
     version: 1.0.0-542.14b9339
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.703458042Z"
+    created: "2021-12-02T18:58:14.361111505Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -8726,7 +9132,7 @@ entries:
     version: 1.0.0-533.14b9339
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.700795394Z"
+    created: "2021-12-02T18:58:14.358400157Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -8750,7 +9156,7 @@ entries:
     version: 1.0.0-515.3f8d9aa
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.697380388Z"
+    created: "2021-12-02T18:58:14.352901123Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -8774,7 +9180,7 @@ entries:
     version: 1.0.0-477.b9fbaee
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.695661722Z"
+    created: "2021-12-02T18:58:14.350088944Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -8798,7 +9204,7 @@ entries:
     version: 1.0.0-459.844fc0e
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.69389991Z"
+    created: "2021-12-02T18:58:14.347307672Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -8822,7 +9228,7 @@ entries:
     version: 1.0.0-445.26b5988
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.69201258Z"
+    created: "2021-12-02T18:58:14.344413345Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -8846,7 +9252,7 @@ entries:
     version: 1.0.0-432.cc8fcb4
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.690281126Z"
+    created: "2021-12-02T18:58:14.340598176Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -8870,7 +9276,7 @@ entries:
     version: 1.0.0-424.f86fdcc
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.687615025Z"
+    created: "2021-12-02T18:58:14.338282897Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -8894,7 +9300,7 @@ entries:
     version: 1.0.0-410.9f966dc
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.685971373Z"
+    created: "2021-12-02T18:58:14.335896265Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -8918,7 +9324,7 @@ entries:
     version: 1.0.0-400.de07682
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.682527611Z"
+    created: "2021-12-02T18:58:14.331391432Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -8942,7 +9348,7 @@ entries:
     version: 1.0.0-379.240654b
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.680837367Z"
+    created: "2021-12-02T18:58:14.328626207Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -8966,7 +9372,7 @@ entries:
     version: 1.0.0-362.cdb3a39
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.679196009Z"
+    created: "2021-12-02T18:58:14.324653847Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -8990,7 +9396,7 @@ entries:
     version: 1.0.0-348.af0db22
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.677511441Z"
+    created: "2021-12-02T18:58:14.321293438Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -9014,7 +9420,7 @@ entries:
     version: 1.0.0-335.ba92347
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.674933182Z"
+    created: "2021-12-02T18:58:14.319690388Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -9038,7 +9444,7 @@ entries:
     version: 1.0.0-253.2de3c8b
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.67325746Z"
+    created: "2021-12-02T18:58:14.318083526Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -9062,7 +9468,7 @@ entries:
     version: 1.0.0-249.c1edbce
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.67133135Z"
+    created: "2021-12-02T18:58:14.316481692Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -9086,7 +9492,7 @@ entries:
     version: 1.0.0-218.4fd12cb
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.669440025Z"
+    created: "2021-12-02T18:58:14.314879066Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -9110,7 +9516,7 @@ entries:
     version: 1.0.0-144.8ad40e7
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.667614069Z"
+    created: "2021-12-02T18:58:14.313259089Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -9134,7 +9540,7 @@ entries:
     version: 1.0.0-111.d5f09a1
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.699046544Z"
+    created: "2021-12-02T18:58:14.355680463Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -9158,7 +9564,7 @@ entries:
     version: 1.0.0-51.656a398
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.684163075Z"
+    created: "2021-12-02T18:58:14.334040632Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -9183,7 +9589,7 @@ entries:
   reporting-hub-bop-trx-ui:
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.747894582Z"
+    created: "2021-12-02T18:58:14.426118159Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -9206,8 +9612,32 @@ entries:
     - https://docs.mojaloop.io/charts/repo/reporting-hub-bop-trx-ui-1.0.0.tgz
     version: 1.0.0
   - apiVersion: v2
+    appVersion: 1.6.2
+    created: "2021-12-02T18:58:14.423486325Z"
+    dependencies:
+    - name: common
+      repository: file://../common
+      tags:
+      - moja-common
+      version: 1.0.0
+    description: This is the role microfrontend of the BizOps framework that handles tracing of transfers.
+    digest: b9c4b93ee8db41e92b45450492c96c560562b838c4417383151fac5fb435a711
+    home: http://mojaloop.io
+    icon: http://mojaloop.io/images/logo.png
+    maintainers:
+    - email: kevin.leyow@modusbox.com
+      name: Kevin Christopher Leyow
+    name: reporting-hub-bop-trx-ui
+    sources:
+    - https://github.com/mojaloop/mojaloop
+    - https://github.com/mojaloop/helm
+    - https://github.com/mojaloop/reporting-hub-bop-trx-ui
+    urls:
+    - https://docs.mojaloop.io/charts/repo/reporting-hub-bop-trx-ui-1.0.0-573.a8ab926.tgz
+    version: 1.0.0-573.a8ab926
+  - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.746313895Z"
+    created: "2021-12-02T18:58:14.42084555Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -9231,7 +9661,7 @@ entries:
     version: 1.0.0-557.7cb0c96
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.744681122Z"
+    created: "2021-12-02T18:58:14.418308408Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -9255,7 +9685,7 @@ entries:
     version: 1.0.0-542.14b9339
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.743113788Z"
+    created: "2021-12-02T18:58:14.415806606Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -9279,7 +9709,7 @@ entries:
     version: 1.0.0-533.14b9339
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.740793498Z"
+    created: "2021-12-02T18:58:14.413330985Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -9303,7 +9733,7 @@ entries:
     version: 1.0.0-515.3f8d9aa
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.737592158Z"
+    created: "2021-12-02T18:58:14.407851481Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -9327,7 +9757,7 @@ entries:
     version: 1.0.0-477.b9fbaee
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.735959671Z"
+    created: "2021-12-02T18:58:14.406278572Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -9351,7 +9781,7 @@ entries:
     version: 1.0.0-459.844fc0e
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.734363125Z"
+    created: "2021-12-02T18:58:14.404679567Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -9375,7 +9805,7 @@ entries:
     version: 1.0.0-445.26b5988
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.732715931Z"
+    created: "2021-12-02T18:58:14.403080746Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -9399,7 +9829,7 @@ entries:
     version: 1.0.0-432.cc8fcb4
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.731114506Z"
+    created: "2021-12-02T18:58:14.401459449Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -9423,7 +9853,7 @@ entries:
     version: 1.0.0-424.f86fdcc
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.729527481Z"
+    created: "2021-12-02T18:58:14.399865933Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -9447,7 +9877,7 @@ entries:
     version: 1.0.0-410.9f966dc
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.727049576Z"
+    created: "2021-12-02T18:58:14.39822767Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -9471,7 +9901,7 @@ entries:
     version: 1.0.0-400.de07682
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.72382485Z"
+    created: "2021-12-02T18:58:14.393651385Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -9495,7 +9925,7 @@ entries:
     version: 1.0.0-379.240654b
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.722194797Z"
+    created: "2021-12-02T18:58:14.391864218Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -9519,7 +9949,7 @@ entries:
     version: 1.0.0-362.cdb3a39
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.720586606Z"
+    created: "2021-12-02T18:58:14.390129212Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -9543,7 +9973,7 @@ entries:
     version: 1.0.0-348.af0db22
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.718967148Z"
+    created: "2021-12-02T18:58:14.388401042Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -9567,7 +9997,7 @@ entries:
     version: 1.0.0-335.ba92347
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.71736076Z"
+    created: "2021-12-02T18:58:14.386489146Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -9591,7 +10021,7 @@ entries:
     version: 1.0.0-253.2de3c8b
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.715351974Z"
+    created: "2021-12-02T18:58:14.384392491Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -9615,7 +10045,7 @@ entries:
     version: 1.0.0-249.c1edbce
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.713397123Z"
+    created: "2021-12-02T18:58:14.382517183Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -9639,7 +10069,7 @@ entries:
     version: 1.0.0-218.4fd12cb
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.711764465Z"
+    created: "2021-12-02T18:58:14.379074169Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -9663,7 +10093,7 @@ entries:
     version: 1.0.0-144.8ad40e7
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.710200478Z"
+    created: "2021-12-02T18:58:14.37631796Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -9687,7 +10117,7 @@ entries:
     version: 1.0.0-111.d5f09a1
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.739193422Z"
+    created: "2021-12-02T18:58:14.410760476Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -9711,7 +10141,7 @@ entries:
     version: 1.0.0-51.656a398
   - apiVersion: v2
     appVersion: 1.6.0
-    created: "2021-11-30T13:46:45.725440776Z"
+    created: "2021-12-02T18:58:14.395281048Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -9736,7 +10166,7 @@ entries:
   role-assignment-service:
   - apiVersion: v2
     appVersion: 0.0.5
-    created: "2021-11-30T13:46:45.798743621Z"
+    created: "2021-12-02T18:58:14.499537127Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -9760,7 +10190,31 @@ entries:
     version: 1.0.0
   - apiVersion: v2
     appVersion: 0.0.7
-    created: "2021-11-30T13:46:45.795868365Z"
+    created: "2021-12-02T18:58:14.496740568Z"
+    dependencies:
+    - name: common
+      repository: file://../common
+      tags:
+      - moja-common
+      version: 1.0.0
+    description: API service for assigning roles and participants to users
+    digest: f29da6d0785ccf6780c35063b174ef3acdef37e5d3a547aef47aa12de22398c7
+    home: http://mojaloop.io
+    icon: http://mojaloop.io/images/logo.png
+    maintainers:
+    - email: vijaya.guthi@modusbox.com
+      name: Vijaya Kumar Guthi
+    name: role-assignment-service
+    sources:
+    - https://github.com/mojaloop/mojaloop
+    - https://github.com/mojaloop/helm
+    - https://github.com/mojaloop/role-assignment-service
+    urls:
+    - https://docs.mojaloop.io/charts/repo/role-assignment-service-1.0.0-573.a8ab926.tgz
+    version: 1.0.0-573.a8ab926
+  - apiVersion: v2
+    appVersion: 0.0.7
+    created: "2021-12-02T18:58:14.493519688Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -9784,7 +10238,7 @@ entries:
     version: 1.0.0-557.7cb0c96
   - apiVersion: v2
     appVersion: 0.0.5
-    created: "2021-11-30T13:46:45.792962766Z"
+    created: "2021-12-02T18:58:14.490695451Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -9808,7 +10262,7 @@ entries:
     version: 1.0.0-542.14b9339
   - apiVersion: v2
     appVersion: 0.0.5
-    created: "2021-11-30T13:46:45.79003171Z"
+    created: "2021-12-02T18:58:14.487889319Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -9832,7 +10286,7 @@ entries:
     version: 1.0.0-533.14b9339
   - apiVersion: v2
     appVersion: 0.0.5
-    created: "2021-11-30T13:46:45.787040417Z"
+    created: "2021-12-02T18:58:14.484914912Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -9856,7 +10310,7 @@ entries:
     version: 1.0.0-515.3f8d9aa
   - apiVersion: v2
     appVersion: 0.0.5
-    created: "2021-11-30T13:46:45.781174758Z"
+    created: "2021-12-02T18:58:14.479453521Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -9880,7 +10334,7 @@ entries:
     version: 1.0.0-477.b9fbaee
   - apiVersion: v2
     appVersion: 0.0.5
-    created: "2021-11-30T13:46:45.778299745Z"
+    created: "2021-12-02T18:58:14.476536614Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -9904,7 +10358,7 @@ entries:
     version: 1.0.0-459.844fc0e
   - apiVersion: v2
     appVersion: 0.0.5
-    created: "2021-11-30T13:46:45.776462399Z"
+    created: "2021-12-02T18:58:14.472129592Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -9928,7 +10382,7 @@ entries:
     version: 1.0.0-445.26b5988
   - apiVersion: v2
     appVersion: 0.0.5
-    created: "2021-11-30T13:46:45.774580916Z"
+    created: "2021-12-02T18:58:14.469335123Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -9952,7 +10406,7 @@ entries:
     version: 1.0.0-432.cc8fcb4
   - apiVersion: v2
     appVersion: 0.0.5
-    created: "2021-11-30T13:46:45.772739925Z"
+    created: "2021-12-02T18:58:14.466687171Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -9976,7 +10430,7 @@ entries:
     version: 1.0.0-424.f86fdcc
   - apiVersion: v2
     appVersion: 0.0.5
-    created: "2021-11-30T13:46:45.770850957Z"
+    created: "2021-12-02T18:58:14.464038204Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -10000,7 +10454,7 @@ entries:
     version: 1.0.0-410.9f966dc
   - apiVersion: v2
     appVersion: 0.0.5
-    created: "2021-11-30T13:46:45.768953278Z"
+    created: "2021-12-02T18:58:14.461208567Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -10024,7 +10478,7 @@ entries:
     version: 1.0.0-400.de07682
   - apiVersion: v2
     appVersion: 0.0.5
-    created: "2021-11-30T13:46:45.764587815Z"
+    created: "2021-12-02T18:58:14.454588441Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -10048,7 +10502,7 @@ entries:
     version: 1.0.0-379.240654b
   - apiVersion: v2
     appVersion: 0.0.5
-    created: "2021-11-30T13:46:45.762829982Z"
+    created: "2021-12-02T18:58:14.45149916Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -10072,7 +10526,7 @@ entries:
     version: 1.0.0-362.cdb3a39
   - apiVersion: v2
     appVersion: 0.0.5
-    created: "2021-11-30T13:46:45.761071616Z"
+    created: "2021-12-02T18:58:14.448500272Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -10096,7 +10550,7 @@ entries:
     version: 1.0.0-348.af0db22
   - apiVersion: v2
     appVersion: 0.0.5
-    created: "2021-11-30T13:46:45.759294275Z"
+    created: "2021-12-02T18:58:14.44551762Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -10120,7 +10574,7 @@ entries:
     version: 1.0.0-335.ba92347
   - apiVersion: v2
     appVersion: 0.0.5
-    created: "2021-11-30T13:46:45.757518187Z"
+    created: "2021-12-02T18:58:14.442519055Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -10144,7 +10598,7 @@ entries:
     version: 1.0.0-253.2de3c8b
   - apiVersion: v2
     appVersion: 0.0.5
-    created: "2021-11-30T13:46:45.755696866Z"
+    created: "2021-12-02T18:58:14.439504532Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -10168,7 +10622,7 @@ entries:
     version: 1.0.0-249.c1edbce
   - apiVersion: v2
     appVersion: 0.0.5
-    created: "2021-11-30T13:46:45.753636923Z"
+    created: "2021-12-02T18:58:14.436491841Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -10192,7 +10646,7 @@ entries:
     version: 1.0.0-218.4fd12cb
   - apiVersion: v2
     appVersion: 0.0.5
-    created: "2021-11-30T13:46:45.751530407Z"
+    created: "2021-12-02T18:58:14.433438824Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -10216,7 +10670,7 @@ entries:
     version: 1.0.0-144.8ad40e7
   - apiVersion: v2
     appVersion: 0.0.5
-    created: "2021-11-30T13:46:45.749706246Z"
+    created: "2021-12-02T18:58:14.429407741Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -10240,7 +10694,7 @@ entries:
     version: 1.0.0-111.d5f09a1
   - apiVersion: v2
     appVersion: 0.0.5
-    created: "2021-11-30T13:46:45.784026436Z"
+    created: "2021-12-02T18:58:14.482417183Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -10264,7 +10718,7 @@ entries:
     version: 1.0.0-51.656a398
   - apiVersion: v2
     appVersion: 0.0.5
-    created: "2021-11-30T13:46:45.767048811Z"
+    created: "2021-12-02T18:58:14.458533329Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -10289,7 +10743,7 @@ entries:
   security-hub-bop-kratos-ui:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2021-11-30T13:46:45.839082061Z"
+    created: "2021-12-02T18:58:14.559509936Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -10313,7 +10767,31 @@ entries:
     version: 1.0.0
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2021-11-30T13:46:45.837511662Z"
+    created: "2021-12-02T18:58:14.556991137Z"
+    dependencies:
+    - name: common
+      repository: file://../common
+      tags:
+      - moja-common
+      version: 1.0.0
+    description: This is the UI for Kratos.
+    digest: fb052a858c8ecfb4551d70751d6b7e6c495c882c6d3a913bdcae3c0ae03405bb
+    home: http://mojaloop.io
+    icon: http://mojaloop.io/images/logo.png
+    maintainers:
+    - email: vijaya.guthi@modusbox.com
+      name: Vijaya Kumar Guthi
+    name: security-hub-bop-kratos-ui
+    sources:
+    - https://github.com/mojaloop/mojaloop
+    - https://github.com/mojaloop/helm
+    - https://github.com/modusbox/kratos-ui-oidcer
+    urls:
+    - https://docs.mojaloop.io/charts/repo/security-hub-bop-kratos-ui-1.0.0-573.a8ab926.tgz
+    version: 1.0.0-573.a8ab926
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2021-12-02T18:58:14.554438224Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -10337,7 +10815,7 @@ entries:
     version: 1.0.0-557.7cb0c96
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2021-11-30T13:46:45.835849991Z"
+    created: "2021-12-02T18:58:14.549897302Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -10361,7 +10839,7 @@ entries:
     version: 1.0.0-542.14b9339
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2021-11-30T13:46:45.834247405Z"
+    created: "2021-12-02T18:58:14.547507452Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -10385,7 +10863,7 @@ entries:
     version: 1.0.0-533.14b9339
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2021-11-30T13:46:45.832637833Z"
+    created: "2021-12-02T18:58:14.545353054Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -10409,7 +10887,7 @@ entries:
     version: 1.0.0-515.3f8d9aa
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2021-11-30T13:46:45.829500624Z"
+    created: "2021-12-02T18:58:14.540449552Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -10433,7 +10911,7 @@ entries:
     version: 1.0.0-477.b9fbaee
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2021-11-30T13:46:45.827886212Z"
+    created: "2021-12-02T18:58:14.538448146Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -10457,7 +10935,7 @@ entries:
     version: 1.0.0-459.844fc0e
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2021-11-30T13:46:45.825537322Z"
+    created: "2021-12-02T18:58:14.53633469Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -10481,7 +10959,7 @@ entries:
     version: 1.0.0-445.26b5988
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2021-11-30T13:46:45.823609372Z"
+    created: "2021-12-02T18:58:14.534021494Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -10505,7 +10983,7 @@ entries:
     version: 1.0.0-432.cc8fcb4
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2021-11-30T13:46:45.82195842Z"
+    created: "2021-12-02T18:58:14.529532502Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -10529,7 +11007,7 @@ entries:
     version: 1.0.0-424.f86fdcc
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2021-11-30T13:46:45.820311338Z"
+    created: "2021-12-02T18:58:14.526857253Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -10553,7 +11031,7 @@ entries:
     version: 1.0.0-410.9f966dc
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2021-11-30T13:46:45.818718676Z"
+    created: "2021-12-02T18:58:14.524575679Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -10577,7 +11055,7 @@ entries:
     version: 1.0.0-400.de07682
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2021-11-30T13:46:45.815480879Z"
+    created: "2021-12-02T18:58:14.52038091Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -10601,7 +11079,7 @@ entries:
     version: 1.0.0-379.240654b
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2021-11-30T13:46:45.81317587Z"
+    created: "2021-12-02T18:58:14.518779283Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -10625,7 +11103,7 @@ entries:
     version: 1.0.0-362.cdb3a39
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2021-11-30T13:46:45.811555587Z"
+    created: "2021-12-02T18:58:14.517170533Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -10649,7 +11127,7 @@ entries:
     version: 1.0.0-348.af0db22
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2021-11-30T13:46:45.809983436Z"
+    created: "2021-12-02T18:58:14.515158961Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -10673,7 +11151,7 @@ entries:
     version: 1.0.0-335.ba92347
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2021-11-30T13:46:45.808327826Z"
+    created: "2021-12-02T18:58:14.512442396Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -10697,7 +11175,7 @@ entries:
     version: 1.0.0-253.2de3c8b
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2021-11-30T13:46:45.806763529Z"
+    created: "2021-12-02T18:58:14.509807442Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -10721,7 +11199,7 @@ entries:
     version: 1.0.0-249.c1edbce
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2021-11-30T13:46:45.805131332Z"
+    created: "2021-12-02T18:58:14.507224114Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -10745,7 +11223,7 @@ entries:
     version: 1.0.0-218.4fd12cb
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2021-11-30T13:46:45.803513728Z"
+    created: "2021-12-02T18:58:14.504650112Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -10769,7 +11247,7 @@ entries:
     version: 1.0.0-144.8ad40e7
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2021-11-30T13:46:45.801874019Z"
+    created: "2021-12-02T18:58:14.502056443Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -10793,7 +11271,7 @@ entries:
     version: 1.0.0-111.d5f09a1
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2021-11-30T13:46:45.831048301Z"
+    created: "2021-12-02T18:58:14.542737745Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -10817,7 +11295,7 @@ entries:
     version: 1.0.0-51.656a398
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2021-11-30T13:46:45.817115831Z"
+    created: "2021-12-02T18:58:14.522203739Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -10842,7 +11320,7 @@ entries:
   security-role-perm-crd:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.866467303Z"
+    created: "2021-12-02T18:58:14.603861923Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -10865,7 +11343,30 @@ entries:
     version: 1.0.0
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.865381909Z"
+    created: "2021-12-02T18:58:14.602212843Z"
+    dependencies:
+    - name: common
+      repository: file://../common
+      tags:
+      - moja-common
+      version: 1.0.0
+    description: Custom Resource Definition (CRD) for mojaloop role-permission mappings
+    digest: d37adbbdda6544268db96d8563873cc09b32c73a1aa00b9a22323b8a21307ad3
+    home: http://mojaloop.io
+    icon: http://mojaloop.io/images/logo.png
+    maintainers:
+    - email: vijaya.guthi@modusbox.com
+      name: Vijaya Kumar Guthi
+    name: security-role-perm-crd
+    sources:
+    - https://github.com/mojaloop/mojaloop
+    - https://github.com/mojaloop/charts
+    urls:
+    - https://docs.mojaloop.io/charts/repo/security-role-perm-crd-1.0.0-573.a8ab926.tgz
+    version: 1.0.0-573.a8ab926
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2021-12-02T18:58:14.600508027Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -10888,7 +11389,7 @@ entries:
     version: 1.0.0-557.7cb0c96
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.864236461Z"
+    created: "2021-12-02T18:58:14.598849582Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -10911,7 +11412,7 @@ entries:
     version: 1.0.0-542.14b9339
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.862426403Z"
+    created: "2021-12-02T18:58:14.597117204Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -10934,7 +11435,7 @@ entries:
     version: 1.0.0-533.14b9339
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.861341678Z"
+    created: "2021-12-02T18:58:14.595433211Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -10957,7 +11458,7 @@ entries:
     version: 1.0.0-515.3f8d9aa
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.859219603Z"
+    created: "2021-12-02T18:58:14.592099021Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -10980,7 +11481,7 @@ entries:
     version: 1.0.0-477.b9fbaee
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.858133935Z"
+    created: "2021-12-02T18:58:14.589337125Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -11003,7 +11504,7 @@ entries:
     version: 1.0.0-459.844fc0e
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.857047827Z"
+    created: "2021-12-02T18:58:14.587928343Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -11026,7 +11527,7 @@ entries:
     version: 1.0.0-445.26b5988
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.855932347Z"
+    created: "2021-12-02T18:58:14.586182348Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -11049,7 +11550,7 @@ entries:
     version: 1.0.0-432.cc8fcb4
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.854844375Z"
+    created: "2021-12-02T18:58:14.584400573Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -11072,7 +11573,7 @@ entries:
     version: 1.0.0-424.f86fdcc
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.853698682Z"
+    created: "2021-12-02T18:58:14.582733109Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -11095,7 +11596,7 @@ entries:
     version: 1.0.0-410.9f966dc
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.852549228Z"
+    created: "2021-12-02T18:58:14.580859086Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -11118,7 +11619,7 @@ entries:
     version: 1.0.0-400.de07682
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.849657204Z"
+    created: "2021-12-02T18:58:14.577398173Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -11141,7 +11642,7 @@ entries:
     version: 1.0.0-379.240654b
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.848527787Z"
+    created: "2021-12-02T18:58:14.575602699Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -11164,7 +11665,7 @@ entries:
     version: 1.0.0-362.cdb3a39
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.847416977Z"
+    created: "2021-12-02T18:58:14.573780222Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -11187,7 +11688,7 @@ entries:
     version: 1.0.0-348.af0db22
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.846316841Z"
+    created: "2021-12-02T18:58:14.569709582Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -11210,7 +11711,7 @@ entries:
     version: 1.0.0-335.ba92347
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.845244198Z"
+    created: "2021-12-02T18:58:14.567933959Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -11233,7 +11734,7 @@ entries:
     version: 1.0.0-253.2de3c8b
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.84411257Z"
+    created: "2021-12-02T18:58:14.566217532Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -11256,7 +11757,7 @@ entries:
     version: 1.0.0-249.c1edbce
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.84305346Z"
+    created: "2021-12-02T18:58:14.56441688Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -11279,7 +11780,7 @@ entries:
     version: 1.0.0-218.4fd12cb
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.841990269Z"
+    created: "2021-12-02T18:58:14.562787904Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -11302,7 +11803,7 @@ entries:
     version: 1.0.0-144.8ad40e7
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.840870233Z"
+    created: "2021-12-02T18:58:14.561110455Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -11325,7 +11826,7 @@ entries:
     version: 1.0.0-111.d5f09a1
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.86024914Z"
+    created: "2021-12-02T18:58:14.593712502Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -11348,7 +11849,7 @@ entries:
     version: 1.0.0-51.656a398
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.851067253Z"
+    created: "2021-12-02T18:58:14.579144819Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -11372,7 +11873,7 @@ entries:
   security-role-perm-operator-svc:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.949384589Z"
+    created: "2021-12-02T18:58:14.674705377Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -11402,7 +11903,37 @@ entries:
     version: 1.0.0
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.945706466Z"
+    created: "2021-12-02T18:58:14.671985132Z"
+    dependencies:
+    - name: common
+      repository: file://../common
+      tags:
+      - moja-common
+      version: 1.0.0
+    - condition: installCRDs
+      name: security-role-perm-crd
+      repository: file://../security-role-perm-crd
+      tags:
+      - security-role-perm-crd
+      version: 1.0.0
+    description: Kubernetes operator watches mojaloop roles and updates keto
+    digest: 3a6d98327129c0481bac606c00e1b186ac89fe5a7842a68b37f957546df9a536
+    home: http://mojaloop.io
+    icon: http://mojaloop.io/images/logo.png
+    maintainers:
+    - email: vijaya.guthi@modusbox.com
+      name: Vijaya Kumar Guthi
+    name: security-role-perm-operator-svc
+    sources:
+    - https://github.com/mojaloop/mojaloop
+    - https://github.com/mojaloop/helm
+    - https://github.com/mojaloop/security-role-perm-operator-svc
+    urls:
+    - https://docs.mojaloop.io/charts/repo/security-role-perm-operator-svc-1.0.0-573.a8ab926.tgz
+    version: 1.0.0-573.a8ab926
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2021-12-02T18:58:14.669249862Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -11432,7 +11963,7 @@ entries:
     version: 1.0.0-557.7cb0c96
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.941471105Z"
+    created: "2021-12-02T18:58:14.666605304Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -11462,7 +11993,7 @@ entries:
     version: 1.0.0-542.14b9339
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.937207934Z"
+    created: "2021-12-02T18:58:14.662826041Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -11492,7 +12023,7 @@ entries:
     version: 1.0.0-533.14b9339
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.93308318Z"
+    created: "2021-12-02T18:58:14.660175944Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -11522,7 +12053,7 @@ entries:
     version: 1.0.0-515.3f8d9aa
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.924757419Z"
+    created: "2021-12-02T18:58:14.654932015Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -11552,7 +12083,7 @@ entries:
     version: 1.0.0-477.b9fbaee
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.922131762Z"
+    created: "2021-12-02T18:58:14.652260963Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -11582,7 +12113,7 @@ entries:
     version: 1.0.0-459.844fc0e
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.91950284Z"
+    created: "2021-12-02T18:58:14.648762656Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -11612,7 +12143,7 @@ entries:
     version: 1.0.0-445.26b5988
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.91680695Z"
+    created: "2021-12-02T18:58:14.646125658Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -11642,7 +12173,7 @@ entries:
     version: 1.0.0-432.cc8fcb4
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.914216967Z"
+    created: "2021-12-02T18:58:14.643549398Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -11672,7 +12203,7 @@ entries:
     version: 1.0.0-424.f86fdcc
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.910766821Z"
+    created: "2021-12-02T18:58:14.640936719Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -11702,7 +12233,7 @@ entries:
     version: 1.0.0-410.9f966dc
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.908095407Z"
+    created: "2021-12-02T18:58:14.637883513Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -11732,7 +12263,7 @@ entries:
     version: 1.0.0-400.de07682
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.902897396Z"
+    created: "2021-12-02T18:58:14.631314487Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -11762,7 +12293,7 @@ entries:
     version: 1.0.0-379.240654b
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.899273287Z"
+    created: "2021-12-02T18:58:14.628694149Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -11792,7 +12323,7 @@ entries:
     version: 1.0.0-362.cdb3a39
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.89419197Z"
+    created: "2021-12-02T18:58:14.62609566Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -11822,7 +12353,7 @@ entries:
     version: 1.0.0-348.af0db22
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.8892677Z"
+    created: "2021-12-02T18:58:14.623387307Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -11852,7 +12383,7 @@ entries:
     version: 1.0.0-335.ba92347
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.884373483Z"
+    created: "2021-12-02T18:58:14.619489043Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -11882,7 +12413,7 @@ entries:
     version: 1.0.0-253.2de3c8b
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.879663059Z"
+    created: "2021-12-02T18:58:14.616862443Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -11912,7 +12443,7 @@ entries:
     version: 1.0.0-249.c1edbce
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.87441783Z"
+    created: "2021-12-02T18:58:14.614267521Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -11942,7 +12473,7 @@ entries:
     version: 1.0.0-218.4fd12cb
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.871726496Z"
+    created: "2021-12-02T18:58:14.611648303Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -11972,7 +12503,7 @@ entries:
     version: 1.0.0-144.8ad40e7
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.869093679Z"
+    created: "2021-12-02T18:58:14.607894697Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -12002,7 +12533,7 @@ entries:
     version: 1.0.0-111.d5f09a1
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.928923282Z"
+    created: "2021-12-02T18:58:14.657479429Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -12032,7 +12563,7 @@ entries:
     version: 1.0.0-51.656a398
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-11-30T13:46:45.905513501Z"
+    created: "2021-12-02T18:58:14.633910461Z"
     dependencies:
     - name: common
       repository: file://../common
@@ -12060,4 +12591,4 @@ entries:
     urls:
     - https://docs.mojaloop.io/charts/repo/security-role-perm-operator-svc-1.0.0-39.8e2f564.tgz
     version: 1.0.0-39.8e2f564
-generated: "2021-11-30T13:46:43.988701909Z"
+generated: "2021-12-02T18:58:12.099310381Z"
