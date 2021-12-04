@@ -1,0 +1,16 @@
+apiVersion: v2
+description: account lookup service  
+name: als-service 
+version: 12.4.0
+appVersion: "11.8.0"
+maintainers:
+  - name: Tom Daly 
+    email: tdaly61@gmail.com
+  - name: Miguel de Barros
+    email: miguel.
+dependencies:
+  - name: common
+    repository: "file://../common"
+    tags:
+      - moja-common
+    version: 1.0.0

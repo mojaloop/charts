@@ -2368,7 +2368,7 @@ kowl:
 ################################################################
 ## MongoDB Backend Dependency
 reporting-events-db:
-  enabled: true
+  enabled: false
   fullnameOverride: "reporting-events-db"
 
   auth:
@@ -2396,7 +2396,7 @@ reporting-events-db:
 ## keto migrate up -y --all-namespaces --config /etc/config/keto.yaml
 ##
 keto:
-  enabled: true
+  enabled: false
   ## Installation
   # https://k8s.ory.sh/helm/charts
   # helm repo add ory https://k8s.ory.sh/helm/charts
@@ -2676,7 +2676,7 @@ keto:
       minAvailable: 1
 
 oathkeeper:
-  enabled: true
+  enabled: false
   # -- If enabled, a demo deployment with exemplary access rules and JSON Web Key Secrets will be generated.
   demo: false
 
@@ -2982,7 +2982,7 @@ oathkeeper:
 ## kratos migrate sql -e --yes
 ##
 kratos:
-  enabled: true
+  enabled: false
   # -- Number of replicas in deployment
   replicaCount: 1
   # -- Deployment update strategy
@@ -3429,7 +3429,7 @@ kratos:
 ################################################################
 ## MySQL DB for Kratos
 kratos-db:
-  enabled: true
+  enabled: false
   fullnameOverride: "kratos-db"
   image:
     registry: docker.io
@@ -4079,7 +4079,7 @@ kratos-db:
 ################################################################
 ## MySQL DB for Keto
 keto-db:
-  enabled: true
+  enabled: false
   fullnameOverride: "keto-db"
   image:
     registry: docker.io

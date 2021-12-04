@@ -11,8 +11,21 @@ LOCAL_HELM_MOJALOOP_REPO_URI=https://docs.mojaloop.io/charts/repo
 
 trap 'echo "Command failed...exiting. Please fix me!"' ERR
 
+SCRIPTNAME=$0
+# Program paths
+CHARTS_DIR=$( cd $(dirname "$0")/.. ; pwd )
+#DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+
+echo "CHARTS_DIR: $CHARTS_DIR"
+
+
 echo "Removing old charts..."
-find ./ -name "charts"| xargs rm -Rf
+#find $CHARTS_DIR -name "charts"| xargs rm -Rf
+
+# Tom testing 
+rm -rf /vagrant/charts/mojaloop/chart-admin/charts
+rm -rf /vagrant/charts/mojaloop/account-lookup-service/charts
 
 mkdir -p ./repo
 
@@ -21,26 +34,29 @@ if [ "$1" ]; then
 else
     declare -a charts=(
         # Example Backend Dependency Charts
-        mojaloop/example-backend
+        #mojaloop/example-backend
         # Common Charts
-        mojaloop/common
+        #mojaloop/common
         # Mojaloop BoF Charts
-        mojaloop/security-role-perm-crd
-        mojaloop/role-assignment-service
-        mojaloop/reporting-hub-bop-shell
-        mojaloop/reporting-hub-bop-api-svc
-        mojaloop/reporting-events-processor-svc
-        mojaloop/security-role-perm-operator-svc
-        mojaloop/reporting-hub-bop-role-ui
-        mojaloop/reporting-hub-bop-trx-ui
-        mojaloop/security-hub-bop-kratos-ui
-        mojaloop/bof
+        # mojaloop/security-role-perm-crd
+        # mojaloop/role-assignment-service
+        # mojaloop/reporting-hub-bop-shell
+        # mojaloop/reporting-hub-bop-api-svc
+        # mojaloop/reporting-events-processor-svc
+        # mojaloop/security-role-perm-operator-svc
+        # mojaloop/reporting-hub-bop-role-ui
+        # mojaloop/reporting-hub-bop-trx-ui
+        # mojaloop/security-hub-bop-kratos-ui
+        # mojaloop/bof
         ## placeholder
         # Mojaloop Core Charts
-        mojaloop/admin-api-svc
-        mojaloop/fspiop-transfer-api-svc
+        #mojaloop/admin-api-svc
+        #mojaloop/fspiop-transfer-api-svc
+        $CHARTS_DIR/mojaloop/chart-admin 
+        $CHARTS_DIR/mojaloop/chart-service
+        $CHARTS_DIR/mojaloop/account-lookup-service 
         # Main Mojaloop Helm Chart 
-        mojaloop/mojaloop
+        $CHARTS_DIR/mojaloop/mojaloop
     )
 fi
 
