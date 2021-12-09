@@ -152,6 +152,8 @@ jobs:
           name: utils
           command: |
             whoami
+            curl https://cli-assets.heroku.com/apt/release.key | sudo apt-key add -
+            curl https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
             sudo apt-get update
             sudo apt-get install bc
             # install helm and give access to root user
@@ -181,6 +183,8 @@ jobs:
           name: utils
           command: |
             whoami
+            curl https://cli-assets.heroku.com/apt/release.key | sudo apt-key add -
+            curl https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
             sudo apt-get update
             sudo apt-get install bc
             # install helm and give access to root user
@@ -210,6 +214,8 @@ jobs:
           name: utils
           command: |
             whoami
+            curl https://cli-assets.heroku.com/apt/release.key | sudo apt-key add -
+            curl https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
             sudo apt-get update
             sudo apt-get install bc
             # install helm and give access to root user
