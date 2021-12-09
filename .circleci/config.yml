@@ -155,6 +155,7 @@ jobs:
             curl https://cli-assets.heroku.com/apt/release.key | sudo apt-key add -
             curl https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
             sudo apt-get update
+            sudo apt-get install snapd
             sudo apt-get install bc
             # install helm and give access to root user
             sudo snap install helm --classic
@@ -186,6 +187,7 @@ jobs:
             curl https://cli-assets.heroku.com/apt/release.key | sudo apt-key add -
             curl https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
             sudo apt-get update
+            sudo apt-get install snapd
             sudo apt-get install bc
             # install helm and give access to root user
             sudo snap install helm --classic
@@ -217,6 +219,7 @@ jobs:
             curl https://cli-assets.heroku.com/apt/release.key | sudo apt-key add -
             curl https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
             sudo apt-get update
+            sudo apt-get install snapd
             sudo apt-get install bc
             # install helm and give access to root user
             sudo snap install helm --classic
