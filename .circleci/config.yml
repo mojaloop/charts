@@ -152,6 +152,7 @@ jobs:
           name: utils
           command: |
             whoami
+            sudo apt-get update
             sudo apt-get install bc
             # install helm and give access to root user
             sudo snap install helm --classic
@@ -180,6 +181,7 @@ jobs:
           name: utils
           command: |
             whoami
+            sudo apt-get update
             sudo apt-get install bc
             # install helm and give access to root user
             sudo snap install helm --classic
@@ -208,6 +210,7 @@ jobs:
           name: utils
           command: |
             whoami
+            sudo apt-get update
             sudo apt-get install bc
             # install helm and give access to root user
             sudo snap install helm --classic
