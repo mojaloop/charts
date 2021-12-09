@@ -4738,3 +4738,9 @@ wso2:
       wso2-is-admin-creds:
         password: "admin"
     #      - chart-example.local
+
+################################################################
+## Reporting templates for reporting-legacy-api chart
+## This creates K8S custom resources which are used by the operator service in the above chart
+reporting-k8s-templates:
+  enabled: true

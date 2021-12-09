@@ -43,6 +43,7 @@ defaults_Environment: &defaults_environment
     helm repo add bitnami https://charts.bitnami.com/bitnami
     helm repo add ory https://k8s.ory.sh/helm/charts
     helm repo add kowl https://raw.githubusercontent.com/cloudhut/charts/master/archives
+    helm repo add reporting-k8s-templates https://mojaloop.github.io/reporting-k8s-templates
     helm repo update
 
 ##

@@ -121,4 +121,13 @@ dependencies:
       - kratos
       - bof
     version: 8.8.8
-
+  - name: reporting-k8s-templates
+    alias: reporting-k8s-templates
+    condition: reporting-k8s-templates.enabled
+    repository: "https://mojaloop.github.io/reporting-k8s-templates"
+    tags:
+      - mojaloop
+      - dependency
+      - bof
+      - reporting-templates
+    version: 1.0.10
