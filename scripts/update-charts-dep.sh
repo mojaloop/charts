@@ -26,6 +26,7 @@ declare -a charts=(
         mojaloop/security-role-perm-operator-svc
         mojaloop/reporting-hub-bop-role-ui
         mojaloop/reporting-hub-bop-trx-ui
+        mojaloop/reporting-legacy-api
         mojaloop/security-hub-bop-kratos-ui
         mojaloop/bof
         ## placeholder
