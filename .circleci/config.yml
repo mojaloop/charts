@@ -43,6 +43,7 @@ defaults_Environment: &defaults_environment
     helm repo add bitnami https://charts.bitnami.com/bitnami
     helm repo add ory https://k8s.ory.sh/helm/charts
     helm repo add kowl https://raw.githubusercontent.com/cloudhut/charts/master/archives
+    helm repo add reporting-k8s-templates https://mojaloop.github.io/reporting-k8s-templates
     helm repo update
 
 ##
@@ -151,6 +152,10 @@ jobs:
           name: utils
           command: |
             whoami
+            curl https://cli-assets.heroku.com/apt/release.key | sudo apt-key add -
+            curl https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+            sudo apt-get update
+            sudo apt-get install snapd
             sudo apt-get install bc
             # install helm and give access to root user
             sudo snap install helm --classic
@@ -179,6 +184,10 @@ jobs:
           name: utils
           command: |
             whoami
+            curl https://cli-assets.heroku.com/apt/release.key | sudo apt-key add -
+            curl https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+            sudo apt-get update
+            sudo apt-get install snapd
             sudo apt-get install bc
             # install helm and give access to root user
             sudo snap install helm --classic
@@ -207,6 +216,10 @@ jobs:
           name: utils
           command: |
             whoami
+            curl https://cli-assets.heroku.com/apt/release.key | sudo apt-key add -
+            curl https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+            sudo apt-get update
+            sudo apt-get install snapd
             sudo apt-get install bc
             # install helm and give access to root user
             sudo snap install helm --classic

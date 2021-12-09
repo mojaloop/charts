@@ -30,4 +30,4 @@ dependencies:
     tags:
       - mojaloop
       - reporting-templates
-    version: 1.0.10
+    version: 1.0.12
