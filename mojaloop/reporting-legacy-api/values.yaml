@@ -44,6 +44,8 @@ keto: { }
   #   readURL: 'http://keto-read'
   #   writeURL: 'http://keto-write'
 
+install-templates: true
+
 mojaloopreport: {}
 
 podAffinityPreset: ""

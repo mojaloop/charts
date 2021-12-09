@@ -4,7 +4,7 @@ description: >-
   of transfers.
 name: reporting-hub-bop-trx-ui
 version: 1.0.0
-appVersion: "1.6.0"
+appVersion: "1.6.2"
 home: http://mojaloop.io
 icon: http://mojaloop.io/images/logo.png
 sources:

@@ -82,6 +82,7 @@ reporting-legacy-api:
     path: /proxy/reports(/|$)(.*)
     annotations:
       nginx.ingress.kubernetes.io/rewrite-target: /$2
+  install-templates: true
 
 ## Front-end UI services
 ### Shell and helper UI services
