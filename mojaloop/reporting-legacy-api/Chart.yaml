@@ -23,3 +23,11 @@ dependencies:
     tags:
       - reporting-crd
     version: 1.0.0
+  - name: reporting-k8s-templates
+    alias: reporting-k8s-templates
+    condition: install-templates
+    repository: "https://mojaloop.github.io/reporting-k8s-templates"
+    tags:
+      - mojaloop
+      - reporting-templates
+    version: 1.0.10
