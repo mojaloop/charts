@@ -2,8 +2,9 @@ apiVersion: mojaloop.io/v1
 kind: MojaloopRole
 metadata:
   name: reporting-legacy-role-hub
-  namespace: bof1
 spec:
   permissions:
   - settlement
+  - settlement-initiation
+  - settlement-window
   role: REPORTING_LEGACY_API_ROLE_HUB
