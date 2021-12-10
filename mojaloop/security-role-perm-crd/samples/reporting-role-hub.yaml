@@ -1,0 +1,13 @@
+apiVersion: mojaloop.io/v1
+kind: MojaloopRole
+metadata:
+  name: reporting-role-hub
+spec:
+  permissions:
+  - transferSummary.count
+  - transferSummary.amount
+  - transferSummary.errorCode
+  - transferSummary.payerDFSP
+  - transferSummary.payeeDFSP
+  - transferSummary.currency
+  role: REPORTING_API_ROLE_HUB
