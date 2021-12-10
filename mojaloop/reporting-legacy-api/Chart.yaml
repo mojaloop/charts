@@ -18,11 +18,6 @@ dependencies:
     tags:
       - moja-common
     version: 1.0.0
-  - name: reporting-crd
-    repository: "file://../reporting-crd"
-    tags:
-      - reporting-crd
-    version: 1.0.0
   - name: reporting-k8s-templates
     alias: reporting-k8s-templates
     condition: install-templates
@@ -30,4 +25,4 @@ dependencies:
     tags:
       - mojaloop
       - reporting-templates
-    version: 1.0.12
+    version: 1.0.14
