@@ -4,7 +4,7 @@ description: >-
   of transfers.
 name: reporting-hub-bop-positions-ui
 version: 1.0.0
-appVersion: "0.0.1"
+appVersion: "0.0.2"
 home: http://mojaloop.io
 icon: http://mojaloop.io/images/logo.png
 sources:
