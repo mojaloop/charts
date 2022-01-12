@@ -65,9 +65,9 @@ export interface components {
      */
     User: {
       /** @description An WSO2 ID. */
-      id?: string;
+      id: string;
       /** @description WSO2 username. */
-      username?: string;
+      username: string;
       /** @description WSO2 name object. */
       name?: {
         givenName?: string;
@@ -80,55 +80,55 @@ export interface components {
      * @description A list of users.
      */
     UsersGetResponse: {
-      users?: components["schemas"]["User"][];
+      users: components["schemas"]["User"][];
     };
     /**
      * UsersIDGetResponse
      * @description A user of a specified ID.
      */
     UsersIDGetResponse: {
-      user?: components["schemas"]["User"];
+      user: components["schemas"]["User"];
     };
     /**
      * ParticipantsGetResponse
      * @description List of assignable participant ids.
      */
     ParticipantsGetResponse: {
-      participants?: string[];
+      participants: string[];
     };
     /**
      * RolesGetResponse
      * @description List of assignable role ids.
      */
     RolesGetResponse: {
-      roles?: string[];
+      roles: string[];
     };
     /**
      * UsersIDParticipantsGetResponse
      * @description List of participants ids that a user is a member of.
      */
     UsersIDParticipantsGetResponse: {
-      participants?: string[];
+      participants: string[];
     };
     /**
      * UsersIDRolesGetResponse
      * @description List of roles ids that a user is a member of.
      */
     UsersIDRolesGetResponse: {
-      roles?: string[];
+      roles: string[];
     };
     UsersIDParticipantsPatchRequest: {
-      participantOperations?: {
-        participantId?: string;
+      participantOperations: {
+        participantId: string;
         /** @enum {string} */
-        action?: "insert" | "delete";
+        action: "insert" | "delete";
       }[];
     };
     UsersIDRolesPatchRequest: {
-      roleOperations?: {
-        roleId?: string;
+      roleOperations: {
+        roleId: string;
         /** @enum {string} */
-        action?: "insert" | "delete";
+        action: "insert" | "delete";
       }[];
     };
     /**
