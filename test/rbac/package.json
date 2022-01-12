@@ -4,7 +4,7 @@
   "description": "RBAC helm tests",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --testMatch **/test/**/*.test.ts",
     "build-types": "openapi-typescript https://raw.githubusercontent.com/mojaloop/role-assignment-service/master/src/interface/api.yaml --output types/role_assignment.ts"
   },
   "keywords": [],
