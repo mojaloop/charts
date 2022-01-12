@@ -13,7 +13,8 @@ interface TestParameters {
     method: Method;
 }
 
-const basePath = 'http://localhost:3008';
+const roleAssignmentSvcBasePath = 'http://localhost:3008';
+const mlIngressBasePath = 'http://localhost:3008';
 const testUserName = 'test1';
 
 const GOT_JSON_OPTS: OptionsOfJSONResponseBody = {
@@ -28,7 +29,10 @@ const GOT_JSON_OPTS: OptionsOfJSONResponseBody = {
 };
 
 async function clearUserRoles(id: User["id"]) {
-    const response = await got.get<Roles>(`${basePath}/users/${id}/roles`, GOT_JSON_OPTS);
+    const response = await got.get<Roles>(
+        `${roleAssignmentSvcBasePath}/users/${id}/roles`,
+        GOT_JSON_OPTS,
+    );
     expect(response.statusCode).toEqual(200);
     if (response.body.roles.length > 0) {
         const body: RolePatch = {
@@ -37,7 +41,7 @@ async function clearUserRoles(id: User["id"]) {
                 action: 'delete',
             })),
         }
-        await got.patch<null>(`${basePath}/users/${id}/roles`, {
+        await got.patch<null>(`${roleAssignmentSvcBasePath}/users/${id}/roles`, {
             ...GOT_JSON_OPTS,
             body: JSON.stringify(body),
         });
@@ -52,7 +56,7 @@ async function appendUserRole(id: User["id"], role: Role) {
             action: 'delete',
         }],
     }
-    await got.patch<null>(`${basePath}/users/${id}/roles`, {
+    await got.patch<null>(`${roleAssignmentSvcBasePath}/users/${id}/roles`, {
         ...GOT_JSON_OPTS,
         body: JSON.stringify(body),
     });
@@ -61,7 +65,7 @@ async function appendUserRole(id: User["id"], role: Role) {
 let testUser: User;
 
 beforeAll(async () => {
-    const response = await got.get<Users>(`${basePath}/users`, GOT_JSON_OPTS);
+    const response = await got.get<Users>(`${roleAssignmentSvcBasePath}/users`, GOT_JSON_OPTS);
     expect(response.statusCode).toEqual(200);
     const user = response.body.users?.find((user: User) => user.username === testUserName);
     expect(user?.id).toBeDefined();
@@ -78,7 +82,7 @@ afterAll(async () => {
 
 const deny: TestParameters[] = [
     {
-        url: new URL(`/settlements/`, basePath),
+        url: new URL(`/settlements/`, mlIngressBasePath),
         method: 'POST',
         role: 'USER_ROLE',
     },
@@ -86,7 +90,7 @@ const deny: TestParameters[] = [
 
 const allow: TestParameters[] = [
     {
-        url: new URL(`/settlements/`, basePath),
+        url: new URL(`/settlements/`, mlIngressBasePath),
         method: 'POST',
         role: 'ADMIN_ROLE',
     },
