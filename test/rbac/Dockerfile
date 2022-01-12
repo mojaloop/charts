@@ -4,6 +4,6 @@ WORKDIR /opt/test
 
 COPY . /opt/test
 
-RUN npm ci
+RUN npm ci --production
 
 CMD npm run test
