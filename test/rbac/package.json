@@ -6,20 +6,23 @@
   "scripts": {
     "compile": "tsc --noemit",
     "test": "jest --testMatch **/test/**/*.test.ts",
-    "build-types": "openapi-typescript https://raw.githubusercontent.com/mojaloop/role-assignment-service/master/src/interface/api.yaml --output types/role_assignment.ts"
+    "build-types:role-assignment": "openapi-typescript https://raw.githubusercontent.com/mojaloop/role-assignment-service/master/src/interface/api.yaml --output types/role_assignment.ts",
+    "build-types:fspiop-api": "openapi-typescript https://raw.githubusercontent.com/mojaloop/mojaloop-specification/master/fspiop-api/documents/v1.1-document-set/fspiop-v1.1-openapi2.yaml --output types/fspiop_api.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/jest": "^27.0.3",
     "@babel/core": "^7.16.7",
     "@babel/preset-env": "^7.16.8",
+    "@babel/preset-typescript": "^7.16.7",
+    "@types/jest": "^27.4.0",
     "babel-jest": "^27.4.6",
+    "got": "^12.0.1",
     "jest": "^27.4.7",
     "typescript": "^4.5.4"
-   },
-   "devDependencies": {
+  },
+  "devDependencies": {
     "openapi-typescript": "^5.1.0"
   }
 }
