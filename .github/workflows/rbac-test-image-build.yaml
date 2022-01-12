@@ -13,6 +13,8 @@ jobs:
   main:
     runs-on: ubuntu-latest
     steps:
+    # Need to check out to build an image in a subdirectory
+    - uses: actions/checkout@v2
     -
       name: Docker meta
       id: docker_meta
