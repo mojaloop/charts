@@ -10,12 +10,14 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
+  "dependencies": {
     "@babel/core": "^7.16.7",
     "@babel/preset-env": "^7.16.8",
     "babel-jest": "^27.4.6",
     "jest": "^27.4.7",
-    "openapi-typescript": "^5.1.0",
     "typescript": "^4.5.4"
+   },
+   "devDependencies": {
+    "openapi-typescript": "^5.1.0"
   }
 }
