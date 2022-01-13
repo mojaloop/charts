@@ -53,6 +53,9 @@ spec:
     {{- if and .Values.ingress.tls (or .Values.ingress.certManager .Values.ingress.selfSigned) }}
     - hosts:
         - {{ .Values.ingress.hostname | quote }}
+        {{- if .Values.ingress.tlsAddWildcard }}
+        - {{ printf "*.%s" .Values.ingress.hostname }}
+        {{- end }}
       {{- if .Values.ingress.tlsSecretName }}
       secretName: {{ .Values.ingress.tlsSecretName }}
       {{- else }}
