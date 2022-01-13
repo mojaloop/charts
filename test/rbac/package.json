@@ -6,7 +6,7 @@
   "scripts": {
     "compile": "tsc --noemit",
     "test": "jest --testMatch **/test/**/*.test.ts",
-    "build-types:role-assignment": "openapi-typescript https://raw.githubusercontent.com/partiallyordered/role-assignment-service/refine-api-spec/src/interface/api.yaml --output test/types/role_assignment.ts"
+    "build-types:role-assignment": "openapi-typescript https://raw.githubusercontent.com/mojaloop/role-assignment-service/master/src/interface/api.yaml --output test/types/role_assignment.ts"
   },
   "keywords": [],
   "author": "",
