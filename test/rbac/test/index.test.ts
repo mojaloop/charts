@@ -1,5 +1,10 @@
 import got, { Method, OptionsOfJSONResponseBody } from 'got';
 import { components } from './types/role_assignment';
+import {
+    roleAssignmentSvcBasePath,
+    mlIngressBasePath,
+    testUserName,
+} from './config';
 
 type Users = components["schemas"]["UsersGetResponse"];
 type User = components["schemas"]["User"];
@@ -12,10 +17,6 @@ interface TestParameters {
     url: URL;
     method: Method;
 }
-
-const roleAssignmentSvcBasePath = 'http://localhost:3008';
-const mlIngressBasePath = 'http://localhost:3008';
-const testUserName = 'test1';
 
 const GOT_JSON_OPTS: OptionsOfJSONResponseBody = {
   isStream: false,
@@ -105,6 +106,7 @@ test.each(allow)(
             url,
             throwHttpErrors: false,
         });
+        // TODO: what status codes are we actually expecting?
         expect([401, 403]).not.toContain(response.statusCode);
     },
 );
@@ -118,6 +120,7 @@ test.each(deny)(
             url,
             throwHttpErrors: false,
         });
+        // TODO: what status codes are we actually expecting?
         expect([401, 403]).toContain(response.statusCode);
     },
 );
