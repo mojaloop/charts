@@ -268,8 +268,16 @@ ingress:
   ##   - Use the `ingress.secrets` parameter to create this TLS secret
   ##   - Relay on cert-manager to create it by setting `ingress.certManager=true`
   ##   - Relay on Helm to create self-signed certificates by setting `ingress.selfSigned=true`
+  ##   - use `ingress.tlsSecretName=<secretname>` to set the tls secretname to the desired value
+  ##   - To add wildcard to tls, use `ingress.tlsAddWildcard`
   ##
   tls: false
+  ## @param ingress.tlsSecretName Use a TLS secret named this value
+  ##
+  tlsSecretName: null
+  ## @param ingress.tlsAddWildcard - add wildcard to tls hosts
+  ##
+  tlsAddWildcard: false
   ## @param ingress.certManager Add the corresponding annotations for cert-manager integration
   ##
   certManager: false
