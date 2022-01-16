@@ -18,13 +18,6 @@ global:
   mojalooprole: {}
   keto: {}
 
-# installCRDs determines whether Custom Resource Definitions (CRD) are installed by the chart.
-# Notes:
-# 1. CRDs are global resources and require cluster admin privileges to install.
-# 2. Upgrades will overwrite the global CRDs.
-# 3. Uninstalling the chart will delete the CRDs.
-installCRDs: true
-
 podAffinityPreset: ""
 ## @param podAntiAffinityPreset Pod anti-affinity preset. Ignored if `main.affinity` is set. Allowed values: `soft` or `hard`
 ## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity
@@ -85,7 +78,7 @@ containerSecurityContext:
 image:
   registry: docker.io
   repository: mojaloop/security-role-perm-operator-svc
-  tag: v1.0.0
+  tag: v2.0.0
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -260,9 +253,26 @@ serviceAccount:
 
 configFiles:
   default.json: {
-      "WATCH_RESOURCE_GROUP": '{{ include "common.backends.mojalooprole.resourceGroup" . }}',
-      "WATCH_RESOURCE_VERSION": '{{ include "common.backends.mojalooprole.resourceVersion" . }}',
-      "WATCH_RESOURCE_PLURAL": '{{ include "common.backends.mojalooprole.resourcePlural" . }}',
+      "PORT": 3001,
+      "HOST": "0.0.0.0",
+      "CORS_WHITELIST": [
+        "http://localhost:3000",
+        "http://localhost:3010",
+        "http://localhost:3012",
+        "http://localhost:8080",
+        "http://localhost:8081"
+      ],
+      "ALLOW_CREDENTIALS": false,
+      "ROLE_PERMISSION_OPERATOR" : {
+        "WATCH_RESOURCE_GROUP": '{{ include "common.backends.mojalooprole.resourceGroup" . }}',
+        "WATCH_RESOURCE_VERSION": '{{ include "common.backends.mojalooprole.resourceVersion" . }}',
+        "WATCH_RESOURCE_PLURAL": '{{ include "common.backends.mojalooprole.resourcePlural" . }}'
+      },
+      "PERMISSION_EXCLUSIONS_OPERATOR" : {
+        "WATCH_RESOURCE_GROUP": '{{ include "common.backends.mojalooprole.resourceGroup" . }}',
+        "WATCH_RESOURCE_VERSION": '{{ include "common.backends.mojalooprole.resourceVersion" . }}',
+        "WATCH_RESOURCE_PLURAL": "mojaloop-permission-exclusions"
+      },
       "WATCH_NAMESPACE": '{{ .Release.Namespace }}',
       "ORY_KETO_READ_SERVICE_URL": '{{ include "common.backends.keto.readURL" . }}',
       "ORY_KETO_WRITE_SERVICE_URL": '{{ include "common.backends.keto.writeURL" . }}',
