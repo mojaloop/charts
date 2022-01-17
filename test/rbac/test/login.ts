@@ -12,6 +12,7 @@
 import { strict as assert } from 'assert';
 import got from 'got';
 import { URL, URLSearchParams } from 'url';
+import { parse } from 'node-html-parser';
 
 function extractCookieValue(cookies: string[] | undefined, name: string): string | undefined {
     const replaceRe = new RegExp(`${name}\\s*=`);
@@ -66,12 +67,9 @@ export default async function login(username: string, password: string, basePath
         throwHttpErrors: false,
         followRedirect: false,
     });
-
-    // TODO: HTML parse, then use .querySelector, instead of brittle, syntax-unaware regex match
-    const lines = formPage.body.split('\n');
-    const valueRe = /value\s*=\s*"[^"]+/g;
-    const body_csrf_token = lines.find((l) => /input name="csrf_token"/.test(l))?.trim().matchAll(valueRe).next().value[0].replace(/value\s*=\s*"/, '');
-    const body_provider = lines.find((l) => /input name="provider"/.test(l))?.trim().matchAll(valueRe).next().value[0].replace(/value\s*=\s*"/, '');
+    const html = parse(formPage.body);
+    const body_csrf_token = html.querySelector('input[name="csrf_token"]')?.attrs.value;
+    const body_provider = html.querySelector('input[name="provider"]')?.attrs.value;
     assert(body_csrf_token, 'csrf_token extracted from form page required to proceed');
     assert(body_provider, 'provider extracted from form page required to proceed');
     const bodyParams = new URLSearchParams({ csrf_token: body_csrf_token, provider: body_provider });
