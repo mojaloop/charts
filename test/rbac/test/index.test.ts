@@ -103,14 +103,12 @@ test.each(allow)(
     'Test user with role $role is allowed access to $method $url',
     async ({ url, method, role }) => {
         await appendUserRole(testUser.id, role);
-        const { cookie } = await login(username, password, mlIngressBasePath);
+        const { cookieJar } = await login(username, password, mlIngressBasePath);
         const response = await got({
             method,
             url,
             throwHttpErrors: false,
-            headers: {
-                cookie,
-            },
+            cookieJar,
         });
         // TODO: what status codes are we actually expecting?
         expect([401, 403]).not.toContain(response.statusCode);
@@ -121,14 +119,12 @@ test.each(deny)(
     'Test user with role $role is denied access to $method $url',
     async ({ url, method, role }) => {
         await appendUserRole(testUser.id, role);
-        const { cookie } = await login(username, password, mlIngressBasePath);
+        const { cookieJar } = await login(username, password, mlIngressBasePath);
         const response = await got({
             method,
             url,
             throwHttpErrors: false,
-            headers: {
-                cookie,
-            },
+            cookieJar,
         });
         // TODO: what status codes are we actually expecting?
         expect([401, 403]).toContain(response.statusCode);

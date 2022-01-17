@@ -13,21 +13,21 @@ import { strict as assert } from 'assert';
 import got from 'got';
 import { URL, URLSearchParams } from 'url';
 import { parse } from 'node-html-parser';
-
-function extractCookieValue(cookies: string[] | undefined, name: string): string | undefined {
-    const replaceRe = new RegExp(`${name}\\s*=`);
-    return cookies?.find((c) => c.includes(name))?.split(';').find((c) => c.includes(name))?.replace(replaceRe, '').trim();
-};
+import { CookieJar } from 'tough-cookie';
+import { promisify } from 'util';
 
 export default async function login(username: string, password: string, basePath: string) {
-    // TODO:
-    // - Try to use cookieJar? I guess it's emulating the behaviour of the browser. It's not like js
-    //   normally sets cookies anyway- though we'd probably have to check the cookie parameters are
-    //   correct for this; e.g. HttpOnly; Secure; (I think..)
-    //   https://github.com/sindresorhus/got/blob/main/documentation/2-options.md#cookiejar
+    const cookieJar = new CookieJar();
+    const assertCookie = async (url: string, key: string) => {
+        const getCookies = promisify(cookieJar.getCookies.bind(cookieJar));
+        const haveCookie = await getCookies(url).then(
+            (cookies) => cookies.some((c) => c.key === key),
+        );
+        assert(haveCookie, `${key} cookie at ${url} is required to proceed`);
+    };
 
     // This should fail and return a 401, but we'll get the CSRF token from it
-    const whoami = await got(`${basePath}/kratos/sessions/whoami`, {
+    await got(`${basePath}/kratos/sessions/whoami`, {
         headers: {
             "accept": "application/json, text/plain, */*",
             "Referer": `${basePath}/`,
@@ -35,20 +35,19 @@ export default async function login(username: string, password: string, basePath
         },
         method: 'GET',
         throwHttpErrors: false,
-    })
+        cookieJar,
+    });
 
-    const cookie = whoami.headers['set-cookie'];
-    const csrfToken = extractCookieValue(cookie, 'csrf_token');
-    assert(csrfToken, 'Need cookie');
+    await assertCookie(`${basePath}/kratos/`, 'csrf_token');
 
     const browser = await got(`${basePath}/kratos/self-service/registration/browser`, {
         "headers": {
-            cookie,
             "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
         },
         "method": "GET",
         throwHttpErrors: false,
         followRedirect: false,
+        cookieJar,
     });
 
     assert.equal(browser.statusCode, 302, 'Expected 302');
@@ -66,6 +65,7 @@ export default async function login(username: string, password: string, basePath
         "method": "GET",
         throwHttpErrors: false,
         followRedirect: false,
+        cookieJar,
     });
     const html = parse(formPage.body);
     const body_csrf_token = html.querySelector('input[name="csrf_token"]')?.attrs.value;
@@ -78,19 +78,20 @@ export default async function login(username: string, password: string, basePath
       "headers": {
         "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
         "content-type": "application/x-www-form-urlencoded",
-        cookie,
       },
       body: bodyParams.toString(),
       throwHttpErrors: false,
       followRedirect: false,
-      "method": "POST"
+      "method": "POST",
+      cookieJar,
     });
 
     assert.equal(auth.statusCode, 302, 'Expected to receive a redirect to authorize');
     assert(auth.headers.location, 'Expected to receive redirect location for authorize');
-    assert(auth.headers['set-cookie'], 'Expected cookie to be set');
+
+    await assertCookie(`${basePath}/`, 'ory_kratos_continuity');
+
     const authorizeUrl = new URL(auth.headers.location);
-    const kratosContinuityCookie = extractCookieValue(auth.headers['set-cookie'], 'ory_kratos_continuity');
 
     const authorize = await got(authorizeUrl, {
       "headers": {
@@ -99,6 +100,7 @@ export default async function login(username: string, password: string, basePath
       "method": "GET",
       throwHttpErrors: false,
       followRedirect: false,
+      cookieJar,
     });
 
     assert.equal(authorize.statusCode, 302, 'Expected to receive a redirect to login');
@@ -118,6 +120,7 @@ export default async function login(username: string, password: string, basePath
         "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
         "content-type": "application/x-www-form-urlencoded",
       },
+      cookieJar,
       body: bodyParamsCredentials.toString(),
       "method": "POST",
       throwHttpErrors: false,
@@ -126,47 +129,42 @@ export default async function login(username: string, password: string, basePath
 
     assert.equal(commonAuth.statusCode, 302, 'Expected to receive a redirect to authorize');
     assert(commonAuth.headers.location, 'Expected to receive redirect location for authorize');
-    assert(commonAuth.headers['set-cookie'], 'Expected cookies to be set');
     const authorizeUrl2 = new URL(commonAuth.headers.location);
-    const commonAuthIdCookie = extractCookieValue(commonAuth.headers['set-cookie'], 'commonAuthId');
-    assert(commonAuthIdCookie, 'Need commonAuthId cookie to proceed');
+    await assertCookie(loginUrl.origin, 'commonAuthId');
 
     const authorize2 = await got(authorizeUrl2, {
       "headers": {
         "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-        "cookie": `commonAuthId=${commonAuthIdCookie}`,
       },
       "method": "GET",
       throwHttpErrors: false,
       followRedirect: false,
+      cookieJar,
     });
 
     assert.equal(authorize2.statusCode, 302, 'Expected to receive a redirect to authorize');
     assert(authorize2.headers.location, 'Expected to receive redirect location for authorize');
     const idpCallbackUrl = new URL(authorize2.headers.location);
 
-    const idp = await got(idpCallbackUrl, {
+    await got(idpCallbackUrl, {
         "headers": {
             "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-            cookie: `csrf_token=${csrfToken}; ory_kratos_continuity=${kratosContinuityCookie}`
         },
         "method": "GET",
         throwHttpErrors: false,
         followRedirect: false,
+        cookieJar,
     });
 
-    const continuity = extractCookieValue(idp.headers['set-cookie'], 'ory_kratos_continuity');
-    const session = extractCookieValue(idp.headers['set-cookie'], 'ory_kratos_session');
-    const csrf = extractCookieValue(idp.headers['set-cookie'], 'csrf_token');
-    assert(continuity, 'Need ory_kratos_continuity cookie to proceed');
-    assert(session, 'Need ory_kratos_session cookie to proceed');
-    assert(csrf, 'Need csrf_token cookie to proceed');
+    await assertCookie(`${basePath}/kratos/`, 'csrf_token');
+    await assertCookie(`${basePath}/`, 'ory_kratos_continuity');
+    await assertCookie(`${basePath}/`, 'ory_kratos_session');
 
     const whoamiResult = await got(`${basePath}/kratos/sessions/whoami`, {
         "headers": {
             "accept": "application/json, text/plain, */*",
-            "cookie": `csrf_token=${csrf}; ory_kratos_continuity=${continuity}; ory_kratos_session=${session}`,
         },
+        cookieJar,
         "method": "GET"
     });
 
@@ -174,11 +172,6 @@ export default async function login(username: string, password: string, basePath
 
     return {
         whoami: JSON.parse(whoamiResult.body),
-        tokens: {
-            continuity,
-            session,
-            csrf,
-        },
-        cookie: `ory_kratos_continuity=${continuity}; ory_kratos_session=${session}`,
+        cookieJar,
     };
 }
