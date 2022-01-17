@@ -1,3 +1,14 @@
+// This code was created as follows:
+// 1. open an empty browser page/tab
+// 2. open developer tools, network tab
+// 3. choose "Preserve Log"
+// 4. navigate to BOF login
+// 5. log in using valid credentials
+// 6. reproduce the observed network traffic here to login and retrieve session token etc.
+//
+// If problems are encountered, comparing the behaviour of login against the behaviour of this code
+// might be prudent.
+
 import { strict as assert } from 'assert';
 import got from 'got';
 import { URL, URLSearchParams } from 'url';
@@ -13,9 +24,8 @@ export default async function login(username: string, password: string, basePath
     //   normally sets cookies anyway- though we'd probably have to check the cookie parameters are
     //   correct for this; e.g. HttpOnly; Secure; (I think..)
     //   https://github.com/sindresorhus/got/blob/main/documentation/2-options.md#cookiejar
-    // - set throwHttpErrors to true for everything except the initial /whoami ?
 
-    // This will fail and return a 401, but we'll get the CSRF token from it
+    // This should fail and return a 401, but we'll get the CSRF token from it
     const whoami = await got(`${basePath}/kratos/sessions/whoami`, {
         headers: {
             "accept": "application/json, text/plain, */*",
