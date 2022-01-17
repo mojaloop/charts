@@ -16,8 +16,7 @@ import { parse } from 'node-html-parser';
 import { CookieJar } from 'tough-cookie';
 import { promisify } from 'util';
 
-export default async function login(username: string, password: string, basePathUrl: URL) {
-    const basePath = `${basePathUrl.origin}/${basePathUrl.pathname}`.replace(/\/*$/, '');
+export default async function login(username: string, password: string, basePath: string) {
     const cookieJar = new CookieJar();
     const assertCookie = async (url: string, key: string) => {
         const getCookies = promisify(cookieJar.getCookies.bind(cookieJar));
