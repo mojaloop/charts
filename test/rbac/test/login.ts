@@ -75,15 +75,15 @@ export default async function login(username: string, password: string, basePath
     const bodyParams = new URLSearchParams({ csrf_token: body_csrf_token, provider: body_provider });
 
     const auth = await got(`${basePath}/kratos/self-service/methods/oidc/auth/${flow}`, {
-      "headers": {
-        "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-        "content-type": "application/x-www-form-urlencoded",
-      },
-      body: bodyParams.toString(),
-      throwHttpErrors: false,
-      followRedirect: false,
-      "method": "POST",
-      cookieJar,
+        "headers": {
+            "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+            "content-type": "application/x-www-form-urlencoded",
+        },
+        body: bodyParams.toString(),
+        throwHttpErrors: false,
+        followRedirect: false,
+        "method": "POST",
+        cookieJar,
     });
 
     assert.equal(auth.statusCode, 302, 'Expected to receive a redirect to authorize');
@@ -94,13 +94,13 @@ export default async function login(username: string, password: string, basePath
     const authorizeUrl = new URL(auth.headers.location);
 
     const authorize = await got(authorizeUrl, {
-      "headers": {
-        "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-      },
-      "method": "GET",
-      throwHttpErrors: false,
-      followRedirect: false,
-      cookieJar,
+        "headers": {
+            "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+        },
+        "method": "GET",
+        throwHttpErrors: false,
+        followRedirect: false,
+        cookieJar,
     });
 
     assert.equal(authorize.statusCode, 302, 'Expected to receive a redirect to login');
@@ -115,16 +115,16 @@ export default async function login(username: string, password: string, basePath
         sessionDataKey,
     });
     const commonAuth = await got(`${loginUrl.origin}/commonauth`, {
-      "headers": {
-        "Referer": loginUrl.toString(),
-        "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-        "content-type": "application/x-www-form-urlencoded",
-      },
-      cookieJar,
-      body: bodyParamsCredentials.toString(),
-      "method": "POST",
-      throwHttpErrors: false,
-      followRedirect: false,
+        "headers": {
+            "Referer": loginUrl.toString(),
+            "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+            "content-type": "application/x-www-form-urlencoded",
+        },
+        cookieJar,
+        body: bodyParamsCredentials.toString(),
+        "method": "POST",
+        throwHttpErrors: false,
+        followRedirect: false,
     });
 
     assert.equal(commonAuth.statusCode, 302, 'Expected to receive a redirect to authorize');
@@ -133,13 +133,13 @@ export default async function login(username: string, password: string, basePath
     await assertCookie(loginUrl.origin, 'commonAuthId');
 
     const authorize2 = await got(authorizeUrl2, {
-      "headers": {
-        "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-      },
-      "method": "GET",
-      throwHttpErrors: false,
-      followRedirect: false,
-      cookieJar,
+        "headers": {
+            "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+        },
+        "method": "GET",
+        throwHttpErrors: false,
+        followRedirect: false,
+        cookieJar,
     });
 
     assert.equal(authorize2.statusCode, 302, 'Expected to receive a redirect to authorize');

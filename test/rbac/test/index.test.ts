@@ -21,14 +21,14 @@ interface TestParameters {
 }
 
 const GOT_JSON_OPTS: OptionsOfJSONResponseBody = {
-  isStream: false,
-  resolveBodyOnly: false,
-  responseType: 'json',
-  throwHttpErrors: false,
-  headers: {
-    'content-type': 'application/json',
-    'accept': 'application/json',
-  },
+    isStream: false,
+    resolveBodyOnly: false,
+    responseType: 'json',
+    throwHttpErrors: false,
+    headers: {
+        'content-type': 'application/json',
+        'accept': 'application/json',
+    },
 };
 
 async function clearUserRoles(id: User["id"]) {
