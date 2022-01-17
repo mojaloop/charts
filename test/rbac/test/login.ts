@@ -14,13 +14,11 @@ export default async function login(username: string, password: string, basePath
     //   correct for this; e.g. HttpOnly; Secure; (I think..)
     //   https://github.com/sindresorhus/got/blob/main/documentation/2-options.md#cookiejar
     // - set throwHttpErrors to true for everything except the initial /whoami ?
-    // - try to get rid of all accept-language headers
 
     // This will fail and return a 401, but we'll get the CSRF token from it
     const whoami = await got(`${basePath}/kratos/sessions/whoami`, {
         headers: {
             "accept": "application/json, text/plain, */*",
-            "accept-language": "en-GB,en;q=0.9",
             "Referer": `${basePath}/`,
             "Referrer-Policy": "strict-origin-when-cross-origin"
         },
@@ -36,8 +34,6 @@ export default async function login(username: string, password: string, basePath
         "headers": {
             cookie,
             "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-            "accept-language": "en-GB,en;q=0.9",
-            "upgrade-insecure-requests": "1"
         },
         "method": "GET",
         throwHttpErrors: false,
@@ -54,10 +50,7 @@ export default async function login(username: string, password: string, basePath
     const formPage = await got(locationUrl, {
         "headers": {
             "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-            "accept-language": "en-GB,en;q=0.9",
-            "upgrade-insecure-requests": "1",
             "Referer": `${basePath}/`,
-            "Referrer-Policy": "strict-origin-when-cross-origin"
         },
         "method": "GET",
         throwHttpErrors: false,
@@ -76,8 +69,6 @@ export default async function login(username: string, password: string, basePath
     const auth = await got(`${basePath}/kratos/self-service/methods/oidc/auth/${flow}`, {
       "headers": {
         "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-        "accept-language": "en-GB,en;q=0.9",
-        "cache-control": "max-age=0",
         "content-type": "application/x-www-form-urlencoded",
         cookie,
       },
@@ -96,7 +87,6 @@ export default async function login(username: string, password: string, basePath
     const authorize = await got(authorizeUrl, {
       "headers": {
         "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-        "accept-language": "en-GB,en;q=0.9",
       },
       "method": "GET",
       throwHttpErrors: false,
@@ -119,7 +109,6 @@ export default async function login(username: string, password: string, basePath
       "headers": {
         "Referer": loginUrl.toString(),
         "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-        "accept-language": "en-GB,en;q=0.9",
         "content-type": "application/x-www-form-urlencoded",
       },
       body: bodyParamsCredentials.toString(),
@@ -138,7 +127,6 @@ export default async function login(username: string, password: string, basePath
     const authorize2 = await got(authorizeUrl2, {
       "headers": {
         "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-        "accept-language": "en-GB,en;q=0.9",
         "cookie": `commonAuthId=${commonAuthIdCookie}`,
       },
       "method": "GET",
@@ -153,7 +141,6 @@ export default async function login(username: string, password: string, basePath
     const idp = await got(idpCallbackUrl, {
         "headers": {
             "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-            "accept-language": "en-GB,en;q=0.9",
             cookie: `csrf_token=${csrfToken}; ory_kratos_continuity=${kratosContinuityCookie}`
         },
         "method": "GET",
@@ -171,7 +158,6 @@ export default async function login(username: string, password: string, basePath
     const whoamiResult = await got(`${basePath}/kratos/sessions/whoami`, {
         "headers": {
             "accept": "application/json, text/plain, */*",
-            "accept-language": "en-GB,en;q=0.9",
             "cookie": `csrf_token=${csrf}; ory_kratos_continuity=${continuity}; ory_kratos_session=${session}`,
         },
         "method": "GET"
