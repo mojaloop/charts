@@ -12,7 +12,17 @@ export KUBECONFIG=/path/to/relevant/kube/config.yaml
 kubectl port-forward -n mojaloop deploy/bof-role-assignment-service 3008
 ```
 
-4. Run tests:
+4. Change to the test directory
+```sh
+cd tests/rbac
+```
+
+5. Install dependencies
+```sh
+npm ci
+```
+
+6. Run tests:
 ```sh
 npm t
 ```
