@@ -3,13 +3,10 @@ import { components } from './types/role_assignment';
 import {
     roleAssignmentSvcBasePath,
     mlIngressBasePath,
-    testUserName,
+    username,
+    password,
 } from './config';
 import login from './login';
-
-const username = 'portaladmin';
-const password = '81G6g8aAfsI4kFwcU3jK7X3FRDtNu8';
-const basePath = 'http://bofportal.test.infra.mojatest.live.internal';
 
 type Users = components["schemas"]["UsersGetResponse"];
 type User = components["schemas"]["User"];
@@ -73,7 +70,7 @@ let testUser: User;
 beforeAll(async () => {
     const response = await got.get<Users>(`${roleAssignmentSvcBasePath}/users`, GOT_JSON_OPTS);
     expect(response.statusCode).toEqual(200);
-    const user = response.body.users?.find((user: User) => user.username === testUserName);
+    const user = response.body.users?.find((user: User) => user.username === username);
     expect(user?.id).toBeDefined();
     testUser = user!;
 });
@@ -106,12 +103,14 @@ test.each(allow)(
     'Test user with role $role is allowed access to $method $url',
     async ({ url, method, role }) => {
         await appendUserRole(testUser.id, role);
-        const whoami = await login(username, password, basePath);
-        console.log(whoami);
+        const { cookie } = await login(username, password, mlIngressBasePath);
         const response = await got({
             method,
             url,
             throwHttpErrors: false,
+            headers: {
+                cookie,
+            },
         });
         // TODO: what status codes are we actually expecting?
         expect([401, 403]).not.toContain(response.statusCode);
@@ -122,12 +121,14 @@ test.each(deny)(
     'Test user with role $role is denied access to $method $url',
     async ({ url, method, role }) => {
         await appendUserRole(testUser.id, role);
-        const whoami = await login(username, password, basePath);
-        console.log(whoami);
+        const { cookie } = await login(username, password, mlIngressBasePath);
         const response = await got({
             method,
             url,
             throwHttpErrors: false,
+            headers: {
+                cookie,
+            },
         });
         // TODO: what status codes are we actually expecting?
         expect([401, 403]).toContain(response.statusCode);
