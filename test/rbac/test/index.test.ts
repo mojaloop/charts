@@ -5,6 +5,11 @@ import {
     mlIngressBasePath,
     testUserName,
 } from './config';
+import login from './login';
+
+const username = 'portaladmin';
+const password = '81G6g8aAfsI4kFwcU3jK7X3FRDtNu8';
+const basePath = 'http://bofportal.test.infra.mojatest.live.internal';
 
 type Users = components["schemas"]["UsersGetResponse"];
 type User = components["schemas"]["User"];
@@ -101,6 +106,8 @@ test.each(allow)(
     'Test user with role $role is allowed access to $method $url',
     async ({ url, method, role }) => {
         await appendUserRole(testUser.id, role);
+        const whoami = await login(username, password, basePath);
+        console.log(whoami);
         const response = await got({
             method,
             url,
@@ -115,6 +122,8 @@ test.each(deny)(
     'Test user with role $role is denied access to $method $url',
     async ({ url, method, role }) => {
         await appendUserRole(testUser.id, role);
+        const whoami = await login(username, password, basePath);
+        console.log(whoami);
         const response = await got({
             method,
             url,
