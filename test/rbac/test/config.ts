@@ -6,8 +6,7 @@ export const roleAssignmentSvcBasePath = env.get('ROLE_ASSIGNMENT_SVC_BASE_PATH'
 
 export const mlIngressBasePath = env.get('ML_INGRESS_BASE_PATH')
     .default('http://bofportal.test.infra.mojatest.live.internal')
-    .asString();
-    // .asUrlObject();
+    .asUrlObject();
 
 export const username = env.get('TEST_USER_NAME')
     .default('portaladmin')
