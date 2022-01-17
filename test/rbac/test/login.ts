@@ -114,8 +114,7 @@ export default async function login(username: string, password: string, basePath
         password,
         sessionDataKey,
     });
-    // TODO: we need to get the ISKM URL from one of the redirects above, I _think_
-    const commonAuth = await got("https://iskmssl.test.infra.mojatest.live:7443/commonauth", {
+    const commonAuth = await got(`${loginUrl.origin}/commonauth`, {
       "headers": {
         "Referer": loginUrl.toString(),
         "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
