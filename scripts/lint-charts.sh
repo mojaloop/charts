@@ -22,7 +22,6 @@ else
         # Common Charts
         mojaloop/common
         # Mojaloop BoF Charts
-        mojaloop/security-role-perm-crd
         mojaloop/role-assignment-service
         mojaloop/reporting-hub-bop-shell
         mojaloop/reporting-hub-bop-api-svc
