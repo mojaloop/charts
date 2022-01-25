@@ -1,8 +1,8 @@
 apiVersion: v2
 description: Kubernetes operator watches mojaloop roles and updates keto
 name: security-role-perm-operator-svc
-version: 1.0.1
-appVersion: "1.0.1"
+version: 2.0.0
+appVersion: "2.0.0"
 home: http://mojaloop.io
 icon: http://mojaloop.io/images/logo.png
 sources:
@@ -17,10 +17,4 @@ dependencies:
     repository: "file://../common"
     tags:
       - moja-common
-    version: 1.0.0
-  - name: security-role-perm-crd
-    repository: "file://../security-role-perm-crd"
-    condition: installCRDs
-    tags:
-      - security-role-perm-crd
-    version: 1.0.0
+    version: 2.0.0
