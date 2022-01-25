@@ -80,7 +80,7 @@ containerSecurityContext:
 image:
   registry: docker.io
   repository: mojaloop/reporting-hub-bop-trx-ui
-  tag: v1.7.0
+  tag: v1.7.2
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -259,8 +259,19 @@ ingress:
   ##   - Use the `ingress.secrets` parameter to create this TLS secret
   ##   - Relay on cert-manager to create it by setting `ingress.certManager=true`
   ##   - Relay on Helm to create self-signed certificates by setting `ingress.selfSigned=true`
+  ##   - use `ingress.tlsManualSecretName=<secretname>` to set the tls secretname to the desired value if ingress.tlsSetSecretManual is true
+  ##   - To add wildcard to tls, use `ingress.tlsWildcardName`
   ##
   tls: false
+  ## @param ingress.tlsSetSecretManual configure tlssecret manually
+  ##
+  tlsSetSecretManual: false
+  ## @param ingress.tlsManualSecretName Use a TLS secret named this value if tlsSetSecretManual is true
+  ##
+  tlsManualSecretName: null
+  ## @param ingress.tlsWildcardName - add wildcard name to tls hosts
+  ##
+  tlsWildcardName: null
   ## @param ingress.certManager Add the corresponding annotations for cert-manager integration
   ##
   certManager: false
