@@ -365,6 +365,7 @@ configFiles:
         "generateTimeout": 30000
       },
       "CENTRAL_SERVICE_ADMIN_URL": '{{ printf "http://%s:%s" (include "common.backends.mojaloop.adminApiSvc.host" .) (include "common.backends.mojaloop.adminApiSvc.port" .) }}',
+      "ROLE_OPERATOR_SERVICE_URL": "http://moja-role-operator:3001",
       "ORY_KETO_READ_SERVICE_URL": '{{ include "common.backends.keto.readURL" . }}',
       "ORY_KETO_WRITE_SERVICE_URL": '{{ include "common.backends.keto.writeURL" . }}',
       "WSO2IS_USER_LIST_URL": '{{ include "common.backends.wso2.identityServer.userListURL" . }}',

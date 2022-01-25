@@ -15,7 +15,9 @@ global:
   ##
   imagePullSecrets: []
   storageClass: ""
-  mojalooprole: {}
+  rolePermOperator:
+    mojaloopRole: {}
+    mojaloopPermissionExclusion: {}
   keto: {}
 
 podAffinityPreset: ""
@@ -184,7 +186,9 @@ keto: {}
 #   readURL: 'http://keto-read'
 #   writeURL: 'http://keto-write'
 
-mojalooprole: {}
+rolePermOperator:
+  mojaloopRole: {}
+  mojaloopPermissionExclusion: {}
 
 config: {}
 
@@ -264,17 +268,16 @@ configFiles:
       ],
       "ALLOW_CREDENTIALS": false,
       "ROLE_PERMISSION_OPERATOR" : {
-        "WATCH_RESOURCE_GROUP": '{{ include "common.backends.mojalooprole.resourceGroup" . }}',
-        "WATCH_RESOURCE_VERSION": '{{ include "common.backends.mojalooprole.resourceVersion" . }}',
-        "WATCH_RESOURCE_PLURAL": '{{ include "common.backends.mojalooprole.resourcePlural" . }}'
+        "WATCH_RESOURCE_GROUP": '{{ include "common.backends.rolePermOperator.mojaloopRole.resourceGroup" . }}',
+        "WATCH_RESOURCE_VERSION": '{{ include "common.backends.rolePermOperator.mojaloopRole.resourceVersion" . }}',
+        "WATCH_RESOURCE_PLURAL": '{{ include "common.backends.rolePermOperator.mojaloopRole.resourcePlural" . }}'
       },
       "PERMISSION_EXCLUSIONS_OPERATOR" : {
-        "WATCH_RESOURCE_GROUP": '{{ include "common.backends.mojalooprole.resourceGroup" . }}',
-        "WATCH_RESOURCE_VERSION": '{{ include "common.backends.mojalooprole.resourceVersion" . }}',
-        "WATCH_RESOURCE_PLURAL": "mojaloop-permission-exclusions"
+        "WATCH_RESOURCE_GROUP": '{{ include "common.backends.rolePermOperator.mojaloopPermissionExclusion.resourceGroup" . }}',
+        "WATCH_RESOURCE_VERSION": '{{ include "common.backends.rolePermOperator.mojaloopPermissionExclusion.resourceVersion" . }}',
+        "WATCH_RESOURCE_PLURAL": '{{ include "common.backends.rolePermOperator.mojaloopPermissionExclusion.resourcePlural" . }}'
       },
       "WATCH_NAMESPACE": '{{ .Release.Namespace }}',
       "ORY_KETO_READ_SERVICE_URL": '{{ include "common.backends.keto.readURL" . }}',
-      "ORY_KETO_WRITE_SERVICE_URL": '{{ include "common.backends.keto.writeURL" . }}',
-      "KETO_QUEUE_PROCESS_INTERVAL_MS": 1000
+      "ORY_KETO_WRITE_SERVICE_URL": '{{ include "common.backends.keto.writeURL" . }}'
     }

@@ -46,7 +46,9 @@ global:
     host: test1-kafka-headless
     port: 9092
     topic: topic-event
-  mojalooprole: {}
+  rolePermOperator:
+    mojaloopRole: {}
+    mojaloopPermissionExclusion: {}
 
 ## Backend API services
 role-assignment-service:
