@@ -18,6 +18,7 @@ global:
   rolePermOperator:
     mojaloopRole: {}
     mojaloopPermissionExclusion: {}
+    apiSvc: {}
   keto: {}
 
 podAffinityPreset: ""
@@ -189,6 +190,7 @@ keto: {}
 rolePermOperator:
   mojaloopRole: {}
   mojaloopPermissionExclusion: {}
+  apiSvc: {}
 
 config: {}
 

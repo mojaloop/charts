@@ -49,6 +49,7 @@ global:
   rolePermOperator:
     mojaloopRole: {}
     mojaloopPermissionExclusion: {}
+    apiSvc: {}
 
 ## Backend API services
 role-assignment-service:

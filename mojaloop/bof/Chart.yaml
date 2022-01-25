@@ -35,7 +35,7 @@ dependencies:
     tags:
       - mojaloop
       - role-assignment-service
-    version: 1.0.0
+    version: 2.0.0
   - name: reporting-hub-bop-shell
     condition: reporting-hub-bop-shell.enabled
     repository: "file://../reporting-hub-bop-shell"
@@ -70,14 +70,14 @@ dependencies:
     tags:
       - mojaloop
       - security-role-perm-operator-svc
-    version: 1.0.1
+    version: 2.0.0
   - name: reporting-hub-bop-role-ui
     condition: reporting-hub-bop-role-ui.enabled
     repository: "file://../reporting-hub-bop-role-ui"
     tags:
       - mojaloop
       - reporting-hub-bop-role-ui
-    version: 1.0.0
+    version: 1.0.1
   - name: reporting-hub-bop-trx-ui
     condition: reporting-hub-bop-trx-ui.enabled
     repository: "file://../reporting-hub-bop-trx-ui"
