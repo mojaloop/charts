@@ -6,11 +6,11 @@ Get fully qualified role operator name.
     {{- if .Values.rolePermOperator.fullnameOverride -}}
       {{- .Values.rolePermOperator.fullnameOverride | trunc 63 | trimSuffix "-" -}}
     {{- else -}}
-      {{- $name := default "moja-role-operator" .Values.rolePermOperator.nameOverride -}}
+      {{- $name := default "security-role-perm-operator-svc" .Values.rolePermOperator.nameOverride -}}
       {{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
     {{- end -}}
   {{- else -}}
-    {{- $name := default "moja-role-operator" .Values.rolePermOperator.nameOverride -}}
+    {{- $name := default "security-role-perm-operator-svc" .Values.rolePermOperator.nameOverride -}}
     {{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
   {{- end -}}
 {{- end -}}
