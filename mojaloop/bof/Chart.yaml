@@ -15,27 +15,27 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.0.9
+version: 2.0.1
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
-appVersion: "1.0.0"
+appVersion: "2.0.1"
 dependencies:
   - name: common
     repository: "file://../common"
     tags:
       - mojaloop
       - common
-    version: 1.0.0
+    version: 2.0.0
   - name: role-assignment-service
     condition: role-assignment-service.enabled
     repository: "file://../role-assignment-service"
     tags:
       - mojaloop
       - role-assignment-service
-    version: 1.0.0
+    version: 2.0.0
   - name: reporting-hub-bop-shell
     condition: reporting-hub-bop-shell.enabled
     repository: "file://../reporting-hub-bop-shell"
@@ -56,7 +56,7 @@ dependencies:
     tags:
       - mojaloop
       - reporting-legacy-api
-    version: 1.0.0
+    version: 1.0.1
   - name: reporting-events-processor-svc
     condition: reporting-events-processor-svc.enabled
     repository: "file://../reporting-events-processor-svc"
@@ -70,14 +70,14 @@ dependencies:
     tags:
       - mojaloop
       - security-role-perm-operator-svc
-    version: 1.0.0
+    version: 2.0.0
   - name: reporting-hub-bop-role-ui
     condition: reporting-hub-bop-role-ui.enabled
     repository: "file://../reporting-hub-bop-role-ui"
     tags:
       - mojaloop
       - reporting-hub-bop-role-ui
-    version: 1.0.0
+    version: 1.0.2
   - name: reporting-hub-bop-trx-ui
     condition: reporting-hub-bop-trx-ui.enabled
     repository: "file://../reporting-hub-bop-trx-ui"

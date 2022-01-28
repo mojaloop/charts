@@ -5,7 +5,7 @@ metadata:
   name: {{ template "common.names.fullname" . }}
   namespace: {{ .Release.Namespace | quote }}
   labels: {{- include "common.labels.standard" . | nindent 4 }}
-    app.kubernetes.io/component: {{ template "common.names.chart" . }}
+    app.kubernetes.io/component: {{ .Chart.Name }}
     {{- if .Values.commonLabels }}
     {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
     {{- end }}
@@ -53,7 +53,14 @@ spec:
     {{- if and .Values.ingress.tls (or .Values.ingress.certManager .Values.ingress.selfSigned) }}
     - hosts:
         - {{ .Values.ingress.hostname | quote }}
+        {{- if .Values.ingress.tlsWildcardName }}
+        - {{ printf "*.%s" .Values.ingress.tlsWildcardName | quote }}
+        {{- end }}
+      {{- if .Values.ingress.tlsSetSecretManual }}
+      secretName: {{ .Values.ingress.tlsManualSecretName }}
+      {{- else }}
       secretName: {{ printf "%s-tls" .Values.ingress.hostname }}
+      {{- end }}
     {{- end }}
     {{- if .Values.ingress.extraTls }}
     {{- include "common.tplvalues.render" (dict "value" .Values.ingress.extraTls "context" $) | nindent 4 }}

@@ -1,19 +1,19 @@
 kind: CustomResourceDefinition
-apiVersion: {{ include "common.capabilities.crd.apiVersion" . }}
+apiVersion: apiextensions.k8s.io/v1
 metadata:
   name: mojalooproles.mojaloop.io
 spec:
-  group: {{ include "common.backends.mojalooprole.resourceGroup" . }}
+  group: mojaloop.io
   scope: Namespaced
   names:
-    plural: {{ include "common.backends.mojalooprole.resourcePlural" . }}
-    singular: {{ include "common.backends.mojalooprole.resourceSingular" . }}
+    plural: mojalooproles
+    singular: mojalooprole
     shortNames:
       - mlr
-    kind: {{ include "common.backends.mojalooprole.resourceKind" . }}
-    listKind: {{ include "common.backends.mojalooprole.resourceListKind" . }}
+    kind: MojaloopRole
+    listKind: MojaloopRoleList
   versions:
-    - name: {{ include "common.backends.mojalooprole.resourceVersion" . }}
+    - name: v1
       served: true
       storage: true
       schema:
@@ -60,10 +60,20 @@ spec:
               type: object
               properties:
                 state:
-                  description: The state of keto tuples.
+                  description: The state of custom resource.
                   type: string
+                errors:
+                  description: If there are any errors.
+                  type: array
+                  items:
+                    description: Error.
+                    type: string
       subresources:
         status: {}
       additionalPrinterColumns:
+        - name: Status
+          type: string
+          description: Validation Status
+          jsonPath: .status.state
   conversion:
     strategy: None

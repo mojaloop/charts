@@ -46,7 +46,10 @@ global:
     host: test1-kafka-headless
     port: 9092
     topic: topic-event
-  mojalooprole: {}
+  rolePermOperator:
+    mojaloopRole: {}
+    mojaloopPermissionExclusion: {}
+    apiSvc: {}
 
 ## Backend API services
 role-assignment-service:
@@ -149,6 +152,7 @@ reporting-hub-bop-settlements-ui:
     env:
       CENTRAL_LEDGER_ENDPOINT: http://test1-centralledger-service:80
       CENTRAL_SETTLEMENTS_ENDPOINT: http://test1-centralsettlement-service:80
+      REPORTING_API_ENDPOINT: http://www-bof.local/proxy/transfers
 
 ## Other services
 security-role-perm-operator-svc:

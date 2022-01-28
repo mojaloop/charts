@@ -16,6 +16,7 @@ rules:
       - mojaloop.io
     resources:
       - mojalooproles
+      - mojaloop-permission-exclusions
     verbs:
       - get
       - list
@@ -24,9 +25,9 @@ rules:
       - mojaloop.io
     resources:
       - mojalooproles/status
+      - mojaloop-permission-exclusions/status
     verbs:
       - get
       - list
       - watch
-      - create
       - update
