@@ -65,40 +65,70 @@ afterAll(async () => {
 
 // Tests start here
 
-const _settlementWindowsTests = getAllowDenyList([
+const _settlementWindowsViewTests = getAllowDenyList([
   'operator',
   'manager',
   'clerk',
-  'financeManager'
+  'financeManager',
 ], [
   'dfspReconciliationReports',
-  'audit'
+  'audit',
 ], {
   url: new URL(`${proxyPrefix}/central-settlements/settlementWindows`, mlIngressBasePath),
   method: 'GET'
 });
 
-const _settlementTests = getAllowDenyList([
+const _settlementViewTests = getAllowDenyList([
   'operator',
   'manager',
   'clerk',
-  'financeManager'
+  'financeManager',
 ], [
   'dfspReconciliationReports',
-  'audit'
+  'audit',
 ], {
   url: new URL(`${proxyPrefix}/central-settlements/settlements`, mlIngressBasePath),
   method: 'GET'
 });
 
+const _settlementInitiateFinaliseTests = getAllowDenyList([
+  'clerk',
+  'financeManager',
+], [
+  'dfspReconciliationReports',
+  'audit',
+  'operator',
+  'manager',
+], {
+  url: new URL(`${proxyPrefix}/central-settlements/settlements/1`, mlIngressBasePath),
+  method: 'POST'
+});
+
+const _settlementCloseWindowTests = getAllowDenyList([
+  'operator',
+  'manager',
+  'clerk',
+  'financeManager',
+], [
+  'dfspReconciliationReports',
+  'audit',
+], {
+  url: new URL(`${proxyPrefix}/central-settlements/settlementWindows/1`, mlIngressBasePath),
+  method: 'POST'
+});
+
 const allow: TestParameters[] = [
-  ..._settlementWindowsTests.allow,
-  ..._settlementTests.allow,
+  ..._settlementWindowsViewTests.allow,
+  ..._settlementViewTests.allow,
+  ..._settlementInitiateFinaliseTests.allow,
+  ..._settlementCloseWindowTests.allow,
 ]
 
 const deny: TestParameters[] = [
-  ..._settlementWindowsTests.deny,
-  ..._settlementTests.deny,
+  ..._settlementWindowsViewTests.deny,
+  ..._settlementViewTests.deny,
+  ..._settlementInitiateFinaliseTests.deny,
+  ..._settlementCloseWindowTests.deny,
 ]
 
 test.each(allow)(
