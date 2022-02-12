@@ -16,3 +16,4 @@ module.exports = {
         loadExtensions: ['.js']
     }
 }
+

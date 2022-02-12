@@ -62,7 +62,7 @@ spec:
       initContainers:
         {{- if .Values.initContainers }}
           {{- include "common.tplvalues.render" (dict "value" .Values.initContainers "context" $) | nindent 8 }}
-        {{- end }}  
+        {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           image: {{ template "chart-admin.image" . }}
@@ -103,11 +103,15 @@ spec:
             initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
           {{- end }}
-
           volumeMounts:
-            - name: {{ template "common.names.fullname" . }}-config-volume
+            - name: config-volume
               mountPath: /opt/account-lookup-service/config
           env:
+            - name: CLEDG_DATABASE__PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: '{{ include "common.backends.centraldb.secret.name" . }}'
+                  key: '{{ include "common.backends.centraldb.secret.key" . }}'
             - name: LOG_LEVEL
               value: {{ .Values.config.log_level | quote}}
             - name: LOG_FILTER
@@ -176,14 +180,16 @@ spec:
               value: {{ .Values.sidecar.config.event_log_filter | quote }}
             - name: EVENT_SDK_LOG_METADATA_ONLY
               value: {{ .Values.sidecar.config.event_log_metadata_only | quote }}
-        {{- end }}  
+        {{- end }}
       volumes:
-        - name: {{ template "common.names.fullname" . }}-config-volume
+        - name: config-volume
           configMap:
             name: {{ template "common.names.fullname" . }}-config
             items:
             - key: default.json
               path: default.json
+            - key: knexfile.js
+              path: knexfile.js
         {{- if .Values.sidecar.enabled }}
         - name: {{ template "common.names.fullname" . }}-sidecar-volume
           configMap:

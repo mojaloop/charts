@@ -201,7 +201,7 @@ initContainers:
       - sh
       - -c
       - npm run migrate
-      # - sleep infinity
+      #- sleep infinity
     env:
       - name: CLEDG_MIGRATIONS__RUN_DATA_MIGRATIONS
         value: 'true'
