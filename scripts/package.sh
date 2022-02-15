@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-
+#Author Tom Daly : copied from @Miguel's update-chart-deps scripts
+# used for development and testing of V14 charts from v13.
 set -e
 
 #LOCAL_HELM_MOJALOOP_REPO_URI=${HELM_MOJALOOP_REPO_URI:-'https://docs.mojaloop.io/charts/repo'}
@@ -24,8 +25,8 @@ echo "Removing old charts..."
 #find $CHARTS_DIR -name "charts"| xargs rm -Rf
 
 # Tom testing 
-rm -rf /vagrant/charts/mojaloop/chart-admin/charts
-rm -rf /vagrant/charts/mojaloop/account-lookup-service/charts
+rm -rf /vagrant/charts/mojaloop/account-lookup-service/charts/chart-admin/charts/*
+rm -f /vagrant/charts/mojaloop/account-lookup-service/charts/*tgz
 
 mkdir -p ./repo
 
@@ -52,8 +53,8 @@ else
         # Mojaloop Core Charts
         #mojaloop/admin-api-svc
         #mojaloop/fspiop-transfer-api-svc
-        $CHARTS_DIR/mojaloop/chart-admin 
-        $CHARTS_DIR/mojaloop/chart-service
+        $CHARTS_DIR/mojaloop/account-lookup-service/subcharts/chart-admin
+        $CHARTS_DIR/mojaloop/account-lookup-service/subcharts/chart-service
         $CHARTS_DIR/mojaloop/account-lookup-service 
         # Main Mojaloop Helm Chart 
         $CHARTS_DIR/mojaloop/mojaloop
@@ -64,7 +65,9 @@ for chart in "${charts[@]}"
 do
     if [ -z $BUILD_NUM ] || [ -z $GIT_SHA1 ]; then # we're most likely not running in CI
         # Probably running on someone's machine
+        set -x 
         helm package -u -d ./repo "$chart"
+        set +x 
     elif [ -z $GITHUB_TAG ]; then # we're probably running in CI, but this is not a job triggered by a tag
         set -u
         # When $GITHUB_TAG is not present, we'll build a development version. This versioning

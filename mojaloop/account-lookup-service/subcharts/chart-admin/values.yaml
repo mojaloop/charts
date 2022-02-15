@@ -192,7 +192,7 @@ initContainers:
       - name: DB_DATABASE
         value: '{{ include "common.backends.centraldb.database" . }}'
   - name: run-migration
-    image: '{{ template "chart-admin.image" . }}'
+    image: '{{ template "account-lookup-service-admin.image" . }}'
     imagePullPolicy: IfNotPresent
     command:
       - sh
@@ -362,7 +362,7 @@ ingress:
   apiVersion:
   ## @param ingress.hostname Default host for the ingress record
   ##
-  hostname: chart-admin.local
+  hostname: account-lookup-service-admin.local
   ## @param ingress.path Default path for the ingress record
   ## NOTE: You may need to set this to '/*' in order to use this with ALB ingress controllers
   ##

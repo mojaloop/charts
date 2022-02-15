@@ -34,19 +34,19 @@ spec:
         {{- include "common.tplvalues.render" (dict "value" .Values.podLabels "context" $) | nindent 8 }}
         {{- end }}
     spec:
-      serviceAccountName: {{ template "chart-admin.serviceAccountName" . }}
-      {{- include "chart-admin.imagePullSecrets" . | nindent 6 }}
+      serviceAccountName: {{ template "account-lookup-service-service.serviceAccountName" . }}
+      {{- include "account-lookup-service-service.imagePullSecrets" . | nindent 6 }}
       {{- if .Values.hostAliases }}
       hostAliases: {{- include "common.tplvalues.render" (dict "value" .Values.hostAliases "context" $) | nindent 8 }}
       {{- end }}
       {{- if .Values.affinity }}
       affinity: {{- include "common.tplvalues.render" ( dict "value" .Values.affinity "context" $) | nindent 8 }}
       {{- else }}
-      affinity:
-        podAffinity: {{- include "common.affinities.pods" (dict "type" .Values.podAffinityPreset "component" "chart-admin" "context" $) | nindent 10 }}
-        podAntiAffinity: {{- include "common.affinities.pods" (dict "type" .Values.podAntiAffinityPreset "component" "chart-admin" "context" $) | nindent 10 }}
-        nodeAffinity: {{- include "common.affinities.nodes" (dict "type" .Values.nodeAffinityPreset.type "key" .Values.nodeAffinityPreset.key "values" .Values.nodeAffinityPreset.values) | nindent 10 }}
-      {{- end }}
+      # affinity:
+      #   podAffinity: {{- include "common.affinities.pods" (dict "type" .Values.podAffinityPreset "component" "fspiop-transfer-api-svc" "context" $) | nindent 10 }}
+      #   podAntiAffinity: {{- include "common.affinities.pods" (dict "type" .Values.podAntiAffinityPreset "component" "fspiop-transfer-api-svc" "context" $) | nindent 10 }}
+      #   nodeAffinity: {{- include "common.affinities.nodes" (dict "type" .Values.nodeAffinityPreset.type "key" .Values.nodeAffinityPreset.key "values" .Values.nodeAffinityPreset.values) | nindent 10 }}
+      # {{- end }}
       {{- if .Values.nodeSelector }}
       nodeSelector: {{- include "common.tplvalues.render" ( dict "value" .Values.nodeSelector "context" $) | nindent 8 }}
       {{- end }}
@@ -65,7 +65,7 @@ spec:
         {{- end }}
       containers:
         - name: {{ .Chart.Name }}
-          image: {{ template "chart-admin.image" . }}
+          image: {{ template "account-lookup-service-service.image" . }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           {{- if .Values.containerSecurityContext.enabled }}
           securityContext: {{- omit .Values.containerSecurityContext "enabled" | toYaml | nindent 12 }}
@@ -169,7 +169,7 @@ spec:
             periodSeconds: {{ .Values.sidecar.livenessProbe.periodSeconds }}
           {{- end }}
           volumeMounts:
-            - name: {{ template "common.names.fullname" . }}-sidecar-volume
+            - name: sidecar-volume
               mountPath: /opt/event-sidecar/config
           env:
             - name: LOG_LEVEL
@@ -191,7 +191,7 @@ spec:
             - key: knexfile.js
               path: knexfile.js
         {{- if .Values.sidecar.enabled }}
-        - name: {{ template "common.names.fullname" . }}-sidecar-volume
+        - name: sidecar-volume
           configMap:
             name: {{ template "common.names.fullname" . }}-sidecar
             items:

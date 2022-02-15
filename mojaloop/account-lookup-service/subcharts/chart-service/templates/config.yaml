@@ -12,6 +12,8 @@ data:
   {{ $fileName }}: |
   {{- include "common.tplvalues.render" ( dict "value" $fileContents "context" $ ) | nindent 4 }}
 {{- end }}
+  knexfile.js: {{ (tpl (.Files.Get "configs/knexfile.js") . ) | quote }}
+
 
 ---
 {{- if .Values.sidecar.enabled }}
