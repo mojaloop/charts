@@ -78,7 +78,7 @@ containerSecurityContext:
 image:
   registry: docker.io
   repository: mojaloop/reporting-hub-bop-experience-api-svc
-  tag: v0.0.1
+  tag: v0.0.2
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -158,13 +158,13 @@ initContainers: []
 
 
 readinessProbe:
-  enabled: false
+  enabled: true
   httpGet:
     path: /health
   initialDelaySeconds: 15
   periodSeconds: 15
 livenessProbe:
-  enabled: false
+  enabled: true
   httpGet:
     path: /health
   initialDelaySeconds: 15
