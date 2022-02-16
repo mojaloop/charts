@@ -217,10 +217,11 @@ reporting-hub-bop-settlements-ui:
       CENTRAL_SETTLEMENTS_ENDPOINT: http://test1-centralsettlement-service:80
       REPORTING_API_ENDPOINT: http://www-bof.local/proxy/transfers
 
-## Other services
 security-role-perm-operator-svc:
   enabled: true
 
 reporting-events-processor-svc:
   enabled: true
 
+reporting-hub-bop-experience-api-svc:
+  enabled: true
