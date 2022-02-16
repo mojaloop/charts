@@ -15,21 +15,13 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-<<<<<<< HEAD
-version: 2.1.2
-=======
-version: 2.1.3
->>>>>>> dcf7c31352a2e1d9abef827c036113eb888b1920
+version: 2.1.4
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
-<<<<<<< HEAD
-appVersion: "2.1.2"
-=======
-appVersion: "2.1.3"
->>>>>>> dcf7c31352a2e1d9abef827c036113eb888b1920
+appVersion: "2.1.4"
 dependencies:
   - name: common
     repository: "file://../common"
@@ -64,7 +56,7 @@ dependencies:
     tags:
       - mojaloop
       - reporting-legacy-api
-    version: 1.0.2
+    version: 1.0.3
   - name: reporting-events-processor-svc
     condition: reporting-events-processor-svc.enabled
     repository: "file://../reporting-events-processor-svc"
