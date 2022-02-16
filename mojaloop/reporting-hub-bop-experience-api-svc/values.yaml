@@ -15,7 +15,6 @@ global:
   ##
   imagePullSecrets: []
   storageClass: ""
-  keto: {}
   adminApiSvc: {}
   settlementSvc: {}
 
@@ -159,13 +158,13 @@ initContainers: []
 
 
 readinessProbe:
-  enabled: true
+  enabled: false
   httpGet:
     path: /health
   initialDelaySeconds: 15
   periodSeconds: 15
 livenessProbe:
-  enabled: true
+  enabled: false
   httpGet:
     path: /health
   initialDelaySeconds: 15
@@ -232,7 +231,7 @@ service:
 ingress:
   ## @param ingress.enabled Enable ingress record generation for %%MAIN_CONTAINER_NAME%%
   ##
-  enabled: true
+  enabled: false
   ## @param ingress.pathType Ingress path type
   ##
   pathType: ImplementationSpecific

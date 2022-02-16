@@ -106,12 +106,6 @@ spec:
           volumeMounts:
             - name: {{ template "common.names.fullname" . }}-config-volume
               mountPath: /opt/reporting-hub-bop-experience-api-svc/config
-          env:
-            - name: ROLE_ASSIGNMENT_SERVICE_WSO2_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: '{{ include "common.backends.wso2.identityServer.secret.name" . }}'
-                  key: '{{ include "common.backends.wso2.identityServer.secret.key" . }}'
       volumes:
         - name: {{ template "common.names.fullname" . }}-config-volume
           configMap:
