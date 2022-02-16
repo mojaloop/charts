@@ -1,0 +1,20 @@
+apiVersion: v2
+description: Experience API for business operations framework
+name: reporting-hub-bop-experience-api-svc
+version: 0.0.1
+appVersion: "0.0.1"
+home: http://mojaloop.io
+icon: http://mojaloop.io/images/logo.png
+sources:
+  - https://github.com/mojaloop/mojaloop
+  - https://github.com/mojaloop/helm
+  - https://github.com/mojaloop/reporting-hub-bop-experience-api-svc
+maintainers:
+  - name: Vijaya Kumar Guthi
+    email: vijaya.guthi@modusbox.com
+dependencies:
+  - name: common
+    repository: "file://../common"
+    tags:
+      - moja-common
+    version: 2.0.0
