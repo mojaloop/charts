@@ -108,7 +108,7 @@ image:
   debug: false
 
 replicaCount: 1
-command: '["node", "src/index.js", "server", "--admin"]' 
+command: '["node", "src/index.js", "server", "--api"]' 
 
 
 ## Enable diagnostic mode in the deployment
@@ -144,25 +144,6 @@ diagnosticMode:
 ##
 # initContainers: []
 initContainers:
-  - name: wait-for-kafka
-    image: solsson/kafka
-    imagePullPolicy: IfNotPresent
-    command:
-      - sh
-      - -c
-      - until ./bin/kafka-broker-api-versions.sh --bootstrap-server ${KAFKA_HOST}:${KAFKA_PORT}; 
-        do
-          echo --------------------;
-          echo Waiting for Kafka...;
-          sleep 2; 
-        done;
-        echo ====================; 
-        echo Kafka ok!;
-    env:
-      - name: KAFKA_HOST
-        value: '{{ include "common.backends.centralbroker.host" . }}'
-      - name: KAFKA_PORT
-        value: '{{ include "common.backends.centralbroker.port" . }}'
   - name: wait-for-mysql
     image: mysql
     imagePullPolicy: IfNotPresent
@@ -191,22 +172,6 @@ initContainers:
             key: '{{ include "common.backends.centraldb.secret.key" . }}'
       - name: DB_DATABASE
         value: '{{ include "common.backends.centraldb.database" . }}'
-  - name: run-migration
-    image: '{{ template "account-lookup-service-admin.image" . }}'
-    imagePullPolicy: IfNotPresent
-    command:
-      - sh
-      - -c
-      - npm run migrate
-      #- sleep infinity
-    env:
-      - name: CLEDG_MIGRATIONS__RUN_DATA_MIGRATIONS
-        value: 'true'
-      - name: CLEDG_DATABASE__PASSWORD
-        valueFrom:
-          secretKeyRef:
-            name: '{{ include "common.backends.centraldb.secret.name" . }}'
-            key: '{{ include "common.backends.centraldb.secret.key" . }}'
     volumeMounts:
       - name: config-volume
         mountPath: /opt/account-lookup-service/config
@@ -308,7 +273,7 @@ config:
   resource_versions: 'transfers=1.1,participants=1.1,quotes=1.0'
 
 service:
-  internalPort: 3001
+  internalPort: 4002
   ## @param service.type %%MAIN_CONTAINER_NAME%% service type
   ##
   type: ClusterIP
@@ -362,7 +327,7 @@ ingress:
   apiVersion:
   ## @param ingress.hostname Default host for the ingress record
   ##
-  hostname: account-lookup-service-admin.local
+  hostname: account-lookup-service-service.local
   ## @param ingress.path Default path for the ingress record
   ## NOTE: You may need to set this to '/*' in order to use this with ALB ingress controllers
   ##

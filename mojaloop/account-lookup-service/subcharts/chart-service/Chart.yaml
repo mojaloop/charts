@@ -1,6 +1,6 @@
 apiVersion: v2
 description: account lookup service  
-name: als-service 
+name: account-lookup-service-service
 version: 12.4.0
 appVersion: "11.8.0"
 maintainers:
@@ -10,7 +10,7 @@ maintainers:
     email: miguel.
 dependencies:
   - name: common
-    repository: "file://../common"
+    repository: "file://../../../common"
     tags:
       - moja-common
     version: 1.0.0

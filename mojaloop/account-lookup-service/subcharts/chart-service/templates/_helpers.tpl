@@ -3,28 +3,28 @@
 {{/*
 Return the proper main image name
 */}}
-{{- define "admin-api-svc.image" -}}
+{{- define "account-lookup-service-service.image" -}}
 {{ include "common.images.image" (dict "imageRoot" .Values.image "global" .Values.global) }}
 {{- end -}}
 
 {{/*
 Return the proper image name (for the init container volume-permissions image)
 */}}
-{{- define "admin-api-svc.volumePermissions.image" -}}
+{{- define "account-lookup-service-service.volumePermissions.image" -}}
 {{- include "common.images.image" ( dict "imageRoot" .Values.volumePermissions.image "global" .Values.global ) -}}
 {{- end -}}
 
 {{/*
 Return the proper Docker Image Registry Secret Names
 */}}
-{{- define "admin-api-svc.imagePullSecrets" -}}
+{{- define "account-lookup-service-service.imagePullSecrets" -}}
 {{- include "common.images.pullSecrets" (dict "images" (list .Values.image) "global" .Values.global) -}}
 {{- end -}}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "admin-api-svc.serviceAccountName" -}}
+{{- define "account-lookup-service-service.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create -}}
     {{ default (printf "%s" (include "common.names.fullname" .)) .Values.serviceAccount.name }}
 {{- else -}}
@@ -35,7 +35,7 @@ Create the name of the service account to use
 {{/*
 Compile all warnings into a single message.
 */}}
-{{- define "admin-api-svc.validateValues" -}}
+{{- define "account-lookup-service-service.validateValues" -}}
 {{- $messages := list -}}
 {{- $messages := without $messages "" -}}
 {{- $message := join "\n" $messages -}}
