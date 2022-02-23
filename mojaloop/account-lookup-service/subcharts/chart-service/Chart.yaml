@@ -1,6 +1,6 @@
 apiVersion: v2
 description: account lookup service  
-name: account-lookup-service-service
+name: account-lookup-service
 version: 12.4.0
 appVersion: "11.8.0"
 maintainers:

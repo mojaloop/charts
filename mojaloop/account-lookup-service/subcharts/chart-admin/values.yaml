@@ -22,8 +22,8 @@ global:
   mysql:
     host: mysql
     port: 3306
-    user: user
-    database: default
+    user: account_lookup
+    database: account_lookup
     # secret: {}
     secret:
       name: mysql
@@ -109,7 +109,7 @@ image:
 
 replicaCount: 1
 command: '["node", "src/index.js", "server", "--admin"]' 
-
+#command: '["sleep", "infinity"]' 
 
 ## Enable diagnostic mode in the deployment
 ##
@@ -179,18 +179,18 @@ initContainers:
         echo MySQL ok!;
     env:
       - name: DB_HOST
-        value: '{{ include "common.backends.centraldb.host" . }}'
+        value: '{{ include "common.backends.accountdb.host" . }}'
       - name: DB_PORT
-        value: '{{ include "common.backends.centraldb.port" . }}'
+        value: '{{ include "common.backends.accountdb.port" . }}'
       - name: DB_USER
-        value: '{{ include "common.backends.centraldb.user" . }}'
+        value: '{{ include "common.backends.accountdb.user" . }}'
       - name: DB_PASSWORD
         valueFrom:
           secretKeyRef:
-            name: '{{ include "common.backends.centraldb.secret.name" . }}'
-            key: '{{ include "common.backends.centraldb.secret.key" . }}'
+            name: '{{ include "common.backends.accountdb.secret.name" . }}'
+            key: '{{ include "common.backends.accountdb.secret.key" . }}'
       - name: DB_DATABASE
-        value: '{{ include "common.backends.centraldb.database" . }}'
+        value: '{{ include "common.backends.accountdb.database" . }}'
   - name: run-migration
     image: '{{ template "account-lookup-service-admin.image" . }}'
     imagePullPolicy: IfNotPresent
@@ -200,13 +200,14 @@ initContainers:
       - npm run migrate
       #- sleep infinity
     env:
-      - name: CLEDG_MIGRATIONS__RUN_DATA_MIGRATIONS
+      - name: ALS_MIGRATIONS__RUN_DATA_MIGRATIONS
         value: 'true'
-      - name: CLEDG_DATABASE__PASSWORD
+      - name: ALS_DATABASE__PASSWORD
         valueFrom:
           secretKeyRef:
-            name: '{{ include "common.backends.centraldb.secret.name" . }}'
-            key: '{{ include "common.backends.centraldb.secret.key" . }}'
+            name: '{{ include "common.backends.accountdb.secret.name" . }}'
+            key: '{{ include "common.backends.accountdb.secret.key" . }}'
+
     volumeMounts:
       - name: config-volume
         mountPath: /opt/account-lookup-service/config
@@ -308,7 +309,7 @@ config:
   resource_versions: 'transfers=1.1,participants=1.1,quotes=1.0'
 
 service:
-  internalPort: 3001
+  internalPort: 4001
   ## @param service.type %%MAIN_CONTAINER_NAME%% service type
   ##
   type: ClusterIP
@@ -478,12 +479,10 @@ configFiles:
         },        
         "DATABASE": {
             "DIALECT": "mysql",
-            "HOST": {{ include "common.backends.centraldb.host" . | quote }},
-            "PORT": {{ include "common.backends.centraldb.port" . }},
-            "USER": {{ include "common.backends.centraldb.user" . | quote }},
-            "PASSWORD": "password" , 
-            "SCHEMA": {{ include "common.backends.centraldb.database" . | quote }},
-            "DATABASE": "default",
+            "HOST": {{ include "common.backends.accountdb.host" . | quote }},
+            "PORT": {{ include "common.backends.accountdb.port" . }},
+            "USER": {{ include "common.backends.accountdb.user" . | quote }},
+            "DATABASE": {{ include "common.backends.accountdb.database" . | quote }},
             "POOL_MIN_SIZE": {{ .Values.config.db_connection_pool_min }},
             "POOL_MAX_SIZE": {{ .Values.config.db_connection_pool_max }},
             "ACQUIRE_TIMEOUT_MILLIS": {{ .Values.config.db_acquire_timeout_millis }},

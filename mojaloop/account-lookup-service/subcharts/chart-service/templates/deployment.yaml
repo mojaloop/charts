@@ -34,8 +34,8 @@ spec:
         {{- include "common.tplvalues.render" (dict "value" .Values.podLabels "context" $) | nindent 8 }}
         {{- end }}
     spec:
-      serviceAccountName: {{ template "account-lookup-service-service.serviceAccountName" . }}
-      {{- include "account-lookup-service-service.imagePullSecrets" . | nindent 6 }}
+      serviceAccountName: {{ template "account-lookup-service.serviceAccountName" . }}
+      {{- include "account-lookup-service.imagePullSecrets" . | nindent 6 }}
       {{- if .Values.hostAliases }}
       hostAliases: {{- include "common.tplvalues.render" (dict "value" .Values.hostAliases "context" $) | nindent 8 }}
       {{- end }}
@@ -69,7 +69,7 @@ spec:
         {{- end }}
       containers:
         - name: {{ .Chart.Name }}
-          image: {{ template "account-lookup-service-service.image" . }}
+          image: {{ template "account-lookup-service.image" . }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           {{- if .Values.containerSecurityContext.enabled }}
           securityContext: {{- omit .Values.containerSecurityContext "enabled" | toYaml | nindent 12 }}

@@ -15,20 +15,20 @@ global:
   ##
   imagePullSecrets: []
   storageClass: ""
-  # This can be overridden by the main kafka element.
+  # This can be overridden by defining the kafka element.
   kafka:
     host: kafka
     port: 9092
   mysql:
     host: mysql
     port: 3306
-    user: user
-    database: default
+    user: account_lookup
+    database: account_lookup
     # secret: {}
     secret:
       name: mysql
       key: mysql-password
-
+      
 podAffinityPreset: ""
 ## @param podAntiAffinityPreset Pod anti-affinity preset. Ignored if `main.affinity` is set. Allowed values: `soft` or `hard`
 ## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity
