@@ -1,0 +1,44 @@
+{{- if .Values.reportTests.enabled }}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {{ include "bof.fullname" . }}-report-tests
+  labels:
+      {{- include "bof.labels" . | nindent 4 }}
+  annotations:
+    helm.sh/hook: test
+    helm.sh/hook-weight: {{ .Values.reportTests.weight | quote }}
+    helm.sh/hook-delete-policy: {{ .Values.reportTests.deletePolicy }}
+spec:
+  restartPolicy: Never
+  {{- if .Values.reportTests.podSecurityContext.enabled }}
+  securityContext: {{- omit .Values.reportTests.podSecurityContext "enabled" | toYaml | nindent 8 }}
+  {{- end }}
+  initContainers:
+    {{- if .Values.reportTests.initContainers }}
+      {{- include "common.tplvalues.render" (dict "value" .Values.reportTests.initContainers "context" $) | nindent 8 }}
+    {{- end }}
+  containers:
+  - name: {{ .Chart.Name }}
+    image: "{{ .Values.reportTests.image.repository }}:{{ .Values.reportTests.image.tag }}"
+    imagePullPolicy: {{ .Values.reportTests.image.pullPolicy }}
+    {{- if .Values.reportTests.image.imagePullSecrets }}
+    imagePullSecrets:
+    {{ toYaml .Values.reportTests.image.imagePullSecrets | indent 10 }}
+    {{- end }}
+    {{- if .Values.reportTests.containerSecurityContext.enabled }}
+    securityContext: {{- omit .Values.reportTests.containerSecurityContext "enabled" | toYaml | nindent 12 }}
+    {{- end }}
+    {{- if .Values.reportTests.command }}
+    command: {{- include "common.tplvalues.render" (dict "value" .Values.reportTests.command "context" $) | nindent 12 }}
+    {{- end }}
+    {{- if .Values.reportTests.args }}
+    args: {{- include "common.tplvalues.render" (dict "value" .Values.reportTests.args "context" $) | nindent 12 }}
+    {{- end }}
+    env:
+    {{- range $k, $v := .Values.reportTests.env }}
+    - name: {{ $k }}
+      value: {{ quote $v }}
+    {{- end }}
+{{- end}}
+
