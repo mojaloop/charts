@@ -109,7 +109,7 @@ image:
 
 replicaCount: 1
 command: '["node", "src/index.js", "server", "--api"]' 
-
+#command: '["sleep", "infinity"]' 
 
 ## Enable diagnostic mode in the deployment
 ##
@@ -144,6 +144,25 @@ diagnosticMode:
 ##
 # initContainers: []
 initContainers:
+  - name: wait-for-kafka
+    image: solsson/kafka
+    imagePullPolicy: IfNotPresent
+    command:
+      - sh
+      - -c
+      - until ./bin/kafka-broker-api-versions.sh --bootstrap-server ${KAFKA_HOST}:${KAFKA_PORT}; 
+        do
+          echo --------------------;
+          echo Waiting for Kafka...;
+          sleep 2; 
+        done;
+        echo ====================; 
+        echo Kafka ok!;
+    env:
+      - name: KAFKA_HOST
+        value: '{{ include "common.backends.centralbroker.host" . }}'
+      - name: KAFKA_PORT
+        value: '{{ include "common.backends.centralbroker.port" . }}'
   - name: wait-for-mysql
     image: mysql
     imagePullPolicy: IfNotPresent
@@ -172,9 +191,6 @@ initContainers:
             key: '{{ include "common.backends.accountdb.secret.key" . }}'
       - name: DB_DATABASE
         value: '{{ include "common.backends.accountdb.database" . }}'
-    volumeMounts:
-      - name: config-volume
-        mountPath: /opt/account-lookup-service/config
 
 readinessProbe:
   enabled: true
@@ -221,6 +237,14 @@ mysql:
   #   key: password
 
 config:
+  ## Central-Ledger config
+  central_services_host: '$release_name-centralledger-service'
+  central_services_port: 80
+
+  ## admin and Service Ports 
+  admin_port: 4001
+  api_port: 4002
+
   ## Hub Configuration
   hub_participant:
     id: 1
@@ -265,6 +289,16 @@ config:
   # Any combination of: `log,audit,trace`
   event_async_override: 'log,trace'
   event_traceid_per_vendor: false
+
+  # Thirdparty API Config
+  featureEnableExtendedPartyIdType: false
+
+  ## 
+  display_routes: true
+  run_migrations: false
+  end_point_cache:
+    expiresIn: 180000
+    generateTimeout: 30000
 
   ## Error handling Configuration
   error_handling:
@@ -420,19 +454,53 @@ serviceAccount:
 configFiles:
   default.json: |
     {  
-        "PORT": {{ .Values.service.internalPort }},
+        {{- $centralServicesHost := ( .Values.config.central_services_host | replace "$release_name" .Release.Name ) -}}
         "HOSTNAME": "{{ .Values.ingress.hostname }}",
-        "MIGRATIONS": {
-            "DISABLED": true,
-            "RUN_DATA_MIGRATIONS": true
+        "ADMIN_PORT": {{ .Values.service.internalPort }},
+        "API_PORT":  {{ .Values.service.internalPort }},
+        "DATABASE": {
+          "DIALECT": "mysql",
+          "HOST": {{ include "common.backends.accountdb.host" . | quote }},
+          "PORT": {{ include "common.backends.accountdb.port" . }},
+          "USER": {{ include "common.backends.accountdb.user" . | quote }},
+          "DATABASE": {{ include "common.backends.accountdb.database" . | quote }},
+          "POOL_MIN_SIZE": {{ .Values.config.db_connection_pool_min }},
+          "POOL_MAX_SIZE": {{ .Values.config.db_connection_pool_max }},
+          "ACQUIRE_TIMEOUT_MILLIS": {{ .Values.config.db_acquire_timeout_millis }},
+          "CREATE_TIMEOUT_MILLIS": {{ .Values.config.db_create_timeout_millis }},
+          "DESTROY_TIMEOUT_MILLIS": {{ .Values.config.db_destroy_timeout_millis }},
+          "IDLE_TIMEOUT_MILLIS": {{ .Values.config.db_idle_timeout_millis }},
+          "REAP_INTERVAL_MILLIS": {{ .Values.config.db_reap_interval_millis }},
+          "CREATE_RETRY_INTERVAL_MILLIS": {{ .Values.config.db_create_retry_interval_millis }},
+          "DEBUG": {{ .Values.config.db_debug }}
         },
-        "AMOUNT": {
-            "PRECISION": 18,
-            "SCALE": 4
+        "DISPLAY_ROUTES": {{ .Values.config.display_routes }},
+        "RUN_MIGRATIONS": {{ .Values.config.run_migrations }},
+        "ENDPOINT_CACHE_CONFIG": {
+          "expiresIn": {{ .Values.config.end_point_cache.expiresIn }},
+          "generateTimeout": {{ .Values.config.end_point_cache.generateTimeout }}
         },
+        "SWITCH_ENDPOINT": "http://{{ (default .Values.config.central_services_host $centralServicesHost) }}:{{ .Values.config.central_services_port }}",
         "ERROR_HANDLING": {
-            "includeCauseExtension": {{ .Values.config.error_handling.include_cause_extension }},
-            "truncateExtensions": {{ .Values.config.error_handling.truncate_extensions }}
+          "includeCauseExtension": {{ .Values.config.error_handling.include_cause_extension }},
+          "truncateExtensions": {{ .Values.config.error_handling.truncate_extensions }}
+        },
+        "INSTRUMENTATION": {
+          "METRICS": {
+            "DISABLED": {{ not .Values.metrics.enabled }},
+            "labels": {
+              "fspId": "*"
+            },
+            "config": {
+              "timeout": {{ .Values.metrics.config.timeout }},
+              "prefix": {{ .Values.metrics.config.prefix | quote }},
+              "defaultLabels": {
+              {{- range $key, $value := .Values.metrics.config.defaultLabels }}
+                {{ $key  | quote }}: {{ $value | quote }}
+              {{- end }}
+              }
+            }
+          }
         },
         "ENDPOINT_SECURITY":{
             "JWS": {
@@ -440,39 +508,10 @@ configFiles:
                 "FSPIOP_SOURCE_TO_SIGN": "switch",
                 "JWS_SIGNING_KEY_PATH": "secrets/jwsSigningKey.key"
               }
-        },        
-        "DATABASE": {
-            "DIALECT": "mysql",
-            "HOST": {{ include "common.backends.accountdb.host" . | quote }},
-            "PORT": {{ include "common.backends.accountdb.port" . }},
-            "USER": {{ include "common.backends.accountdb.user" . | quote }},
-            "PASSWORD": "password" , 
-            "SCHEMA": {{ include "common.backends.accountdb.database" . | quote }},
-            "DATABASE": "default",
-            "POOL_MIN_SIZE": {{ .Values.config.db_connection_pool_min }},
-            "POOL_MAX_SIZE": {{ .Values.config.db_connection_pool_max }},
-            "ACQUIRE_TIMEOUT_MILLIS": {{ .Values.config.db_acquire_timeout_millis }},
-            "CREATE_TIMEOUT_MILLIS": {{ .Values.config.db_create_timeout_millis }},
-            "DESTROY_TIMEOUT_MILLIS": {{ .Values.config.db_destroy_timeout_millis }},
-            "IDLE_TIMEOUT_MILLIS": {{ .Values.config.db_idle_timeout_millis }},
-            "REAP_INTERVAL_MILLIS": {{ .Values.config.db_reap_interval_millis }},
-            "CREATE_RETRY_INTERVAL_MILLIS": {{ .Values.config.db_create_retry_interval_millis }},
-            "DEBUG": {{ .Values.config.db_debug }}
-        },
-        "MONGODB": {
-            "DISABLED": {{ .Values.config.objstore_disabled }},
-            "URI": {{ .Values.config.objstore_uri | quote }}
-        },
-        "HANDLERS": {
-            "DISABLED": true,
-            "API": {
-                "DISABLED": false
-            },
-            "TIMEOUT": {
-                "DISABLED": true,
-                "TIMEXP": "*/15 * * * * *",
-                "TIMEZONE": "UTC"
-            }
+        }, 
+        "ERROR_HANDLING": {
+            "includeCauseExtension": {{ .Values.config.error_handling.include_cause_extension }},
+            "truncateExtensions": {{ .Values.config.error_handling.truncate_extensions }}
         },
         "INSTRUMENTATION": {
             "METRICS": {
@@ -491,405 +530,8 @@ configFiles:
                 }
             }
         },
-        "EMAIL_USER": "user",
-        "EMAIL_PASSWORD": "password",
-        "EMAIL_SMTP": "smtp.local",
-        "PARTICIPANT_INITIAL_POSITION": 0,
-        "HUB_PARTICIPANT": {
-            "ID": {{ .Values.config.hub_participant.id }},
-            "NAME": "{{ .Values.config.hub_participant.name }}",
-            "ACCOUNTS": [
-                "HUB_RECONCILIATION",
-                "HUB_MULTILATERAL_SETTLEMENT",
-                "HUB_FEE"
-            ]
-        },
-        "INTERNAL_TRANSFER_VALIDITY_SECONDS": "432000",
-        "CACHE": {
-            "CACHE_ENABLED": {{ .Values.config.cache_enabled }},
-            "MAX_BYTE_SIZE": {{ .Values.config.cache_max_byte_size }},
-            "EXPIRES_IN_MS": {{ .Values.config.cache_expires_in_ms }}
-        },
-        "API_DOC_ENDPOINTS_ENABLED": true,
-        "KAFKA": {
-            "TOPIC_TEMPLATES": {
-                "PARTICIPANT_TOPIC_TEMPLATE": {
-                    "TEMPLATE": "topic-{{"{{"}}participantName{{"}}"}}-{{"{{"}}functionality{{"}}"}}-{{"{{"}}action{{"}}"}}",
-                    "REGEX": "topic-(.*)-(.*)-(.*)"
-                },
-                "GENERAL_TOPIC_TEMPLATE": {
-                    "TEMPLATE": "topic-{{"{{"}}functionality{{"}}"}}-{{"{{"}}action{{"}}"}}",
-                    "REGEX": "topic-(.*)-(.*)"
-                }
-            },
-            "CONSUMER": {
-                "BULK": {
-                    "PREPARE": {
-                        "config": {
-                            "options": {
-                                "mode": 2,
-                                "batchSize": 1,
-                                "pollFrequency": 10,
-                                "recursiveTimeout": 100,
-                                "messageCharset": "utf8",
-                                "messageAsJSON": true,
-                                "sync": true,
-                                "consumeTimeout": 1000
-                            },
-                            "rdkafkaConf": {
-                                "metadata.broker.list": {{ printf "%s:%s" (include "common.backends.centralbroker.host" .) (include "common.backends.centralbroker.port" .) | quote}},
-                                "client.id": "cl-con-bulk-prepare",
-                                "group.id": "cl-group-bulk-prepare",
-                                "socket.keepalive.enable": true,
-                                "allow.auto.create.topics": true
-                            },
-                            "topicConf": {
-                                "auto.offset.reset": "earliest"
-                            }
-                        }
-                    },
-                    "PROCESSING": {
-                        "config": {
-                            "options": {
-                                "mode": 2,
-                                "batchSize": 1,
-                                "pollFrequency": 10,
-                                "recursiveTimeout": 100,
-                                "messageCharset": "utf8",
-                                "messageAsJSON": true,
-                                "sync": true,
-                                "consumeTimeout": 1000
-                            },
-                            "rdkafkaConf": {
-                                "metadata.broker.list": {{ printf "%s:%s" (include "common.backends.centralbroker.host" .) (include "common.backends.centralbroker.port" .) | quote}},  
-                                "client.id": "cl-con-bulk-processing",
-                                "group.id": "cl-group-bulk-processing",
-                                "socket.keepalive.enable": true,
-                                "allow.auto.create.topics": true
-                            },
-                            "topicConf": {
-                                "auto.offset.reset": "earliest"
-                            }
-                        }
-                    },
-                    "FULFIL": {
-                        "config": {
-                            "options": {
-                                "mode": 2,
-                                "batchSize": 1,
-                                "pollFrequency": 10,
-                                "recursiveTimeout": 100,
-                                "messageCharset": "utf8",
-                                "messageAsJSON": true,
-                                "sync": true,
-                                "consumeTimeout": 1000
-                            },
-                            "rdkafkaConf": {
-                                "metadata.broker.list": {{ printf "%s:%s" (include "common.backends.centralbroker.host" .) (include "common.backends.centralbroker.port" .) | quote}},
-                                "client.id": "cl-con-bulk-fulfil",
-                                "group.id": "cl-group-bulk-fulfil",
-                                "socket.keepalive.enable": true,
-                                "allow.auto.create.topics": true
-                            },
-                            "topicConf": {
-                                "auto.offset.reset": "earliest"
-                            }
-                        }
-                    },
-                    "GET": {
-                        "config": {
-                            "options": {
-                                "mode": 2,
-                                "batchSize": 1,
-                                "pollFrequency": 10,
-                                "recursiveTimeout": 100,
-                                "messageCharset": "utf8",
-                                "messageAsJSON": true,
-                                "sync": true,
-                                "consumeTimeout": 1000
-                            },
-                            "rdkafkaConf": {
-                                "metadata.broker.list": {{ printf "%s:%s" (include "common.backends.centralbroker.host" .) (include "common.backends.centralbroker.port" .) | quote}},
-                                "client.id": "cl-con-bulk-get",
-                                "group.id": "cl-group-bulk-get",
-                                "socket.keepalive.enable": true,
-                                "allow.auto.create.topics": true
-                            },
-                            "topicConf": {
-                                "auto.offset.reset": "earliest"
-                            }
-                        }
-                    }
-                },
-                "TRANSFER": {
-                    "PREPARE": {
-                        "config": {
-                            "options": {
-                                "mode": 2,
-                                "batchSize": 1,
-                                "pollFrequency": 10,
-                                "recursiveTimeout": 100,
-                                "messageCharset": "utf8",
-                                "messageAsJSON": true,
-                                "sync": true,
-                                "consumeTimeout": 1000
-                            },
-                            "rdkafkaConf": {
-                                "metadata.broker.list": {{ printf "%s:%s" (include "common.backends.centralbroker.host" .) (include "common.backends.centralbroker.port" .) | quote}},
-                                "client.id": "cl-con-transfer-prepare",
-                                "group.id": "cl-group-transfer-prepare",
-                                "socket.keepalive.enable": true,
-                                "allow.auto.create.topics": true
-                            },
-                            "topicConf": {
-                                "auto.offset.reset": "earliest"
-                            }
-                        }
-                    },
-                    "POSITION": {
-                        "config": {
-                            "options": {
-                                "mode": 2,
-                                "batchSize": 1,
-                                "pollFrequency": 10,
-                                "recursiveTimeout": 100,
-                                "messageCharset": "utf8",
-                                "messageAsJSON": true,
-                                "sync": true,
-                                "consumeTimeout": 1000
-                            },
-                            "rdkafkaConf": {
-                                "metadata.broker.list": {{ printf "%s:%s" (include "common.backends.centralbroker.host" .) (include "common.backends.centralbroker.port" .) | quote}},
-                                "client.id": "cl-con-transfer-position",
-                                "group.id": "cl-group-transfer-position",
-                                "socket.keepalive.enable": true,
-                                "allow.auto.create.topics": true
-                            },
-                            "topicConf": {
-                                "auto.offset.reset": "earliest"
-                            }
-                        }
-                    },
-                    "FULFIL": {
-                        "config": {
-                            "options": {
-                                "mode": 2,
-                                "batchSize": 1,
-                                "pollFrequency": 10,
-                                "recursiveTimeout": 100,
-                                "messageCharset": "utf8",
-                                "messageAsJSON": true,
-                                "sync": true,
-                                "consumeTimeout": 1000
-                            },
-                            "rdkafkaConf": {
-                                "metadata.broker.list": {{ printf "%s:%s" (include "common.backends.centralbroker.host" .) (include "common.backends.centralbroker.port" .) | quote}},
-                                "client.id": "cl-con-transfer-fulfil",
-                                "group.id": "cl-group-transfer-fulfil",
-                                "socket.keepalive.enable": true,
-                                "allow.auto.create.topics": true
-                            },
-                            "topicConf": {
-                                "auto.offset.reset": "earliest"
-                            }
-                        }
-                    },
-                    "GET": {
-                        "config": {
-                            "options": {
-                                "mode": 2,
-                                "batchSize": 1,
-                                "pollFrequency": 10,
-                                "recursiveTimeout": 100,
-                                "messageCharset": "utf8",
-                                "messageAsJSON": true,
-                                "sync": true,
-                                "consumeTimeout": 1000
-                            },
-                            "rdkafkaConf": {
-                                "metadata.broker.list": {{ printf "%s:%s" (include "common.backends.centralbroker.host" .) (include "common.backends.centralbroker.port" .) | quote}},
-                                "client.id": "cl-con-transfer-get",
-                                "group.id": "cl-group-transfer-get",
-                                "socket.keepalive.enable": true,
-                                "allow.auto.create.topics": true
-                            },
-                            "topicConf": {
-                                "auto.offset.reset": "earliest"
-                            }
-                        }
-                    }
-                },
-                "ADMIN": {
-                    "TRANSFER": {
-                        "config": {
-                            "options": {
-                                "mode": 2,
-                                "batchSize": 1,
-                                "pollFrequency": 10,
-                                "recursiveTimeout": 100,
-                                "messageCharset": "utf8",
-                                "messageAsJSON": true,
-                                "sync": true,
-                                "consumeTimeout": 1000
-                            },
-                            "rdkafkaConf": {
-                                "metadata.broker.list": {{ printf "%s:%s" (include "common.backends.centralbroker.host" .) (include "common.backends.centralbroker.port" .) | quote}},
-                                "client.id": "cl-con-transfer-admin",
-                                "group.id": "cl-group-transfer-admin",
-                                "socket.keepalive.enable": true,
-                                "allow.auto.create.topics": true
-                            },
-                            "topicConf": {
-                                "auto.offset.reset": "earliest"
-                            }
-                        }
-                    }
-                }
-            },
-            "PRODUCER": {
-                "BULK": {
-                    "PROCESSING": {
-                        "config": {
-                            "options": {
-                                "messageCharset": "utf8"
-                            },
-                            "rdkafkaConf": {
-                                "metadata.broker.list": {{ printf "%s:%s" (include "common.backends.centralbroker.host" .) (include "common.backends.centralbroker.port" .) | quote}},
-                                "client.id": "cl-prod-bulk-processing",
-                                "event_cb": true,
-                                "dr_cb": false,
-                                "socket.keepalive.enable": true,
-                                "queue.buffering.max.messages": 10000000
-                            },
-                            "topicConf": {
-                                "request.required.acks": "all",
-                                "partitioner": "{{ .Values.config.kafka_partitioner }}"
-                            }
-                        }
-                    }
-                },
-                "TRANSFER": {
-                    "PREPARE": {
-                        "config": {
-                            "options": {
-                                "messageCharset": "utf8"
-                            },
-                            "rdkafkaConf": {
-                                "metadata.broker.list": {{ printf "%s:%s" (include "common.backends.centralbroker.host" .) (include "common.backends.centralbroker.port" .) | quote}},
-                                "client.id": "cl-prod-transfer-prepare",
-                                "event_cb": true,
-                                "dr_cb": false,
-                                "socket.keepalive.enable": true,
-                                "queue.buffering.max.messages": 10000000
-                            },
-                            "topicConf": {
-                                "request.required.acks": "all",
-                                "partitioner": "{{ .Values.config.kafka_partitioner }}"
-                            }
-                        }
-                    },
-                    "POSITION": {
-                        "config": {
-                            "options": {
-                                "messageCharset": "utf8"
-                            },
-                            "rdkafkaConf": {
-                                "metadata.broker.list": {{ printf "%s:%s" (include "common.backends.centralbroker.host" .) (include "common.backends.centralbroker.port" .) | quote}},
-                                "client.id": "cl-prod-transfer-position",
-                                "event_cb": true,
-                                "dr_cb": false,
-                                "socket.keepalive.enable": true,
-                                "queue.buffering.max.messages": 10000000
-                            },
-                            "topicConf": {
-                                "request.required.acks": "all",
-                                "partitioner": "{{ .Values.config.kafka_partitioner }}"
-                            }
-                        }
-                    },
-                    "FULFIL": {
-                        "config": {
-                            "options": {
-                                "messageCharset": "utf8"
-                            },
-                            "rdkafkaConf": {
-                                "metadata.broker.list": {{ printf "%s:%s" (include "common.backends.centralbroker.host" .) (include "common.backends.centralbroker.port" .) | quote}},
-                                "client.id": "cl-prod-transfer-fulfil",
-                                "event_cb": true,
-                                "dr_cb": false,
-                                "socket.keepalive.enable": true,
-                                "queue.buffering.max.messages": 10000000
-                            },
-                            "topicConf": {
-                                "request.required.acks": "all",
-                                "partitioner": "{{ .Values.config.kafka_partitioner }}"
-                            }
-                        }
-                    },
-                    "GET": {
-                        "config": {
-                            "options": {
-                                "messageCharset": "utf8"
-                            },
-                            "rdkafkaConf": {
-                                "metadata.broker.list": {{ printf "%s:%s" (include "common.backends.centralbroker.host" .) (include "common.backends.centralbroker.port" .) | quote}},
-                                "client.id": "cl-prod-transfer-get",
-                                "event_cb": true,
-                                "dr_cb": false,
-                                "socket.keepalive.enable": true,
-                                "queue.buffering.max.messages": 10000000
-                            },
-                            "topicConf": {
-                                "request.required.acks": "all",
-                                "partitioner": "{{ .Values.config.kafka_partitioner }}"
-                            }
-                        }
-                    }
-                },
-                "NOTIFICATION": {
-                    "EVENT": {
-                        "config": {
-                            "options": {
-                                "messageCharset": "utf8"
-                            },
-                            "rdkafkaConf": {
-                                "metadata.broker.list": {{ printf "%s:%s" (include "common.backends.centralbroker.host" .) (include "common.backends.centralbroker.port" .) | quote}},
-                                "client.id": "cl-prod-notification-event",
-                                "event_cb": true,
-                                "dr_cb": false,
-                                "socket.keepalive.enable": true,
-                                "queue.buffering.max.messages": 10000000
-                            },
-                            "topicConf": {
-                                "request.required.acks": "all",
-                                "partitioner": "{{ .Values.config.kafka_partitioner }}"
-                            }
-                        }
-                    }
-                },
-                "ADMIN": {
-                    "TRANSFER": {
-                        "config": {
-                            "options": {
-                                "messageCharset": "utf8"
-                            },
-                            "rdkafkaConf": {
-                                "metadata.broker.list": {{ printf "%s:%s" (include "common.backends.centralbroker.host" .) (include "common.backends.centralbroker.port" .) | quote}},
-                                "client.id": "admin-transfer-produce",
-                                "event_cb": true,
-                                "dr_cb": false,
-                                "socket.keepalive.enable": true,
-                                "queue.buffering.max.messages": 10000000
-                            },
-                            "topicConf": {
-                                "request.required.acks": "all",
-                                "partitioner": "{{ .Values.config.kafka_partitioner }}"
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        "API_DOCUMENTATION_ENDPOINTS": true,
+        "FEATURE_ENABLE_EXTENDED_PARTY_ID_TYPE": {{ .Values.config.featureEnableExtendedPartyIdType }}      
     }
 
 
@@ -905,8 +547,8 @@ sidecar:
       - start
   service:
     name: api
-    port: 4001
-    internalPort: 4001
+    port: 
+    internalPort: 4003
   readinessProbe:
     enabled: true
     httpGet:

@@ -111,11 +111,11 @@ spec:
             - name: config-volume
               mountPath: /opt/account-lookup-service/config
           env:
-            - name: CLEDG_DATABASE__PASSWORD
+            - name: ALS_DATABASE__PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: '{{ include "common.backends.centraldb.secret.name" . }}'
-                  key: '{{ include "common.backends.centraldb.secret.key" . }}'
+                  name: '{{ include "common.backends.accountdb.secret.name" . }}'
+                  key: '{{ include "common.backends.accountdb.secret.key" . }}'
             - name: LOG_LEVEL
               value: {{ .Values.config.log_level | quote}}
             - name: LOG_FILTER

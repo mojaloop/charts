@@ -1451,6 +1451,13 @@ mysql:
       # This script enables legacy authentication for MySQL v8. NodeJS MySQL Client currently does not support authentication plugins, reference: https://github.com/mysqljs/mysql/pull/2233
       enableLegacyAuth.sql: |-
         ALTER USER 'user'@'%' IDENTIFIED WITH mysql_native_password BY 'password';
+        DROP DATABASE IF EXISTS account_lookup;
+        CREATE DATABASE account_lookup;
+        DROP USER IF EXISTS account_lookup@'%';
+        CREATE USER 'account_lookup'@'%' IDENTIFIED WITH mysql_native_password BY 'password';
+        GRANT ALL PRIVILEGES ON account_lookup.* TO 'account_lookup'@'%';
+        FLUSH PRIVILEGES;
+
   ## @param initdbScriptsConfigMap ConfigMap with the initdb scripts (Note: Overrides `initdbScripts`)
   ##
   initdbScriptsConfigMap: ""
