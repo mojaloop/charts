@@ -7,7 +7,7 @@ maintainers:
   - name: Tom Daly 
     email: tdaly61@gmail.com
   - name: Miguel de Barros
-    email: miguel.
+    email: miguel.debarros@modusbox.com
 dependencies:
   - name: common
     repository: "file://../../../common"
