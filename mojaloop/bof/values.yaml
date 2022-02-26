@@ -59,7 +59,7 @@ rbacTests:
   image:
     registry: docker.io
     repository: mojaloop/security-rbac-tests
-    tag: v1.0.1
+    tag: v1.0.2
     ## Specify a imagePullPolicy
     ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
     ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -122,7 +122,7 @@ reportTests:
   image:
     registry: docker.io
     repository: mojaloop/security-rbac-tests
-    tag: v1.0.1
+    tag: v1.0.2
     ## Specify a imagePullPolicy
     ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
     ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
