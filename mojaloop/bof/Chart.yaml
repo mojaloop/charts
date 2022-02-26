@@ -56,7 +56,7 @@ dependencies:
     tags:
       - mojaloop
       - reporting-legacy-api
-    version: 1.0.7
+    version: 1.0.8
   - name: reporting-events-processor-svc
     condition: reporting-events-processor-svc.enabled
     repository: "file://../reporting-events-processor-svc"
