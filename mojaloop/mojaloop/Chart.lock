@@ -8,5 +8,8 @@ dependencies:
 - name: admin-api-svc
   repository: file://../admin-api-svc
   version: 12.0.0
-digest: sha256:dda168173828608e8751c65af807400cf60ded92edb1a7b29c1d2f462e80e4d3
-generated: "2021-09-23T16:32:19.662652+02:00"
+- name: account-lookup-service
+  repository: file://../account-lookup-service
+  version: 12.4.0
+digest: sha256:519b01ec3d6065e0dcc38908d7c696505a4033e5ed41a32e4eb5acf0f0d7b286
+generated: "2022-02-28T06:40:45.809113554Z"

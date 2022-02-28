@@ -225,7 +225,7 @@ export KUBECONFIG="/etc/rancher/k3s/k3s.yaml"
 DEFAULT_VERSION="v1.22" # default version to test
 DEFAULT_K8S_USER="vagrant"
 
-HEALTH_ENDPOINTS_LIST=("admin-api-svc" "transfer-api-svc")
+HEALTH_ENDPOINTS_LIST=("admin-api-svc" "transfer-api-svc" "account-lookup-service-admin" "account-lookup-service")
 CURRENT_K8S_VERSIONS=("v1.20" "v1.21"  "v1.22")
 versions_list=(" ")
 nginx_version=""
@@ -266,6 +266,11 @@ while getopts "m:t:u:v:rhH" OPTION ; do
 done
 
 printf "\n\n*** Mojaloop -  Kubernetes Version Testing Tool ***\n\n"
+
+# copy kubeconfig to /tmp so this script runs locally as well as from circle-ci/github
+cp $KUBECONFIG /tmp > /dev/null 2>&1
+chmod 600 /tmp/k3s.yaml
+
 
 # set the user to run k8s commands
 if [ -z ${k8s_user+x} ] ; then

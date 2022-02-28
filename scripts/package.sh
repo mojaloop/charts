@@ -57,7 +57,7 @@ else
         $CHARTS_DIR/mojaloop/account-lookup-service/subcharts/chart-service
         $CHARTS_DIR/mojaloop/account-lookup-service 
         # Main Mojaloop Helm Chart 
-        #$CHARTS_DIR/mojaloop/mojaloop
+        $CHARTS_DIR/mojaloop/mojaloop
     )
 fi
 
