@@ -29,6 +29,6 @@ dependencies:
     repository: "file://./subcharts/chart-admin"
     condition: account-lookup-service-admin.enabled
   # - name: als-oracle-pathfinder
-  #   version: 11.0.2
+  #   version: 12.4.0
   #   repository: "file://../als-oracle-pathfinder"
   #   condition: als-oracle-pathfinder.enabled
