@@ -29,6 +29,10 @@ global:
       name: mysql
       key: mysql-password
 
+  # This can be overridden by defining the adminApiSvc element.    
+  adminApiSvc: {}
+
+
 podAffinityPreset: ""
 ## @param podAntiAffinityPreset Pod anti-affinity preset. Ignored if `main.affinity` is set. Allowed values: `soft` or `hard`
 ## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity
@@ -256,10 +260,15 @@ mysql:
   #   name: mysql
   #   key: password
 
+adminApiSvc: {}
+  # This is the same as setting the host explicitly, i.e. will set the host as set below. It is included to support importing Kafka charts as a dependency.
+  # fullnameOverride: admin-api-svc
+  ## This will override the name of kafka and add the release prefix, e.g. '<RELEASE_NAME>-<nameOverride>'.
+  # nameOverride: admin-api-svc
+  # host#: admin-api-svc
+  # port: 80
+
 config:
-  ## Central-Ledger config
-  central_services_host: '$release_name-centralledger-service'
-  central_services_port: 80
 
   ## admin and Service Ports 
   admin_port: 4001
@@ -474,8 +483,6 @@ serviceAccount:
 configFiles:
   default.json: |
     {  
-        {{- $centralServicesHost := ( .Values.config.central_services_host | replace "$release_name" .Release.Name ) -}}
-        "HOSTNAME": "{{ .Values.ingress.hostname }}",
         "ADMIN_PORT": {{ .Values.service.internalPort }},
         "API_PORT":  {{ .Values.service.internalPort }},
         "DATABASE": {
@@ -500,7 +507,7 @@ configFiles:
           "expiresIn": {{ .Values.config.end_point_cache.expiresIn }},
           "generateTimeout": {{ .Values.config.end_point_cache.generateTimeout }}
         },
-        "SWITCH_ENDPOINT": "http://{{ (default .Values.config.central_services_host $centralServicesHost) }}:{{ .Values.config.central_services_port }}",
+        "SWITCH_ENDPOINT": {{ printf "http://%s:%s" (include "common.backends.mojaloop.adminApiSvc.host" .) (include "common.backends.mojaloop.adminApiSvc.port" .) | quote}},
         "ERROR_HANDLING": {
           "includeCauseExtension": {{ .Values.config.error_handling.include_cause_extension }},
           "truncateExtensions": {{ .Values.config.error_handling.truncate_extensions }}

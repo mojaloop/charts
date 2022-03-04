@@ -26,7 +26,8 @@ echo "Removing old charts..."
 
 # Tom testing 
 rm -rf /vagrant/charts/mojaloop/account-lookup-service/charts/chart-admin/charts/*
-rm -f /vagrant/charts/mojaloop/account-lookup-service/charts/*tgz
+rm -f /vagrant/charts/mojaloop/chart-service/charts/*tgz
+rm -f /vagrant/charts/mojaloop/chart-admin/charts/*tgz
 
 mkdir -p ./repo
 
@@ -53,9 +54,9 @@ else
         # Mojaloop Core Charts
         #mojaloop/admin-api-svc
         #mojaloop/fspiop-transfer-api-svc
-        $CHARTS_DIR/mojaloop/account-lookup-service/subcharts/chart-admin
-        $CHARTS_DIR/mojaloop/account-lookup-service/subcharts/chart-service
-        $CHARTS_DIR/mojaloop/account-lookup-service 
+        $CHARTS_DIR/mojaloop/chart-service
+        $CHARTS_DIR/mojaloop/chart-admin
+        $CHARTS_DIR/mojaloop/account-lookup-service
         # Main Mojaloop Helm Chart 
         $CHARTS_DIR/mojaloop/mojaloop
     )

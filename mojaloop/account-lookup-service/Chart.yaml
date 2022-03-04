@@ -22,11 +22,11 @@ dependencies:
     version: 1.0.0
   - name: account-lookup-service
     version: 12.4.0
-    repository: "file://./subcharts/chart-service"
+    repository: "file://../chart-service"
     condition: account-lookup-service.enabled
   - name: account-lookup-service-admin
     version: 12.4.0
-    repository: "file://./subcharts/chart-admin"
+    repository: "file://../chart-admin"
     condition: account-lookup-service-admin.enabled
   # - name: als-oracle-pathfinder
   #   version: 12.4.0
