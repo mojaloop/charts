@@ -59,7 +59,7 @@ rbacTests:
   image:
     registry: docker.io
     repository: mojaloop/security-rbac-tests
-    tag: v1.0.4
+    tag: v1.0.5
     ## Specify a imagePullPolicy
     ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
     ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -122,7 +122,7 @@ reportTests:
   image:
     registry: docker.io
     repository: mojaloop/security-rbac-tests
-    tag: v1.0.4
+    tag: v1.0.5
     ## Specify a imagePullPolicy
     ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
     ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -153,13 +153,14 @@ reportTests:
     CENTRAL_LEDGER_ADMIN_ENDPOINT: 'http://bofportal.yourdomain.com/central-ledger'
     CENTRAL_SETTLEMENT_ENDPOINT: 'http://bofportal.yourdomain.com/central-settlement'
     REPORT_BASE_PATH: 'http://bofportal.yourdomain.com/reports'
-    PAYER_SEND_MONEY_ENDPOINT: 'http://ml-connector-payer/cc-send/sendmoney'
-    PAYEE_SEND_MONEY_ENDPOINT: 'http://ml-connector-payee/cc-send/sendmoney'
-    TEST_PAYER: 'pm4mlsenderfsp'
-    TEST_PAYEE: 'pm4mlreceiverfsp'
+    ACCOUNT_LOOKUP_SERVICE_BASE_PATH: 'http://account-lookup-service'
+    PAYER_BACKEND_BASE_PATH: 'http://sim-payerfsp-backend'
+    PAYEE_BACKEND_BASE_PATH: 'http://sim-payeefsp-backend'
+    TEST_PAYER: 'payerfsp'
+    TEST_PAYEE: 'payeefsp'
     TEST_CURRENCY: 'USD'
-    TEST_PAYER_MSISDN: '25644444444'
-    TEST_PAYEE_MSISDN: '25633333333'
+    TEST_PAYER_MSISDN: '17039811901'
+    TEST_PAYEE_MSISDN: '17039811902'
   ## Configure Pods Security Context
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
   ## @param podSecurityContext.enabled Enabled %%MAIN_CONTAINER_NAME%% pods' Security Context
