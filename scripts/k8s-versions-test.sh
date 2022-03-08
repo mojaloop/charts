@@ -267,15 +267,15 @@ done
 
 printf "\n\n*** Mojaloop -  Kubernetes Version Testing Tool ***\n\n"
 
-# copy kubeconfig to /tmp so this script runs locally as well as from circle-ci/github
-cp $KUBECONFIG /tmp > /dev/null 2>&1
-chmod 600 /tmp/k3s.yaml
-
-
 # set the user to run k8s commands
 if [ -z ${k8s_user+x} ] ; then
         k8s_user=$DEFAULT_K8S_USER
 fi
+
+# copy kubeconfig to /tmp so this script runs locally as well as from circle-ci/github
+cp $KUBECONFIG /tmp > /dev/null 2>&1
+chown $k8s_user /tmp/k3s.yaml
+chmod 600 /tmp/k3s.yaml
 
 printf " running kubernetes and helm commands with user : %s\n" $k8s_user
 verify_user 

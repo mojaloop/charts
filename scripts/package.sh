@@ -25,9 +25,10 @@ echo "Removing old charts..."
 #find $CHARTS_DIR -name "charts"| xargs rm -Rf
 
 # Tom testing 
-rm -rf /vagrant/charts/mojaloop/account-lookup-service/charts/chart-admin/charts/*
+rm -rf /vagrant/charts/mojaloop/account-lookup-service/charts/*
 rm -f /vagrant/charts/mojaloop/chart-service/charts/*tgz
 rm -f /vagrant/charts/mojaloop/chart-admin/charts/*tgz
+rm -rf /vagrant/charts/mojaloop/mojaloop/charts/account-lookup*tgz
 
 mkdir -p ./repo
 

@@ -1,0 +1,90 @@
+
+
+global:
+  imageRegistry: ""
+  ## E.g.
+  ## imagePullSecrets:
+  ##   - myRegistryKeySecretName
+  ##
+  imagePullSecrets: []
+  storageClass: ""
+  # This can be overridden by defining the kafka element.
+  kafka:
+    host: kafka
+    port: 9092
+  mysql:
+    host: mysql
+    port: 3306
+    user: account_lookup
+    database: account_lookup
+    # secret: {}
+    secret:
+      name: mysql
+      key: mysql-password
+
+  # This can be overridden by defining the adminApiSvc element.  
+  # Note set fullnameOverride if kafka set and nameOverride if kafka not set  
+  adminApiSvc: {} 
+  # fullnameOverride: admin-api-svc
+  # host: 
+  # port:
+
+account-lookup-service:
+  enabled: true
+
+  # Declare variables to be passed into your templates.  
+  initContainers:
+    - name: wait-for-kafka
+      image: solsson/kafka
+      imagePullPolicy: IfNotPresent
+      command:
+        - sh
+        - -c
+        - until ./bin/kafka-broker-api-versions.sh --bootstrap-server ${KAFKA_HOST}:${KAFKA_PORT}; 
+          do
+            echo --------------------;
+            echo Waiting for Kafka...;
+            sleep 2; 
+          done;
+          echo ====================; 
+          echo Kafka ok!;
+      env:
+        - name: KAFKA_HOST
+          value: '{{ include "common.backends.centralbroker.host" . }}'
+        - name: KAFKA_PORT
+          value: '{{ include "common.backends.centralbroker.port" . }}'
+    - name: wait-for-mysql
+      image: mysql
+      imagePullPolicy: IfNotPresent
+      command:
+        - sh
+        - -c
+        - until mysql -h ${DB_HOST} -P ${DB_PORT} -u ${DB_USER} --password=${DB_PASSWORD}  ${DB_DATABASE} -e 'select version()' ; 
+          do
+            echo --------------------;
+            echo Waiting for MySQL...;
+            sleep 2; 
+          done;
+          echo ====================; 
+          echo MySQL ok!;
+      env:
+        - name: DB_HOST
+          value: '{{ include "common.backends.accountdb.host" . }}'
+        - name: DB_PORT
+          value: '{{ include "common.backends.accountdb.port" . }}'
+        - name: DB_USER
+          value: '{{ include "common.backends.accountdb.user" . }}'
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: '{{ include "common.backends.accountdb.secret.name" . }}'
+              key: '{{ include "common.backends.accountdb.secret.key" . }}'
+        - name: DB_DATABASE
+          value: '{{ include "common.backends.accountdb.database" . }}'
+
+  command: '["node", "src/index.js", "server", "--admin"]' 
+
+
+account-lookup-service-admin
+  enabled: true 
+  
