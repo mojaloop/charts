@@ -57,6 +57,14 @@ podAntiAffinityPreset: soft
 ## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity
 ##
 
+## @param extraEnvVars Array with extra environment variables to add to %%MAIN_CONTAINER_NAME%% nodes
+## e.g:
+## extraEnvVars:
+##   - name: FOO
+##     value: "bar"
+##
+extraEnvVars: []
+
 nodeAffinityPreset:
   ## @param nodeAffinityPreset.type Node affinity preset type. Ignored if `main.affinity` is set. Allowed values: `soft` or `hard`
   ##

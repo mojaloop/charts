@@ -130,3 +130,6 @@ spec:
               value: '{{ include "common.backends.mojaloopreport.resourcePlural" . }}'
             - name: WATCH_NAMESPACE
               value: '{{ .Release.Namespace }}'
+            {{- if .Values.extraEnvVars }}
+            {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 12 }}
+            {{- end }}
