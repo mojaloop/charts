@@ -1,7 +1,11 @@
 #!/usr/bin/env python3
+
 """
     populate helm chart values.yaml files from subchart values.yaml files
+    author: Tom Daly (tdaly61@gmail.com)
+    Date : March 2022
 """
+
 from operator import sub
 import sys
 import re
@@ -13,12 +17,9 @@ import yaml
 
 """ 
 Todo:
-    - take a dest values.yaml and multiple src values.yam as input params
-    - write values to dest file 
     - ensure that the Globals section has all properties from all subcharts i.e diff and merge or perhaps 
       just check the longest set of global properties from the subcharts and use these 
-    - probably create a shell script to run this util i.e. with the input params set
-    - consider putting this into the pipleine when done.
+    - put this into the circle-ci pipleine when done.
 
 """
 read_data = "" 
@@ -76,7 +77,7 @@ def parse_args(args=sys.argv[1:]):
 def main(argv) :
     args=parse_args()
     
-    subcharts_list = [ "chart-admin", "chart-service"]
+    subcharts_list = []
     subchart_data_list = []
     subchart_start_offset_list = []
     subchart_end_offset_list = []
@@ -87,19 +88,21 @@ def main(argv) :
     parent_chart_yaml = parent_chart_dir / 'chart.yaml'
     parent_values_yaml = parent_chart_dir / 'values.yaml'
     charts_dir = script_dir.parent / 'mojaloop'
-    print(parent_chart_dir)
-    print(parent_values_yaml)
-    print(parent_chart_yaml)
+    banner_text="""
+## Generated default values for top-level mojaloop helm chart
+## This YAML formatted file has been automatically created from its dependent subcharts 
+## end-users and deployers should customise thier deployments by editing this file 
+"""
     
     # ensure that the parent chart dir and chart.yaml exist
     if not (parent_chart_dir.is_dir() and parent_chart_yaml.exists() ) : 
-        print(f"Error: missing parent chart directory or chart.yaml")
-        sys.exit("....exiting")
+        print(f"{Path( __file__ ).name} Error: missing parent chart directory or chart.yaml")
+        sys.exit("....exiting",0)
 
     subcharts_list = get_subcharts_from_parent(parent_chart_yaml)
     if (len(subcharts_list) == 0 ) : 
-        print(f"no subcharts for {arg.parentchart}")
-        print("exiting")
+        print(f"no subcharts for {args.parentchart}")
+        print("...exiting")
         sys.exit()
 
     for i in range(len(subcharts_list)) : 
@@ -118,6 +121,7 @@ def main(argv) :
     with open(parent_values_yaml,'w') as f:
         s = subchart_data_list[max_ptr]
         globals_section=s[subchart_start_offset_list[max_ptr]:subchart_end_offset_list[max_ptr] ]
+        print(banner_text,file=f)
         print (globals_section, file=f)
         print("## configurable values for subcharts ", file=f)
 
@@ -129,11 +133,6 @@ def main(argv) :
             x = sc_data[sc_offset:].split('\n')
             print('  ', end='', file=f)
             print('\n  '.join(x) , end='\n',file=f)
-    
-
-        
-
-
 
 if __name__ == "__main__":
     main(sys.argv[1:])

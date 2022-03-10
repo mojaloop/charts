@@ -18,20 +18,22 @@ declare -a charts=(
         # Common Charts
         mojaloop/common
         # Mojaloop BoF Charts
-        # mojaloop/security-role-perm-crd
-        # mojaloop/role-assignment-service
-        # mojaloop/reporting-hub-bop-shell
-        # mojaloop/reporting-hub-bop-api-svc
-        # mojaloop/reporting-events-processor-svc
-        # mojaloop/security-role-perm-operator-svc
-        # mojaloop/reporting-hub-bop-role-ui
-        # mojaloop/reporting-hub-bop-trx-ui
-        # mojaloop/security-hub-bop-kratos-ui
-        # mojaloop/bof
+        mojaloop/security-role-perm-crd
+        mojaloop/role-assignment-service
+        mojaloop/reporting-hub-bop-shell
+        mojaloop/reporting-hub-bop-api-svc
+        mojaloop/reporting-events-processor-svc
+        mojaloop/security-role-perm-operator-svc
+        mojaloop/reporting-hub-bop-role-ui
+        mojaloop/reporting-hub-bop-trx-ui
+        mojaloop/security-hub-bop-kratos-ui
+        mojaloop/bof
         ## placeholder
         # Mojaloop Core Charts
         mojaloop/admin-api-svc
         mojaloop/fspiop-transfer-api-svc
+        mojaloop/chart-admin
+        mojaloop/chart-service
         mojaloop/account-lookup-service
         # Main Mojaloop Helm Chart 
         mojaloop/mojaloop
