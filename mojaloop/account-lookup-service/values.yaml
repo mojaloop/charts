@@ -1,7 +1,9 @@
 
-## Generated default values for top-level mojaloop helm charts 
+## Default values.yaml for parent mojaloop helm charts which have subcharts
 ## This YAML formatted file has been automatically created from its dependent subcharts 
-## end-users and deployers should customise thier deployments by editing this file 
+## End users and deployers should customise their deployments by editing this file 
+## mojaloop developers should customise the values.yaml files in the subcharts and not edit this 
+## file directly. 
 
 global:
   imageRegistry: ""
@@ -27,7 +29,6 @@ global:
 
   # This can be overridden by defining the adminApiSvc element.    
   adminApiSvc: {}
-
 
 
 ## configurable values for subcharts 

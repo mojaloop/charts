@@ -17,10 +17,10 @@ import yaml
 
 """ 
 Todo:
-    - ensure that the Globals section has all properties from all subcharts i.e diff and merge or perhaps 
-      just check the longest set of global properties from the subcharts and use these 
+    - ensure that the Globals section has all properties from all subcharts i.e diff and merge rather than just using the longest set
+      of values (which is the way it is implemented now)
+    - all v14 values.yaml files should have a globals section BUT need to more gracefully handle the absence of a globals section.
     - put this into the circle-ci pipleine when done.
-
 """
 read_data = "" 
 
@@ -40,23 +40,25 @@ def get_subcharts_from_parent(pcy) :
         if ( dlist[i]['name'] != 'common' ) :
             sc_dir=Path(dlist[i]['repository']).name
             subchart_list.append(sc_dir)
-    print(subchart_list)
     return subchart_list            
 
-def get_globals_offset (data) : 
+def get_globals_offset (sc,data) : 
     """
             get and return the pointer to the end of the Globals section of the 
             subchart
             returns : offset if found  or -1 if not found 
     """
     ### get the globals section from subchart values.yaml 
-    globals_start=re.search('global:', data, re.MULTILINE)
-    if globals_start: 
-        print(globals_start)
-        print(globals_start.end())
+    globals_start=re.search('^global:', data, re.MULTILINE)
+    if not globals_start: 
+        print(f"Error: global values section not found in subchart [{sc}]")
+        print("..exiting")
+        sys.exit(1)
     globals_end=re.search('^[a-z]',data[globals_start.end():],re.MULTILINE)
-    if globals_end: 
-        print(globals_end.end())
+    if not globals_end: 
+        print(f"Error: the end of the global values section not found in subchart [{sc}]")
+        print("..exiting")
+        sys.exit(1)
 
     offset=globals_start.end() + globals_end.start()
     return globals_start.start() , offset
@@ -89,15 +91,17 @@ def main(argv) :
     parent_values_yaml = parent_chart_dir / 'values.yaml'
     charts_dir = script_dir.parent / 'mojaloop'
     banner_text="""
-## Generated default values for top-level mojaloop helm chart
+## Default values.yaml for parent mojaloop helm charts which have subcharts
 ## This YAML formatted file has been automatically created from its dependent subcharts 
-## end-users and deployers should customise thier deployments by editing this file 
+## End users and deployers should customise their deployments by editing this file 
+## mojaloop developers should customise the values.yaml files in the subcharts and not edit this 
+## file directly. 
 """
     
     # ensure that the parent chart dir and chart.yaml exist
     if not (parent_chart_dir.is_dir() and parent_chart_yaml.exists() ) : 
         print(f"{Path( __file__ ).name} Error: missing parent chart directory or chart.yaml")
-        sys.exit("....exiting",0)
+        sys.exit("....exiting")
 
     subcharts_list = get_subcharts_from_parent(parent_chart_yaml)
     if (len(subcharts_list) == 0 ) : 
@@ -109,7 +113,7 @@ def main(argv) :
         with open(charts_dir / subcharts_list[i] / "values.yaml") as f:
             read_data = f.read()
         subchart_data_list.append(read_data)
-        sos, eos = get_globals_offset(read_data)
+        sos, eos = get_globals_offset(subcharts_list[i],read_data)
         subchart_start_offset_list.append(sos)
         subchart_end_offset_list.append(eos)
         if (eos - sos > max_globals_sec ) :
@@ -122,7 +126,7 @@ def main(argv) :
         s = subchart_data_list[max_ptr]
         globals_section=s[subchart_start_offset_list[max_ptr]:subchart_end_offset_list[max_ptr] ]
         print(banner_text,file=f)
-        print (globals_section, file=f)
+        print (globals_section, file=f, end="")
         print("## configurable values for subcharts ", file=f)
 
         ### now add the subchart specific sections
