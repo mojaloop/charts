@@ -32,3 +32,5 @@ Chart.lock
 **/charts
 repo
 tmp.yaml
+# tdalys's test stuff
+*scripts/package.sh
