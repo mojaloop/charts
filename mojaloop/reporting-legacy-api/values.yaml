@@ -116,7 +116,7 @@ containerSecurityContext:
 image:
   registry: docker.io
   repository: mojaloop/reporting
-  tag: v10.7.0
+  tag: v11.0.0
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -197,7 +197,10 @@ metrics:
     defaultLabels:
       serviceName: reporting-legacy-api
 
-config: {}
+config:
+  env:
+    VALIDATION_RETRY_COUNT: "10"
+    VALIDATION_RETRY_INTERVAL_MS: "5000"
 
 service:
   internalPort: 3000
