@@ -43,9 +43,7 @@ echo "Updating all Charts..."
 for chart in "${charts[@]}"
 do
     echo "---=== Updating $chart ===---"
-    #helm dep up "$chart" --skip-refresh
-    helm dep up "$chart" --skip-refresh
-    
+    helm dep up "$chart" --skip-refresh    
 done
 
 set +x

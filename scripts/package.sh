@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-#Author Tom Daly : copied from @Miguel's update-chart-deps scripts
-# used for development and testing of V14 charts from v13.
+
 set -e
 
 #LOCAL_HELM_MOJALOOP_REPO_URI=${HELM_MOJALOOP_REPO_URI:-'https://docs.mojaloop.io/charts/repo'}
@@ -12,23 +11,8 @@ LOCAL_HELM_MOJALOOP_REPO_URI=https://docs.mojaloop.io/charts/repo
 
 trap 'echo "Command failed...exiting. Please fix me!"' ERR
 
-SCRIPTNAME=$0
-# Program paths
-CHARTS_DIR=$( cd $(dirname "$0")/.. ; pwd )
-#DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
-
-echo "CHARTS_DIR: $CHARTS_DIR"
-
-
 echo "Removing old charts..."
-#find $CHARTS_DIR -name "charts"| xargs rm -Rf
-
-# Tom testing 
-rm -rf /vagrant/charts/mojaloop/account-lookup-service/charts/*
-rm -f /vagrant/charts/mojaloop/chart-service/charts/*tgz
-rm -f /vagrant/charts/mojaloop/chart-admin/charts/*tgz
-rm -rf /vagrant/charts/mojaloop/mojaloop/charts/account-lookup*tgz
+find ./ -name "charts"| xargs rm -Rf
 
 mkdir -p ./repo
 
@@ -37,29 +21,27 @@ if [ "$1" ]; then
 else
     declare -a charts=(
         # Example Backend Dependency Charts
-        $CHARTS_DIR/mojaloop/example-backend
+        mojaloop/example-backend
         # Common Charts
-        #mojaloop/common
+        mojaloop/common
         # Mojaloop BoF Charts
-        # mojaloop/security-role-perm-crd
-        # mojaloop/role-assignment-service
-        # mojaloop/reporting-hub-bop-shell
-        # mojaloop/reporting-hub-bop-api-svc
-        # mojaloop/reporting-events-processor-svc
-        # mojaloop/security-role-perm-operator-svc
-        # mojaloop/reporting-hub-bop-role-ui
-        # mojaloop/reporting-hub-bop-trx-ui
-        # mojaloop/security-hub-bop-kratos-ui
-        # mojaloop/bof
+        mojaloop/role-assignment-service
+        mojaloop/reporting-hub-bop-experience-api-svc
+        mojaloop/reporting-hub-bop-shell
+        mojaloop/reporting-hub-bop-api-svc
+        mojaloop/reporting-events-processor-svc
+        mojaloop/security-role-perm-operator-svc
+        mojaloop/reporting-hub-bop-role-ui
+        mojaloop/reporting-hub-bop-trx-ui
+        mojaloop/reporting-legacy-api
+        mojaloop/security-hub-bop-kratos-ui
+        mojaloop/bof
         ## placeholder
         # Mojaloop Core Charts
-        #mojaloop/admin-api-svc
-        #mojaloop/fspiop-transfer-api-svc
-        $CHARTS_DIR/mojaloop/chart-service
-        $CHARTS_DIR/mojaloop/chart-admin
-        $CHARTS_DIR/mojaloop/account-lookup-service
+        mojaloop/admin-api-svc
+        mojaloop/fspiop-transfer-api-svc
         # Main Mojaloop Helm Chart 
-        $CHARTS_DIR/mojaloop/mojaloop
+        mojaloop/mojaloop
     )
 fi
 
@@ -67,9 +49,7 @@ for chart in "${charts[@]}"
 do
     if [ -z $BUILD_NUM ] || [ -z $GIT_SHA1 ]; then # we're most likely not running in CI
         # Probably running on someone's machine
-        set -x 
         helm package -u -d ./repo "$chart"
-        set +x 
     elif [ -z $GITHUB_TAG ]; then # we're probably running in CI, but this is not a job triggered by a tag
         set -u
         # When $GITHUB_TAG is not present, we'll build a development version. This versioning
