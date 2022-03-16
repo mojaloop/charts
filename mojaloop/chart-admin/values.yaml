@@ -113,7 +113,6 @@ image:
 
 replicaCount: 1
 command: '["node", "src/index.js", "server", "--admin"]' 
-#command: '["sleep", "infinity"]' 
 
 ## Enable diagnostic mode in the deployment
 ##
@@ -202,7 +201,6 @@ initContainers:
       - sh
       - -c
       - npm run migrate
-      #- sleep infinity
     env:
       - name: ALS_MIGRATIONS__RUN_DATA_MIGRATIONS
         value: 'true'

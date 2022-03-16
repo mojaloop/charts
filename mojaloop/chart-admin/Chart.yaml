@@ -1,7 +1,7 @@
 apiVersion: v2
 description: account lookup service admin 
 name: account-lookup-service-admin
-version: 12.4.0
+version: 13.0.0
 appVersion: "11.8.0"
 maintainers:
   - name: Tom Daly 

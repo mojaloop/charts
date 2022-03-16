@@ -112,7 +112,6 @@ image:
 
 replicaCount: 1
 command: '["node", "src/index.js", "server", "--api"]' 
-#command: '["sleep", "infinity"]' 
 
 ## Enable diagnostic mode in the deployment
 ##

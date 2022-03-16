@@ -18,14 +18,15 @@ declare -a charts=(
         # Common Charts
         mojaloop/common
         # Mojaloop BoF Charts
-        mojaloop/security-role-perm-crd
         mojaloop/role-assignment-service
+        mojaloop/reporting-hub-bop-experience-api-svc
         mojaloop/reporting-hub-bop-shell
         mojaloop/reporting-hub-bop-api-svc
         mojaloop/reporting-events-processor-svc
         mojaloop/security-role-perm-operator-svc
         mojaloop/reporting-hub-bop-role-ui
         mojaloop/reporting-hub-bop-trx-ui
+        mojaloop/reporting-legacy-api
         mojaloop/security-hub-bop-kratos-ui
         mojaloop/bof
         ## placeholder

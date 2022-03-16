@@ -109,8 +109,6 @@ image:
 
 replicaCount: 1
 command:
-  # - sleep
-  # - infinity
   - node
   - src/api/index.js
 

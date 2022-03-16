@@ -1,7 +1,7 @@
 apiVersion: v2
 description: Account Lookup Service Helm Chart for Mojaloop
 name: account-lookup-service
-version: 12.4.0
+version: 13.0.0
 appVersion: "account-lookup-service: v11.8.0; als-oracle-pathfinder: v11.0.0"
 home: http://mojaloop.io
 icon: http://mojaloop.io/images/logo.png
