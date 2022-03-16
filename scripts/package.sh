@@ -11,6 +11,8 @@ LOCAL_HELM_MOJALOOP_REPO_URI=https://docs.mojaloop.io/charts/repo
 
 trap 'echo "Command failed...exiting. Please fix me!"' ERR
 
+set -x 
+
 echo "Removing old charts..."
 find ./ -name "charts"| xargs rm -Rf
 
@@ -26,7 +28,7 @@ else
         mojaloop/common
         # Mojaloop BoF Charts
         mojaloop/role-assignment-service
-        mojaloop/reporting-hub-bop-experience-api-svc
+        #mojaloop/reporting-hub-bop-experience-api-svc
         mojaloop/reporting-hub-bop-shell
         mojaloop/reporting-hub-bop-api-svc
         mojaloop/reporting-events-processor-svc
@@ -40,6 +42,9 @@ else
         # Mojaloop Core Charts
         mojaloop/admin-api-svc
         mojaloop/fspiop-transfer-api-svc
+        mojaloop/chart-service
+        mojaloop/chart-admin
+        mojaloop/account-lookup-service
         # Main Mojaloop Helm Chart 
         mojaloop/mojaloop
     )
