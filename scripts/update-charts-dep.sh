@@ -28,11 +28,15 @@ declare -a charts=(
         mojaloop/reporting-hub-bop-trx-ui
         mojaloop/reporting-legacy-api
         mojaloop/security-hub-bop-kratos-ui
+        mojaloop/security-role-perm-crd
         mojaloop/bof
         ## placeholder
         # Mojaloop Core Charts
         mojaloop/admin-api-svc
         mojaloop/fspiop-transfer-api-svc
+        mojaloop/chart-admin
+        mojaloop/chart-service
+        mojaloop/account-lookup-service
         # Main Mojaloop Helm Chart 
         mojaloop/mojaloop
     )
@@ -41,7 +45,7 @@ echo "Updating all Charts..."
 for chart in "${charts[@]}"
 do
     echo "---=== Updating $chart ===---"
-    helm dep up "$chart" --skip-refresh
+    helm dep up "$chart" --skip-refresh    
 done
 
 set +x
