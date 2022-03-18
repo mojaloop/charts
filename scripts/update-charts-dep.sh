@@ -30,7 +30,6 @@ declare -a charts=(
         mojaloop/reporting-hub-bop-trx-ui
         mojaloop/reporting-legacy-api
         mojaloop/security-hub-bop-kratos-ui
-        #mojaloop/security-role-perm-crd
         mojaloop/bof
         ## placeholder
         # Mojaloop Core Charts
