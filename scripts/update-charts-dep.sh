@@ -8,7 +8,9 @@ set -eu
 
 trap 'echo "Dep update failed...exiting. Please fix me!"' ERR
 
+echo $0
 echo "Removing old charts..."
+
 find ./ -name "charts"| xargs rm -Rf
 find ./ -name "tmpcharts"| xargs rm -Rf
 
@@ -33,6 +35,9 @@ declare -a charts=(
         # Mojaloop Core Charts
         mojaloop/admin-api-svc
         mojaloop/fspiop-transfer-api-svc
+        mojaloop/chart-admin
+        mojaloop/chart-service
+        mojaloop/account-lookup-service
         # Main Mojaloop Helm Chart 
         mojaloop/mojaloop
     )
@@ -41,7 +46,7 @@ echo "Updating all Charts..."
 for chart in "${charts[@]}"
 do
     echo "---=== Updating $chart ===---"
-    helm dep up "$chart" --skip-refresh
+    helm dep up "$chart" --skip-refresh    
 done
 
 set +x
