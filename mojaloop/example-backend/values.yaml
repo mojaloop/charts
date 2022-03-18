@@ -1449,8 +1449,24 @@ mysql:
   # initdbScripts: {}
   initdbScripts:
       # This script enables legacy authentication for MySQL v8. NodeJS MySQL Client currently does not support authentication plugins, reference: https://github.com/mysqljs/mysql/pull/2233
-      enableLegacyAuth.sql: |-
+      defaultInit.sql: |-
         ALTER USER 'user'@'%' IDENTIFIED WITH mysql_native_password BY 'password';
+        FLUSH PRIVILEGES;
+      accountLookupInit.sql: |-
+        DROP DATABASE IF EXISTS account_lookup;
+        CREATE DATABASE account_lookup;
+        DROP USER IF EXISTS account_lookup@'%';
+        CREATE USER 'account_lookup'@'%' IDENTIFIED WITH mysql_native_password BY 'password';
+        GRANT ALL PRIVILEGES ON account_lookup.* TO 'account_lookup'@'%';
+        FLUSH PRIVILEGES;
+      centralLedgerInit.sql: |-
+        DROP DATABASE IF EXISTS central_ledger;
+        CREATE DATABASE central_ledger;
+        DROP USER IF EXISTS central_ledger@'%';
+        CREATE USER 'central_ledger'@'%' IDENTIFIED WITH mysql_native_password BY 'password';
+        GRANT ALL PRIVILEGES ON central_ledger.* TO 'central_ledger'@'%';
+        FLUSH PRIVILEGES;
+
   ## @param initdbScriptsConfigMap ConfigMap with the initdb scripts (Note: Overrides `initdbScripts`)
   ##
   initdbScriptsConfigMap: ""
@@ -2368,7 +2384,7 @@ kowl:
 ################################################################
 ## MongoDB Backend Dependency
 reporting-events-db:
-  enabled: true
+  enabled: false
   fullnameOverride: "reporting-events-db"
 
   auth:
@@ -2396,7 +2412,7 @@ reporting-events-db:
 ## keto migrate up -y --all-namespaces --config /etc/config/keto.yaml
 ##
 keto:
-  enabled: true
+  enabled: false
   ## Installation
   # https://k8s.ory.sh/helm/charts
   # helm repo add ory https://k8s.ory.sh/helm/charts
@@ -2676,7 +2692,7 @@ keto:
       minAvailable: 1
 
 oathkeeper:
-  enabled: true
+  enabled: false
   # -- If enabled, a demo deployment with exemplary access rules and JSON Web Key Secrets will be generated.
   demo: false
 
@@ -2983,7 +2999,7 @@ oathkeeper:
 ## kratos migrate sql -e --yes
 ##
 kratos:
-  enabled: true
+  enabled: false
   # -- Number of replicas in deployment
   replicaCount: 1
   # -- Deployment update strategy
@@ -3430,7 +3446,7 @@ kratos:
 ################################################################
 ## MySQL DB for Kratos
 kratos-db:
-  enabled: true
+  enabled: false
   fullnameOverride: "kratos-db"
   image:
     registry: docker.io
@@ -4080,7 +4096,7 @@ kratos-db:
 ################################################################
 ## MySQL DB for Keto
 keto-db:
-  enabled: true
+  enabled: false
   fullnameOverride: "keto-db"
   image:
     registry: docker.io
