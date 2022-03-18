@@ -8,7 +8,9 @@ set -eu
 
 trap 'echo "Dep update failed...exiting. Please fix me!"' ERR
 
+echo $0
 echo "Removing old charts..."
+
 find ./ -name "charts"| xargs rm -Rf
 find ./ -name "tmpcharts"| xargs rm -Rf
 

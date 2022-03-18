@@ -11,6 +11,7 @@ LOCAL_HELM_MOJALOOP_REPO_URI=https://docs.mojaloop.io/charts/repo
 
 trap 'echo "Command failed...exiting. Please fix me!"' ERR
 
+echo $0
 echo "Removing old charts..."
 find ./ -name "charts"| xargs rm -Rf
 
