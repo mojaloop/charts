@@ -1,0 +1,34 @@
+apiVersion: v2
+description: Account Lookup Service Helm Chart for Mojaloop
+name: account-lookup-service
+version: 13.0.0
+appVersion: "account-lookup-service: v11.8.0; als-oracle-pathfinder: v11.0.0"
+home: http://mojaloop.io
+icon: http://mojaloop.io/images/logo.png
+sources:
+  - https://github.com/mojaloop/mojaloop
+  - https://github.com/mojaloop/helm
+  - https://github.com/mojaloop/ml-api-adapter
+maintainers:
+  - name: Miguel de Barros
+    email: miguel.debarros@modusbox.com
+  - name: Tom Daly 
+    email: tdaly61@gmail.com   
+dependencies:
+  - name: common
+    repository: "file://../common"
+    tags:
+      - moja-common
+    version: 1.0.0
+  - name: account-lookup-service
+    version: 13.0.0
+    repository: "file://../chart-service"
+    condition: account-lookup-service.enabled
+  - name: account-lookup-service-admin
+    version: 13.0.0
+    repository: "file://../chart-admin"
+    condition: account-lookup-service-admin.enabled
+  # - name: als-oracle-pathfinder
+  #   version: 12.4.0
+  #   repository: "file://../als-oracle-pathfinder"
+  #   condition: als-oracle-pathfinder.enabled

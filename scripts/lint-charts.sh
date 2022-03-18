@@ -37,6 +37,7 @@ else
         # Mojaloop Core Charts
         mojaloop/admin-api-svc
         mojaloop/fspiop-transfer-api-svc
+        mojaloop/account-lookup-service 
         # Main Mojaloop Helm Chart 
         mojaloop/mojaloop
     )

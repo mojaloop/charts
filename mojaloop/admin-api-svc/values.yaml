@@ -109,8 +109,6 @@ image:
 
 replicaCount: 1
 command:
-  # - sleep
-  # - infinity
   - node
   - src/api/index.js
 
@@ -201,7 +199,7 @@ initContainers:
       - sh
       - -c
       - npm run migrate
-      # - sleep infinity
+      #- sleep infinity
     env:
       - name: CLEDG_MIGRATIONS__RUN_DATA_MIGRATIONS
         value: 'true'
