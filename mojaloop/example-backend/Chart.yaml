@@ -26,7 +26,10 @@ dependencies:
   - name: kafka
     alias: kafka
     condition: kafka.enabled
-    repository: "https://charts.bitnami.com/bitnami"
+    ## TODO: Update charts to supported versions
+    # repository: "https://charts.bitnami.com/bitnami"
+    ## The following repo is a Work-around for Bitnami retention policy issue (https://github.com/bitnami/charts/issues/10539). Fix: https://github.com/mojaloop/project/issues/2815
+    repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
     tags:
       - mojaloop
       - dependency
@@ -36,7 +39,10 @@ dependencies:
   - name: mysql
     alias: mysql
     condition: mysql.enabled
-    repository: "https://charts.bitnami.com/bitnami"
+    ## TODO: Update charts to supported versions
+    # repository: "https://charts.bitnami.com/bitnami"
+    ## The following repo is a Work-around for Bitnami retention policy issue (https://github.com/bitnami/charts/issues/10539). Fix: https://github.com/mojaloop/project/issues/2815
+    repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
     tags:
       - mojaloop
       - dependency
@@ -46,7 +52,10 @@ dependencies:
   - name: mongodb
     alias: reporting-events-db
     condition: reporting-events-db.enabled
-    repository: "https://charts.bitnami.com/bitnami"
+    ## TODO: Update charts to supported versions
+    # repository: "https://charts.bitnami.com/bitnami"
+    ## The following repo is a Work-around for Bitnami retention policy issue (https://github.com/bitnami/charts/issues/10539). Fix: https://github.com/mojaloop/project/issues/2815
+    repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
     tags:
       - mojaloop
       - dependency
@@ -78,7 +87,10 @@ dependencies:
   - name: mysql
     alias: keto-db
     condition: keto-db.enabled
-    repository: "https://charts.bitnami.com/bitnami"
+    ## TODO: Update charts to supported versions
+    # repository: "https://charts.bitnami.com/bitnami"
+    ## The following repo is a Work-around for Bitnami retention policy issue (https://github.com/bitnami/charts/issues/10539). Fix: https://github.com/mojaloop/project/issues/2815
+    repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
     tags:
       - mojaloop
       - dependency
@@ -112,7 +124,10 @@ dependencies:
   - name: mysql
     alias: kratos-db
     condition: kratos-db.enabled
-    repository: "https://charts.bitnami.com/bitnami"
+    ## TODO: Update charts to supported versions
+    # repository: "https://charts.bitnami.com/bitnami"
+    ## The following repo is a Work-around for Bitnami retention policy issue (https://github.com/bitnami/charts/issues/10539). Fix: https://github.com/mojaloop/project/issues/2815
+    repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
     tags:
       - mojaloop
       - dependency

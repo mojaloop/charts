@@ -104,8 +104,6 @@ $ curl http://admin-api-svc.local/participants/Hub/accounts -s | jq
 ]
 ```
 
-  -H 'date: Mon, 20 Sep 2021 11:47:45 GMT'
- 
 ```bash
 $ DATE_ISO=$(date -u +%a,\ %d\ %b\ %Y\ %H:%M:%S\ GMT) && curl -v 'http://transfer-api-svc.local/transfers' \
 -H 'content-type: application/vnd.interoperability.transfers+json;version=1.0' \
@@ -154,10 +152,33 @@ $ DATE_ISO=$(date -u +%a,\ %d\ %b\ %Y\ %H:%M:%S\ GMT) && curl -v 'http://transfe
 * Closing connection 0
 ```
 
+## Running Locally
 
-## Debugging CI/CD
+This can be useful for debugging CI/CD issues.
 
-### Running Locally
+### Pre-requisites
+
+1. Make sure you run the following commands to add all Repo dependencies...
+
+    ```bash
+    helm repo add bitnami https://charts.bitnami.com/bitnami
+    ## The following repo is a Work-around for Bitnami retention policy issue: https://github.com/bitnami/charts/issues/10539, fix: https://github.com/mojaloop/project/issues/2815
+    helm repo add bitnami-full-index https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
+    helm repo add ory https://k8s.ory.sh/helm/charts
+    helm repo add kowl https://raw.githubusercontent.com/cloudhut/charts/master/archives
+    helm repo add reporting-k8s-templates https://mojaloop.github.io/reporting-k8s-templates
+    helm repo update
+    ```
+
+2. Run the following commands to update the full helm dependency tree...
+
+    > _Note: Ensure you do this after making any changes to default values or templates._
+
+    ```bash
+    sh ./scripts/update-charts-dep.sh
+    ```
+
+### Running
 
 You can run the `k8s-version-test.sh` script locally to help verify your deployment.
 
@@ -169,23 +190,22 @@ For example:
 sudo CHARTS_WORKING_DIR=`pwd` ./scripts/k8s-versions-test.sh \
   -m install -v v1.21 -u `whoami` -t 1000s
 
-
 ```
 
-> Note: this currently doesn't work on m1 Macs! The MYSQL docker container doesn't have 
+> Note: this currently doesn't work on m1 Macs! The MYSQL docker container doesn't have
 > support for arm64 architectures
 
 ### Check the k8s event logs
 
 When a build fails, we write the k8s events to a log and store it as an artifact on circleci:
 
-```            
+```bash
 kubectl get events --sort-by=.metadata.creationTimestamp > /tmp/k8s_events
 ```
 
 You can check the output of this log to determine if the error is related to pods not starting etc.
 
-### Log in, and get pods:
+### Log in, and get pods
 
 On CircleCI, click "Rerun job with ssh" > Copy and paste the `ssh` command into your command line
 

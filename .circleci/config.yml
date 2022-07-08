@@ -41,6 +41,8 @@ defaults_Environment: &defaults_environment
   command: |
     echo "Adding repos necessary for publishing process"
     helm repo add bitnami https://charts.bitnami.com/bitnami
+    ## The following repo is a Work-around for Bitnami retention policy issue: https://github.com/bitnami/charts/issues/10539, fix: https://github.com/mojaloop/project/issues/2815
+    helm repo add bitnami-full-index https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
     helm repo add ory https://k8s.ory.sh/helm/charts
     helm repo add kowl https://raw.githubusercontent.com/cloudhut/charts/master/archives
     helm repo add reporting-k8s-templates https://mojaloop.github.io/reporting-k8s-templates
