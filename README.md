@@ -15,7 +15,7 @@
 ## Published Helm Chart Repo
 
 ```bash
-helm repo add mojaloop-charts http://docs.mojaloop.io/charts/repo
+helm repo add mojaloop-charts https://mojaloop.github.io/charts/repo
 ```
 
 ## Todo
