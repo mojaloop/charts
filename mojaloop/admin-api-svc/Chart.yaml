@@ -1,5 +1,5 @@
 apiVersion: v2
-description: FSPIOP Transfer API Service component Helm chart for Kubernetes
+description: EXPERIMENTAL FSPIOP Transfer API Service component Helm chart for Kubernetes
 name: admin-api-svc
 version: 12.0.0
 appVersion: "11.1.6"

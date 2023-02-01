@@ -1,5 +1,5 @@
 apiVersion: v2
-description: account lookup service  
+description: EXPERIMENTAL account lookup service helm chart
 name: account-lookup-service
 version: 13.0.0
 appVersion: "11.8.0"
