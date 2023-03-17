@@ -1,6 +1,10 @@
 # Mojaloop Helm Charts
 
-**EXPERIMENTAL**
+Please see https://github.com/mojaloop/helm for the Official Mojaloop Helm Charts.
+
+Here you will find the Business Operational Helm Charts for Reporting Services, UIs, and Portals. 
+
+**NOTE: These will be migrated into the https://github.com/mojaloop/helm repo in the near future.**
 
 [![Git Commit](https://img.shields.io/github/last-commit/mojaloop/charts.svg?style=flat)](https://github.com/mojaloop/charts/commits/master)
 [![Git Releases](https://img.shields.io/github/release/mojaloop/charts.svg?style=flat)](https://github.com/mojaloop/charts/releases)
