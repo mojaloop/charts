@@ -45,15 +45,22 @@ Get reportingDB database.
 {{- end -}}
 
 {{/*
+Get reportingDB password.
+*/}}
+{{- define "common.backends.reportingDB.password" -}}
+  {{- default "" (default .Values.global.reportingDB.password .Values.reportingDB.password) -}}
+{{- end -}}
+
+{{/*
 Get fully qualified reportingDB secret.name
 */}}
 {{- define "common.backends.reportingDB.secret.name" -}}
-  {{- default (include "common.backends.reportingDB.fullname" .) (default .Values.global.reportingDB.secret.name .Values.reportingDB.secret.name) -}}
+  {{- default "" (default .Values.global.reportingDB.secret.name .Values.reportingDB.secret.name) -}}
 {{- end -}}
 
 {{/*
 Get fully qualified reportingDB secret.key
 */}}
 {{- define "common.backends.reportingDB.secret.key" -}}
-  {{- default (include "common.backends.reportingDB.fullname" .) (default .Values.global.reportingDB.secret.key .Values.reportingDB.secret.key) -}}
+  {{- default "" (default .Values.global.reportingDB.secret.key .Values.reportingDB.secret.key) -}}
 {{- end -}}
