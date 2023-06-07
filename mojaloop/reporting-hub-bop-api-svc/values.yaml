@@ -213,34 +213,34 @@ metrics:
 
 configFiles:
   default.json: |
-  {
-    "PORT": 3000,
-    "REPORTING_DB": {
-      "DIALECT": "mysql",
-      "HOST": '{{ include "common.backends.reportingDB.host" . }}',
-      "PORT": '{{ include "common.backends.reportingDB.port" . }}',
-      "USER": '{{ include "common.backends.reportingDB.user" . }}',
-      "PASSWORD": '{{ include "common.backends.reportingDB.password" . }}',
-      "SCHEMA": '{{ include "common.backends.reportingDB.database" . }}'
-    },
-    "EVENT_STORE_DB": {
-      "HOST": '{{ include "common.backends.reportingEventsDB.host" . }}',
-      "PORT": '{{ include "common.backends.reportingEventsDB.port" . }}',
-      "USER": '{{ include "common.backends.reportingEventsDB.user" . }}',
-      "PASSWORD": '{{ include "common.backends.reportingEventsDB.password" . }}',
-      "DATABASE": '{{ include "common.backends.reportingEventsDB.database" . }}'
-    },
-    "ORY_KETO_READ_URL": "",
-    "AUTH_CHECK_PARTICIPANTS": false,
-    "USER_ID_HEADER": "x-user",
-    "PRISMA_LOGGING_ENABLED": false,
-    "CORS_WHITELIST": [
-      "http://reporting-hub-bop-shell.local",
-      "http://reporting-hub-bop-settlements-ui.local",
-      "http://reporting-hub-bop-positions-ui.local"
-    ],
-    "ALLOW_CREDENTIALS": true
-  }
+    {
+      "PORT": 3000,
+      "REPORTING_DB": {
+        "DIALECT": "mysql",
+        "HOST": '{{ include "common.backends.reportingDB.host" . }}',
+        "PORT": '{{ include "common.backends.reportingDB.port" . }}',
+        "USER": '{{ include "common.backends.reportingDB.user" . }}',
+        "PASSWORD": '{{ include "common.backends.reportingDB.password" . }}',
+        "SCHEMA": '{{ include "common.backends.reportingDB.database" . }}'
+      },
+      "EVENT_STORE_DB": {
+        "HOST": '{{ include "common.backends.reportingEventsDB.host" . }}',
+        "PORT": '{{ include "common.backends.reportingEventsDB.port" . }}',
+        "USER": '{{ include "common.backends.reportingEventsDB.user" . }}',
+        "PASSWORD": '{{ include "common.backends.reportingEventsDB.password" . }}',
+        "DATABASE": '{{ include "common.backends.reportingEventsDB.database" . }}'
+      },
+      "ORY_KETO_READ_URL": "",
+      "AUTH_CHECK_PARTICIPANTS": false,
+      "USER_ID_HEADER": "x-user",
+      "PRISMA_LOGGING_ENABLED": false,
+      "CORS_WHITELIST": [
+        "http://reporting-hub-bop-shell.local",
+        "http://reporting-hub-bop-settlements-ui.local",
+        "http://reporting-hub-bop-positions-ui.local"
+      ],
+      "ALLOW_CREDENTIALS": true
+    }
 
 service:
   internalPort: 3000
