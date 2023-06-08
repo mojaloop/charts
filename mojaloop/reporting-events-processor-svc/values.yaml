@@ -8,24 +8,16 @@
 ## @param global.storageClass Global StorageClass for Persistent Volume(s)
 ##
 global:
-  # This can be overridden by the main keto element.
-  kafka:
-    host: kafka
-
   reportingEventsDB:
     host: reporting-events-db
     port: 27017
     user: user
     database: default
+    password: ''
     # secret: {}
     secret:
       name: reporting-events-db
       key: mongodb-password
-
-kafka:
-  topic: ledger
-  consumerGroup: group
-  clientId: client-id
 
 reportingEventsDB:
   ## This is the same as setting the host explicitly, i.e. will set the host as set below. It is included to support importing MySQL charts as a dependency.
@@ -36,9 +28,17 @@ reportingEventsDB:
   # port: 27017
   # user: event_store
   # database: event_store
+  # password: ''
   secret: {}
   #   name: reporting-events-db
   #   key: password
+
+kafka:
+  host: kafka-headless
+  port: 9092
+  topicEvent: topic-event
+  consumerGroup: reporting_events_processor_consumer_group
+  clientId: reporting_events_processor_consumer
 
 podAffinityPreset: ""
 ## @param podAntiAffinityPreset Pod anti-affinity preset. Ignored if `main.affinity` is set. Allowed values: `soft` or `hard`
@@ -100,7 +100,7 @@ containerSecurityContext:
 image:
   registry: docker.io
   repository: mojaloop/reporting-events-processor-svc
-  tag: v1.1.0
+  tag: v2.0.0-snapshot.1
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -168,7 +168,25 @@ metrics:
     defaultLabels:
       serviceName: reporting-events-processor-svc
 
-config: {}
+configFiles:
+  default.json: |
+    {
+      "EVENT_STORE_DB": {
+        "HOST": "{{ include "common.backends.reportingEventsDB.host" . }}",
+        "PORT": "{{ include "common.backends.reportingEventsDB.port" . }}",
+        "USER": "{{ include "common.backends.reportingEventsDB.user" . }}",
+        "PASSWORD": "{{ include "common.backends.reportingEventsDB.password" . }}",
+        "DATABASE": "{{ include "common.backends.reportingEventsDB.database" . }}",
+        "EVENTS_COLLECTION": "reporting"
+      },
+      "KAFKA": {
+        "BROKER_LIST": ["{{ .Values.kafka.host }}:{{ .Values.kafka.port }}"],
+        "CONSUMER_GROUP": "{{ .Values.kafka.consumerGroup }}",
+        "CLIENT_ID": "{{ .Values.kafka.clientId }}",
+        "TOPIC_EVENT": "{{ .Values.kafka.topicEvent }}"
+      }
+    }
+
 
 podAnnotations: {}
 

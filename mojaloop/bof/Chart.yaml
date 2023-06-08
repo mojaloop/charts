@@ -63,7 +63,7 @@ dependencies:
     tags:
       - mojaloop
       - reporting-events-processor-svc
-    version: 1.0.0
+    version: 2.0.0
   - name: security-role-perm-operator-svc
     condition: security-role-perm-operator-svc.enabled
     repository: "file://../security-role-perm-operator-svc"

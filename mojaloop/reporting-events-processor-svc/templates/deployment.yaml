@@ -76,36 +76,40 @@ spec:
           {{- else if .Values.args }}
           args: {{- include "common.tplvalues.render" (dict "value" .Values.args "context" $) | nindent 12 }}
           {{- end }}
+          volumeMounts:
+            - name: {{ template "common.names.fullname" . }}-config-volume
+              mountPath: /opt/reporting-events-processor-svc/config
           env:
-            - name: KAFKA_TOPIC_TO_CONSUME
-              value: {{ .Values.kafka.topic }}
+            - name: KAFKA_BROKER_LIST
+              value: '{{ .Values.kafka.host }}:{{ .Values.kafka.port }}'
+            - name: KAFKA_TOPIC_EVENT
+              value: {{ .Values.kafka.topicEvent }}
             - name: KAFKA_CONSUMER_GROUP
               value: {{ .Values.kafka.consumerGroup }}
             - name: KAFKA_CLIENT_ID
               value: {{ .Values.kafka.clientId }}
-            - name: KAFKA_HOST
-              value: '{{ include "common.backends.centralbroker.host" . }}'
-            - name: KAFKA_PORT
-              value: '{{ include "common.backends.centralbroker.port" . }}'
-            - name: KAFKA_URI
-              value: $(KAFKA_HOST):$(KAFKA_PORT)
             # Event Store
-            - name: EVENT_DB_HOST
+            - name: EVENT_STORE_DB_HOST
               value: '{{ include "common.backends.reportingEventsDB.host" . }}'
-            - name: EVENT_DB_PORT
+            - name: EVENT_STORE_DB_PORT
               value: '{{ include "common.backends.reportingEventsDB.port" . }}'
-            - name: EVENT_DB_NAME
+            - name: EVENT_STORE_DB_DATABASE
               value: '{{ include "common.backends.reportingEventsDB.database" . }}'
-            - name: EVENT_DB_USER
+            - name: EVENT_STORE_DB_USER
               value: '{{ include "common.backends.reportingEventsDB.user" . }}'
-            - name: EVENT_DB_PASSWORD
+            - name: EVENT_STORE_DB_PASSWORD
+            {{- if (include "common.backends.reportingEventsDB.secret.name" .) }}
               valueFrom:
                 secretKeyRef:
                   name: '{{ include "common.backends.reportingEventsDB.secret.name" . }}'
                   key: '{{ include "common.backends.reportingEventsDB.secret.key" . }}'
-            - name: MONGO_DB_URI
-              value: mongodb://$(EVENT_DB_USER):$(EVENT_DB_PASSWORD)@$(EVENT_DB_HOST):$(EVENT_DB_PORT)/$(EVENT_DB_NAME)
-            - name: MONGO_DB_DBNAME
-              value: $(EVENT_DB_NAME)
-            - name: MONGO_DB_COLNAME
-              value: 'reporting'
+            {{- else }}
+              value: '{{ include "common.backends.reportingEventsDB.password" . }}'
+            {{- end }}
+      volumes:
+        - name: {{ template "common.names.fullname" . }}-config-volume
+          configMap:
+            name: {{ template "common.names.fullname" . }}-config
+            items:
+            - key: default.json
+              path: default.json
