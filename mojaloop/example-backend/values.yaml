@@ -2383,28 +2383,61 @@ kowl:
 
 ################################################################
 ## MongoDB Backend Dependency
+## Reference: https://github.com/bitnami/charts/blob/main/bitnami/mongodb/values.yaml
 reporting-events-db:
   enabled: false
+
+  ## @param fullnameOverride String to fully override mongodb.fullname template
+  ##
   fullnameOverride: "reporting-events-db"
-
+  ## MongoDB(&reg;) Authentication parameters
+  ##
   auth:
+    ## @param auth.enabled Enable authentication
+    ## ref: https://docs.mongodb.com/manual/tutorial/enable-authentication/
+    ##
+    enabled: true
+    ## @param auth.rootUser MongoDB(&reg;) root user
+    ##
     rootUser: root
+    ## @param auth.rootPassword MongoDB(&reg;) root password
+    ## ref: https://github.com/bitnami/containers/tree/main/bitnami/mongodb#setting-the-root-user-and-password-on-first-run
+    ##
     rootPassword: "rootPassword"
-    username: "user"
-    password: "password"
-    database: "default"
+    ## MongoDB(&reg;) custom users and databases
+    ## ref: https://github.com/bitnami/containers/tree/main/bitnami/mongodb#creating-a-user-and-database-on-first-run
+    ## @param auth.usernames List of custom users to be created during the initialization
+    ## @param auth.passwords List of passwords for the custom users set at `auth.usernames`
+    ## @param auth.databases List of custom databases to be created during the initialization
+    ##
+    usernames:
+      - 'bof'
+    passwords:
+      - 'bof'
+    databases:
+      - 'bof'
 
-  resources:
-    requests:
-      cpu: 10m
-      memory: 256Mi
+    username: ""
+    password: ""
+    database: ""
 
+    ## @param auth.replicaSetKey Key used for authentication in the replicaset (only when `architecture=replicaset`)
+    ##
+    replicaSetKey: ""
+    ## @param auth.existingSecret Existing secret with MongoDB(&reg;) credentials (keys: `mongodb-passwords`, `mongodb-root-password`, `mongodb-metrics-password`, ` mongodb-replica-set-key`)
+    ## NOTE: When it's set the previous parameters are ignored.
+    ##
+    existingSecret: ""
+  ## @section Persistence parameters
+  ##
+
+  ## Enable persistence using Persistent Volume Claims
+  ## ref: https://kubernetes.io/docs/user-guide/persistent-volumes/
+  ##
   persistence:
+    ## @param persistence.enabled Enable MongoDB(&reg;) data persistence using PVC
+    ##
     enabled: false
-    accessModes:
-      - ReadWriteOnce
-    size: 8Gi
-    annotations: {}
 
 ################################################################
 ## Ory Keto Backend Dependency
