@@ -11,13 +11,13 @@ global:
   reportingEventsDB:
     host: reporting-events-db
     port: 27017
-    user: user
-    database: default
-    password: ''
+    user: bof
+    database: bof
+    # password: bof
     # secret: {}
     secret:
       name: reporting-events-db
-      key: mongodb-password
+      key: mongodb-passwords
 
 reportingEventsDB:
   ## This is the same as setting the host explicitly, i.e. will set the host as set below. It is included to support importing MySQL charts as a dependency.
@@ -100,7 +100,7 @@ containerSecurityContext:
 image:
   registry: docker.io
   repository: mojaloop/reporting-events-processor-svc
-  tag: v2.0.0-snapshot.1
+  tag: v2.0.0-snapshot.3
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
