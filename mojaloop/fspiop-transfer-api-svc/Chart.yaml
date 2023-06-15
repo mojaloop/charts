@@ -1,7 +1,7 @@
 apiVersion: v2
 description: EXPERIMENTAL FSPIOP Transfer API Service component Helm chart for Kubernetes
 name: fspiop-transfer-api-svc
-version: 12.0.0
+version: 12.0.1
 appVersion: "11.1.6"
 home: http://mojaloop.io
 icon: http://mojaloop.io/images/logo.png
@@ -19,4 +19,4 @@ dependencies:
     repository: "file://../common"
     tags:
       - moja-common
-    version: 2.0.0
+    version: 2.1.0
