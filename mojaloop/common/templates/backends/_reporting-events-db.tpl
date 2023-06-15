@@ -45,15 +45,22 @@ Get reporting-events-db database.
 {{- end -}}
 
 {{/*
+Get reportingEventsDB password.
+*/}}
+{{- define "common.backends.reportingEventsDB.password" -}}
+  {{- default "" (default .Values.global.reportingEventsDB.password .Values.reportingEventsDB.password) -}}
+{{- end -}}
+
+{{/*
 Get fully qualified reporting-events-db secret.name
 */}}
 {{- define "common.backends.reportingEventsDB.secret.name" -}}
-  {{- default (include "common.backends.reportingEventsDB.fullname" .) (default .Values.global.reportingEventsDB.secret.name .Values.reportingEventsDB.secret.name) -}}
+  {{- default "" (default .Values.global.reportingEventsDB.secret.name .Values.reportingEventsDB.secret.name) -}}
 {{- end -}}
 
 {{/*
 Get fully qualified reporting-events-db secret.key
 */}}
 {{- define "common.backends.reportingEventsDB.secret.key" -}}
-  {{- default (include "common.backends.reportingEventsDB.fullname" .) (default .Values.global.reportingEventsDB.secret.key .Values.reportingEventsDB.secret.key) -}}
+  {{- default "" (default .Values.global.reportingEventsDB.secret.key .Values.reportingEventsDB.secret.key) -}}
 {{- end -}}
