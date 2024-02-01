@@ -37,6 +37,7 @@ else
         mojaloop/reporting-legacy-api
         mojaloop/security-hub-bop-kratos-ui
         mojaloop/bof
+        mojaloop/finance-portal
         ## placeholder
         # Mojaloop Core Charts
         mojaloop/admin-api-svc
