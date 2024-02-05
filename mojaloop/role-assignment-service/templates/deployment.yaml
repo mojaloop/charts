@@ -106,12 +106,14 @@ spec:
           volumeMounts:
             - name: {{ template "common.names.fullname" . }}-config-volume
               mountPath: /opt/role-assignment-service/config
+          {{- if (include "common.backends.keycloak.secret.name" .) }}
           env:
-            - name: ROLE_ASSIGNMENT_SERVICE_WSO2_PASSWORD
+            - name: ROLE_ASSIGNMENT_SERVICE_KEYCLOAK_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: '{{ include "common.backends.wso2.identityServer.secret.name" . }}'
-                  key: '{{ include "common.backends.wso2.identityServer.secret.key" . }}'
+                  name: '{{ include "common.backends.keycloak.secret.name" . }}'
+                  key: '{{ include "common.backends.keycloak.secret.key" . }}'
+          {{- end }}
       volumes:
         - name: {{ template "common.names.fullname" . }}-config-volume
           configMap:
