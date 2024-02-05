@@ -17,13 +17,18 @@ global:
   storageClass: ""
   keto: {}
   adminApiSvc: {}
-  wso2:
-    identityServer:
-      secret: {}
   rolePermOperator:
     mojaloopRole: {}
     mojaloopPermissionExclusion: {}
     apiSvc: {}
+  keycloak:
+    url: 'http://keycloak:8080'
+    user: 'admin'
+    password: ''
+    secret:
+      name: 'keycloak-secret'
+      key: 'password'
+    realm: 'master'
 
 podAffinityPreset: ""
 ## @param podAntiAffinityPreset Pod anti-affinity preset. Ignored if `main.affinity` is set. Allowed values: `soft` or `hard`
@@ -85,7 +90,7 @@ containerSecurityContext:
 image:
   registry: docker.io
   repository: mojaloop/role-assignment-service
-  tag: v1.0.1
+  tag: v2.0.0
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -194,9 +199,9 @@ keto: {}
 #   readURL: 'http://keto-read'
 #   writeURL: 'http://keto-write'
 
-wso2:
-  identityServer:
-    secret: {}
+keycloak:
+  secret: {}
+  refreshInterval: 58000
 
 rolePermOperator:
   mojaloopRole: {}
@@ -377,8 +382,11 @@ configFiles:
       "ROLE_OPERATOR_SERVICE_URL": '{{ printf "http://%s:%s" (include "common.backends.rolePermOperator.apiSvc.host" .) (include "common.backends.rolePermOperator.apiSvc.port" .) }}',
       "ORY_KETO_READ_SERVICE_URL": '{{ include "common.backends.keto.readURL" . }}',
       "ORY_KETO_WRITE_SERVICE_URL": '{{ include "common.backends.keto.writeURL" . }}',
-      "WSO2IS_USER_LIST_URL": '{{ include "common.backends.wso2.identityServer.userListURL" . }}',
-      "WSO2_USER": '{{ include "common.backends.wso2.identityServer.user" . }}',
+      "KEYCLOAK_URL": '{{ include "common.backends.keycloak.url" . }}',
+      "KEYCLOAK_USER": '{{ include "common.backends.keycloak.user" . }}',
+      "KEYCLOAK_PASSWORD": '{{ include "common.backends.keycloak.password" . }}',
+      "KEYCLOAK_REALM": '{{ include "common.backends.keycloak.realm" . }}',
+      "KEYCLOAK_REFRESH_INTERVAL": '{{ .Values.keycloak.refreshInterval }}',
       "ERROR_HANDLING": {
         "includeCauseExtension": true,
         "truncateExtensions": true

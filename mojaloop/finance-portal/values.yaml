@@ -36,6 +36,16 @@ global:
     host: test1-kafka-headless
     port: 9092
     topic: topic-event
+  rolePermOperator:
+    apiSvc: {}
+  keycloak:
+    url: 'http://keycloak:8080'
+    user: 'admin'
+    password: ''
+    secret:
+      name: 'keycloak-secret'
+      key: 'password'
+    realm: 'master'
 
 ## TODO: Disabling the tests by default for now. Need to figure out how to configure the tests.
 ## RBAC Tests
@@ -177,6 +187,22 @@ reportTests:
   initContainers: []
 
 ## Backend API services
+role-assignment-service:
+  enabled: true
+  ingress:
+    enabled: true
+    hostname: api-bof.local
+    path: /proxy/iam(/|$)(.*)
+    annotations:
+      nginx.ingress.kubernetes.io/rewrite-target: /$2
+  configFiles:
+    default.json: {
+        "ROLES_LIST": [
+          "USER_ROLE_abc7a2fd-4acf-4547-a194-1673f63eb37c",
+          "ADMIN_ROLE_6c1ec084-86d4-4915-ba81-6c59b87a65a6"
+        ]
+      }
+
 reporting-hub-bop-api-svc:
   enabled: true
   ingress:
