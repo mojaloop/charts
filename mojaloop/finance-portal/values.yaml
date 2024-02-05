@@ -42,9 +42,9 @@ global:
     url: 'http://keycloak:8080'
     user: 'admin'
     password: ''
-    secret:
-      name: 'keycloak-secret'
-      key: 'password'
+    # secret:
+    #   name: 'keycloak-secret'
+    #   key: 'password'
     realm: 'master'
 
 ## TODO: Disabling the tests by default for now. Need to figure out how to configure the tests.

@@ -25,9 +25,10 @@ global:
     url: 'http://keycloak:8080'
     user: 'admin'
     password: ''
-    secret:
-      name: 'keycloak-secret'
-      key: 'password'
+    secret: {}
+    # secret:
+    #   name: 'keycloak-secret'
+    #   key: 'password'
     realm: 'master'
 
 podAffinityPreset: ""

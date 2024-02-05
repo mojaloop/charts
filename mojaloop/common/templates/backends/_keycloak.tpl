@@ -47,13 +47,13 @@ Get keycloak realm.
 Get keycloak secret.name
 */}}
 {{- define "common.backends.keycloak.secret.name" -}}
-  {{- default "keycloak-admin-creds" (default .Values.global.keycloak.secret.name .Values.keycloak.secret.name) -}}
+  {{- default "" (default .Values.global.keycloak.secret.name .Values.keycloak.secret.name) -}}
 {{- end -}}
 
 {{/*
 Get keycloak secret.key
 */}}
 {{- define "common.backends.keycloak.secret.key" -}}
-  {{- default "password" (default .Values.global.keycloak.secret.key .Values.keycloak.secret.key) -}}
+  {{- default "" (default .Values.global.keycloak.secret.key .Values.keycloak.secret.key) -}}
 {{- end -}}
 
