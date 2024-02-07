@@ -105,7 +105,7 @@ spec:
           {{- end }}
           volumeMounts:
             - name: {{ template "common.names.fullname" . }}-config-volume
-              mountPath: /opt/role-assignment-service/config
+              mountPath: /opt/app/config
           {{- if (include "common.backends.keycloak.secret.name" .) }}
           env:
             - name: ROLE_ASSIGNMENT_SERVICE_KEYCLOAK_PASSWORD
