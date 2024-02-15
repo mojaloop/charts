@@ -42,7 +42,7 @@ dependencies:
     tags:
       - mojaloop
       - reporting-hub-bop-shell
-    version: 2.2.1
+    version: 1.0.1
   - name: reporting-hub-bop-api-svc
     condition: reporting-hub-bop-api-svc.enabled
     repository: "file://../reporting-hub-bop-api-svc"

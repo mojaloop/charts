@@ -1,7 +1,7 @@
 apiVersion: v2
 description: This is the Shell application that accommodates BizOps microfrontends.
 name: reporting-hub-bop-shell
-version: 1.0.0
+version: 1.0.1
 appVersion: "2.2.1"
 home: http://mojaloop.io
 icon: http://mojaloop.io/images/logo.png
