@@ -91,7 +91,7 @@ containerSecurityContext:
 image:
   registry: docker.io
   repository: mojaloop/role-assignment-service
-  tag: v2.0.0
+  tag: v2.1.0
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -209,7 +209,8 @@ rolePermOperator:
   mojaloopPermissionExclusion: {}
   apiSvc: {}
 
-config: {}
+config:
+  autoGrantPortalAdminRole: 'manager'
 
 service:
   internalPort: 3008
@@ -387,6 +388,7 @@ configFiles:
       "KEYCLOAK_USER": '{{ include "common.backends.keycloak.user" . }}',
       "KEYCLOAK_PASSWORD": '{{ include "common.backends.keycloak.password" . }}',
       "KEYCLOAK_REALM": '{{ include "common.backends.keycloak.realm" . }}',
+      "KEYCLOAK_CLIENT_ID": 'admin-cli',
       "KEYCLOAK_REFRESH_INTERVAL": '{{ .Values.keycloak.refreshInterval }}',
       "ERROR_HANDLING": {
         "includeCauseExtension": true,
@@ -410,6 +412,9 @@ configFiles:
       "ROLES_LIST": [
         "USER_ROLE_abc7a2fd-4acf-4547-a194-1673f63eb37c",
         "ADMIN_ROLE_6c1ec084-86d4-4915-ba81-6c59b87a65a6"
+      ],
+      "AUTO_GRANT_PORTAL_ADMIN_ROLES": [
+        "{{ .Values.config.autoGrantPortalAdminRole }}"
       ],
       "CORS_WHITELIST": [
         "http://reporting-hub-bop-shell.local",
