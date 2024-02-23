@@ -236,6 +236,7 @@ reporting-hub-bop-shell:
   env:
     LOGIN_URL: /kratos/self-service/registration/browser
     LOGOUT_URL: /kratos/self-service/browser/flows/logout
+    LOGIN_PROVIDER: keycloak
     AUTH_TOKEN_URL: /kratos/sessions/whoami
     AUTH_ENABLED: true
     REMOTE_1_URL: http://reporting-hub-bop-role-ui.local
