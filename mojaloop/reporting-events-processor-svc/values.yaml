@@ -36,7 +36,7 @@ reportingEventsDB:
 kafka:
   host: kafka-headless
   port: 9092
-  topicEvent: topic-event
+  topicEvent: topic-event-audit
   consumerGroup: reporting_events_processor_consumer_group
   clientId: reporting_events_processor_consumer
 
@@ -100,7 +100,7 @@ containerSecurityContext:
 image:
   registry: docker.io
   repository: mojaloop/reporting-events-processor-svc
-  tag: v2.0.0
+  tag: v3.0.0
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -180,10 +180,35 @@ configFiles:
         "EVENTS_COLLECTION": "reporting"
       },
       "KAFKA": {
-        "BROKER_LIST": ["{{ .Values.kafka.host }}:{{ .Values.kafka.port }}"],
-        "CONSUMER_GROUP": "{{ .Values.kafka.consumerGroup }}",
-        "CLIENT_ID": "{{ .Values.kafka.clientId }}",
-        "TOPIC_EVENT": "{{ .Values.kafka.topicEvent }}"
+        "TOPIC_EVENT": "{{ .Values.kafka.topicEvent }}",
+        "CONSUMER": {
+          "EVENT": {
+            "config": {
+              "options": {
+                "mode": 2,
+                "batchSize": 50,
+                "pollFrequency": 10,
+                "recursiveTimeout": 100,
+                "messageCharset": "utf8",
+                "messageAsJSON": true,
+                "sync": true,
+                "consumeTimeout": 10
+              },
+              "rdkafkaConf": {
+                "clientId": "{{ .Values.kafka.clientId }}",
+                "groupId": "{{ .Values.kafka.consumerGroup }}",
+                "metadataBrokerList": "{{ .Values.kafka.host }}:{{ .Values.kafka.port }}",
+                "socketKeepaliveEnable": true,
+                "allowAutoCreateTopics": true,
+                "partitionAssignmentStrategy": "",
+                "enableAutoCommit": false
+              },
+              "topicConf": {
+                "autoOffsetReset": "earliest"
+              }
+            }
+          }
+        }
       }
     }
 
