@@ -78,16 +78,8 @@ spec:
           {{- end }}
           volumeMounts:
             - name: {{ template "common.names.fullname" . }}-config-volume
-              mountPath: /opt/reporting-events-processor-svc/config
+              mountPath: /opt/app/config
           env:
-            - name: KAFKA_BROKER_LIST
-              value: '{{ .Values.kafka.host }}:{{ .Values.kafka.port }}'
-            - name: KAFKA_TOPIC_EVENT
-              value: {{ .Values.kafka.topicEvent }}
-            - name: KAFKA_CONSUMER_GROUP
-              value: {{ .Values.kafka.consumerGroup }}
-            - name: KAFKA_CLIENT_ID
-              value: {{ .Values.kafka.clientId }}
             # Event Store
             - name: EVENT_STORE_DB_HOST
               value: '{{ include "common.backends.reportingEventsDB.host" . }}'
