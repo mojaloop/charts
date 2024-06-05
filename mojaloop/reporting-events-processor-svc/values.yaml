@@ -169,18 +169,17 @@ metrics:
       serviceName: reporting-events-processor-svc
 
 configFiles:
-  default.json: |
-    {
+  default.json: {
       "EVENT_STORE_DB": {
-        "HOST": "{{ include "common.backends.reportingEventsDB.host" . }}",
-        "PORT": "{{ include "common.backends.reportingEventsDB.port" . }}",
-        "USER": "{{ include "common.backends.reportingEventsDB.user" . }}",
-        "PASSWORD": "{{ include "common.backends.reportingEventsDB.password" . }}",
-        "DATABASE": "{{ include "common.backends.reportingEventsDB.database" . }}",
+        "HOST": '{{ include "common.backends.reportingEventsDB.host" . }}',
+        "PORT": '{{ include "common.backends.reportingEventsDB.port" . }}',
+        "USER": '{{ include "common.backends.reportingEventsDB.user" . }}',
+        "PASSWORD": '{{ include "common.backends.reportingEventsDB.password" . }}',
+        "DATABASE": '{{ include "common.backends.reportingEventsDB.database" . }}',
         "EVENTS_COLLECTION": "reporting"
       },
       "KAFKA": {
-        "TOPIC_EVENT": "{{ .Values.kafka.topicEvent }}",
+        "TOPIC_EVENT": '{{ .Values.kafka.topicEvent }}',
         "CONSUMER": {
           "EVENT": {
             "config": {
@@ -195,9 +194,9 @@ configFiles:
                 "consumeTimeout": 10
               },
               "rdkafkaConf": {
-                "clientId": "{{ .Values.kafka.clientId }}",
-                "groupId": "{{ .Values.kafka.consumerGroup }}",
-                "metadataBrokerList": "{{ .Values.kafka.host }}:{{ .Values.kafka.port }}",
+                "clientId": '{{ .Values.kafka.clientId }}',
+                "groupId": '{{ .Values.kafka.consumerGroup }}',
+                "metadataBrokerList": '{{ .Values.kafka.host }}:{{ .Values.kafka.port }}',
                 "socketKeepaliveEnable": true,
                 "allowAutoCreateTopics": true,
                 "partitionAssignmentStrategy": "",

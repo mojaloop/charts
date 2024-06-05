@@ -10,5 +10,5 @@ metadata:
 data:
 {{- range $fileName, $fileContents := .Values.configFiles }}
   {{ $fileName }}: |
-  {{- include "common.tplvalues.render" ( dict "value" $fileContents "context" $ ) | nindent 4 }}
+  {{- include "common.tplvalues.renderToJson" ( dict "value" $fileContents "context" $ ) | nindent 4 }}
 {{- end }}
