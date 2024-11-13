@@ -84,7 +84,7 @@ dependencies:
     tags:
       - mojaloop
       - reporting-hub-bop-settlements-ui
-    version: 1.0.3
+    version: 1.1.0
   - name: reporting-hub-bop-positions-ui
     condition: reporting-hub-bop-positions-ui.enabled
     repository: "file://../reporting-hub-bop-positions-ui"

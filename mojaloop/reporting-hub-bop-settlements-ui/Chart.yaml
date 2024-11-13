@@ -3,8 +3,8 @@ description: >-
   This is the role microfrontend of the BizOps framework that handles tracing
   of transfers.
 name: reporting-hub-bop-settlements-ui
-version: 1.0.3
-appVersion: "0.0.12"
+version: 1.1.0
+appVersion: "0.0.19-snapshot.1"
 home: http://mojaloop.io
 icon: http://mojaloop.io/images/logo.png
 sources:
