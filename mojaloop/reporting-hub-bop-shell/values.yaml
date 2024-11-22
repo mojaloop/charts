@@ -198,6 +198,11 @@ config:
     REMOTE_2_URL: http://reporting-hub-bop-trx-ui.local
     REMOTE_3_URL: http://reporting-hub-bop-settlements-ui.local
     REMOTE_4_URL: http://reporting-hub-bop-positions-ui.local
+    REACT_APP_TITLE=Mojaloop Finance Portal
+    REACT_APP_SUBTITLE=Accelarating regional trade through supporting cross boarder, instant lowcost, payments and transfers.
+    REACT_APP_TITLE_IMAGE=http://reporting-hub-bop-positions-ui.local/images/logo.png
+    REACT_APP_TITLE_BAR_COLOR=#911414
+    REACT_APP_DFSP_IMG=http://reporting-hub-bop-positions-ui.local/images/dfsp.png
 
 service:
   internalPort: 8080
