@@ -1,0 +1,34 @@
+global:
+  reportingDB:
+    host: centralledger-mysql
+    port: 3306
+    user: user
+    database: default
+    # secret: {}
+    secret:
+      name: mysql
+      key: mysql-password
+  reportingEventsDB:
+    host: reporting-events-db
+    port: 27017
+    user: user
+    database: default
+    # secret: {}
+    secret:
+      name: reporting-events-db
+      key: mongodb-password
+  kafka:
+    host: test1-kafka-headless
+    port: 9092
+    topic: topic-event
+
+nifi:
+  enabled: true
+  zookeeper:
+    enabled: false
+  customFlow: /opt/nifi/custom-config/flow.xml
+  configmaps:
+  - name: reporting-nifi-custom-config
+    mountPath: /opt/nifi/custom-config
+  properties:
+    sensitiveKey: xzNViQSKL/GsLIKR6IraZimhNjI7X0cO

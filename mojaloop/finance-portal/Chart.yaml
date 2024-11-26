@@ -99,3 +99,10 @@ dependencies:
       - mojaloop
       - reporting-hub-bop-experience-api-svc
     version: 1.0.1
+  - name: reporting-nifi-processor-svc
+    condition: reporting-nifi-processor-svc.enabled
+    repository: "file://../reporting-nifi-processor-svc"
+    tags:
+      - mojaloop
+      - reporting-nifi-processor-svc
+    version: 0.0.1

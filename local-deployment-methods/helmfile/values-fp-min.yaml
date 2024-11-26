@@ -1,0 +1,81 @@
+global:
+  adminApiSvc:
+    host: "centralledger-service"
+    port: 80
+  settlementSvc:
+    host: "centralsettlement-service"
+    port: 80
+  keto:
+    readURL: "http://keto-read:80"
+  reportingDB:
+    host: centralledger-mysql
+    port: 3306
+    user: user
+    database: default
+    # secret: {}
+    secret:
+      name: mysql
+      key: mysql-password
+  reportingEventsDB:
+    host: reporting-events-db
+    port: 27017
+    user: user
+    database: default
+    # secret: {}
+    secret:
+      name: reporting-events-db
+      key: mongodb-password
+  kafka:
+    host: test1-kafka-headless
+    port: 9092
+    topic: topic-event
+  rolePermOperator:
+    apiSvc: {}
+  keycloak:
+    url: 'http://keycloak:8080'
+    user: 'admin'
+    password: ''
+    # secret:
+    #   name: 'keycloak-secret'
+    #   key: 'password'
+    realm: 'master'
+
+
+rbacTests:
+  enabled: false
+
+reportTests:
+  enabled: false
+
+role-assignment-service:
+  enabled: false
+
+reporting-hub-bop-api-svc:
+  enabled: false
+
+reporting-legacy-api:
+  enabled: false
+
+reporting-events-processor-svc:
+  enabled: false
+
+reporting-hub-bop-experience-api-svc:
+  enabled: false
+
+reporting-hub-bop-shell:
+  enabled: false
+
+reporting-hub-bop-role-ui:
+  enabled: false
+
+reporting-hub-bop-trx-ui:
+  enabled: false
+
+reporting-hub-bop-positions-ui:
+  enabled: false
+
+reporting-hub-bop-settlements-ui:
+  enabled: false
+
+reporting-nifi-processor-svc:
+  enabled: true
