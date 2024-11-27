@@ -17,7 +17,7 @@ dependencies:
     repository: "file://../common"
     tags:
       - moja-common
-    version: 3.1.0
+    version: 3.1.1
   - name: reporting-k8s-templates
     alias: reporting-k8s-templates
     condition: install-templates
