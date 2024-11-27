@@ -28,7 +28,7 @@ dependencies:
     tags:
       - mojaloop
       - common
-    version: 3.1.0
+    version: 3.1.1
   - name: security-role-perm-operator-svc
     condition: security-role-perm-operator-svc.enabled
     repository: "file://../security-role-perm-operator-svc"
