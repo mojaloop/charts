@@ -4,7 +4,7 @@ name: account-lookup-service
 version: 13.0.0
 appVersion: "11.8.0"
 maintainers:
-  - name: Tom Daly 
+  - name: Tom Daly
     email: tdaly61@gmail.com
   - name: Miguel de Barros
     email: miguel.debarros@modusbox.com
@@ -13,4 +13,4 @@ dependencies:
     repository: "file://../common"
     tags:
       - moja-common
-    version: 3.0.0
+    version: 3.1.0
