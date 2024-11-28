@@ -5342,7 +5342,7 @@ This is done by checking if the transferId attribute is null
       <enabled>true</enabled>
       <property>
         <name>Database Connection URL</name>
-        <value>${MYSQL_CONNECTION_URI}</value>
+        <value>jdbc:mysql://${REPORTING_DB_HOST}:${REPORTING_DB_PORT}/${REPORTING_DB_SCHEMA}</value>
       </property>
       <property>
         <name>Database Driver Class Name</name>
@@ -5365,11 +5365,11 @@ This is done by checking if the transferId attribute is null
       </property>
       <property>
         <name>Database User</name>
-        <value>central_ledger</value>
+        <value>${REPORTING_DB_USER}</value>
       </property>
       <property>
         <name>Password</name>
-        <value>enc{317069529d3fa4f3fe8056768e5e2ef28068f8b87e2dfd285514c4a8f0d2bee332d86e88505c369c}</value>
+        <value>${REPORTING_DB_PASSWORD}</value>
       </property>
       <property>
         <name>Max Wait Time</name>
@@ -5422,13 +5422,15 @@ This is done by checking if the transferId attribute is null
       <enabled>true</enabled>
       <property>
         <name>mongo-uri</name>
-        <value>${MONGO_CONNECTION_URI}</value>
+        <value>mongodb://${EVENT_STORE_DB_HOST}:${EVENT_STORE_DB_PORT}</value>
       </property>
       <property>
         <name>Database User</name>
+        <value>${EVENT_STORE_DB_USER}</value>
       </property>
       <property>
         <name>Password</name>
+        <value>${EVENT_STORE_DB_PASSWORD}</value>
       </property>
       <property>
         <name>ssl-context-service</name>

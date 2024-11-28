@@ -1,34 +1,71 @@
-global:
-  reportingDB:
-    host: centralledger-mysql
-    port: 3306
-    user: user
-    database: default
-    # secret: {}
-    secret:
-      name: mysql
-      key: mysql-password
-  reportingEventsDB:
-    host: reporting-events-db
-    port: 27017
-    user: user
-    database: default
-    # secret: {}
-    secret:
-      name: reporting-events-db
-      key: mongodb-password
-  kafka:
-    host: test1-kafka-headless
-    port: 9092
-    topic: topic-event
-
 nifi:
   enabled: true
   zookeeper:
     enabled: false
+
+  ## Download the JDBC driver for MySQL
+  ## https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/8.0.33/mysql-connector-j-8.0.33.jar
+  ## https://downloads.mysql.com/archives/get/p/3/file/mysql-connector-j-8.0.33.zip
+  extraVolumes:
+    - name: jdbc-lib-folder
+      emptyDir: {}
+  extraVolumeMounts:
+    - name: jdbc-lib-folder
+      mountPath: /opt/nifi/nifi-current/lib/mysql-connector-j-8.0.33.jar
+      subPath: mysql-connector-j-8.0.33.jar
+  initContainers:
+    - name: download-jdbc-driver
+      image: curlimages/curl:latest
+      imagePullPolicy: IfNotPresent
+      command:
+        - sh
+        - -c
+        - >
+          curl -L -o /jdbc-lib-folder/mysql-connector-j-8.0.33.jar https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/8.0.33/mysql-connector-j-8.0.33.jar;
+          echo "JDBC driver downloaded."
+      volumeMounts:
+        - name: jdbc-lib-folder
+          mountPath: /jdbc-lib-folder
+
+  ## Default user credentials for the NiFi UI
+  # auth:
+  #   singleUser:
+  #     username: 'admin'
+  #     password: 'password@1234'
+
+  ## Custom flow configuration
+  ## Loading custom flow.xml file from a ConfigMap
   customFlow: /opt/nifi/custom-config/flow.xml
   configmaps:
   - name: reporting-nifi-custom-config
     mountPath: /opt/nifi/custom-config
   properties:
     sensitiveKey: xzNViQSKL/GsLIKR6IraZimhNjI7X0cO
+
+  env:
+    - name: REPORTING_DB_HOST
+      value: mysqldb
+    - name: REPORTING_DB_PORT
+      value: "3306"
+    - name: REPORTING_DB_USER
+      value: central_ledger
+    - name: REPORTING_DB_SCHEMA
+      value: central_ledger
+    - name: REPORTING_DB_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: mysqldb
+          key: mysql-password
+    - name: EVENT_STORE_DB_HOST
+      value: reporting-events-db
+    - name: EVENT_STORE_DB_PORT
+      value: "27017"
+    - name: EVENT_STORE_DB_USER
+      value: finance_portal
+    - name: EVENT_STORE_DB_DATABASE
+      value: finance_portal
+    - name: EVENT_STORE_DB_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: reporting-events-db
+          key: mongodb-passwords

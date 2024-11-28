@@ -10,7 +10,7 @@ kowl:
   enabled: false
 
 reporting-events-db:
-  enabled: false
+  enabled: true
 
 keto:
   enabled: false
