@@ -29,10 +29,7 @@ dependencies:
       - mojaloop
       - common
     version: 3.0.0
-  - name: nifi
-    condition: nifi.enabled
-    repository: "https://cetic.github.io/helm-charts"
-    tags:
-      - mojaloop
-      - nifi
-    version: 1.2.1
+  - name: zookeeper
+    version: 9.2.7
+    repository: https://charts.bitnami.com/bitnami
+    condition: zookeeper.enabled

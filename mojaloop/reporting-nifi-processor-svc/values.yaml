@@ -1,71 +1,369 @@
-nifi:
-  enabled: true
-  zookeeper:
+---
+# Number of nifi nodes
+replicaCount: 1
+
+## Set default image, imageTag, and imagePullPolicy.
+## ref: https://hub.docker.com/r/apache/nifi/
+##
+image:
+  repository: apache/nifi
+  tag: "2.0.0"
+  pullPolicy: "IfNotPresent"
+
+  ## Optionally specify an imagePullSecret.
+  ## Secret must be manually created in the namespace.
+  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+  ##
+  # pullSecret: myRegistrKeySecretName
+
+securityContext:
+  runAsUser: 1000
+  fsGroup: 1000
+
+sts:
+  # Parallel podManagementPolicy for faster bootstrap and teardown. Default is OrderedReady.
+  podManagementPolicy: Parallel
+  AntiAffinity: soft
+  hostPort: null
+  pod:
+    annotations:
+      security.alpha.kubernetes.io/sysctls: net.ipv4.ip_local_port_range=10000 65000
+      #prometheus.io/scrape: "true"
+  serviceAccount:
+    create: false
+    #name: nifi
+    annotations: {}
+  hostAliases: []
+#    - ip: "1.2.3.4"
+#      hostnames:
+#        - example.com
+#        - example
+
+  startupProbe:
     enabled: false
+    failureThreshold: 60
+    periodSeconds: 10
 
-  ## Download the JDBC driver for MySQL
-  ## https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/8.0.33/mysql-connector-j-8.0.33.jar
-  ## https://downloads.mysql.com/archives/get/p/3/file/mysql-connector-j-8.0.33.zip
-  extraVolumes:
-    - name: jdbc-lib-folder
-      emptyDir: {}
-  extraVolumeMounts:
-    - name: jdbc-lib-folder
-      mountPath: /opt/nifi/nifi-current/lib/mysql-connector-j-8.0.33.jar
-      subPath: mysql-connector-j-8.0.33.jar
-  initContainers:
-    - name: download-jdbc-driver
-      image: curlimages/curl:latest
-      imagePullPolicy: IfNotPresent
-      command:
-        - sh
-        - -c
-        - >
-          curl -L -o /jdbc-lib-folder/mysql-connector-j-8.0.33.jar https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/8.0.33/mysql-connector-j-8.0.33.jar;
-          echo "JDBC driver downloaded."
-      volumeMounts:
-        - name: jdbc-lib-folder
-          mountPath: /jdbc-lib-folder
+## Useful if using any custom secrets
+## Pass in some secrets to use (if required)
+# secrets:
+# - name: myNifiSecret
+#   keys:
+#     - key1
+#     - key2
+#   mountPath: /opt/nifi/secret
 
-  ## Default user credentials for the NiFi UI
-  # auth:
-  #   singleUser:
-  #     username: 'admin'
-  #     password: 'password@1234'
+## Useful if using any custom configmaps
+## Pass in some configmaps to use (if required)
+# configmaps:
+#   - name: myNifiConf
+#     keys:
+#       - myconf.conf
+#     mountPath: /opt/nifi/custom-config
 
-  ## Custom flow configuration
-  ## Loading custom flow.xml file from a ConfigMap
-  customFlow: /opt/nifi/custom-config/flow.xml
-  configmaps:
-  - name: reporting-nifi-custom-config
-    mountPath: /opt/nifi/custom-config
-  properties:
-    sensitiveKey: xzNViQSKL/GsLIKR6IraZimhNjI7X0cO
 
-  env:
-    - name: REPORTING_DB_HOST
-      value: mysqldb
-    - name: REPORTING_DB_PORT
-      value: "3306"
-    - name: REPORTING_DB_USER
-      value: central_ledger
-    - name: REPORTING_DB_SCHEMA
-      value: central_ledger
-    - name: REPORTING_DB_PASSWORD
-      valueFrom:
-        secretKeyRef:
-          name: mysqldb
-          key: mysql-password
-    - name: EVENT_STORE_DB_HOST
-      value: reporting-events-db
-    - name: EVENT_STORE_DB_PORT
-      value: "27017"
-    - name: EVENT_STORE_DB_USER
-      value: finance_portal
-    - name: EVENT_STORE_DB_DATABASE
-      value: finance_portal
-    - name: EVENT_STORE_DB_PASSWORD
-      valueFrom:
-        secretKeyRef:
-          name: reporting-events-db
-          key: mongodb-passwords
+properties:
+  sensitiveKey: xzNViQSKL/GsLIKR6IraZimhNjI7X0cO # Must have at least 12 characters
+  algorithm: NIFI_PBKDF2_AES_GCM_256
+  # use externalSecure for when inbound SSL is provided by nginx-ingress or other external mechanism
+  externalSecure: false
+  httpsPort: 8443
+  clusterPort: 6007
+  zkClientEnsembleTraker: false # https://issues.apache.org/jira/browse/NIFI-10481
+  clusterNodeConnectionTimeout: '5 sec'
+  clusterNodeReadTimeout: '5 sec'
+  zookeeperConnectTimeout: '3 secs'
+  zookeeperSessionTimeout: '3 secs'
+  archiveMaxRetentionPeriod: "3 days"
+  archiveMaxUsagePercentage: "85%"
+  provenanceStorage: "8 GB"
+  provenanceMaxStorageTime: "10 days"
+  flowArchiveMaxTime: "30 days"
+  flowArchiveMaxStorage: "500 MB"
+  siteToSite:
+    port: 10000
+  # use properties.safetyValve to pass explicit 'key: value' pairs that overwrite other configuration
+  safetyValve:
+    #nifi.variable.registry.properties: "${NIFI_HOME}/example1.properties, ${NIFI_HOME}/example2.properties"
+    nifi.web.http.network.interface.default: eth0
+    # listen to loopback interface so "kubectl port-forward ..." works
+    nifi.web.http.network.interface.lo: lo
+
+  ## Include aditional processors
+  # customLibPath: "/opt/configuration_resources/custom_lib"
+
+## Include additional libraries in the Nifi containers by using the postStart handler
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/
+# postStart: /opt/nifi/psql; wget -P /opt/nifi/psql https://jdbc.postgresql.org/download/postgresql-42.2.6.jar
+
+# Nifi User Authentication
+auth:
+  # If set while LDAP is enabled, this value will be used for the initial admin and not the ldap bind dn / admin
+  admin: CN=admin, OU=NIFI
+
+  oidc:
+    enabled: false
+    discoveryUrl: #http://<oidc_provider_address>:<oidc_provider_port>/auth/realms/<client_realm>/.well-known/openid-configuration
+    clientId: #<client_name_in_oidc_provider>
+    clientSecret: #<client_secret_in_oidc_provider>
+    claimIdentifyingUser: email
+    admin: nifi@example.com
+    preferredJwsAlgorithm:
+    ## Request additional scopes, for example profile
+    additionalScopes:
+
+
+# headless service
+headless:
+  type: ClusterIP
+  annotations:
+    service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
+
+# ui service
+service:
+  type: ClusterIP
+  httpsPort: 8443
+  # nodePort: 30236
+  annotations: {}
+    # loadBalancerIP:
+    ## Load Balancer sources
+    ## https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/#restrict-access-for-loadbalancer-service
+    ##
+    # loadBalancerSourceRanges:
+    # - 10.10.10.0/24
+    ## OIDC authentication requires "sticky" session on the LoadBalancer for JWT to work properly...but AWS doesn't like it on creation
+    # sessionAffinity: ClientIP
+    # sessionAffinityConfig:
+    #   clientIP:
+  #     timeoutSeconds: 10800
+
+  # Enables additional port/ports to nifi service for internal processors
+  processors:
+    enabled: false
+    ports:
+      - name: processor01
+        port: 7001
+        targetPort: 7001
+        #nodePort: 30701
+      - name: processor02
+        port: 7002
+        targetPort: 7002
+        #nodePort: 30702
+## Configure containerPorts section with following attributes: name, containerport and protocol.
+containerPorts: []
+# - name: example
+#   containerPort: 1111
+#   protocol: TCP
+
+## Configure Ingress based on the documentation here: https://kubernetes.io/docs/concepts/services-networking/ingress/
+##
+ingress:
+  enabled: false
+  # className: nginx
+  annotations: {}
+  tls: []
+  hosts: []
+  path: /
+  # If you want to change the default path, see this issue https://github.com/cetic/helm-nifi/issues/22
+
+# Amount of memory to give the NiFi java heap
+jvmMemory: 2g
+
+# Separate image for tailing each log separately and checking zookeeper connectivity
+sidecar:
+  image: busybox
+  tag: "1.32.0"
+  imagePullPolicy: "IfNotPresent"
+
+## Enable persistence using Persistent Volume Claims
+## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
+##
+persistence:
+  enabled: false
+
+  # When creating persistent storage, the NiFi helm chart can either reference an already-defined
+  # storage class by name, such as "standard" or can define a custom storage class by specifying
+  # customStorageClass: true and providing the "storageClass", "storageProvisioner" and "storageType".
+  # For example, to use SSD storage on Google Compute Engine see values-gcp.yaml
+  #
+  # To use a storage class that already exists on the Kubernetes cluster, we can simply reference it by name.
+  # For example:
+  # storageClass: standard
+  #
+  # The default storage class is used if this variable is not set.
+
+  accessModes:  [ReadWriteOnce]
+
+  ## Use subPath and have 1 persistent volume instead of 7 volumes - use when your k8s nodes have limited volume slots, to limit waste of space,
+  ##  or your available volume sizes are quite large
+  #  The one disk will have a directory folder for each volumeMount, but this is hidden. Run 'mount' to view each mount.
+  subPath:
+    enabled: false
+    name: data
+    size: 30Gi
+
+  ## Storage Capacities for persistent volumes (these are ignored if using one volume with subPath)
+  configStorage:
+    size: 100Mi
+  authconfStorage:
+    size: 100Mi
+  # Storage capacity for the 'data' directory, which is used to hold things such as the flow.json.gz, configuration, state, etc.
+  dataStorage:
+    size: 1Gi
+  # Storage capacity for the FlowFile repository
+  flowfileRepoStorage:
+    size: 10Gi
+  # Storage capacity for the Content repository
+  contentRepoStorage:
+    size: 10Gi
+  # Storage capacity for the Provenance repository. When changing this, one should also change the properties.provenanceStorage value above, also.
+  provenanceRepoStorage:
+    size: 10Gi
+  # Storage capacity for nifi logs
+  logStorage:
+    size: 5Gi
+
+## Configure resource requests and limits
+## ref: http://kubernetes.io/docs/user-guide/compute-resources/
+##
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #  cpu: 100m
+  #  memory: 128Mi
+  # requests:
+  #  cpu: 100m
+  #  memory: 128Mi
+
+logresources:
+  requests:
+    cpu: 10m
+    memory: 10Mi
+  limits:
+    cpu: 50m
+    memory: 50Mi
+
+## Enables setting your own affinity. Mutually exclusive with sts.AntiAffinity
+## You need to set the value of sts.AntiAffinity other than "soft" and "hard"
+affinity: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+## Download the JDBC driver for MySQL
+## https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/8.0.33/mysql-connector-j-8.0.33.jar
+## https://downloads.mysql.com/archives/get/p/3/file/mysql-connector-j-8.0.33.zip
+# initContainers: {}
+initContainers:
+  - name: download-jdbc-driver
+    image: curlimages/curl:latest
+    imagePullPolicy: IfNotPresent
+    command:
+      - sh
+      - -c
+      - >
+        curl -L -o /jdbc-lib-folder/mysql-connector-j-8.0.33.jar https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/8.0.33/mysql-connector-j-8.0.33.jar;
+        echo "JDBC driver downloaded."
+    volumeMounts:
+      - name: jdbc-lib-folder
+        mountPath: /jdbc-lib-folder
+
+# extraVolumeMounts: []
+# extraVolumes: []
+extraVolumes:
+  - name: jdbc-lib-folder
+    emptyDir: {}
+extraVolumeMounts:
+  - name: jdbc-lib-folder
+    mountPath: /opt/nifi/nifi-current/lib/mysql-connector-j-8.0.33.jar
+    subPath: mysql-connector-j-8.0.33.jar
+
+
+## Extra containers
+extraContainers: []
+
+terminationGracePeriodSeconds: 30
+
+## Extra environment variables that will be pass onto deployment pods
+# env: []
+env:
+  ## Authentication
+  - name: SINGLE_USER_CREDENTIALS_USERNAME
+    value: "admin"
+  - name: SINGLE_USER_CREDENTIALS_PASSWORD
+    value: "password@1234"
+  ## TLS
+  - name: TRUSTSTORE_PASSWORD
+    value: "changeMe"
+  - name: KEYSTORE_PASSWORD
+    value: "changeMe"
+  ## DB Configuration
+  - name: REPORTING_DB_HOST
+    value: mysqldb
+  - name: REPORTING_DB_PORT
+    value: "3306"
+  - name: REPORTING_DB_USER
+    value: central_ledger
+  - name: REPORTING_DB_SCHEMA
+    value: central_ledger
+  - name: REPORTING_DB_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: mysqldb
+        key: mysql-password
+  - name: EVENT_STORE_DB_HOST
+    value: reporting-events-db
+  - name: EVENT_STORE_DB_PORT
+    value: "27017"
+  - name: EVENT_STORE_DB_USER
+    value: finance_portal
+  - name: EVENT_STORE_DB_DATABASE
+    value: finance_portal
+  - name: EVENT_STORE_DB_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: reporting-events-db
+        key: mongodb-passwords
+
+## Extra environment variables from secrets and config maps
+envFrom: []
+
+## Extra options to add to the bootstrap.conf file
+extraOptions: []
+
+# envFrom:
+#   - configMapRef:
+#       name: config-name
+#   - secretRef:
+#       name: mysecret
+
+# ------------------------------------------------------------------------------
+# Zookeeper:
+# ------------------------------------------------------------------------------
+zookeeper:
+  ## If true, install the Zookeeper chart
+  ## ref: https://github.com/bitnami/charts/blob/master/bitnami/zookeeper/values.yaml
+  enabled: false
+  ## If the Zookeeper Chart is disabled a URL and port are required to connect
+  url: ""
+  port: 2181
+  replicaCount: 3
+
+
+# Configure metrics
+metrics:
+  prometheus:
+    # Enable Prometheus metrics
+    enabled: false
+    # Port used to expose Prometheus metrics
+    port: 9092
+    serviceMonitor:
+      # Enable deployment of Prometheus Operator ServiceMonitor resource
+      enabled: false
+      # namespace: monitoring
+      # Additional labels for the ServiceMonitor
+      labels: {}
