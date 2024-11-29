@@ -35,6 +35,7 @@ else
         mojaloop/reporting-hub-bop-role-ui
         mojaloop/reporting-hub-bop-trx-ui
         mojaloop/reporting-legacy-api
+        mojaloop/reporting-nifi-processor-svc
         mojaloop/security-hub-bop-kratos-ui
         mojaloop/bof
         mojaloop/finance-portal
