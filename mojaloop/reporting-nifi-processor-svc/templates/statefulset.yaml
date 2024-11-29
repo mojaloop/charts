@@ -160,6 +160,24 @@ spec:
         - name: NIFI_WEB_HTTPS_HOST
           value: 0.0.0.0
 {{- end }}
+        - name: EVENT_STORE_DB_PASSWORD
+        {{- if (include "common.backends.reportingEventsDB.secret.name" .) }}
+          valueFrom:
+            secretKeyRef:
+              name: '{{ include "common.backends.reportingEventsDB.secret.name" . }}'
+              key: '{{ include "common.backends.reportingEventsDB.secret.key" . }}'
+        {{- else }}
+          value: '{{ include "common.backends.reportingEventsDB.password" . }}'
+        {{- end }}
+        - name: REPORTING_DB_PASSWORD
+        {{- if (include "common.backends.reportingDB.secret.name" .) }}
+          valueFrom:
+            secretKeyRef:
+              name: '{{ include "common.backends.reportingDB.secret.name" . }}'
+              key: '{{ include "common.backends.reportingDB.secret.key" . }}'
+        {{- else }}
+          value: '{{ include "common.backends.reportingDB.password" . }}'
+        {{- end }}
 {{- if .Values.env }}
 {{ toYaml .Values.env | indent 8 }}
 {{- end }}
