@@ -1,0 +1,31 @@
+global:
+
+kafka:
+  enabled: false
+
+mysql:
+  enabled: false
+
+kowl:
+  enabled: false
+
+reporting-events-db:
+  enabled: true
+
+keto:
+  enabled: false
+
+oathkeeper:
+  enabled: false
+
+kratos:
+  enabled: false
+
+kratos-db:
+  enabled: false
+
+keto-db:
+  enabled: false
+
+wso2:
+  enabled: false

@@ -1,0 +1,29 @@
+repositories:
+- name: codecentrics
+  url: https://codecentric.github.io/helm-charts
+- name: bitnami
+  url: https://charts.bitnami.com/bitnami
+- name: bitnami2
+  url: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
+- name: cloudhut
+  url: https://raw.githubusercontent.com/cloudhut/charts/master/archives
+- name: ory
+  url: https://k8s.ory.sh/helm/charts
+- name: mojaloop-charts
+  url: https://mojaloop.github.io/charts/repo
+- name: mojaloop
+  url: https://mojaloop.io/helm/repo/
+- name: cetic
+  url: https://cetic.github.io/helm-charts
+
+releases:
+- name: fp-backend
+  namespace: demo
+  chart: ../../mojaloop/example-backend
+  values:
+    - values-fp-backend-min.yaml
+- name: fp
+  namespace: demo
+  chart: ../../mojaloop/finance-portal
+  values:
+    - values-fp-min.yaml
