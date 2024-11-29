@@ -61,7 +61,7 @@ executors:
 
   default-machine:
     machine:
-      image: ubuntu-2004:202010-01
+      image: ubuntu-2004:current
 
 ##
 # Jobs
