@@ -29,7 +29,7 @@ dependencies:
       - mojaloop
       - common
     version: 3.0.0
-  - name: zookeeper
-    version: 9.2.7
-    repository: https://charts.bitnami.com/bitnami
-    condition: zookeeper.enabled
+  # - name: zookeeper
+  #   version: 9.2.7
+  #   repository: https://charts.bitnami.com/bitnami
+  #   condition: zookeeper.enabled

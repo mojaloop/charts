@@ -131,8 +131,7 @@ spec:
   {{- end }}
 {{- end }}
 
-          # ../scripts/start.sh
-          sleep infinity
+          ../scripts/start.sh
 
         resources:
 {{ toYaml .Values.resources | indent 10 }}
