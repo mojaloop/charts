@@ -63,7 +63,9 @@ spec:
     - port: {{ .Values.service.httpsPort }}
       name: https
       targetPort: {{ .Values.properties.httpsPort }}
+  {{- if .Values.service.nodePort }}
       nodePort: {{ .Values.service.nodePort }}
+  {{- end }}
     - port: {{ .Values.properties.siteToSite.port }}
       name: site-to-site
       targetPort: {{ .Values.properties.siteToSite.port }}
