@@ -109,7 +109,8 @@ spec:
 
           cat "${NIFI_HOME}/conf/nifi.temp" > "${NIFI_HOME}/conf/nifi.properties"
 
-          if ! test -f /opt/nifi/data/flow.json.gz && test -f /opt/nifi/data/flow.json; then
+          if ! test -f /opt/nifi/data/flow.json.gz ; then
+            curl -L -o /opt/nifi/data/flow.json ${NIFI_FLOW_URL}
             gzip /opt/nifi/data/flow.json
           fi
 
@@ -179,7 +180,7 @@ spec:
           value: '{{ include "common.backends.reportingDB.password" . }}'
         {{- end }}
 {{- if .Values.env }}
-{{ toYaml .Values.env | indent 8 }}
+{{ tpl (toYaml .Values.env) . | indent 8 }}
 {{- end }}
 {{- if .Values.envFrom }}
         envFrom:
@@ -273,9 +274,6 @@ spec:
           - name: "zookeeper-properties"
             mountPath: /opt/nifi/nifi-current/conf/zookeeper.properties
             subPath: "zookeeper.properties"
-          - name: "flow-content"
-            mountPath: /opt/nifi/data/flow.json
-            subPath: "flow.json"
           {{- range $secret := .Values.secrets }}
             {{- if $secret.mountPath }}
               {{- if $secret.keys }}
@@ -399,12 +397,6 @@ spec:
           items:
             - key: "zookeeper.properties"
               path: "zookeeper.properties"
-      - name: "flow-content"
-        configMap:
-          name: {{ template "common.names.fullname" . }}-config
-          items:
-            - key: "flow.json"
-              path: "flow.json"
       {{- range .Values.secrets }}
       - name: {{ include "common.names.fullname" $ }}-{{ .name }}
         secret:
