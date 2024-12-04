@@ -110,6 +110,7 @@ spec:
           cat "${NIFI_HOME}/conf/nifi.temp" > "${NIFI_HOME}/conf/nifi.properties"
 
           if ! test -f /opt/nifi/data/flow.json.gz ; then
+            until nslookup github.com; do sleep 5;done;
             curl -L -o /opt/nifi/data/flow.json ${NIFI_FLOW_URL}
             gzip /opt/nifi/data/flow.json
           fi

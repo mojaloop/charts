@@ -316,6 +316,7 @@ initContainers:
       - sh
       - -c
       - >
+        until nslookup repo1.maven.org; do sleep 5;done;
         curl -L -o /jdbc-lib-folder/mysql-connector-j-8.0.33.jar https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/8.0.33/mysql-connector-j-8.0.33.jar;
         echo "JDBC driver downloaded."
     volumeMounts:
