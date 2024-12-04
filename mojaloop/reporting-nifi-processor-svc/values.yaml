@@ -309,7 +309,7 @@ tolerations: []
 ## https://downloads.mysql.com/archives/get/p/3/file/mysql-connector-j-8.0.33.zip
 # initContainers: {}
 initContainers:
-  - name: download-jdbc-driver
+  download-jdbc-driver:
     image: curlimages/curl:latest
     imagePullPolicy: IfNotPresent
     command:
