@@ -351,6 +351,26 @@ env:
     value: "changeMe"
   - name: KEYSTORE_PASSWORD
     value: "changeMe"
+  ## DB
+  - name: REPORTING_EVENTS_DB_HOST
+    value: '{{ include "common.backends.reportingEventsDB.host" . }}'
+  - name: REPORTING_EVENTS_DB_PORT
+    value: '{{ include "common.backends.reportingEventsDB.port" . }}'
+  - name: REPORTING_EVENTS_DB_DATABASE
+    value: '{{ include "common.backends.reportingEventsDB.database" . }}'
+  - name: REPORTING_EVENTS_DB_USER
+    value: '{{ include "common.backends.reportingEventsDB.user" . }}'
+  - name: REPORTING_DB_HOST
+    value: '{{ include "common.backends.reportingDB.host" . }}'
+  - name: REPORTING_DB_PORT
+    value: '{{ include "common.backends.reportingDB.port" . }}'
+  - name: REPORTING_DB_DATABASE
+    value: '{{ include "common.backends.reportingDB.database" . }}'
+  - name: REPORTING_DB_USER
+    value: '{{ include "common.backends.reportingDB.user" . }}'
+  - name: NIFI_FLOW_URL
+    value: https://raw.githubusercontent.com/mojaloop/reporting-events-processor-svc/refs/tags/v3.0.1-snapshot.0/apache-nifi-workflow/flow.json
+
 
 ## Extra environment variables from secrets and config maps
 envFrom: []
