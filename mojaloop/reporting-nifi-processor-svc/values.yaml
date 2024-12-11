@@ -370,7 +370,7 @@ env:
   - name: REPORTING_DB_USER
     value: '{{ include "common.backends.reportingDB.user" . }}'
   - name: NIFI_FLOW_URL
-    value: https://raw.githubusercontent.com/mojaloop/reporting-events-processor-svc/refs/tags/v3.0.1-snapshot.1/apache-nifi-workflow/flow.json
+    value: https://raw.githubusercontent.com/mojaloop/reporting-events-processor-svc/refs/tags/v3.0.1-snapshot.2/apache-nifi-workflow/flow.json
 
 
 ## Extra environment variables from secrets and config maps
