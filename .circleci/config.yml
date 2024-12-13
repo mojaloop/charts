@@ -57,11 +57,11 @@ executors:
   default-docker-helm:
     working_directory: /home/circleci/project
     docker:
-      - image: alpine/helm:3.5.0
+      - image: alpine/helm:3.12.1
 
   default-machine:
     machine:
-      image: ubuntu-2004:202010-01
+      image: ubuntu-2004:current
 
 ##
 # Jobs
@@ -323,15 +323,15 @@ workflows:
               only: /.*/
       - install-and-test-v1-20:
           context: org-global
-          requires: 
+          requires:
             - build-and-test
       - install-and-test-v1-21:
           context: org-global
-          requires: 
+          requires:
             - build-and-test
       - install-and-test-v1-22:
           context: org-global
-          requires: 
+          requires:
             - build-and-test
       - deploy:
           context: org-global

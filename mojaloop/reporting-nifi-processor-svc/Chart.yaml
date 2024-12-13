@@ -1,5 +1,5 @@
 apiVersion: v2
-name: mojaloop
+name: reporting-nifi-processor-svc
 description: A Helm chart for Kubernetes
 
 # A chart can be either an 'application' or a 'library' chart.
@@ -15,13 +15,13 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 14.0.0
+version: 0.0.1
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
-appVersion: "14.0.0"
+appVersion: "1.2.1"
 dependencies:
   - name: common
     repository: "file://../common"
@@ -29,21 +29,7 @@ dependencies:
       - mojaloop
       - common
     version: 3.1.1
-  - name: fspiop-transfer-api-svc
-    repository: "file://../fspiop-transfer-api-svc"
-    tags:
-      - mojaloop
-      - fspiop-transfer
-    version: 12.0.1
-  - name: admin-api-svc
-    repository: "file://../admin-api-svc"
-    tags:
-      - mojaloop
-      - admin
-    version: 12.0.0
-  - name: account-lookup-service
-    repository: "file://../account-lookup-service"
-    tags:
-      - mojaloop
-      - admin
-    version: 13.0.0
+  # - name: zookeeper
+  #   version: 9.2.7
+  #   repository: https://charts.bitnami.com/bitnami
+  #   condition: zookeeper.enabled
