@@ -75,11 +75,11 @@ do
     fi
 done
 
-#cd ./repo
-#
-#helm repo index . --url $LOCAL_HELM_MOJALOOP_REPO_URI
-#
-#set +x
+cd ./repo
+
+helm repo index . --url $LOCAL_HELM_MOJALOOP_REPO_URI
+
+set +x
 
 echo -e "\
  Packaging completed.\n \
