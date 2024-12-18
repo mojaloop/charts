@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+set -xe
 
 #LOCAL_HELM_MOJALOOP_REPO_URI=${HELM_MOJALOOP_REPO_URI:-'https://docs.mojaloop.io/charts/repo'}
 LOCAL_HELM_MOJALOOP_REPO_URI=https://docs.mojaloop.io/charts/repo
@@ -65,8 +65,9 @@ do
         # possible to specify a development version in requirements.yaml.
         CURRENT_VERSION=$(grep '^version: [0-9]\+\.[0-9]\+\.[0-9]\+\s*$' "$chart/Chart.yaml" | cut -d' ' -f2)
         NEW_VERSION="$CURRENT_VERSION-$BUILD_NUM.${GIT_SHA1:0:7}"
-        echo "Packaging $chart with new version $NEW_VERSION ..."
+        echo "Packaging $chart with version $NEW_VERSION..."
         helm package -u -d ./repo "$chart" --version="$NEW_VERSION"
+
         set +u
     else # we're probably running in CI, this is a job triggered by a tag/release
         # When $GITHUB_TAG is present, we're actually releasing the chart- so we won't modify any
@@ -75,14 +76,14 @@ do
     fi
 done
 
-cd ./repo
-
-helm repo index . --url $LOCAL_HELM_MOJALOOP_REPO_URI
-
-set +x
+#cd ./repo
+#
+#helm repo index . --url $LOCAL_HELM_MOJALOOP_REPO_URI
+#
+#set +x
 
 echo -e "\
- Packaging completed.\n \
+ Packaging only completed.\n \
 Ensure you check the output for any errors. \n \
 Ignore any http errors when connecting to \"local\" chart repository.\n \
 \n \

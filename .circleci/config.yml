@@ -145,6 +145,10 @@ jobs:
       - run:
           name: Linting Helm Charts
           command: ./scripts/lint-charts.sh
+      - run:
+          name: Check packaging
+          command: ./scripts/package_only.sh
+      ## Temporary!  ^^
 
   install-and-test-v1-20:
     executor: default-machine
