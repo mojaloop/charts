@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
+GITHUB_TARGET_BRANCH=cicd  ## or repository?  ## in Helm repo we take if from $HELM_TARGET_BRANCH
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 REVISION=${GITHUB_TAG:-$GIT_SHA1}
-WORKING_RELEASE_DIRECTORY=/tmp/release
 
 if [ -n "${GITHUB_TAG}" ]; then
   COMMIT_MESSAGE="Updating development release to $REVISION"
@@ -16,10 +16,14 @@ echo "Setting BASH_ENV..." | tee git.log
 source $BASH_ENV
 
 echo "Package helm charts..." | tee git.log
-"${DIR}"/../scripts/package.sh
+"${DIR}"/scripts/package.sh
+
+WORKING_RELEASE_DIRECTORY=/tmp/release
+echo "Cloning fresh directory checked out with release branch" | tee git.log
+git clone -b $GITHUB_TARGET_BRANCH --single-branch $CIRCLE_REPOSITORY_URL $WORKING_RELEASE_DIRECTORY &> git.log
 
 echo "Moving packaged charts to release directory and repo folder" | tee git.log
-mv repo/*.* $WORKING_RELEASE_DIRECTORY/repo
+mv repo/ $WORKING_RELEASE_DIRECTORY
 
 echo "Switching to release directory" | tee git.log
 cd $WORKING_RELEASE_DIRECTORY
@@ -35,4 +39,4 @@ echo "Commiting changes..." | tee git.log
 git commit -a -m "'$COMMIT_MESSAGE'"
 
 echo "Publishing $REVISION release to $GITHUB_TARGET_BRANCH on github..." | tee git.log
-git push -q $GITHUB_PROJECT_USERNAME $GITHUB_TARGET_BRANCH &> git.log
+git push -q origin $GITHUB_TARGET_BRANCH &> git.log
