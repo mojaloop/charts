@@ -46,13 +46,14 @@ else
         mojaloop/chart-service
         mojaloop/chart-admin
         mojaloop/account-lookup-service
-        # Main Mojaloop Helm Chart 
+        # Main Mojaloop Helm Chart
         mojaloop/mojaloop
     )
 fi
 
 for chart in "${charts[@]}"
 do
+    helm lint "$chart" --quiet || true # just to see logs output with warns/errors
     if [ -z $BUILD_NUM ] || [ -z $GIT_SHA1 ]; then # we're most likely not running in CI
         # Probably running on someone's machine
         helm package -u -d ./repo "$chart"
@@ -74,11 +75,11 @@ do
     fi
 done
 
-cd ./repo
-
-helm repo index . --url $LOCAL_HELM_MOJALOOP_REPO_URI
-
-set +x
+#cd ./repo
+#
+#helm repo index . --url $LOCAL_HELM_MOJALOOP_REPO_URI
+#
+#set +x
 
 echo -e "\
  Packaging completed.\n \
