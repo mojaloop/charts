@@ -66,6 +66,7 @@ do
         # possible to specify a development version in requirements.yaml.
         CURRENT_VERSION=$(grep '^version: [0-9]\+\.[0-9]\+\.[0-9]\+\s*$' "$chart/Chart.yaml" | cut -d' ' -f2)
         NEW_VERSION="$CURRENT_VERSION-$BUILD_NUM.${GIT_SHA1:0:7}"
+        echo "Packaging $chart with new version $NEW_VERSION ..."
         helm package -u -d ./repo "$chart" --version="$NEW_VERSION"
         set +u
     else # we're probably running in CI, this is a job triggered by a tag/release
