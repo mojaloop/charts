@@ -64,10 +64,7 @@ do
         # development version using the --devel argument to `helm upgrade` or `helm install`.
         # Development versions can be found with `helm search --devel`. Additionally, it is
         # possible to specify a development version in requirements.yaml.
-        echo "RAW_VERSION of $chart - $(grep '^version: [0-9]\+\.[0-9]\+\.[0-9]\+\s*$' "$chart/Chart.yaml")"
         CURRENT_VERSION=$(grep '^version: [0-9]\+\.[0-9]\+\.[0-9]\+\s*$' "$chart/Chart.yaml" | cut -d' ' -f2)
-        echo "CURRENT_VERSION: ${CURRENT_VERSION}"
-        NEW_VERSION="$CURRENT_VERSION-$BUILD_NUM.${GIT_SHA1:0:7}"
         echo "Packaging $chart with new version ${NEW_VERSION} ..."
         helm package -u -d ./repo "$chart" --version="$NEW_VERSION"
         set +u
@@ -79,7 +76,6 @@ do
 done
 
 cd ./repo
-
 helm repo index . --url $LOCAL_HELM_MOJALOOP_REPO_URI
 
 set +x
