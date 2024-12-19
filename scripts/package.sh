@@ -3,7 +3,7 @@
 set -e
 
 #LOCAL_HELM_MOJALOOP_REPO_URI=${HELM_MOJALOOP_REPO_URI:-'https://docs.mojaloop.io/charts/repo'}
-LOCAL_HELM_MOJALOOP_REPO_URI=https://docs.mojaloop.io/charts/repo
+LOCAL_HELM_MOJALOOP_REPO_URI=https://docs.mojaloop.io/charts/repo ## https://mojaloop.github.io/charts/repo
 
 #
 # Script to Package all charts, and create an index.yaml in ./repo directory
@@ -53,7 +53,6 @@ fi
 
 for chart in "${charts[@]}"
 do
-    helm lint "$chart" --quiet || true # just to see logs output with warns/errors
     if [ -z $BUILD_NUM ] || [ -z $GIT_SHA1 ]; then # we're most likely not running in CI
         # Probably running on someone's machine
         helm package -u -d ./repo "$chart"
