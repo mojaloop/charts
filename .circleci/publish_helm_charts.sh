@@ -2,7 +2,7 @@
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 REVISION=${GITHUB_TAG:-$GIT_SHA1}
-LOCAL_HELM_MOJALOOP_REPO_URI=${HELM_MOJALOOP_REPO_URI:-'https://mojaloop.github.io/charts/repo'}
+LOCAL_HELM_MOJALOOP_REPO_URI=https://mojaloop.github.io/charts/repo
 
 echo "DIR=${DIR}"
 echo "PWD=${PWD}"
