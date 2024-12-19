@@ -25,7 +25,7 @@ echo "Cloning fresh directory checked out with release branch" | tee git.log
 git clone -b $GITHUB_TARGET_BRANCH --single-branch $CIRCLE_REPOSITORY_URL $WORKING_RELEASE_DIRECTORY &> git.log
 
 echo "Moving packaged charts to release directory and repo folder" | tee git.log
-mv repo/ $WORKING_RELEASE_DIRECTORY
+mv repo/*.* $WORKING_RELEASE_DIRECTORY/repo
 mv README.md LICENSE.md CODEOWNERS $WORKING_RELEASE_DIRECTORY
 
 echo "Switching to release directory" | tee git.log
