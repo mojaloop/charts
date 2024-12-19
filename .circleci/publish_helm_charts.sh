@@ -3,6 +3,9 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 REVISION=${GITHUB_TAG:-$GIT_SHA1}
 
+echo "DIR=${DIR}"
+echo "PWD=${PWD}"
+
 if [ -n "${GITHUB_TAG}" ]; then
   COMMIT_MESSAGE="Updating development release to $REVISION"
 else
@@ -15,7 +18,7 @@ echo "Setting BASH_ENV..." | tee git.log
 source $BASH_ENV
 
 echo "Package helm charts..." | tee git.log
-"${DIR}"/scripts/package.sh
+"${DIR}"/../scripts/package.sh
 
 WORKING_RELEASE_DIRECTORY=/tmp/release
 echo "Cloning fresh directory checked out with release branch" | tee git.log
