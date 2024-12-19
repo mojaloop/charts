@@ -36,7 +36,7 @@ echo "Staging general changes..." | tee git.log
 git add -A
 
 echo "Staging packaged Helm charts..." | tee git.log
-git add repo/*.tgz repo/index.yaml ./README.md ./LICENSE.md ./CODEOWNERS
+git add -f repo/*.tgz repo/index.yaml ./README.md ./LICENSE.md ./CODEOWNERS
 
 echo "Commiting changes..." | tee git.log
 git commit -a -m "'$COMMIT_MESSAGE'"
