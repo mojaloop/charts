@@ -12,7 +12,7 @@ Here you will find the Business Operational Helm Charts for Reporting Services, 
 
 ## Quick Links
 
-- [http://docs.mojaloop.io/charts/](http://docs.mojaloop.io/charts/) Mojaloop Published Helm Repo
+- [https://mojaloop.github.io/charts/](https://mojaloop.github.io/charts) Mojaloop Published Helm Repo
 - [Documentation - Deploying Mojaloop](https://docs.mojaloop.io/documentation/deployment-guide)
 - [Helm v3 Docs](https://docs.helm.sh/)
 
