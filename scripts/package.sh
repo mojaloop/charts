@@ -2,8 +2,7 @@
 
 set -e
 
-#LOCAL_HELM_MOJALOOP_REPO_URI=${HELM_MOJALOOP_REPO_URI:-'https://docs.mojaloop.io/charts/repo'}
-LOCAL_HELM_MOJALOOP_REPO_URI=https://docs.mojaloop.io/charts/repo
+LOCAL_HELM_MOJALOOP_REPO_URI=https://mojaloop.github.io/charts/repo
 
 #
 # Script to Package all charts, and create an index.yaml in ./repo directory
@@ -46,7 +45,7 @@ else
         mojaloop/chart-service
         mojaloop/chart-admin
         mojaloop/account-lookup-service
-        # Main Mojaloop Helm Chart 
+        # Main Mojaloop Helm Chart
         mojaloop/mojaloop
     )
 fi
@@ -65,6 +64,7 @@ do
         # possible to specify a development version in requirements.yaml.
         CURRENT_VERSION=$(grep '^version: [0-9]\+\.[0-9]\+\.[0-9]\+\s*$' "$chart/Chart.yaml" | cut -d' ' -f2)
         NEW_VERSION="$CURRENT_VERSION-$BUILD_NUM.${GIT_SHA1:0:7}"
+        echo "Packaging $chart with new version ${NEW_VERSION} ..."
         helm package -u -d ./repo "$chart" --version="$NEW_VERSION"
         set +u
     else # we're probably running in CI, this is a job triggered by a tag/release
@@ -75,8 +75,7 @@ do
 done
 
 cd ./repo
-
-helm repo index . --url $LOCAL_HELM_MOJALOOP_REPO_URI
+helm repo index . --url "$LOCAL_HELM_MOJALOOP_REPO_URI"
 
 set +x
 

@@ -19,7 +19,7 @@ dependencies:
     repository: "file://../common"
     tags:
       - moja-common
-    version: 3.1.1
+    version: 3.1.2
   - name: account-lookup-service
     version: 13.0.0
     repository: "file://../chart-service"
