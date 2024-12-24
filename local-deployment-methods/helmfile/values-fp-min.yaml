@@ -8,23 +8,23 @@ global:
   keto:
     readURL: "http://keto-read:80"
   reportingDB:
-    host: centralledger-mysql
+    host: mysqldb
     port: 3306
-    user: user
-    database: default
+    user: central_ledger
+    database: central_ledger
     # secret: {}
     secret:
-      name: mysql
+      name: mysqldb
       key: mysql-password
   reportingEventsDB:
     host: reporting-events-db
     port: 27017
-    user: user
-    database: default
+    user: finance_portal
+    database: finance_portal
     # secret: {}
     secret:
       name: reporting-events-db
-      key: mongodb-password
+      key: mongodb-passwords
   kafka:
     host: test1-kafka-headless
     port: 9092

@@ -82,13 +82,35 @@ spec:
       securityContext:
 {{ toYaml .Values.securityContext | indent 8 }}
 {{- end }}
-{{- if .Values.initContainers }}
       initContainers:
+      - name: mongo-init-indices
+        image: mongo:6.0.2
+        imagePullPolicy: IfNotPresent
+        command:
+          - sh
+          - -c
+          - >
+            mongosh --host {{ include "common.backends.reportingEventsDB.host" . }} --port {{ include "common.backends.reportingEventsDB.port" . }} -u {{ include "common.backends.reportingEventsDB.user" . }} -p $EVENT_STORE_DB_PASSWORD --authenticationDatabase {{ include "common.backends.reportingEventsDB.database" . }} /tmp/mongo-init-indices.js;
+            echo "MongoDB indices initialized."
+        env:
+        - name: EVENT_STORE_DB_PASSWORD
+          {{- if (include "common.backends.reportingEventsDB.secret.name" .) }}
+          valueFrom:
+            secretKeyRef:
+              name: '{{ include "common.backends.reportingEventsDB.secret.name" . }}'
+              key: '{{ include "common.backends.reportingEventsDB.secret.key" . }}'
+          {{- else }}
+          value: '{{ include "common.backends.reportingEventsDB.password" . }}'
+          {{- end }}
+        volumeMounts:
+          - name: mongo-init-indices
+            mountPath: /tmp/mongo-init-indices.js
+            subPath: mongo-init-indices.js
 {{- range $key, $value := .Values.initContainers }}
       - name: {{ $key }}
 {{ toYaml $value | indent 8 }}
 {{- end }}
-{{- end }}
+
       {{- if .Values.image.pullSecret }}
       imagePullSecrets:
         - name: {{ .Values.image.pullSecret }}
@@ -109,7 +131,8 @@ spec:
 
           cat "${NIFI_HOME}/conf/nifi.temp" > "${NIFI_HOME}/conf/nifi.properties"
 
-          if ! test -f /opt/nifi/data/flow.json.gz && test -f /opt/nifi/data/flow.json; then
+          if ! test -f /opt/nifi/data/flow.json.gz ; then
+            curl -L -o /opt/nifi/data/flow.json ${NIFI_FLOW_URL}
             gzip /opt/nifi/data/flow.json
           fi
 
@@ -160,8 +183,26 @@ spec:
         - name: NIFI_WEB_HTTPS_HOST
           value: 0.0.0.0
 {{- end }}
+        - name: EVENT_STORE_DB_PASSWORD
+        {{- if (include "common.backends.reportingEventsDB.secret.name" .) }}
+          valueFrom:
+            secretKeyRef:
+              name: '{{ include "common.backends.reportingEventsDB.secret.name" . }}'
+              key: '{{ include "common.backends.reportingEventsDB.secret.key" . }}'
+        {{- else }}
+          value: '{{ include "common.backends.reportingEventsDB.password" . }}'
+        {{- end }}
+        - name: REPORTING_DB_PASSWORD
+        {{- if (include "common.backends.reportingDB.secret.name" .) }}
+          valueFrom:
+            secretKeyRef:
+              name: '{{ include "common.backends.reportingDB.secret.name" . }}'
+              key: '{{ include "common.backends.reportingDB.secret.key" . }}'
+        {{- else }}
+          value: '{{ include "common.backends.reportingDB.password" . }}'
+        {{- end }}
 {{- if .Values.env }}
-{{ toYaml .Values.env | indent 8 }}
+{{ tpl (toYaml .Values.env) . | indent 8 }}
 {{- end }}
 {{- if .Values.envFrom }}
         envFrom:
@@ -255,9 +296,6 @@ spec:
           - name: "zookeeper-properties"
             mountPath: /opt/nifi/nifi-current/conf/zookeeper.properties
             subPath: "zookeeper.properties"
-          - name: "flow-content"
-            mountPath: /opt/nifi/data/flow.json
-            subPath: "flow.json"
           {{- range $secret := .Values.secrets }}
             {{- if $secret.mountPath }}
               {{- if $secret.keys }}
@@ -381,12 +419,12 @@ spec:
           items:
             - key: "zookeeper.properties"
               path: "zookeeper.properties"
-      - name: "flow-content"
+      - name: "mongo-init-indices"
         configMap:
           name: {{ template "common.names.fullname" . }}-config
           items:
-            - key: "flow.json"
-              path: "flow.json"
+            - key: "mongo-init-indices.js"
+              path: "mongo-init-indices.js"
       {{- range .Values.secrets }}
       - name: {{ include "common.names.fullname" $ }}-{{ .name }}
         secret:

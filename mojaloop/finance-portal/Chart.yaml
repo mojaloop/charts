@@ -15,13 +15,13 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 4.3.0
+version: 5.0.0
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
-appVersion: "4.3.0"
+appVersion: "5.0.0"
 dependencies:
   - name: common
     repository: "file://../common"
@@ -42,14 +42,14 @@ dependencies:
     tags:
       - mojaloop
       - reporting-hub-bop-shell
-    version: 1.0.3
+    version: 1.1.0
   - name: reporting-hub-bop-api-svc
     condition: reporting-hub-bop-api-svc.enabled
     repository: "file://../reporting-hub-bop-api-svc"
     tags:
       - mojaloop
       - reporting-hub-bop-api-svc
-    version: 2.0.0
+    version: 3.0.0
   - name: reporting-legacy-api
     condition: reporting-legacy-api.enabled
     repository: "file://../reporting-legacy-api"
@@ -63,7 +63,7 @@ dependencies:
     tags:
       - mojaloop
       - reporting-events-processor-svc
-    version: 3.0.1
+    version: 3.1.0
   - name: reporting-hub-bop-role-ui
     condition: reporting-hub-bop-role-ui.enabled
     repository: "file://../reporting-hub-bop-role-ui"
@@ -77,21 +77,21 @@ dependencies:
     tags:
       - mojaloop
       - reporting-hub-bop-trx-ui
-    version: 1.0.0
+    version: 2.0.0
   - name: reporting-hub-bop-settlements-ui
     condition: reporting-hub-bop-settlements-ui.enabled
     repository: "file://../reporting-hub-bop-settlements-ui"
     tags:
       - mojaloop
       - reporting-hub-bop-settlements-ui
-    version: 1.0.3
+    version: 1.1.0
   - name: reporting-hub-bop-positions-ui
     condition: reporting-hub-bop-positions-ui.enabled
     repository: "file://../reporting-hub-bop-positions-ui"
     tags:
       - mojaloop
       - reporting-hub-bop-positions-ui
-    version: 1.0.3
+    version: 1.0.4
   - name: reporting-hub-bop-experience-api-svc
     condition: reporting-hub-bop-experience-api-svc.enabled
     repository: "file://../reporting-hub-bop-experience-api-svc"
