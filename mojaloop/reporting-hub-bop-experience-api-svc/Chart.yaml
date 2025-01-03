@@ -15,6 +15,6 @@ maintainers:
 dependencies:
   - name: common
     repository: "file://../common"
+    version: ">= 3.1.2"
     tags:
       - moja-common
-    version: 3.1.2
