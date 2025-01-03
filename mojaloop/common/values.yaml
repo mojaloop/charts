@@ -3,3 +3,9 @@
 ## @skip exampleValue
 ##
 exampleValue: common-chart
+
+pdb:
+  enabled: false
+#  maxUnavailable: 1
+#  minAvailable: 20%
+## Only one key should be set
