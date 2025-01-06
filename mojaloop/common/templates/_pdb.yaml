@@ -1,0 +1,21 @@
+{{- define "common.pdb.matchLabels" -}}
+  ml.ha/handler: "true"
+{{- end -}}
+
+{{- define "common.pdb.resource" -}}
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ .Release.Name }}-pdb
+  namespace: {{ .Release.Namespace | quote }}
+spec:
+{{- if (.Values.pdb).minAvailable }}
+  minAvailable: {{ .Values.pdb.minAvailable }}
+{{- else if (.Values.pdb).maxUnavailable }}
+  maxUnavailable: {{ .Values.pdb.maxUnavailable }}
+{{- end }}
+  selector:
+    matchLabels:
+      {{- include "common.pdb.matchLabels" . | nindent 6 }}
+  unhealthyPodEvictionPolicy: AlwaysAllow
+{{- end -}}
