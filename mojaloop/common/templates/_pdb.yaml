@@ -2,7 +2,7 @@
   ml.ha/handler: "true"
 {{- end -}}
 
-{{- if .Values.pdb.enabled }}
+{{- define "common.pdb.resource" -}}
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
