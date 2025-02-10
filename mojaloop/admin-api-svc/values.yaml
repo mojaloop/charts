@@ -120,14 +120,14 @@ diagnosticMode:
   enabled: false
   ## @param diagnosticMode.command Command to override all containers in the deployment
   ##
-  command: 
+  command:
     - node
     - src/api/index.js
   ## @param diagnosticMode.args Args to override all containers in the deployment
   ##
   args:
     - --inspect=0.0.0.0:{{ .Values.diagnosticMode.debug.port }}
-  
+
   ## @param diagnosticMode.debug config to override all debug information
   ##
   debug:
@@ -151,13 +151,13 @@ initContainers:
     command:
       - sh
       - -c
-      - until ./bin/kafka-broker-api-versions.sh --bootstrap-server ${KAFKA_HOST}:${KAFKA_PORT}; 
+      - until ./bin/kafka-broker-api-versions.sh --bootstrap-server ${KAFKA_HOST}:${KAFKA_PORT};
         do
           echo --------------------;
           echo Waiting for Kafka...;
-          sleep 2; 
+          sleep 2;
         done;
-        echo ====================; 
+        echo ====================;
         echo Kafka ok!;
     env:
       - name: KAFKA_HOST
@@ -170,13 +170,13 @@ initContainers:
     command:
       - sh
       - -c
-      - until mysql -h ${DB_HOST} -P ${DB_PORT} -u ${DB_USER} --password=${DB_PASSWORD}  ${DB_DATABASE} -e 'select version()' ; 
+      - until mysql -h ${DB_HOST} -P ${DB_PORT} -u ${DB_USER} --password=${DB_PASSWORD}  ${DB_DATABASE} -e 'select version()' ;
         do
           echo --------------------;
           echo Waiting for MySQL...;
-          sleep 2; 
+          sleep 2;
         done;
-        echo ====================; 
+        echo ====================;
         echo MySQL ok!;
     env:
       - name: DB_HOST
@@ -588,7 +588,7 @@ configFiles:
                                 "consumeTimeout": 1000
                             },
                             "rdkafkaConf": {
-                                "metadata.broker.list": {{ printf "%s:%s" (include "common.backends.centralbroker.host" .) (include "common.backends.centralbroker.port" .) | quote}},  
+                                "metadata.broker.list": {{ printf "%s:%s" (include "common.backends.centralbroker.host" .) (include "common.backends.centralbroker.port" .) | quote}},
                                 "client.id": "cl-con-bulk-processing",
                                 "group.id": "cl-group-bulk-processing",
                                 "socket.keepalive.enable": true,
@@ -925,7 +925,7 @@ sidecar:
     repository: mojaloop/event-sidecar
     tag: v11.0.1
     pullPolicy: IfNotPresent
-    command: 
+    command:
       - npm
       - run
       - start
@@ -1005,3 +1005,18 @@ sidecar:
           }
         }
       }
+
+## Configure resource requests and limits
+## ref: http://kubernetes.io/docs/user-guide/compute-resources/
+##
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #  cpu: 100m
+  #  memory: 128Mi
+  # requests:
+  #  cpu: 100m
+  #  memory: 128Mi

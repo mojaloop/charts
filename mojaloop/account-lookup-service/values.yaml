@@ -1,9 +1,9 @@
 
 ## Default values.yaml for parent mojaloop helm charts which have subcharts
-## This YAML formatted file has been automatically created from its dependent subcharts 
-## End users and deployers should customise their deployments by editing this file 
-## mojaloop developers should customise the values.yaml files in the subcharts and not edit this 
-## file directly. 
+## This YAML formatted file has been automatically created from its dependent subcharts
+## End users and deployers should customise their deployments by editing this file
+## mojaloop developers should customise the values.yaml files in the subcharts and not edit this
+## file directly.
 
 global:
   imageRegistry: ""
@@ -27,11 +27,11 @@ global:
       name: mysql
       key: mysql-password
 
-  # This can be overridden by defining the adminApiSvc element.    
+  # This can be overridden by defining the adminApiSvc element.
   adminApiSvc: {}
 
 
-## configurable values for subcharts 
+## configurable values for subcharts
 chart-service:
   podAffinityPreset: ""
   ## @param podAntiAffinityPreset Pod anti-affinity preset. Ignored if `main.affinity` is set. Allowed values: `soft` or `hard`
@@ -41,7 +41,7 @@ chart-service:
   ## Node affinity preset
   ## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity
   ##
-  
+
   nodeAffinityPreset:
     ## @param nodeAffinityPreset.type Node affinity preset type. Ignored if `main.affinity` is set. Allowed values: `soft` or `hard`
     ##
@@ -60,19 +60,19 @@ chart-service:
   ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
   ## NOTE: `podAffinityPreset`, `main.podAntiAffinityPreset`, and `main.nodeAffinityPreset` will be ignored when it's set
   ##
-  
+
   ## Pod scheduling preferences.
   ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
   affinity: {}
-  
+
   ## Node labels for pod assignment
   ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector
   nodeSelector: {}
-  
+
   ## Set toleration for scheduler
   ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
   tolerations: []
-  
+
   ## Configure Pods Security Context
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
   ## @param podSecurityContext.enabled Enabled %%MAIN_CONTAINER_NAME%% pods' Security Context
@@ -89,7 +89,7 @@ chart-service:
   containerSecurityContext:
     enabled: true
     runAsUser: 1001
-  
+
   image:
     registry: "docker.io"
     repository: mojaloop/account-lookup-service
@@ -110,10 +110,10 @@ chart-service:
     ## Enable debug mode
     ##
     debug: false
-  
+
   replicaCount: 1
-  command: '["node", "src/index.js", "server", "--api"]' 
-  
+  command: '["node", "src/index.js", "server", "--api"]'
+
   ## Enable diagnostic mode in the deployment
   ##
   diagnosticMode:
@@ -122,20 +122,20 @@ chart-service:
     enabled: false
     ## @param diagnosticMode.command Command to override all containers in the deployment
     ##
-    command: 
+    command:
       - node
       - src/api/index.js
     ## @param diagnosticMode.args Args to override all containers in the deployment
     ##
     args:
       - --inspect=0.0.0.0:{{ .Values.diagnosticMode.debug.port }}
-    
+
     ## @param diagnosticMode.debug config to override all debug information
     ##
     debug:
       internalPort: 9229
       port: 9229
-  
+
   ## @param initContainers Add additional init containers to the %%MAIN_CONTAINER_NAME%% pod(s)
   ## ref: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
   ## e.g:
@@ -153,13 +153,13 @@ chart-service:
       command:
         - sh
         - -c
-        - until ./bin/kafka-broker-api-versions.sh --bootstrap-server ${KAFKA_HOST}:${KAFKA_PORT}; 
+        - until ./bin/kafka-broker-api-versions.sh --bootstrap-server ${KAFKA_HOST}:${KAFKA_PORT};
           do
             echo --------------------;
             echo Waiting for Kafka...;
-            sleep 2; 
+            sleep 2;
           done;
-          echo ====================; 
+          echo ====================;
           echo Kafka ok!;
       env:
         - name: KAFKA_HOST
@@ -172,13 +172,13 @@ chart-service:
       command:
         - sh
         - -c
-        - until mysql -h ${DB_HOST} -P ${DB_PORT} -u ${DB_USER} --password=${DB_PASSWORD}  ${DB_DATABASE} -e 'select version()' ; 
+        - until mysql -h ${DB_HOST} -P ${DB_PORT} -u ${DB_USER} --password=${DB_PASSWORD}  ${DB_DATABASE} -e 'select version()' ;
           do
             echo --------------------;
             echo Waiting for MySQL...;
-            sleep 2; 
+            sleep 2;
           done;
-          echo ====================; 
+          echo ====================;
           echo MySQL ok!;
       env:
         - name: DB_HOST
@@ -194,7 +194,7 @@ chart-service:
               key: '{{ include "common.backends.accountdb.secret.key" . }}'
         - name: DB_DATABASE
           value: '{{ include "common.backends.accountdb.database" . }}'
-  
+
   readinessProbe:
     enabled: true
     httpGet:
@@ -207,7 +207,7 @@ chart-service:
       path: /health
     initialDelaySeconds: 15
     periodSeconds: 15
-  
+
   ## metric configuration for prometheus instrumentation
   metrics:
     ## flag to enable/disable the metrics end-points
@@ -217,7 +217,7 @@ chart-service:
       prefix: moja_
       defaultLabels:
         serviceName: ml-service
-  
+
   kafka: {}
     ## This is the same as setting the host explicitly, i.e. will set the host as set below. It is included to support importing Kafka charts as a dependency.
     # fullnameOverride: kafka
@@ -225,7 +225,7 @@ chart-service:
     # nameOverride: kafka
     # host: kafka
     # port: 9092
-  
+
   mysql:
     ## This is the same as setting the host explicitly, i.e. will set the host as set below. It is included to support importing MySQL charts as a dependency.
     # fullnameOverride: mysql
@@ -238,7 +238,7 @@ chart-service:
     secret: {}
     #   name: mysql
     #   key: password
-  
+
   adminApiSvc: {}
     # This is the same as setting the host explicitly, i.e. will set the host as set below. It is included to support importing Kafka charts as a dependency.
     # fullnameOverride: admin-api-svc
@@ -246,32 +246,32 @@ chart-service:
     # nameOverride: admin-api-svc
     # host: t-admin-api-svc
     # port: 80
-  
+
   config:
-    
-    ## admin and Service Ports 
+
+    ## admin and Service Ports
     admin_port: 4001
     api_port: 4002
-  
+
     ## Hub Configuration
     hub_participant:
       id: 1
       name: Hub
-  
+
     ## Cache configuration
     cache_enabled: false
     cache_max_byte_size: 10000000
     cache_expires_in_ms: 1000
-  
+
     ## Health Check endpoint
     central_services_health_endpoint_param: '/health'
-  
+
     ## MongoDB Configuration for Object Store
     objstore_disabled: true
     objstore_uri: 'mongodb://$release_name-centralledger-obj:27017/mlos'
-  
+
     kafka_partitioner: murmur2_random
-  
+
     db_connection_pool_min: 10
     db_connection_pool_max: 30
     db_acquire_timeout_millis: 30000
@@ -281,12 +281,12 @@ chart-service:
     db_reap_interval_millis: 1000
     db_create_retry_interval_millis: 200
     db_debug: false
-  
+
     ## Log Configuration
     log_level: info
     log_filter: 'error, warn, info'
     log_transport: file
-  
+
     ## Tracing Configuration
     event_trace_vendor: mojaloop
     event_trace_state_enabled: true
@@ -297,23 +297,23 @@ chart-service:
     # Any combination of: `log,audit,trace`
     event_async_override: 'log,trace'
     event_traceid_per_vendor: false
-  
+
     # Thirdparty API Config
     featureEnableExtendedPartyIdType: false
-  
-    ## 
+
+    ##
     display_routes: true
     run_migrations: false
     end_point_cache:
       expiresIn: 180000
       generateTimeout: 30000
-  
+
     ## Error handling Configuration
     error_handling:
       include_cause_extension: false
       truncate_extensions: true
     resource_versions: 'transfers=1.1,participants=1.1,quotes=1.0'
-  
+
   service:
     internalPort: 4002
     ## @param service.type %%MAIN_CONTAINER_NAME%% service type
@@ -356,7 +356,7 @@ chart-service:
     ## @param service.annotations Additional custom annotations for %%MAIN_CONTAINER_NAME%% service
     ##
     annotations: {}
-  
+
   ingress:
     ## @param ingress.enabled Enable ingress record generation for %%MAIN_CONTAINER_NAME%%
     ##
@@ -438,16 +438,16 @@ chart-service:
     ##
     secrets: []
     className: "nginx"
-  
+
   podAnnotations: {}
-  
+
   ## RBAC configuration
   ##
   rbac:
     ## @param rbac.create Specifies whether RBAC resources should be created
     ##
     create: false
-  
+
   ## ServiceAccount configuration
   ##
   serviceAccount:
@@ -458,10 +458,10 @@ chart-service:
     ## If not set and create is true, a name is generated using the common.names.fullname template
     ##
     name: ""
-  
+
   configFiles:
     default.json: |
-      {  
+      {
           "HOSTNAME": "{{ .Values.ingress.hostname }}",
           "ADMIN_PORT": {{ .Values.service.internalPort }},
           "API_PORT":  {{ .Values.service.internalPort }},
@@ -515,7 +515,7 @@ chart-service:
                   "FSPIOP_SOURCE_TO_SIGN": "switch",
                   "JWS_SIGNING_KEY_PATH": "secrets/jwsSigningKey.key"
                 }
-          }, 
+          },
           "ERROR_HANDLING": {
               "includeCauseExtension": {{ .Values.config.error_handling.include_cause_extension }},
               "truncateExtensions": {{ .Values.config.error_handling.truncate_extensions }}
@@ -538,23 +538,23 @@ chart-service:
               }
           },
           "API_DOCUMENTATION_ENDPOINTS": true,
-          "FEATURE_ENABLE_EXTENDED_PARTY_ID_TYPE": {{ .Values.config.featureEnableExtendedPartyIdType }}      
+          "FEATURE_ENABLE_EXTENDED_PARTY_ID_TYPE": {{ .Values.config.featureEnableExtendedPartyIdType }}
       }
-  
-  
+
+
   sidecar:
     enabled: true
     image:
       repository: mojaloop/event-sidecar
       tag: v11.0.1
       pullPolicy: IfNotPresent
-      command: 
+      command:
         - npm
         - run
         - start
     service:
       name: api
-      port: 
+      port:
       internalPort: 4003
     readinessProbe:
       enabled: true
@@ -576,7 +576,7 @@ chart-service:
       event_log_metadata_only: true
       log_level: info
       log_filter: 'error, warn, info'
-  
+
     configFiles:
       default.json: |
         {
@@ -628,7 +628,7 @@ chart-service:
             }
           }
         }
-  
+
 chart-admin:
   podAffinityPreset: ""
   ## @param podAntiAffinityPreset Pod anti-affinity preset. Ignored if `main.affinity` is set. Allowed values: `soft` or `hard`
@@ -638,7 +638,7 @@ chart-admin:
   ## Node affinity preset
   ## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity
   ##
-  
+
   nodeAffinityPreset:
     ## @param nodeAffinityPreset.type Node affinity preset type. Ignored if `main.affinity` is set. Allowed values: `soft` or `hard`
     ##
@@ -657,19 +657,19 @@ chart-admin:
   ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
   ## NOTE: `podAffinityPreset`, `main.podAntiAffinityPreset`, and `main.nodeAffinityPreset` will be ignored when it's set
   ##
-  
+
   ## Pod scheduling preferences.
   ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
   affinity: {}
-  
+
   ## Node labels for pod assignment
   ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector
   nodeSelector: {}
-  
+
   ## Set toleration for scheduler
   ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
   tolerations: []
-  
+
   ## Configure Pods Security Context
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
   ## @param podSecurityContext.enabled Enabled %%MAIN_CONTAINER_NAME%% pods' Security Context
@@ -686,7 +686,7 @@ chart-admin:
   containerSecurityContext:
     enabled: true
     runAsUser: 1001
-  
+
   image:
     registry: "docker.io"
     repository: mojaloop/account-lookup-service
@@ -707,10 +707,10 @@ chart-admin:
     ## Enable debug mode
     ##
     debug: false
-  
+
   replicaCount: 1
-  command: '["node", "src/index.js", "server", "--admin"]' 
-  
+  command: '["node", "src/index.js", "server", "--admin"]'
+
   ## Enable diagnostic mode in the deployment
   ##
   diagnosticMode:
@@ -719,20 +719,20 @@ chart-admin:
     enabled: false
     ## @param diagnosticMode.command Command to override all containers in the deployment
     ##
-    command: 
+    command:
       - node
       - src/api/index.js
     ## @param diagnosticMode.args Args to override all containers in the deployment
     ##
     args:
       - --inspect=0.0.0.0:{{ .Values.diagnosticMode.debug.port }}
-    
+
     ## @param diagnosticMode.debug config to override all debug information
     ##
     debug:
       internalPort: 9229
       port: 9229
-  
+
   ## @param initContainers Add additional init containers to the %%MAIN_CONTAINER_NAME%% pod(s)
   ## ref: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
   ## e.g:
@@ -750,13 +750,13 @@ chart-admin:
       command:
         - sh
         - -c
-        - until ./bin/kafka-broker-api-versions.sh --bootstrap-server ${KAFKA_HOST}:${KAFKA_PORT}; 
+        - until ./bin/kafka-broker-api-versions.sh --bootstrap-server ${KAFKA_HOST}:${KAFKA_PORT};
           do
             echo --------------------;
             echo Waiting for Kafka...;
-            sleep 2; 
+            sleep 2;
           done;
-          echo ====================; 
+          echo ====================;
           echo Kafka ok!;
       env:
         - name: KAFKA_HOST
@@ -769,13 +769,13 @@ chart-admin:
       command:
         - sh
         - -c
-        - until mysql -h ${DB_HOST} -P ${DB_PORT} -u ${DB_USER} --password=${DB_PASSWORD}  ${DB_DATABASE} -e 'select version()' ; 
+        - until mysql -h ${DB_HOST} -P ${DB_PORT} -u ${DB_USER} --password=${DB_PASSWORD}  ${DB_DATABASE} -e 'select version()' ;
           do
             echo --------------------;
             echo Waiting for MySQL...;
-            sleep 2; 
+            sleep 2;
           done;
-          echo ====================; 
+          echo ====================;
           echo MySQL ok!;
       env:
         - name: DB_HOST
@@ -806,11 +806,11 @@ chart-admin:
             secretKeyRef:
               name: '{{ include "common.backends.accountdb.secret.name" . }}'
               key: '{{ include "common.backends.accountdb.secret.key" . }}'
-  
+
       volumeMounts:
         - name: config-volume
           mountPath: /opt/account-lookup-service/config
-  
+
   readinessProbe:
     enabled: true
     httpGet:
@@ -823,7 +823,7 @@ chart-admin:
       path: /health
     initialDelaySeconds: 15
     periodSeconds: 15
-  
+
   ## metric configuration for prometheus instrumentation
   metrics:
     ## flag to enable/disable the metrics end-points
@@ -833,7 +833,7 @@ chart-admin:
       prefix: moja_
       defaultLabels:
         serviceName: account-lookup-service
-  
+
   kafka: {}
     ## This is the same as setting the host explicitly, i.e. will set the host as set below. It is included to support importing Kafka charts as a dependency.
     # fullnameOverride: kafka
@@ -841,7 +841,7 @@ chart-admin:
     # nameOverride: kafka
     # host: kafka
     # port: 9092
-  
+
   mysql:
     ## This is the same as setting the host explicitly, i.e. will set the host as set below. It is included to support importing MySQL charts as a dependency.
     # fullnameOverride: mysql
@@ -854,7 +854,7 @@ chart-admin:
     secret: {}
     #   name: mysql
     #   key: password
-  
+
   adminApiSvc: {}
     # This is the same as setting the host explicitly, i.e. will set the host as set below. It is included to support importing Kafka charts as a dependency.
     # fullnameOverride: admin-api-svc
@@ -862,32 +862,32 @@ chart-admin:
     # nameOverride: admin-api-svc
     # host#: admin-api-svc
     # port: 80
-  
+
   config:
-  
-    ## admin and Service Ports 
+
+    ## admin and Service Ports
     admin_port: 4001
     api_port: 4002
-  
+
     ## Hub Configuration
     hub_participant:
       id: 1
       name: Hub
-  
+
     ## Cache configuration
     cache_enabled: false
     cache_max_byte_size: 10000000
     cache_expires_in_ms: 1000
-  
+
     ## Health Check endpoint
     central_services_health_endpoint_param: '/health'
-  
+
     ## MongoDB Configuration for Object Store
     objstore_disabled: true
     objstore_uri: 'mongodb://$release_name-centralledger-obj:27017/mlos'
-  
+
     kafka_partitioner: murmur2_random
-  
+
     db_connection_pool_min: 10
     db_connection_pool_max: 30
     db_acquire_timeout_millis: 30000
@@ -897,12 +897,12 @@ chart-admin:
     db_reap_interval_millis: 1000
     db_create_retry_interval_millis: 200
     db_debug: false
-  
+
     ## Log Configuration
     log_level: info
     log_filter: 'error, warn, info'
     log_transport: file
-  
+
     ## Tracing Configuration
     event_trace_vendor: mojaloop
     event_trace_state_enabled: true
@@ -913,23 +913,23 @@ chart-admin:
     # Any combination of: `log,audit,trace`
     event_async_override: 'log,trace'
     event_traceid_per_vendor: false
-  
+
     # Thirdparty API Config
     featureEnableExtendedPartyIdType: false
-  
-    ## 
+
+    ##
     display_routes: true
     run_migrations: false
     end_point_cache:
       expiresIn: 180000
       generateTimeout: 30000
-  
+
     ## Error handling Configuration
     error_handling:
       include_cause_extension: false
       truncate_extensions: true
     resource_versions: 'transfers=1.1,participants=1.1,quotes=1.0'
-  
+
   service:
     internalPort: 4001
     ## @param service.type %%MAIN_CONTAINER_NAME%% service type
@@ -972,7 +972,7 @@ chart-admin:
     ## @param service.annotations Additional custom annotations for %%MAIN_CONTAINER_NAME%% service
     ##
     annotations: {}
-  
+
   ingress:
     ## @param ingress.enabled Enable ingress record generation for %%MAIN_CONTAINER_NAME%%
     ##
@@ -1054,16 +1054,16 @@ chart-admin:
     ##
     secrets: []
     className: "nginx"
-  
+
   podAnnotations: {}
-  
+
   ## RBAC configuration
   ##
   rbac:
     ## @param rbac.create Specifies whether RBAC resources should be created
     ##
     create: false
-  
+
   ## ServiceAccount configuration
   ##
   serviceAccount:
@@ -1074,10 +1074,10 @@ chart-admin:
     ## If not set and create is true, a name is generated using the common.names.fullname template
     ##
     name: ""
-  
+
   configFiles:
     default.json: |
-      {  
+      {
           "ADMIN_PORT": {{ .Values.service.internalPort }},
           "API_PORT":  {{ .Values.service.internalPort }},
           "DATABASE": {
@@ -1130,7 +1130,7 @@ chart-admin:
                   "FSPIOP_SOURCE_TO_SIGN": "switch",
                   "JWS_SIGNING_KEY_PATH": "secrets/jwsSigningKey.key"
                 }
-          }, 
+          },
           "ERROR_HANDLING": {
               "includeCauseExtension": {{ .Values.config.error_handling.include_cause_extension }},
               "truncateExtensions": {{ .Values.config.error_handling.truncate_extensions }}
@@ -1153,22 +1153,22 @@ chart-admin:
               }
           },
           "API_DOCUMENTATION_ENDPOINTS": true,
-          "FEATURE_ENABLE_EXTENDED_PARTY_ID_TYPE": {{ .Values.config.featureEnableExtendedPartyIdType }}      
+          "FEATURE_ENABLE_EXTENDED_PARTY_ID_TYPE": {{ .Values.config.featureEnableExtendedPartyIdType }}
       }
-  
+
   sidecar:
     enabled: true
     image:
       repository: mojaloop/event-sidecar
       tag: v11.0.1
       pullPolicy: IfNotPresent
-      command: 
+      command:
         - npm
         - run
         - start
     service:
       name: admin
-      port: 
+      port:
       internalPort: 4003
     readinessProbe:
       enabled: true
@@ -1190,7 +1190,7 @@ chart-admin:
       event_log_metadata_only: true
       log_level: info
       log_filter: 'error, warn, info'
-  
+
     configFiles:
       default.json: |
         {
@@ -1242,4 +1242,18 @@ chart-admin:
             }
           }
         }
-  
+
+## Configure resource requests and limits
+## ref: http://kubernetes.io/docs/user-guide/compute-resources/
+##
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #  cpu: 100m
+  #  memory: 128Mi
+  # requests:
+  #  cpu: 100m
+  #  memory: 128Mi
