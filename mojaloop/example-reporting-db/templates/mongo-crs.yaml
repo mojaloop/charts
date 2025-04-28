@@ -1,0 +1,62 @@
+{{- if .Values.mongodbOperatorInstances.enabled }}
+{{- range .Values.mongodbOperatorInstances.instances }}
+---
+apiVersion: mongodbcommunity.mongodb.com/v1
+kind: MongoDBCommunity
+metadata:
+  name: {{ .name }}
+spec:
+  members: {{ .replicas }}
+  type: ReplicaSet
+  version: {{ .version }}
+  additionalMongodConfig:
+    storage:
+      dbPath: /data/ephemeral
+  statefulSet:
+    spec:
+      volumeClaimTemplates: []  # disable PVCs
+      template:
+        spec:
+          containers:
+            - name: mongod
+              volumeMounts:
+                - name: ephemeral-vol
+                  mountPath: /data/ephemeral
+          volumes:
+            - name: ephemeral-vol
+              emptyDir: {}
+  security:
+    authentication:
+      modes: ["SCRAM", "SCRAM-SHA-1"]
+  users:
+    {{- range .users }}
+    - name: {{ .username }}
+      db: {{ .database }}
+      passwordSecretRef:
+        name: {{ .name }}-password
+      roles:
+        - name: readWrite
+          db: {{ .database }}
+        - name: clusterAdmin
+          db: admin
+        - name: userAdminAnyDatabase
+          db: admin
+      scramCredentialsSecretName: my-scram
+    {{- end }}
+  additionalMongodConfig:
+    storage.wiredTiger.engineConfig.journalCompressor: zlib
+
+# the user credentials will be generated from this secret
+# once the credentials are generated, this secret is no longer required
+{{- range .users }}
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ .name }}-password
+type: Opaque
+stringData:
+  password: {{ .password }}
+{{- end }}
+{{- end }}
+{{- end }}

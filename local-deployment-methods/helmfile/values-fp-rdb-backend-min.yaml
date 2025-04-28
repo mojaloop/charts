@@ -1,0 +1,6 @@
+global: {}
+
+mongodb-operator:
+  enabled: true
+mongodbOperatorInstances:
+  enabled: true

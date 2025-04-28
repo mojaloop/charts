@@ -155,9 +155,12 @@ spec:
 {{- end }}
 
           ../scripts/start.sh
+        {{- if .Values.resources }}
+        resources: {{- toYaml .Values.resources | nindent 10 }}
+        {{- else if ne .Values.resourcesPreset "none" }}
+        resources: {{- include "common.resources.preset" (dict "type" .Values.resourcesPreset) | nindent 10 }}
+        {{- end }}
 
-        resources:
-{{ toYaml .Values.resources | indent 10 }}
         ports:
 {{- if .Values.metrics.prometheus.enabled }}
         - containerPort: {{ .Values.metrics.prometheus.port }}
@@ -214,20 +217,7 @@ spec:
             exec:
               command: ["/bin/sh", "-c", {{ .Values.postStart | quote }}]
 {{- end }}
-{{- if .Values.sts.startupProbe.enabled }}
-        startupProbe:
-          failureThreshold: {{ .Values.sts.startupProbe.failureThreshold }}
-          periodSeconds: {{ .Values.sts.startupProbe.periodSeconds }}
-          tcpSocket:
-            port: {{ .Values.properties.httpsPort }}
-{{- end }}
-        livenessProbe:
-{{- if not .Values.sts.startupProbe.enabled }}
-          initialDelaySeconds: 90
-{{- end }}
-          periodSeconds: 60
-          tcpSocket:
-            port: {{ .Values.properties.httpsPort }}
+
         volumeMounts:
           - mountPath: /opt/nifi/nifi-current/logs
             {{- if and .Values.persistence.enabled .Values.persistence.subPath.enabled }}
@@ -330,57 +320,6 @@ spec:
           {{- end }}
           {{- if .Values.extraVolumeMounts }}
 {{ toYaml .Values.extraVolumeMounts | indent 10 }}
-          {{- end }}
-      - name: app-log
-        imagePullPolicy: {{ .Values.sidecar.imagePullPolicy | default "Always" | quote }}
-        image: "{{ .Values.sidecar.image }}:{{ .Values.sidecar.tag }}"
-        args: 
-          - /bin/sh
-          - -c
-          - trap "exit 0" TERM; tail -n+1 -F /var/log/nifi-app.log & wait $!
-        resources:
-{{ toYaml .Values.logresources | indent 10 }}
-        volumeMounts:
-        - mountPath: /var/log
-          {{- if and .Values.persistence.enabled .Values.persistence.subPath.enabled }}
-          name: {{ .Values.persistence.subPath.name }}
-          subPath: logs
-          {{- else }}
-          name: "logs"
-          {{- end }}
-      - name: bootstrap-log
-        imagePullPolicy: {{ .Values.sidecar.imagePullPolicy | default "Always" | quote }}
-        image: "{{ .Values.sidecar.image }}:{{ .Values.sidecar.tag }}"
-        args:
-          - /bin/sh
-          - -c
-          - trap "exit 0" TERM; tail -n+1 -F /var/log/nifi-bootstrap.log & wait $!
-        resources:
-{{ toYaml .Values.logresources | indent 10 }}
-        volumeMounts:
-        - mountPath: /var/log
-          {{- if and .Values.persistence.enabled .Values.persistence.subPath.enabled }}
-          name: {{ .Values.persistence.subPath.name }}
-          subPath: logs
-          {{- else }}
-          name: "logs"
-          {{- end }}
-      - name: user-log
-        imagePullPolicy: {{ .Values.sidecar.imagePullPolicy | default "Always" | quote }}
-        image: "{{ .Values.sidecar.image }}:{{ .Values.sidecar.tag }}"
-        args:
-          - /bin/sh
-          - -c
-          - trap "exit 0" TERM; tail -n+1 -F /var/log/nifi-user.log & wait $!
-        resources:
-{{ toYaml .Values.logresources | indent 10 }}
-        volumeMounts:
-        - mountPath: /var/log
-          {{- if and .Values.persistence.enabled .Values.persistence.subPath.enabled }}
-          name: {{ .Values.persistence.subPath.name }}
-          subPath: logs
-          {{- else }}
-          name: "logs"
           {{- end }}
       volumes:
       - name: "bootstrap-conf"
