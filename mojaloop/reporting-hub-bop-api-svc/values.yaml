@@ -130,7 +130,7 @@ containerSecurityContext:
 image:
   registry: docker.io
   repository: mojaloop/reporting-hub-bop-api-svc
-  tag: v3.0.0
+  tag: v4.0.0
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -233,7 +233,6 @@ configFiles:
       "ORY_KETO_READ_URL": "",
       "AUTH_CHECK_PARTICIPANTS": false,
       "USER_ID_HEADER": "x-user",
-      "PRISMA_LOGGING_ENABLED": false,
       "CORS_WHITELIST": [
         "http://reporting-hub-bop-shell.local",
         "http://reporting-hub-bop-settlements-ui.local",
