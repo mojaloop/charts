@@ -1,0 +1,23 @@
+## Values configuration for FP Reporting DB
+# helm repo add bitnami https://charts.bitnami.com/bitnami
+# helm repo add cloudhut https://raw.githubusercontent.com/cloudhut/charts/master/archives
+# helm install backend ./dependencies/backend
+# helm upgrade backend ./dependencies/backend --install
+
+global: {}
+
+mongodb-operator:
+  enabled: false
+
+mongodbOperatorInstances:
+  enabled: false
+  instances:
+  - name: reporting-events-db
+    namespace: default
+    replicas: 1
+    version: "6.0.5"
+    users:
+      - name: fp
+        username: finance_portal
+        password: password
+        database: finance_portal

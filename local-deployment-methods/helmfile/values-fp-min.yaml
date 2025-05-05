@@ -25,6 +25,15 @@ global:
     secret:
       name: reporting-events-db
       key: mongodb-passwords
+  ## The following can be used if using mongodb operator deployment
+  # reportingEventsDB:
+  #   host: reporting-events-db-svc
+  #   port: 27017
+  #   user: finance_portal
+  #   database: finance_portal
+  #   secret:
+  #     name: reporting-events-db-finance-portal-finance-portal
+  #     key: password
   kafka:
     host: test1-kafka-headless
     port: 9092

@@ -15,6 +15,8 @@ repositories:
   url: https://mojaloop.io/helm/repo/
 - name: cetic
   url: https://cetic.github.io/helm-charts
+- name: mongodb
+  url: https://mongodb.github.io/helm-charts
 
 releases:
 - name: fp-backend
@@ -22,6 +24,12 @@ releases:
   chart: ../../mojaloop/example-backend
   values:
     - values-fp-backend-min.yaml
+## The following can be enabled for MongoDB operator deployment
+# - name: fp-rdb-backend
+#   namespace: demo
+#   chart: ../../mojaloop/example-reporting-db
+#   values:
+#     - values-fp-rdb-backend-min.yaml
 - name: fp
   namespace: demo
   chart: ../../mojaloop/finance-portal
