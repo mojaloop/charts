@@ -86,5 +86,5 @@ reporting-hub-bop-positions-ui:
 reporting-hub-bop-settlements-ui:
   enabled: false
 
-reporting-nifi-processor-svc:
+reporting-aggregator-svc:
   enabled: true
