@@ -1,14 +1,15 @@
+{{- if .Values.configOverride }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ template "common.names.fullname" . }}-config
+  name: {{ template "common.names.fullname" . }}-config-override
   labels: {{- include "common.labels.standard" . | nindent 4 }}
     app.kubernetes.io/component: {{ template "common.names.name" . }}
     {{- if .Values.commonLabels }}
     {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
     {{- end }}
 data:
-{{- range $fileName, $fileContents := .Values.configFiles }}
-  {{ $fileName }}: |
-  {{- include "common.tplvalues.renderToJson" ( dict "value" $fileContents "context" $ ) | nindent 4 }}
+{{- range $fileName, $fileContents := .Values.configOverride }}
+  {{ $fileName | replace "/" "-" }}: | {{ ternary $fileContents (toPrettyJson $fileContents) (eq (typeOf $fileContents) "string") | nindent 4 }}
+{{- end }}
 {{- end }}
