@@ -24,6 +24,10 @@ global:
     secret:
       name: centralledger-mysql
       key: mysql-password
+    ssl:
+      enabled: false
+      verify: false
+      caSecret: {}
 
   reportingEventsDB:
     host: reporting-events-db
@@ -49,6 +53,10 @@ reportingDB:
   secret: {}
   #   name: reporting-db
   #   key: password
+  ssl:
+    # enabled: false
+    # verify: false
+    caSecret: {}
 
 reportingEventsDB:
   ## This is the same as setting the host explicitly, i.e. will set the host as set below. It is included to support importing MySQL charts as a dependency.

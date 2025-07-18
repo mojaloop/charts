@@ -30,6 +30,10 @@ global:
     secret:
       name: reporting-events-db
       key: mongodb-password
+    ssl:
+      enabled: false
+      verify: false
+      caSecret: {}
 
 reportingDB:
   ## This is the same as setting the host explicitly, i.e. will set the host as set below. It is included to support importing MySQL charts as a dependency.
@@ -44,6 +48,10 @@ reportingDB:
   secret: {}
   #   name: reporting-db
   #   key: password
+  ssl:
+    # enabled: false
+    # verify: false
+    caSecret: {}
 
 reportingEventsDB:
   ## This is the same as setting the host explicitly, i.e. will set the host as set below. It is included to support importing MySQL charts as a dependency.
@@ -119,7 +127,7 @@ containerSecurityContext:
 image:
   registry: docker.io
   repository: mojaloop/reporting-aggregator-svc
-  tag: v0.0.2
+  tag: v0.0.3
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images

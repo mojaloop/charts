@@ -23,6 +23,10 @@ global:
     secret:
       name: centralledger-mysql
       key: mysql-password
+    ssl:
+      enabled: false
+      verify: false
+      caSecret: {}
   mojaloopreport: {}
 
 reportingDB:
@@ -37,6 +41,10 @@ reportingDB:
   secret: {}
   #   name: reporting-db
   #   key: password
+  ssl:
+    # enabled: false
+    # verify: false
+    caSecret: {}
 
   # This can be overridden by the main keto element.
 keto: { }
@@ -116,7 +124,7 @@ containerSecurityContext:
 image:
   registry: docker.io
   repository: mojaloop/reporting
-  tag: v12.0.0
+  tag: v12.1.0
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images

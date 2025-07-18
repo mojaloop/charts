@@ -1,8 +1,8 @@
 apiVersion: v2
 description: Reporting Legacy API
 name: reporting-legacy-api
-version: 2.1.0
-appVersion: "12.0.0"
+version: 2.1.1
+appVersion: "2.1.1"
 home: http://mojaloop.io
 icon: http://mojaloop.io/images/logo.png
 sources:
@@ -17,7 +17,7 @@ dependencies:
     repository: "file://../common"
     tags:
       - moja-common
-    version: ">= 3.1.2"
+    version: ">= 3.1.5"
   - name: reporting-k8s-templates
     alias: reporting-k8s-templates
     condition: install-templates
