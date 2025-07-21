@@ -64,3 +64,28 @@ Get fully qualified reporting-events-db secret.key
 {{- define "common.backends.reportingEventsDB.secret.key" -}}
   {{- default "" (default .Values.global.reportingEventsDB.secret.key .Values.reportingEventsDB.secret.key) -}}
 {{- end -}}
+
+{{/*
+Get reporting-events-db params.
+*/}}
+{{- define "common.backends.reportingEventsDB.params" -}}
+  {{- if .Values.reportingEventsDB.params -}}
+    {{- $params := .Values.reportingEventsDB.params -}}
+    {{- if not (empty $params) -}}
+      {{- $params | toJson -}}
+    {{- else -}}
+      {}
+    {{- end -}}
+  {{- else -}}
+    {{- if .Values.global.reportingEventsDB.params -}}
+      {{- $params := .Values.global.reportingEventsDB.params -}}
+      {{- if not (empty $params) -}}
+        {{- $params | toJson -}}
+      {{- else -}}
+        {}
+      {{- end -}}
+    {{- else -}}
+      {}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
