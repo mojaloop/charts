@@ -118,6 +118,19 @@ spec:
                 secretKeyRef:
                   name: '{{ include "common.backends.reportingDB.secret.name" . }}'
                   key: '{{ include "common.backends.reportingDB.secret.key" . }}'
+            {{- if (include "common.backends.reportingDB.ssl.enabled" .) }}
+            - name: DB_SSL_ENABLED
+              value: 'true'
+            - name: DB_SSL_VERIFY
+              value: '{{ include "common.backends.reportingDB.ssl.verify" . }}'
+            {{- if (include "common.backends.reportingDB.ssl.caSecret.name" .) }}
+            - name: DB_SSL_CA
+              valueFrom:
+                secretKeyRef:
+                  name: '{{ include "common.backends.reportingDB.ssl.caSecret.name" . }}'
+                  key: '{{ include "common.backends.reportingDB.ssl.caSecret.key" . }}'
+            {{- end }}
+            {{- end }}
             {{- if .Values.auth }}
             - name: ORY_KETO_READ_URL
               value: '{{ include "common.backends.keto.readURL" . }}'

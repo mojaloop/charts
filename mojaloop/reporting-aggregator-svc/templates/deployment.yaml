@@ -102,6 +102,19 @@ spec:
             {{- else }}
               value: '{{ include "common.backends.reportingDB.password" . }}'
             {{- end }}
+            {{- if (include "common.backends.reportingDB.ssl.enabled" .) }}
+            - name: REPORTING_MYSQL_DB_SSL_ENABLED
+              value: 'true'
+            - name: REPORTING_MYSQL_DB_SSL_VERIFY
+              value: '{{ include "common.backends.reportingDB.ssl.verify" . }}'
+            {{- if (include "common.backends.reportingDB.ssl.caSecret.name" .) }}
+            - name: REPORTING_MYSQL_DB_SSL_CA
+              valueFrom:
+                secretKeyRef:
+                  name: '{{ include "common.backends.reportingDB.ssl.caSecret.name" . }}'
+                  key: '{{ include "common.backends.reportingDB.ssl.caSecret.key" . }}'
+            {{- end }}
+            {{- end }}
             # Mongo DB
             - name: REPORTING_MONGO_DB_HOST
               value: '{{ include "common.backends.reportingEventsDB.host" . }}'

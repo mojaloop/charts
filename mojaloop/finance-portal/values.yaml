@@ -23,6 +23,10 @@ global:
     secret:
       name: mysql
       key: mysql-password
+    ssl:
+      enabled: false
+      verify: false
+      caSecret: {}
   reportingEventsDB:
     host: reporting-events-db
     port: 27017

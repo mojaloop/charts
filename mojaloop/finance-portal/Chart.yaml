@@ -28,7 +28,7 @@ dependencies:
     tags:
       - mojaloop
       - common
-    version: ">= 3.1.2"
+    version: ">= 3.1.5"
   - name: role-assignment-service
     condition: role-assignment-service.enabled
     repository: "file://../role-assignment-service"
@@ -56,7 +56,7 @@ dependencies:
     tags:
       - mojaloop
       - reporting-legacy-api
-    version: 2.1.0
+    version: 2.1.1
   - name: reporting-events-processor-svc
     condition: reporting-events-processor-svc.enabled
     repository: "file://../reporting-events-processor-svc"
