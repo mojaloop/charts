@@ -102,7 +102,7 @@ spec:
             {{- if (include "common.backends.reportingEventsDB.params" .) }}
               value: '{{ include "common.backends.reportingEventsDB.params" . | toJson }}'
             {{- else }}
-              value: '{}'
+              value: {}
             {{- end }}
           {{- if .Values.readinessProbe.enabled }}
           readinessProbe:

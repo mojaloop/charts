@@ -137,7 +137,7 @@ spec:
             {{- if (include "common.backends.reportingEventsDB.params" .) }}
               value: '{{ include "common.backends.reportingEventsDB.params" . | toJson }}'
             {{- else }}
-              value: '{}'
+              value: {}
             {{- end }}
       volumes:
         - name: {{ template "common.names.fullname" . }}-config-volume
