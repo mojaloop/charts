@@ -2,7 +2,7 @@ apiVersion: v2
 description: Reporting Events Processor
 name: reporting-events-processor-svc
 version: 3.4.3
-appVersion: "3.4.2"
+appVersion: "3.4.3"
 home: http://mojaloop.io
 icon: http://mojaloop.io/images/logo.png
 sources:
