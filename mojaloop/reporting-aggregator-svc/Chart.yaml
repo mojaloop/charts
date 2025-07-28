@@ -1,7 +1,7 @@
 apiVersion: v2
 description: Reporting Aggregator Service
 name: reporting-aggregator-svc
-version: 1.0.2
+version: 1.0.3
 appVersion: "0.0.5"
 home: http://mojaloop.io
 icon: http://mojaloop.io/images/logo.png
