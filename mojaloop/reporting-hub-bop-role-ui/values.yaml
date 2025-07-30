@@ -76,11 +76,12 @@ podSecurityContext:
 containerSecurityContext:
   enabled: true
   runAsUser: 1001
+  readOnlyRootFilesystem: true
 
 image:
   registry: docker.io
   repository: mojaloop/reporting-hub-bop-role-ui
-  tag: v1.5.3
+  tag: v1.5.5
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -346,6 +347,11 @@ serviceAccount:
 
 configFiles:
   default.json: {}
+  runtime-env.js: |
+    window.roleEnv = {
+      REACT_APP_API_BASE_URL: 'http://role-assignment-service.local',
+      REACT_APP_MOCK_API: 'false'
+    };
 
 ## Configure resource requests and limits
 ## ref: http://kubernetes.io/docs/user-guide/compute-resources/

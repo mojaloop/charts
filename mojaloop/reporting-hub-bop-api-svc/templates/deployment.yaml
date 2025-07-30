@@ -107,6 +107,8 @@ spec:
             - name: {{ template "common.names.fullname" . }}-config-volume
               mountPath: /opt/reporting/config
           env:
+            - name: NPM_CONFIG_UPDATE_NOTIFIER
+              value: 'false'
             # Reporting DB
             - name: REPORTING_DB_HOST
               value: '{{ include "common.backends.reportingDB.host" . }}'

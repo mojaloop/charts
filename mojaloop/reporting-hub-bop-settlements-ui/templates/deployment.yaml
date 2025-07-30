@@ -105,7 +105,13 @@ spec:
           {{- end }}
           volumeMounts:
             - name: {{ template "common.names.fullname" . }}-config-volume
-              mountPath: /opt/ml-api-adapter/config
+              mountPath: /opt/ml-api-adapter/config/default.json
+              subPath: default.json
+          {{- if index .Values.configFiles "runtime-env.js" }}
+            - name: {{ template "common.names.fullname" . }}-config-volume
+              mountPath: /usr/share/nginx/html/runtime-env.js
+              subPath: runtime-env.js
+          {{- end }}
           # env: {}
           envFrom:
           - configMapRef:
