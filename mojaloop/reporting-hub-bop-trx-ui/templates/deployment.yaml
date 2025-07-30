@@ -121,6 +121,3 @@ spec:
         - name: {{ template "common.names.fullname" . }}-config-volume
           configMap:
             name: {{ template "common.names.fullname" . }}-config
-            items:
-            - key: default.json
-              path: default.json
