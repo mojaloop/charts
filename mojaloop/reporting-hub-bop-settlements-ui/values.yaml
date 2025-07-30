@@ -371,3 +371,4 @@ resources: {}
   #  memory: 128Mi
 
 settlementSvc: {}
+adminApiSvc: {}
