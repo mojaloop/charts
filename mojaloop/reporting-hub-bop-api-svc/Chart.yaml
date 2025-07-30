@@ -1,8 +1,8 @@
 apiVersion: v2
 description: Reporting API service
 name: reporting-hub-bop-api-svc
-version: 4.0.0
-appVersion: "4.0.0"
+version: 4.0.1
+appVersion: "4.0.1"
 home: http://mojaloop.io
 icon: http://mojaloop.io/images/logo.png
 sources:
