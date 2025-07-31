@@ -3,8 +3,8 @@ description: >-
   This is the role microfrontend of the BizOps framework that handles tracing
   of transfers.
 name: reporting-hub-bop-trx-ui
-version: 2.0.0
-appVersion: "2.0.0"
+version: 2.0.1
+appVersion: "2.0.1"
 home: http://mojaloop.io
 icon: http://mojaloop.io/images/logo.png
 sources:

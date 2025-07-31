@@ -1,7 +1,7 @@
 apiVersion: v2
 description: Kubernetes operator watches mojaloop roles and updates keto
 name: security-role-perm-operator-svc
-version: 2.1.9
+version: 2.1.10
 appVersion: "2.1.9"
 home: http://mojaloop.io
 icon: http://mojaloop.io/images/logo.png

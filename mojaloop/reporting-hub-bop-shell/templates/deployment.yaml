@@ -18,7 +18,7 @@ spec:
       app.kubernetes.io/component: {{ .Chart.Name }}
   template:
     metadata:
-      annotations: 
+      annotations:
         checksum/config: {{ include (print $.Template.BasePath "/config.yaml") . | sha256sum }}
       {{- if .Values.podAnnotations }}
       {{- include "common.tplvalues.render" (dict "value" .Values.podAnnotations "context" $) | nindent 8 }}
@@ -105,7 +105,18 @@ spec:
           {{- end }}
           volumeMounts:
             - name: {{ template "common.names.fullname" . }}-config-volume
-              mountPath: /opt/ml-api-adapter/config
+              mountPath: /opt/ml-api-adapter/config/default.json
+              subPath: default.json
+          {{- if index .Values.configFiles "config.json" }}
+            - name: {{ template "common.names.fullname" . }}-config-volume
+              mountPath: /usr/share/nginx/html/config.json
+              subPath: config.json
+          {{- end }}
+          {{- if index .Values.configFiles "remotes.json" }}
+            - name: {{ template "common.names.fullname" . }}-config-volume
+              mountPath: /usr/share/nginx/html/remotes.json
+              subPath: remotes.json
+          {{- end }}
           # env: {}
           envFrom:
           - configMapRef:
@@ -115,6 +126,3 @@ spec:
         - name: {{ template "common.names.fullname" . }}-config-volume
           configMap:
             name: {{ template "common.names.fullname" . }}-config
-            items:
-            - key: default.json
-              path: default.json

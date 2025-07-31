@@ -76,11 +76,12 @@ podSecurityContext:
 containerSecurityContext:
   enabled: true
   runAsUser: 1001
+  readOnlyRootFilesystem: true
 
 image:
   registry: docker.io
   repository: mojaloop/reporting-hub-bop-positions-ui
-  tag: v0.0.7
+  tag: v0.0.9
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -345,6 +346,11 @@ serviceAccount:
 
 configFiles:
   default.json: {}
+  runtime-env.js: |
+    window.positionsEnv = {
+      CENTRAL_LEDGER_ENDPOINT: '{{ printf "http://%s:%s" (include "common.backends.mojaloop.adminApiSvc.host" .) (include "common.backends.mojaloop.adminApiSvc.port" .) }}',
+    };
+
 
 ## Configure resource requests and limits
 ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
@@ -360,3 +366,6 @@ resources: {}
   # requests:
   #  cpu: 100m
   #  memory: 128Mi
+
+settlementSvc: {}
+adminApiSvc: {}

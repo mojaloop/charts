@@ -76,11 +76,12 @@ podSecurityContext:
 containerSecurityContext:
   enabled: true
   runAsUser: 1001
+  readOnlyRootFilesystem: true
 
 image:
   registry: docker.io
   repository: mojaloop/reporting-hub-bop-settlements-ui
-  tag: v0.0.19-snapshot.3
+  tag: v0.0.24
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -347,6 +348,12 @@ serviceAccount:
 
 configFiles:
   default.json: {}
+  runtime-env.js: |
+    window.settlementEnv = {
+      CENTRAL_SETTLEMENTS_ENDPOINT: '{{ printf "http://%s:%s" (include "common.backends.mojaloop.settlementSvc.host" .) (include "common.backends.mojaloop.settlementSvc.port" .) }}',
+      CENTRAL_LEDGER_ENDPOINT: '{{ printf "http://%s:%s" (include "common.backends.mojaloop.adminApiSvc.host" .) (include "common.backends.mojaloop.adminApiSvc.port" .) }}',
+      REPORTING_TEMPLATE_API_ENDPOINT: 'http://reporting-hub-bop-api-svc.local'
+    };
 
 ## Configure resource requests and limits
 ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
@@ -362,3 +369,6 @@ resources: {}
   # requests:
   #  cpu: 100m
   #  memory: 128Mi
+
+settlementSvc: {}
+adminApiSvc: {}

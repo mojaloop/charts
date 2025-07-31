@@ -136,11 +136,12 @@ podSecurityContext:
 containerSecurityContext:
   enabled: true
   runAsUser: 1001
+  readOnlyRootFilesystem: true
 
 image:
   registry: docker.io
   repository: mojaloop/reporting-hub-bop-api-svc
-  tag: v4.0.1
+  tag: v4.0.3
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -162,8 +163,8 @@ replicaCount: 1
 command:
   # - sleep
   # - infinity
-  - npm
-  - start
+  - node
+  - dist/src/index.js
 
 ## Enable diagnostic mode in the deployment
 ##
@@ -222,7 +223,7 @@ metrics:
       serviceName: reporting-hub-bop-api-svc
 
 configFiles:
-  default.json: |
+  production.json: |
     {
       "PORT": 3000,
       "REPORTING_DB": {
