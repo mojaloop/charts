@@ -10,5 +10,9 @@ metadata:
 data:
 {{- range $fileName, $fileContents := .Values.configFiles }}
   {{ $fileName }}: |
+  {{- if hasSuffix $fileName ".json" }}
+  {{- include "common.tplvalues.renderToJson" ( dict "value" $fileContents "context" $ ) | nindent 4 }}
+  {{- else }}
   {{- include "common.tplvalues.render" ( dict "value" $fileContents "context" $ ) | nindent 4 }}
+  {{- end }}
 {{- end }}
