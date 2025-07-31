@@ -160,5 +160,5 @@ spec:
           configMap:
             name: {{ template "common.names.fullname" . }}-config
             items:
-            - key: default.json
-              path: default.json
+            - key: production.json
+              path: production.json
