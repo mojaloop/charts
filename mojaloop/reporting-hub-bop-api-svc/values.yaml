@@ -161,8 +161,8 @@ replicaCount: 1
 command:
   # - sleep
   # - infinity
-  - npm
-  - start
+  - node
+  - dist/src/index.js
 
 ## Enable diagnostic mode in the deployment
 ##
