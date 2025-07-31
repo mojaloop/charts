@@ -145,6 +145,12 @@ spec:
             {{- else }}
               value: '{{ include "common.backends.reportingEventsDB.password" . }}'
             {{- end }}
+            - name: EVENT_STORE_DB_PARAMS
+            {{- if (include "common.backends.reportingEventsDB.params" .) }}
+              value: {{ include "common.backends.reportingEventsDB.params" . | toJson }}
+            {{- else }}
+              value: {}
+            {{- end }}
             {{- if .Values.auth }}
             - name: ORY_KETO_READ_URL
               value: '{{ include "common.backends.keto.readURL" . }}'

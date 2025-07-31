@@ -39,6 +39,7 @@ global:
     secret:
       name: reporting-events-db
       key: mongodb-password
+    params: {}
 
 reportingDB:
   ## This is the same as setting the host explicitly, i.e. will set the host as set below. It is included to support importing MySQL charts as a dependency.
@@ -67,6 +68,7 @@ reportingEventsDB:
   # port: 27017
   # user: event_store
   # database: event_store
+  # params: {}
   password: ''
   secret: {}
   #   name: reporting-events-db
@@ -139,7 +141,7 @@ containerSecurityContext:
 image:
   registry: docker.io
   repository: mojaloop/reporting-hub-bop-api-svc
-  tag: v4.0.0
+  tag: v4.0.1
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -237,7 +239,8 @@ configFiles:
         "PORT": "{{ include "common.backends.reportingEventsDB.port" . }}",
         "USER": "{{ include "common.backends.reportingEventsDB.user" . }}",
         "PASSWORD": "{{ include "common.backends.reportingEventsDB.password" . }}",
-        "DATABASE": "{{ include "common.backends.reportingEventsDB.database" . }}"
+        "DATABASE": "{{ include "common.backends.reportingEventsDB.database" . }}",
+        "PARAMS": {{ include "common.backends.reportingEventsDB.params" . | toJson }}
       },
       "ORY_KETO_READ_URL": "",
       "AUTH_CHECK_PARTICIPANTS": false,
