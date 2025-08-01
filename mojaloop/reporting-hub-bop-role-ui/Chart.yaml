@@ -3,7 +3,7 @@ description: >-
   This is the role microfrontend of the BizOps framework that handles role and
   participant assignment.
 name: reporting-hub-bop-role-ui
-version: 1.0.3
+version: 1.0.4
 appVersion: "1.5.5"
 home: http://mojaloop.io
 icon: http://mojaloop.io/images/logo.png
