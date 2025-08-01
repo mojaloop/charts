@@ -89,3 +89,31 @@ Get reporting-events-db params.
     {{- end -}}
   {{- end -}}
 {{- end -}}
+
+{{/*
+Get reportingEventsDB SSL option: enabled.
+*/}}
+{{- define "common.backends.reportingEventsDB.ssl.enabled" -}}
+  {{- default false (default .Values.global.reportingEventsDB.ssl.enabled .Values.reportingEventsDB.ssl.enabled) -}}
+{{- end -}}
+
+{{/*
+Get reportingEventsDB SSL option: verify.
+*/}}
+{{- define "common.backends.reportingEventsDB.ssl.verify" -}}
+  {{- default false (default .Values.global.reportingEventsDB.ssl.verify .Values.reportingEventsDB.ssl.verify) -}}
+{{- end -}}
+
+{{/*
+Get reportingEventsDB SSL option: CA secret name.
+*/}}
+{{- define "common.backends.reportingEventsDB.ssl.caSecret.name" -}}
+  {{- default "" (default .Values.global.reportingEventsDB.ssl.caSecret.name .Values.reportingEventsDB.ssl.caSecret.name) -}}
+{{- end -}}
+
+{{/*
+Get reportingEventsDB SSL option: CA secret key.
+*/}}
+{{- define "common.backends.reportingEventsDB.ssl.caSecret.key" -}}
+  {{- default "" (default .Values.global.reportingEventsDB.ssl.caSecret.key .Values.reportingEventsDB.ssl.caSecret.key) -}}
+{{- end -}}
