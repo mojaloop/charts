@@ -104,6 +104,19 @@ spec:
             {{- else }}
               value: {}
             {{- end }}
+            {{- if (include "common.backends.reportingEventsDB.ssl.enabled" .) }}
+            - name: EVENT_STORE_DB_SSL_ENABLED
+              value: 'true'
+            - name: EVENT_STORE_DB_SSL_VERIFY
+              value: '{{ include "common.backends.reportingEventsDB.ssl.verify" . }}'
+            {{- if (include "common.backends.reportingEventsDB.ssl.caSecret.name" .) }}
+            - name: EVENT_STORE_DB_SSL_CA
+              valueFrom:
+                secretKeyRef:
+                  name: '{{ include "common.backends.reportingEventsDB.ssl.caSecret.name" . }}'
+                  key: '{{ include "common.backends.reportingEventsDB.ssl.caSecret.key" . }}'
+            {{- end }}
+            {{- end }}
           {{- if .Values.readinessProbe.enabled }}
           readinessProbe:
             httpGet:

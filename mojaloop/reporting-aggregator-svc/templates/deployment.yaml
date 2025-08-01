@@ -139,6 +139,19 @@ spec:
             {{- else }}
               value: {}
             {{- end }}
+            {{- if (include "common.backends.reportingEventsDB.ssl.enabled" .) }}
+            - name: REPORTING_MONGO_DB_SSL_ENABLED
+              value: 'true'
+            - name: REPORTING_MONGO_DB_SSL_VERIFY
+              value: '{{ include "common.backends.reportingEventsDB.ssl.verify" . }}'
+            {{- if (include "common.backends.reportingEventsDB.ssl.caSecret.name" .) }}
+            - name: REPORTING_MONGO_DB_SSL_CA
+              valueFrom:
+                secretKeyRef:
+                  name: '{{ include "common.backends.reportingEventsDB.ssl.caSecret.name" . }}'
+                  key: '{{ include "common.backends.reportingEventsDB.ssl.caSecret.key" . }}'
+            {{- end }}
+            {{- end }}
       volumes:
         - name: {{ template "common.names.fullname" . }}-config-volume
           configMap:
