@@ -77,6 +77,10 @@ reportingEventsDB:
   secret: {}
   #   name: reporting-events-db
   #   key: password
+  ssl:
+    # enabled: false
+    # verify: false
+    caSecret: {}
 
   # This can be overridden by the main keto element.
 keto: { }

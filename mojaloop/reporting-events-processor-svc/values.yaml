@@ -37,6 +37,10 @@ reportingEventsDB:
   secret: {}
   #   name: reporting-events-db
   #   key: password
+  ssl:
+    # enabled: false
+    # verify: false
+    caSecret: {}
 
 kafka:
   host: kafka-headless
