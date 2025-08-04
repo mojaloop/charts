@@ -19,6 +19,10 @@ global:
       name: reporting-events-db
       key: mongodb-passwords
     params: {}
+    ssl:
+      enabled: false
+      verify: false
+      caSecret: {}
 
 reportingEventsDB:
   ## This is the same as setting the host explicitly, i.e. will set the host as set below. It is included to support importing MySQL charts as a dependency.
@@ -33,6 +37,10 @@ reportingEventsDB:
   secret: {}
   #   name: reporting-events-db
   #   key: password
+  ssl:
+    # enabled: false
+    # verify: false
+    caSecret: {}
 
 kafka:
   host: kafka-headless
@@ -102,7 +110,7 @@ containerSecurityContext:
 image:
   registry: docker.io
   repository: mojaloop/reporting-events-processor-svc
-  tag: v3.4.4
+  tag: v3.5.0
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images

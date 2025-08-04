@@ -37,6 +37,10 @@ global:
       name: reporting-events-db
       key: mongodb-password
     params: {}
+    ssl:
+      enabled: false
+      verify: false
+      caSecret: {}
   kafka:
     host: test1-kafka-headless
     port: 9092
