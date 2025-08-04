@@ -42,7 +42,7 @@ dependencies:
     tags:
       - mojaloop
       - reporting-hub-bop-shell
-    version: 1.1.2
+    version: 1.1.3
   - name: reporting-hub-bop-api-svc
     condition: reporting-hub-bop-api-svc.enabled
     repository: "file://../reporting-hub-bop-api-svc"
@@ -70,28 +70,28 @@ dependencies:
     tags:
       - mojaloop
       - reporting-hub-bop-role-ui
-    version: 1.0.3
+    version: 1.0.4
   - name: reporting-hub-bop-trx-ui
     condition: reporting-hub-bop-trx-ui.enabled
     repository: "file://../reporting-hub-bop-trx-ui"
     tags:
       - mojaloop
       - reporting-hub-bop-trx-ui
-    version: 2.0.2
+    version: 2.0.3
   - name: reporting-hub-bop-settlements-ui
     condition: reporting-hub-bop-settlements-ui.enabled
     repository: "file://../reporting-hub-bop-settlements-ui"
     tags:
       - mojaloop
       - reporting-hub-bop-settlements-ui
-    version: 1.1.2
+    version: 1.1.3
   - name: reporting-hub-bop-positions-ui
     condition: reporting-hub-bop-positions-ui.enabled
     repository: "file://../reporting-hub-bop-positions-ui"
     tags:
       - mojaloop
       - reporting-hub-bop-positions-ui
-    version: 1.0.5
+    version: 1.0.6
   - name: reporting-hub-bop-experience-api-svc
     condition: reporting-hub-bop-experience-api-svc.enabled
     repository: "file://../reporting-hub-bop-experience-api-svc"

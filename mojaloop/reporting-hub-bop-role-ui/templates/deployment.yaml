@@ -107,6 +107,8 @@ spec:
             - name: {{ template "common.names.fullname" . }}-config-volume
               mountPath: /opt/ml-api-adapter/config/default.json
               subPath: default.json
+            - name: tmp
+              mountPath: /tmp
           {{- if index .Values.configFiles "runtime-env.js" }}
             - name: {{ template "common.names.fullname" . }}-config-volume
               mountPath: /usr/share/nginx/html/runtime-env.js
@@ -121,3 +123,5 @@ spec:
         - name: {{ template "common.names.fullname" . }}-config-volume
           configMap:
             name: {{ template "common.names.fullname" . }}-config
+        - name: tmp
+          emptyDir: {}
