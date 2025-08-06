@@ -49,7 +49,7 @@ dependencies:
     tags:
       - mojaloop
       - reporting-hub-bop-api-svc
-    version: 4.1.0
+    version: 4.1.1
   - name: reporting-legacy-api
     condition: reporting-legacy-api.enabled
     repository: "file://../reporting-legacy-api"
@@ -63,7 +63,7 @@ dependencies:
     tags:
       - mojaloop
       - reporting-events-processor-svc
-    version: 3.5.0
+    version: 3.5.1
   - name: reporting-hub-bop-role-ui
     condition: reporting-hub-bop-role-ui.enabled
     repository: "file://../reporting-hub-bop-role-ui"
@@ -105,4 +105,4 @@ dependencies:
     tags:
       - mojaloop
       - reporting-aggregator-svc
-    version: 1.0.5
+    version: 1.0.6
