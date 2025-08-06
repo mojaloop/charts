@@ -79,6 +79,11 @@ spec:
           volumeMounts:
             - name: {{ template "common.names.fullname" . }}-config-volume
               mountPath: /opt/app/config
+            {{- if (include "common.backends.reportingEventsDB.ssl.caSecret.name" .) }}
+            - name: mongo-ca
+              mountPath: /opt/app/mongo-ca
+              readOnly: true
+            {{- end }}
           env:
             - name: LOG_LEVEL
               value: {{ .Values.config.log_level | quote }}
@@ -145,11 +150,8 @@ spec:
             - name: REPORTING_MONGO_DB_SSL_VERIFY
               value: '{{ include "common.backends.reportingEventsDB.ssl.verify" . }}'
             {{- if (include "common.backends.reportingEventsDB.ssl.caSecret.name" .) }}
-            - name: REPORTING_MONGO_DB_SSL_CA
-              valueFrom:
-                secretKeyRef:
-                  name: '{{ include "common.backends.reportingEventsDB.ssl.caSecret.name" . }}'
-                  key: '{{ include "common.backends.reportingEventsDB.ssl.caSecret.key" . }}'
+            - name: REPORTING_MONGO_DB_SSL_CA_FILE_PATH
+              value: "/opt/app/mongo-ca/mongo-ca.pem"
             {{- end }}
             {{- end }}
       volumes:
@@ -159,3 +161,11 @@ spec:
             items:
             - key: default.json
               path: default.json
+        {{- if (include "common.backends.reportingEventsDB.ssl.caSecret.name" .) }}
+        - name: mongo-ca
+          secret:
+            secretName: '{{ include "common.backends.reportingEventsDB.ssl.caSecret.name" . }}'
+            items:
+              - key: '{{ include "common.backends.reportingEventsDB.ssl.caSecret.key" . }}'
+                path: mongo-ca.pem
+        {{- end }}
