@@ -106,6 +106,11 @@ spec:
           volumeMounts:
             - name: {{ template "common.names.fullname" . }}-config-volume
               mountPath: /opt/reporting/config
+            {{- if (include "common.backends.reportingEventsDB.ssl.caSecret.name" .) }}
+            - name: mongo-ca
+              mountPath: /opt/app/mongo-ca
+              readOnly: true
+            {{- end }}
           env:
             - name: NPM_CONFIG_UPDATE_NOTIFIER
               value: 'false'
@@ -157,11 +162,8 @@ spec:
             - name: EVENT_STORE_DB_SSL_VERIFY
               value: '{{ include "common.backends.reportingEventsDB.ssl.verify" . }}'
             {{- if (include "common.backends.reportingEventsDB.ssl.caSecret.name" .) }}
-            - name: EVENT_STORE_DB_SSL_CA
-              valueFrom:
-                secretKeyRef:
-                  name: '{{ include "common.backends.reportingEventsDB.ssl.caSecret.name" . }}'
-                  key: '{{ include "common.backends.reportingEventsDB.ssl.caSecret.key" . }}'
+            - name: EVENT_STORE_DB_SSL_CA_FILE_PATH
+              value: "/opt/app/mongo-ca/mongo-ca.pem"
             {{- end }}
             {{- end }}
             {{- if .Values.auth }}
@@ -175,3 +177,11 @@ spec:
             items:
             - key: production.json
               path: production.json
+        {{- if (include "common.backends.reportingEventsDB.ssl.caSecret.name" .) }}
+        - name: mongo-ca
+          secret:
+            secretName: '{{ include "common.backends.reportingEventsDB.ssl.caSecret.name" . }}'
+            items:
+              - key: '{{ include "common.backends.reportingEventsDB.ssl.caSecret.key" . }}'
+                path: mongo-ca.pem
+        {{- end }}
