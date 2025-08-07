@@ -158,7 +158,7 @@ spec:
             {{- end }}
             {{- if (include "common.backends.reportingEventsDB.ssl.enabled" .) }}
             - name: EVENT_STORE_DB_SSL_ENABLED
-              value: 'true'
+              value: '{{ include "common.backends.reportingEventsDB.ssl.enabled" . }}'
             - name: EVENT_STORE_DB_SSL_VERIFY
               value: '{{ include "common.backends.reportingEventsDB.ssl.verify" . }}'
             {{- if (include "common.backends.reportingEventsDB.ssl.caSecret.name" .) }}
