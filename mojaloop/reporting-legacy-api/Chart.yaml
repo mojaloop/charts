@@ -2,7 +2,7 @@ apiVersion: v2
 description: Reporting Legacy API
 name: reporting-legacy-api
 version: 2.3.0
-appVersion: "12.4.1"
+appVersion: "12.4.2"
 home: http://mojaloop.io
 icon: http://mojaloop.io/images/logo.png
 sources:
