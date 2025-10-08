@@ -101,10 +101,6 @@ image:
   debug: false
 
 replicaCount: 1
-command:
-  # - sleep
-  # - infinity
-  - /usr/libexec/s2i/run
 
 ## Enable diagnostic mode in the deployment
 ##
