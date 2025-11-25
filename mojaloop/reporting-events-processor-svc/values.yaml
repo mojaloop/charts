@@ -130,8 +130,6 @@ image:
 
 replicaCount: 1
 command:
-  # - sleep
-  # - infinity
   - npm
   - start
 
@@ -225,7 +223,7 @@ configFiles:
                 "socketKeepaliveEnable": true,
                 "allowAutoCreateTopics": true,
                 "partitionAssignmentStrategy": "",
-                "enableAutoCommit": false
+                "enableAutoCommit": true
               },
               "topicConf": {
                 "autoOffsetReset": "earliest"
@@ -236,6 +234,8 @@ configFiles:
       }
     }
 
+#env:
+#  KEY: value
 
 podAnnotations: {}
 
