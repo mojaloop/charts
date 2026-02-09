@@ -2,7 +2,7 @@
 topologySpreadConstraints:
   - maxSkew: 1
     topologyKey: kubernetes.io/hostname
-    whenUnsatisfiable: ScheduleAnyway
+    whenUnsatisfiable: DoNotSchedule # helps for pods not being moved to another node during a node restart
     labelSelector:
       matchLabels:
         app.kubernetes.io/name: {{ default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
