@@ -1379,7 +1379,7 @@ mysql:
   image:
     registry: docker.io
     repository: bitnamilegacy/mysql
-    tag: 8.4.5-debian-12-r0
+    tag: 8.0.40-debian-12-r5
     ## Specify a imagePullPolicy
     ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
     ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -3488,7 +3488,7 @@ kratos-db:
   image:
     registry: docker.io
     repository: bitnamilegacy/mysql
-    tag: 8.4.5-debian-12-r0
+    tag: 8.0.40-debian-12-r5
     ## Specify a imagePullPolicy
     ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
     ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -4138,7 +4138,7 @@ keto-db:
   image:
     registry: docker.io
     repository: bitnamilegacy/mysql
-    tag: 8.4.5-debian-12-r0
+    tag: 8.0.40-debian-12-r5
     ## Specify a imagePullPolicy
     ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
     ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
