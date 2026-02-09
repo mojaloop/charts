@@ -45,7 +45,7 @@ For each pod, the following files are generated:
 
 - `pod-describe-{pod-name}.log` - Detailed pod description including events, conditions, and resource usage
 - `pod-logs-{pod-name}-{container-name}.log` - Current logs from each container
-- `pod-logs-{pod-name}-{container-name}-previous.log` - Logs from previous container instance (if crashed/restarted)
+- `pod-logs-{pod-name}-{container-name}-previous.log` - Logs from previous container instance (if crashed/restarted). Note: If container hasn't restarted, this file will contain an error message from kubectl, which is useful for documentation purposes.
 - `pod-logs-{pod-name}-init-{container-name}.log` - Logs from init containers
 
 **Note:** Pod and container names are sanitized in filenames (non-alphanumeric characters except hyphens are replaced with underscores) to ensure filesystem compatibility.
@@ -66,7 +66,13 @@ For each pod, the following files are generated:
 Startup probe failed: mysqladmin: [Warning] Using a password on the command line interface can be insecure....
 Container mysql failed startup probe, will be restarted
 ```
-→ Check `pod-logs-mysql-0-mysql.log` for full MySQL startup logs
+→ This shows the probe command output, but the actual failure reason may be:
+  - MySQL not ready yet (still initializing databases)
+  - Incorrect probe timing/threshold configuration
+  - MySQL actually failing to start (check full container logs)
+
+→ Check `pod-logs-mysql-0-mysql.log` for complete MySQL startup logs and any errors
+→ Check `pod-describe-mysql-0.log` for probe configuration and timing details
 
 ### Pod Stuck in Pending/ContainerCreating
 **Files to check:**
