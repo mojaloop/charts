@@ -48,6 +48,8 @@ For each pod, the following files are generated:
 - `pod-logs-{pod-name}-{container-name}-previous.log` - Logs from previous container instance (if crashed/restarted)
 - `pod-logs-{pod-name}-init-{container-name}.log` - Logs from init containers
 
+**Note:** Pod and container names are sanitized in filenames (non-alphanumeric characters except hyphens are replaced with underscores) to ensure filesystem compatibility.
+
 ## Common Failure Patterns and How to Diagnose
 
 ### Pod Failing Health Checks
