@@ -184,32 +184,32 @@ jobs:
           name: Collect diagnostic information on failure
           command: |
             mkdir -p /tmp/k8s_diagnostics
-            
+
             echo "=== Collecting Kubernetes Events ===" | tee /tmp/k8s_diagnostics/00-collection.log
             kubectl get events --sort-by=.metadata.creationTimestamp > /tmp/k8s_diagnostics/01-events.log 2>&1 || true
-            
+
             echo "=== Collecting Pod Status ===" | tee -a /tmp/k8s_diagnostics/00-collection.log
             kubectl get pods -o wide > /tmp/k8s_diagnostics/02-pods-status.log 2>&1 || true
             kubectl get pods -o yaml > /tmp/k8s_diagnostics/03-pods-yaml.log 2>&1 || true
-            
+
             echo "=== Collecting Node Information ===" | tee -a /tmp/k8s_diagnostics/00-collection.log
             kubectl get nodes -o wide > /tmp/k8s_diagnostics/04-nodes.log 2>&1 || true
             kubectl describe nodes > /tmp/k8s_diagnostics/05-nodes-describe.log 2>&1 || true
-            
+
             echo "=== Collecting Helm Releases ===" | tee -a /tmp/k8s_diagnostics/00-collection.log
             helm list -A > /tmp/k8s_diagnostics/06-helm-releases.log 2>&1 || true
             helm status be > /tmp/k8s_diagnostics/07-helm-be-status.log 2>&1 || true
             helm status ml > /tmp/k8s_diagnostics/08-helm-ml-status.log 2>&1 || true
             helm get values be > /tmp/k8s_diagnostics/09-helm-be-values.log 2>&1 || true
             helm get values ml > /tmp/k8s_diagnostics/10-helm-ml-values.log 2>&1 || true
-            
+
             echo "=== Collecting Pod Logs and Descriptions ===" | tee -a /tmp/k8s_diagnostics/00-collection.log
             for pod in $(kubectl get pods -o jsonpath='{.items[*].metadata.name}' 2>/dev/null || true); do
               echo "Processing pod: $pod" | tee -a /tmp/k8s_diagnostics/00-collection.log
               # Sanitize pod name for safe filename usage (K8s pod names are DNS-1123 compliant: lowercase alphanumeric and hyphens only)
               safe_pod=$(echo "$pod" | tr -c '[:alnum:]-' '_')
               kubectl describe pod $pod > /tmp/k8s_diagnostics/pod-describe-${safe_pod}.log 2>&1 || true
-              
+
               # Get logs for each container in the pod
               containers=$(kubectl get pod $pod -o jsonpath='{.spec.containers[*].name}' 2>/dev/null || true)
               for container in $containers; do
@@ -219,7 +219,7 @@ jobs:
                 kubectl logs $pod -c $container > /tmp/k8s_diagnostics/pod-logs-${safe_pod}-${safe_container}.log 2>&1 || true
                 kubectl logs $pod -c $container --previous > /tmp/k8s_diagnostics/pod-logs-${safe_pod}-${safe_container}-previous.log 2>&1 || true
               done
-              
+
               # Get logs for init containers if any
               init_containers=$(kubectl get pod $pod -o jsonpath='{.spec.initContainers[*].name}' 2>/dev/null || true)
               for container in $init_containers; do
@@ -229,7 +229,7 @@ jobs:
                 kubectl logs $pod -c $container > /tmp/k8s_diagnostics/pod-logs-${safe_pod}-init-${safe_container}.log 2>&1 || true
               done
             done
-            
+
             echo "=== Collecting StatefulSets, Deployments, and Services ===" | tee -a /tmp/k8s_diagnostics/00-collection.log
             kubectl get statefulsets -o wide > /tmp/k8s_diagnostics/11-statefulsets.log 2>&1 || true
             kubectl describe statefulsets > /tmp/k8s_diagnostics/12-statefulsets-describe.log 2>&1 || true
@@ -238,7 +238,7 @@ jobs:
             kubectl get services -o wide > /tmp/k8s_diagnostics/15-services.log 2>&1 || true
             kubectl get pvc -o wide > /tmp/k8s_diagnostics/16-pvc.log 2>&1 || true
             kubectl get pv -o wide > /tmp/k8s_diagnostics/17-pv.log 2>&1 || true
-            
+
             echo "=== Collection Complete ===" | tee -a /tmp/k8s_diagnostics/00-collection.log
             echo "Total files created:" | tee -a /tmp/k8s_diagnostics/00-collection.log
             ls -lh /tmp/k8s_diagnostics/ | tee -a /tmp/k8s_diagnostics/00-collection.log
@@ -284,32 +284,32 @@ jobs:
           name: Collect diagnostic information on failure
           command: |
             mkdir -p /tmp/k8s_diagnostics
-            
+
             echo "=== Collecting Kubernetes Events ===" | tee /tmp/k8s_diagnostics/00-collection.log
             kubectl get events --sort-by=.metadata.creationTimestamp > /tmp/k8s_diagnostics/01-events.log 2>&1 || true
-            
+
             echo "=== Collecting Pod Status ===" | tee -a /tmp/k8s_diagnostics/00-collection.log
             kubectl get pods -o wide > /tmp/k8s_diagnostics/02-pods-status.log 2>&1 || true
             kubectl get pods -o yaml > /tmp/k8s_diagnostics/03-pods-yaml.log 2>&1 || true
-            
+
             echo "=== Collecting Node Information ===" | tee -a /tmp/k8s_diagnostics/00-collection.log
             kubectl get nodes -o wide > /tmp/k8s_diagnostics/04-nodes.log 2>&1 || true
             kubectl describe nodes > /tmp/k8s_diagnostics/05-nodes-describe.log 2>&1 || true
-            
+
             echo "=== Collecting Helm Releases ===" | tee -a /tmp/k8s_diagnostics/00-collection.log
             helm list -A > /tmp/k8s_diagnostics/06-helm-releases.log 2>&1 || true
             helm status be > /tmp/k8s_diagnostics/07-helm-be-status.log 2>&1 || true
             helm status ml > /tmp/k8s_diagnostics/08-helm-ml-status.log 2>&1 || true
             helm get values be > /tmp/k8s_diagnostics/09-helm-be-values.log 2>&1 || true
             helm get values ml > /tmp/k8s_diagnostics/10-helm-ml-values.log 2>&1 || true
-            
+
             echo "=== Collecting Pod Logs and Descriptions ===" | tee -a /tmp/k8s_diagnostics/00-collection.log
             for pod in $(kubectl get pods -o jsonpath='{.items[*].metadata.name}' 2>/dev/null || true); do
               echo "Processing pod: $pod" | tee -a /tmp/k8s_diagnostics/00-collection.log
               # Sanitize pod name for safe filename usage (K8s pod names are DNS-1123 compliant: lowercase alphanumeric and hyphens only)
               safe_pod=$(echo "$pod" | tr -c '[:alnum:]-' '_')
               kubectl describe pod $pod > /tmp/k8s_diagnostics/pod-describe-${safe_pod}.log 2>&1 || true
-              
+
               # Get logs for each container in the pod
               containers=$(kubectl get pod $pod -o jsonpath='{.spec.containers[*].name}' 2>/dev/null || true)
               for container in $containers; do
@@ -319,7 +319,7 @@ jobs:
                 kubectl logs $pod -c $container > /tmp/k8s_diagnostics/pod-logs-${safe_pod}-${safe_container}.log 2>&1 || true
                 kubectl logs $pod -c $container --previous > /tmp/k8s_diagnostics/pod-logs-${safe_pod}-${safe_container}-previous.log 2>&1 || true
               done
-              
+
               # Get logs for init containers if any
               init_containers=$(kubectl get pod $pod -o jsonpath='{.spec.initContainers[*].name}' 2>/dev/null || true)
               for container in $init_containers; do
@@ -329,7 +329,7 @@ jobs:
                 kubectl logs $pod -c $container > /tmp/k8s_diagnostics/pod-logs-${safe_pod}-init-${safe_container}.log 2>&1 || true
               done
             done
-            
+
             echo "=== Collecting StatefulSets, Deployments, and Services ===" | tee -a /tmp/k8s_diagnostics/00-collection.log
             kubectl get statefulsets -o wide > /tmp/k8s_diagnostics/11-statefulsets.log 2>&1 || true
             kubectl describe statefulsets > /tmp/k8s_diagnostics/12-statefulsets-describe.log 2>&1 || true
@@ -338,7 +338,7 @@ jobs:
             kubectl get services -o wide > /tmp/k8s_diagnostics/15-services.log 2>&1 || true
             kubectl get pvc -o wide > /tmp/k8s_diagnostics/16-pvc.log 2>&1 || true
             kubectl get pv -o wide > /tmp/k8s_diagnostics/17-pv.log 2>&1 || true
-            
+
             echo "=== Collection Complete ===" | tee -a /tmp/k8s_diagnostics/00-collection.log
             echo "Total files created:" | tee -a /tmp/k8s_diagnostics/00-collection.log
             ls -lh /tmp/k8s_diagnostics/ | tee -a /tmp/k8s_diagnostics/00-collection.log
@@ -384,32 +384,32 @@ jobs:
           name: Collect diagnostic information on failure
           command: |
             mkdir -p /tmp/k8s_diagnostics
-            
+
             echo "=== Collecting Kubernetes Events ===" | tee /tmp/k8s_diagnostics/00-collection.log
             kubectl get events --sort-by=.metadata.creationTimestamp > /tmp/k8s_diagnostics/01-events.log 2>&1 || true
-            
+
             echo "=== Collecting Pod Status ===" | tee -a /tmp/k8s_diagnostics/00-collection.log
             kubectl get pods -o wide > /tmp/k8s_diagnostics/02-pods-status.log 2>&1 || true
             kubectl get pods -o yaml > /tmp/k8s_diagnostics/03-pods-yaml.log 2>&1 || true
-            
+
             echo "=== Collecting Node Information ===" | tee -a /tmp/k8s_diagnostics/00-collection.log
             kubectl get nodes -o wide > /tmp/k8s_diagnostics/04-nodes.log 2>&1 || true
             kubectl describe nodes > /tmp/k8s_diagnostics/05-nodes-describe.log 2>&1 || true
-            
+
             echo "=== Collecting Helm Releases ===" | tee -a /tmp/k8s_diagnostics/00-collection.log
             helm list -A > /tmp/k8s_diagnostics/06-helm-releases.log 2>&1 || true
             helm status be > /tmp/k8s_diagnostics/07-helm-be-status.log 2>&1 || true
             helm status ml > /tmp/k8s_diagnostics/08-helm-ml-status.log 2>&1 || true
             helm get values be > /tmp/k8s_diagnostics/09-helm-be-values.log 2>&1 || true
             helm get values ml > /tmp/k8s_diagnostics/10-helm-ml-values.log 2>&1 || true
-            
+
             echo "=== Collecting Pod Logs and Descriptions ===" | tee -a /tmp/k8s_diagnostics/00-collection.log
             for pod in $(kubectl get pods -o jsonpath='{.items[*].metadata.name}' 2>/dev/null || true); do
               echo "Processing pod: $pod" | tee -a /tmp/k8s_diagnostics/00-collection.log
               # Sanitize pod name for safe filename usage (K8s pod names are DNS-1123 compliant: lowercase alphanumeric and hyphens only)
               safe_pod=$(echo "$pod" | tr -c '[:alnum:]-' '_')
               kubectl describe pod $pod > /tmp/k8s_diagnostics/pod-describe-${safe_pod}.log 2>&1 || true
-              
+
               # Get logs for each container in the pod
               containers=$(kubectl get pod $pod -o jsonpath='{.spec.containers[*].name}' 2>/dev/null || true)
               for container in $containers; do
@@ -419,7 +419,7 @@ jobs:
                 kubectl logs $pod -c $container > /tmp/k8s_diagnostics/pod-logs-${safe_pod}-${safe_container}.log 2>&1 || true
                 kubectl logs $pod -c $container --previous > /tmp/k8s_diagnostics/pod-logs-${safe_pod}-${safe_container}-previous.log 2>&1 || true
               done
-              
+
               # Get logs for init containers if any
               init_containers=$(kubectl get pod $pod -o jsonpath='{.spec.initContainers[*].name}' 2>/dev/null || true)
               for container in $init_containers; do
@@ -429,7 +429,7 @@ jobs:
                 kubectl logs $pod -c $container > /tmp/k8s_diagnostics/pod-logs-${safe_pod}-init-${safe_container}.log 2>&1 || true
               done
             done
-            
+
             echo "=== Collecting StatefulSets, Deployments, and Services ===" | tee -a /tmp/k8s_diagnostics/00-collection.log
             kubectl get statefulsets -o wide > /tmp/k8s_diagnostics/11-statefulsets.log 2>&1 || true
             kubectl describe statefulsets > /tmp/k8s_diagnostics/12-statefulsets-describe.log 2>&1 || true
@@ -438,7 +438,7 @@ jobs:
             kubectl get services -o wide > /tmp/k8s_diagnostics/15-services.log 2>&1 || true
             kubectl get pvc -o wide > /tmp/k8s_diagnostics/16-pvc.log 2>&1 || true
             kubectl get pv -o wide > /tmp/k8s_diagnostics/17-pv.log 2>&1 || true
-            
+
             echo "=== Collection Complete ===" | tee -a /tmp/k8s_diagnostics/00-collection.log
             echo "Total files created:" | tee -a /tmp/k8s_diagnostics/00-collection.log
             ls -lh /tmp/k8s_diagnostics/ | tee -a /tmp/k8s_diagnostics/00-collection.log
@@ -548,7 +548,7 @@ workflows:
             tags:
               only: /v[0-9]+(\.[0-9]+)*/
             branches:
-              only: master
+              only: /master|(major|minor|patch)/.*/
       - slack-announcement:
           context: org-global
           requires:
