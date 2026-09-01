@@ -104,9 +104,6 @@ spec:
             periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
           {{- end }}
           volumeMounts:
-            - name: {{ template "common.names.fullname" . }}-config-volume
-              mountPath: /opt/ml-api-adapter/config/default.json
-              subPath: default.json
             - name: tmp
               mountPath: /tmp
           {{- if index .Values.configFiles "config.json" }}
@@ -114,16 +111,9 @@ spec:
               mountPath: /usr/share/nginx/html/config.json
               subPath: config.json
           {{- end }}
-          {{- if index .Values.configFiles "remotes.json" }}
             - name: {{ template "common.names.fullname" . }}-config-volume
               mountPath: /usr/share/nginx/html/remotes.json
               subPath: remotes.json
-          {{- end }}
-          # env: {}
-          envFrom:
-          - configMapRef:
-              name: {{ template "common.names.fullname" . }}-config-env
-
       volumes:
         - name: {{ template "common.names.fullname" . }}-config-volume
           configMap:

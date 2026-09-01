@@ -185,25 +185,11 @@ metrics:
     defaultLabels:
       serviceName: reporting-hub-bop-shell
 
-config:
-  env:
-    AUTH_MOCK_API: false
-    REMOTE_API_BASE_URL: /
-    REMOTE_MOCK_API: false
-    LOGIN_URL: /kratos/self-service/registration/browser
-    LOGOUT_URL: /kratos/self-service/browser/flows/logout
-    LOGIN_PROVIDER: keycloak
-    AUTH_TOKEN_URL: /kratos/sessions/whoami
-    AUTH_ENABLED: true
-    REMOTE_1_URL: http://reporting-hub-bop-role-ui.local
-    REMOTE_2_URL: http://reporting-hub-bop-trx-ui.local
-    REMOTE_3_URL: http://reporting-hub-bop-settlements-ui.local
-    REMOTE_4_URL: http://reporting-hub-bop-positions-ui.local
-    # REACT_APP_TITLE: Mojaloop Finance Portal
-    # REACT_APP_SUBTITLE: Accelarating regional trade through supporting cross boarder, instant lowcost, payments and transfers.
-    # REACT_APP_TITLE_IMAGE: http://reporting-hub-bop-positions-ui.local/images/logo.png
-    # REACT_APP_TITLE_BAR_COLOR: '#911414'
-    # REACT_APP_DFSP_IMG: http://reporting-hub-bop-positions-ui.local/images/dfsp.png
+# Scheme the browser reaches the micro-frontends on
+portalScheme: https
+
+# Settings the shell reads at boot from config.json. A key left out keeps the
+# built-in default, so set only what the deployment overrides.
 
 service:
   internalPort: 8080
@@ -361,9 +347,19 @@ serviceAccount:
   name: ""
 
 configFiles:
-  default.json: {}
   config.json:
-  remotes.json:
+    AUTH_ENABLED: "true"
+    AUTH_TOKEN_URL: /kratos/sessions/whoami
+    LOGIN_URL: /kratos/self-service/registration/browser
+    LOGOUT_URL: /kratos/self-service/browser/flows/logout
+    REMOTE_API_BASE_URL: /
+    CAPABILITIES_URL: /api/capabilities
+    # TITLE: Mojaloop Finance Portal
+    # SUBTITLE: Inclusive, equitable financial services for all
+    # TITLE_IMAGE: https://portal.example.com/images/logo.png
+    # TITLE_BAR_COLOR: '#911414'
+    # DFSP_IMG: https://portal.example.com/images/dfsp.png
+  # remotes.json is rendered from global.authz, set it here only to override
 
 ## Configure resource requests and limits
 ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
@@ -379,3 +375,14 @@ resources: {}
   # requests:
   #  cpu: 100m
   #  memory: 128Mi
+
+## Gateway API route, tiering is which parentRefs the deployment passes
+gateway:
+  enabled: false
+  host: ""
+  parentRefs: []
+  ## Delegates auth on the route to Oathkeeper; disable to route without authorization
+  oathkeeper:
+    enabled: true
+    serviceName: oathkeeper-api
+    servicePort: 4456

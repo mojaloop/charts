@@ -372,3 +372,14 @@ resources: {}
 
 settlementSvc: {}
 adminApiSvc: {}
+
+## Gateway API route, tiering is which parentRefs the deployment passes
+gateway:
+  enabled: false
+  host: ""
+  parentRefs: []
+  ## Delegates auth on the route to Oathkeeper; disable to route without authorization
+  oathkeeper:
+    enabled: true
+    serviceName: oathkeeper-api
+    servicePort: 4456
