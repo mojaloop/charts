@@ -8,9 +8,6 @@
 ## @param global.storageClass Global StorageClass for Persistent Volume(s)
 ##
 global:
-  # This can be overridden by the main keto element.
-  keto:
-    readURL: 'http://keto-read'
   ## The following is the database configuration of the reporting DB
   ## For testing / development, it can be pointed to the main centralledger database
   ## but for production use, please point this to the reporting database which can be a replica of the main database
@@ -82,11 +79,6 @@ reportingEventsDB:
     # verify: false
     caSecret: {}
 
-  # This can be overridden by the main keto element.
-keto: { }
-  # keto:
-  #   readURL: 'http://keto-read'
-  #   writeURL: 'http://keto-write'
 
 podAffinityPreset: ""
 ## @param podAntiAffinityPreset Pod anti-affinity preset. Ignored if `main.affinity` is set. Allowed values: `soft` or `hard`
@@ -250,9 +242,6 @@ configFiles:
         "DATABASE": "{{ include "common.backends.reportingEventsDB.database" . }}",
         "PARAMS": {{ include "common.backends.reportingEventsDB.params" . | toJson }}
       },
-      "ORY_KETO_READ_URL": "",
-      "AUTH_CHECK_PARTICIPANTS": false,
-      "USER_ID_HEADER": "x-user",
       "CORS_WHITELIST": [
         "http://reporting-hub-bop-shell.local",
         "http://reporting-hub-bop-settlements-ui.local",
@@ -397,8 +386,6 @@ ingress:
   secrets: []
 
 podAnnotations: {}
-
-auth: false
 
 ## RBAC configuration
 ##

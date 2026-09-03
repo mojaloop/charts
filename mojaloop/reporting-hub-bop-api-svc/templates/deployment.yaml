@@ -166,10 +166,6 @@ spec:
               value: "/opt/app/mongo-ca/mongo-ca.pem"
             {{- end }}
             {{- end }}
-            {{- if .Values.auth }}
-            - name: ORY_KETO_READ_URL
-              value: '{{ include "common.backends.keto.readURL" . }}'
-            {{- end }}
       volumes:
         - name: {{ template "common.names.fullname" . }}-config-volume
           configMap:
