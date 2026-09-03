@@ -55,6 +55,16 @@ do
     if [ -z $BUILD_NUM ] || [ -z $GIT_SHA1 ]; then # we're most likely not running in CI
         # Probably running on someone's machine
         helm package -u -d ./repo "$chart"
+    elif [ -z $GITHUB_TAG ] && [[ ${CIRCLE_BRANCH:-} =~ ^(major|minor|patch)/(.*)$ ]]; then
+        set -u
+        # Build a pre-release version from pre-release branches major/name, minor/name,
+        # patch/name. Can be pinned with helm upgrade --version '>=x.x.x-name.0 <x.x.x-name.999999'
+        # to avoid picking unintended versions from multiple active branches doing snapshot releases
+        CURRENT_VERSION=$(grep '^version: [0-9]\+\.[0-9]\+\.[0-9]\+\s*$' "$chart/Chart.yaml" | cut -d' ' -f2)
+        NEW_VERSION=$(echo "${CURRENT_VERSION}" | awk -F. -v OFS=. '{$NF += 1 ; print}')-${BASH_REMATCH[2]}.${BUILD_NUM}
+        echo "Packaging $chart with pre-release version ${NEW_VERSION} ..."
+        helm package -u -d ./repo "$chart" --version="$NEW_VERSION"
+        set +u
     elif [ -z $GITHUB_TAG ]; then # we're probably running in CI, but this is not a job triggered by a tag
         set -u
         # When $GITHUB_TAG is not present, we'll build a development version. This versioning
