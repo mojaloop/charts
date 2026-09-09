@@ -15,7 +15,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 5.1.6
+version: 5.1.7
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -35,7 +35,7 @@ dependencies:
     tags:
       - mojaloop
       - role-assignment-service
-    version: 3.1.0
+    version: 3.1.1
   - name: reporting-hub-bop-shell
     condition: reporting-hub-bop-shell.enabled
     repository: "file://../reporting-hub-bop-shell"
@@ -49,14 +49,14 @@ dependencies:
     tags:
       - mojaloop
       - reporting-hub-bop-api-svc
-    version: 4.1.4
+    version: 4.1.5
   - name: reporting-legacy-api
     condition: reporting-legacy-api.enabled
     repository: "file://../reporting-legacy-api"
     tags:
       - mojaloop
       - reporting-legacy-api
-    version: 2.2.0
+    version: 2.2.1
   - name: reporting-events-processor-svc
     condition: reporting-events-processor-svc.enabled
     repository: "file://../reporting-events-processor-svc"
@@ -98,7 +98,7 @@ dependencies:
     tags:
       - mojaloop
       - reporting-hub-bop-experience-api-svc
-    version: 1.0.3
+    version: 1.0.4
   - name: reporting-aggregator-svc
     condition: reporting-aggregator-svc.enabled
     repository: "file://../reporting-aggregator-svc"
