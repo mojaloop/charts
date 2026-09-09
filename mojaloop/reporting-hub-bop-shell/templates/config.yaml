@@ -26,6 +26,7 @@ data:
       "label" .label
       "scope" .scope
       "url" (printf "%s://%s%s/app.js" $scheme $entry.url.host (default "" $entry.url.path))
+      "baseUrl" (printf "%s://%s%s" $scheme $entry.url.host (default "" $entry.url.path))
       "menuComponent" (.menuComponent | default "Menu")
       "appComponent" (.appComponent | default "App")
       "permission" .permission

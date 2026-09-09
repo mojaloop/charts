@@ -349,6 +349,9 @@ serviceAccount:
 configFiles:
   config.json:
     AUTH_ENABLED: "true"
+    # The endpoints below carry their own origin, so the client prefixes them
+    # with nothing. Absent, the shell prefixes the string "undefined".
+    AUTH_API_BASE_URL: ""
     AUTH_TOKEN_URL: /kratos/sessions/whoami
     LOGIN_URL: /kratos/self-service/registration/browser
     LOGOUT_URL: /kratos/self-service/browser/flows/logout
