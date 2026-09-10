@@ -366,11 +366,7 @@ configFiles:
       "CENTRAL_ADMIN_URL": '{{ printf "http://%s:%s" (include "common.backends.mojaloop.adminApiSvc.host" .) (include "common.backends.mojaloop.adminApiSvc.port" .) }}',
       "CENTRAL_SETTLEMENTS_URL": '{{ printf "http://%s:%s" (include "common.backends.mojaloop.settlementSvc.host" .) (include "common.backends.mojaloop.settlementSvc.port" .) }}',
       "PROXY_TIMEOUT": 10000,
-      "CORS_WHITELIST": [
-        "http://reporting-hub-bop-shell.local",
-        "http://reporting-hub-bop-settlements-ui.local",
-        "http://reporting-hub-bop-positions-ui.local"
-      ]
+      "CORS_WHITELIST": []
     }
 
 # Mount configuration files in the app folder for overriding defaults

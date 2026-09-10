@@ -242,12 +242,8 @@ configFiles:
         "DATABASE": "{{ include "common.backends.reportingEventsDB.database" . }}",
         "PARAMS": {{ include "common.backends.reportingEventsDB.params" . | toJson }}
       },
-      "CORS_WHITELIST": [
-        "http://reporting-hub-bop-shell.local",
-        "http://reporting-hub-bop-settlements-ui.local",
-        "http://reporting-hub-bop-positions-ui.local"
-      ],
-      "ALLOW_CREDENTIALS": true
+      "CORS_WHITELIST": [],
+      "ALLOW_CREDENTIALS": false
     }
 
 service:
