@@ -226,6 +226,7 @@ configFiles:
   production.json: |
     {
       "PORT": 3000,
+      "GRAPH_QL_RESOURCE_ENDPOINT": "/",
       "REPORTING_DB": {
         "DIALECT": "mysql",
         "HOST": "{{ include "common.backends.reportingDB.host" . }}",
