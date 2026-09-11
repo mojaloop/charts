@@ -19,7 +19,6 @@
 .project
 .idea/
 *.tmproj
-**/charts
 .vscode
 launch.json
 # Generic files
@@ -29,7 +28,8 @@ launch.json
 # Helm
 requirements.lock
 Chart.lock
-**/charts
+**/charts/*
+!**/charts/*.tgz
 repo
 tmp.yaml
 **/tmpcharts*
