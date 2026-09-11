@@ -19,12 +19,6 @@ spec:
     - {{ required "gateway.host is required when the gateway is enabled" .Values.gateway.host | quote }}
   rules:
     - filters:
-        # The scope is the decision endpoint's word, so a client's own copy is
-        # removed at the edge and cannot reach anything behind it
-        - type: RequestHeaderModifier
-          requestHeaderModifier:
-            remove:
-              - X-Scope
         {{- with .Values.gateway.cors }}
         - type: CORS
           cors:
@@ -48,10 +42,6 @@ spec:
                 # a browser and a json 401 for anything else
                 - cookie
                 - accept
-              allowedResponseHeaders:
-                # The decision endpoint's scope, the one header the platform
-                # hands a service
-                - x-scope
       {{- end }}
       backendRefs:
         - name: {{ template "common.names.fullname" . }}

@@ -35,10 +35,6 @@ spec:
                 - cookie
                 - accept
                 - x-forwarded-proto
-              allowedResponseHeaders:
-                - x-user
-                - x-email
-                - x-roles
       {{- end }}
       backendRefs:
         - name: {{ template "common.names.fullname" . }}
