@@ -12,6 +12,7 @@ metadata:
   namespace: {{ .Release.Namespace | quote }}
   labels: {{- include "common.labels.standard" . | nindent 4 }}
     app.kubernetes.io/component: {{ .Chart.Name }}
+  {{- include "common.authz.annotations" (dict "backend" (include "common.names.fullname" .) "authz" .Values.authz) | nindent 2 }}
 spec:
   parentRefs:
     {{- toYaml .Values.gateway.parentRefs | nindent 4 }}

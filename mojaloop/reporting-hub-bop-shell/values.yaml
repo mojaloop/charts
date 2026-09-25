@@ -19,6 +19,13 @@ global:
   # keto:
   #   host: keto
   #   port: 4466
+  ## The micro-frontends the shell loads, one menu entry each:
+  ##   - host: portal-iam.example.org   # where the remote serves app.js
+  ##     hostPath: ""                   # optional, when served under a prefix
+  ##     path: /iam                     # where the shell mounts it
+  ##     label: Roles
+  ##     scope: reporting_hub_bop_role_ui
+  portalRemotes: []
 
 podAffinityPreset: ""
 ## @param podAntiAffinityPreset Pod anti-affinity preset. Ignored if `main.affinity` is set. Allowed values: `soft` or `hard`
@@ -270,7 +277,7 @@ configFiles:
     # TITLE_IMAGE: https://portal.example.com/images/logo.png
     # TITLE_BAR_COLOR: '#911414'
     # DFSP_IMG: https://portal.example.com/images/dfsp.png
-  # remotes.json is rendered from global.authz, set it here only to override
+  # remotes.json is rendered from global.portalRemotes, set it here only to override
 
 ## Configure resource requests and limits
 ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
@@ -297,3 +304,12 @@ gateway:
     enabled: true
     serviceName: oathkeeper-api
     servicePort: 4456
+
+## Reaching the portal is one permission over its whole mount, which the
+## gateway decides before a request arrives. service is the permission prefix
+## the route gives it, the deployment's to say.
+authz:
+  service: ""
+  operationId: view
+  title: Mojaloop Portal Shell
+  summary: Opens the portal

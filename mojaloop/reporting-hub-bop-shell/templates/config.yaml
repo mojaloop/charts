@@ -19,20 +19,18 @@ data:
 {{- if not (index .Values.configFiles "remotes.json") }}
 {{- $remotes := list }}
 {{- $scheme := .Values.portalScheme | default "https" }}
-{{- range $entry := .Values.global.authz }}
-{{- with $entry.portal }}
+{{- range .Values.global.portalRemotes }}
 {{- $remotes = append $remotes (dict
       "path" .path
       "label" .label
       "scope" .scope
-      "url" (printf "%s://%s%s/app.js" $scheme $entry.url.host (default "" $entry.url.path))
-      "baseUrl" (printf "%s://%s%s" $scheme $entry.url.host (default "" $entry.url.path))
+      "url" (printf "%s://%s%s/app.js" $scheme .host (default "" .hostPath))
+      "baseUrl" (printf "%s://%s%s" $scheme .host (default "" .hostPath))
       "menuComponent" (.menuComponent | default "Menu")
       "appComponent" (.appComponent | default "App")
       "permission" .permission
       "enabled" (ne .enabled false)
       "crossOrigin" (eq .crossOrigin true)) }}
-{{- end }}
 {{- end }}
   remotes.json: |
     {{- toJson $remotes | nindent 4 }}
