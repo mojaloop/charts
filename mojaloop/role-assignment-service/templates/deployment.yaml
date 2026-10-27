@@ -30,6 +30,7 @@ spec:
       labels: {{- include "common.labels.standard" . | nindent 8 }}
         app.kubernetes.io/component: {{ .Chart.Name }}
         app.kubernetes.io/version: {{ .Chart.Version }}
+        iam.mojaloop.io/provisioning-client: "true"
         {{- if .Values.podLabels }}
         {{- include "common.tplvalues.render" (dict "value" .Values.podLabels "context" $) | nindent 8 }}
         {{- end }}
