@@ -188,7 +188,7 @@ metrics:
 config:
   env:
     REACT_APP_API_BASE_URL: http://iam-api.local
-    REACT_APP_IAM_SERVICE: iam
+    REACT_APP_IAM_PERMISSION_PREFIX: iam
 
 service:
   internalPort: 8081
@@ -258,7 +258,7 @@ configFiles:
   runtime-env.js: |
     window.roleEnv = {
       REACT_APP_API_BASE_URL: 'http://iam-api.local',
-      REACT_APP_IAM_SERVICE: 'iam'
+      REACT_APP_IAM_PERMISSION_PREFIX: 'iam'
     };
 
 ## Configure resource requests and limits
