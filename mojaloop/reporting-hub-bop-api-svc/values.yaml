@@ -161,10 +161,9 @@ image:
 
 replicaCount: 1
 command:
-  # - sleep
-  # - infinity
-  - node
-  - dist/src/index.js
+  - npm
+  - run
+  - start:dist
 
 ## Enable diagnostic mode in the deployment
 ##
@@ -176,11 +175,11 @@ diagnosticMode:
   ##
   command:
     - npm
-    - start
+    - run
+    - start:dist
   ## @param diagnosticMode.args Args to override all containers in the deployment
   ##
-  args:
-    - --inspect=0.0.0.0:{{ .Values.diagnosticMode.debug.port }}
+  args: []
 
   ## @param diagnosticMode.debug config to override all debug information
   ##
@@ -330,9 +329,8 @@ gateway:
   host: ""
   parentRefs: []
   cors: {}
-  ## Delegates auth on the route to Oathkeeper; disable to route without authorization
+  ## The decision API a route keyed for the IAM asks through its ExternalAuth filter
   oathkeeper:
-    enabled: true
     serviceName: oathkeeper-api
     servicePort: 4456
 

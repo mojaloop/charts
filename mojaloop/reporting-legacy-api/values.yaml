@@ -8,9 +8,6 @@
 ## @param global.storageClass Global StorageClass for Persistent Volume(s)
 ##
 global:
-  # This can be overridden by the main keto element.
-  keto:
-    readURL: 'http://keto-read'
   ## The following is the database configuration of the reporting DB
   ## For testing / development, it can be pointed to the main centralledger database
   ## but for production use, please point this to the reporting database which can be a replica of the main database
@@ -45,12 +42,6 @@ reportingDB:
     # enabled: false
     # verify: false
     caSecret: {}
-
-  # This can be overridden by the main keto element.
-keto: { }
-  # keto:
-  #   readURL: 'http://keto-read'
-  #   writeURL: 'http://keto-write'
 
 install-templates: true
 
@@ -145,8 +136,6 @@ image:
 
 replicaCount: 1
 command:
-  # - sleep
-  # - infinity
   - npm
   - start
 
@@ -163,8 +152,7 @@ diagnosticMode:
     - start
   ## @param diagnosticMode.args Args to override all containers in the deployment
   ##
-  args:
-    - --inspect=0.0.0.0:{{ .Values.diagnosticMode.debug.port }}
+  args: []
 
   ## @param diagnosticMode.debug config to override all debug information
   ##
@@ -256,8 +244,6 @@ service:
 
 podAnnotations: {}
 
-auth: false
-
 ## RBAC configuration
 ##
 rbac:
@@ -296,9 +282,8 @@ gateway:
   host: ""
   parentRefs: []
   cors: {}
-  ## Delegates auth on the route to Oathkeeper; disable to route without authorization
+  ## The decision API a route keyed for the IAM asks through its ExternalAuth filter
   oathkeeper:
-    enabled: true
     serviceName: oathkeeper-api
     servicePort: 4456
 

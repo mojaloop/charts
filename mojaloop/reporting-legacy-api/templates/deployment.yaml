@@ -104,6 +104,10 @@ spec:
             periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
           {{- end }}
           env:
+            {{- if .Values.diagnosticMode.enabled }}
+            - name: NPM_CONFIG_NODE_OPTIONS
+              value: {{ printf "--inspect=0.0.0.0:%v" .Values.diagnosticMode.debug.internalPort | quote }}
+            {{- end }}
             # Central Ledger DB
             - name: DB_HOST
               value: '{{ include "common.backends.reportingDB.host" . }}'
@@ -130,10 +134,6 @@ spec:
                   name: '{{ include "common.backends.reportingDB.ssl.caSecret.name" . }}'
                   key: '{{ include "common.backends.reportingDB.ssl.caSecret.key" . }}'
             {{- end }}
-            {{- end }}
-            {{- if .Values.auth }}
-            - name: ORY_KETO_READ_URL
-              value: '{{ include "common.backends.keto.readURL" . }}'
             {{- end }}
             - name: WATCH_RESOURCE_GROUP
               value: '{{ include "common.backends.mojaloopreport.resourceGroup" . }}'

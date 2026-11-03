@@ -187,7 +187,7 @@ metrics:
 
 config:
   env:
-    REACT_APP_API_BASE_URL: http://role-assignment-service.local
+    REACT_APP_API_BASE_URL: http://iam-api.local
     REACT_APP_MOCK_API: false
 
 service:
@@ -257,7 +257,7 @@ configFiles:
   default.json: {}
   runtime-env.js: |
     window.roleEnv = {
-      REACT_APP_API_BASE_URL: 'http://role-assignment-service.local',
+      REACT_APP_API_BASE_URL: 'http://iam-api.local',
       REACT_APP_MOCK_API: 'false'
     };
 
@@ -281,9 +281,8 @@ gateway:
   enabled: false
   host: ""
   parentRefs: []
-  ## Delegates auth on the route to Oathkeeper; disable to route without authorization
+  ## The decision API a route keyed for the IAM asks through its ExternalAuth filter
   oathkeeper:
-    enabled: true
     serviceName: oathkeeper-api
     servicePort: 4456
 

@@ -47,9 +47,6 @@ spec:
                 - queries
                 - template
               properties:
-                permission:
-                  description: Permission to be needed to access this report. This is optional. If unspecified, the name of the resource will be considered as permission.
-                  type: string
                 endpoint:
                   description: Reporting endpoint
                   type: object
@@ -81,7 +78,7 @@ spec:
                   description: The list of queries used in ejs reporting template
                   type: array
                   items:
-                    description: permission ID.
+                    description: A named SQL query
                     type: object
                     required:
                       - name
@@ -104,9 +101,11 @@ spec:
                 state:
                   description: The state of the report.
                   type: string
-                error:
-                  description: Error message
-                  type: string
+                messages:
+                  description: Why the report is in its state, one entry per reason.
+                  type: array
+                  items:
+                    type: string
       additionalPrinterColumns:
         - name: endpoint
           type: string

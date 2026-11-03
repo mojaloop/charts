@@ -361,9 +361,8 @@ chart-service:
     enabled: false
     host: ""
     parentRefs: []
-    ## Delegates auth on the route to Oathkeeper; disable to route without authorization
+    ## The decision API a route keyed for the IAM asks through its ExternalAuth filter
     oathkeeper:
-      enabled: true
       serviceName: oathkeeper-api
       servicePort: 4456
 
@@ -905,9 +904,8 @@ chart-admin:
     enabled: false
     host: ""
     parentRefs: []
-    ## Delegates auth on the route to Oathkeeper; disable to route without authorization
+    ## The decision API a route keyed for the IAM asks through its ExternalAuth filter
     oathkeeper:
-      enabled: true
       serviceName: oathkeeper-api
       servicePort: 4456
 

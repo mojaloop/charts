@@ -16,4 +16,4 @@ global:
     apiSvc: {}
 
 security-role-perm-operator-svc:
-  enabled: true
+  enabled: false

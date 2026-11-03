@@ -22,7 +22,6 @@ else
         # Common Charts
         mojaloop/common
         # Mojaloop BoF Charts
-        mojaloop/role-assignment-service
         mojaloop/reporting-hub-bop-experience-api-svc
         mojaloop/reporting-hub-bop-shell
         mojaloop/reporting-hub-bop-api-svc

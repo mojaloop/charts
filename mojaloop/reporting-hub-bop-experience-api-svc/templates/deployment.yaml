@@ -115,6 +115,10 @@ spec:
               subPath: {{ $fileName | replace "/" "-" }}
 {{- end }}
           env:
+            {{- if .Values.diagnosticMode.enabled }}
+            - name: NPM_CONFIG_NODE_OPTIONS
+              value: {{ printf "--inspect=0.0.0.0:%v" .Values.diagnosticMode.debug.internalPort | quote }}
+            {{- end }}
             - name: LOG_LEVEL
               value: {{ .Values.config.log_level | quote}}
             - name: LOG_FILTER

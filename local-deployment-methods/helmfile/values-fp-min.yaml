@@ -5,8 +5,6 @@ global:
   settlementSvc:
     host: "centralsettlement-service"
     port: 80
-  keto:
-    readURL: "http://keto-read:80"
   reportingDB:
     host: mysqldb
     port: 3306
@@ -40,24 +38,6 @@ global:
     topic: topic-event
   rolePermOperator:
     apiSvc: {}
-  keycloak:
-    url: 'http://keycloak:8080'
-    user: 'admin'
-    password: ''
-    # secret:
-    #   name: 'keycloak-secret'
-    #   key: 'password'
-    realm: 'master'
-
-
-rbacTests:
-  enabled: false
-
-reportTests:
-  enabled: false
-
-role-assignment-service:
-  enabled: false
 
 reporting-hub-bop-api-svc:
   enabled: false

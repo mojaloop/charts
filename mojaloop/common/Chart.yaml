@@ -21,3 +21,7 @@ sources:
   - https://github.com/mojaloop/charts
   - http://www.bitnami.com/
 type: library
+dependencies:
+  - name: mojaloop-common
+    repository: "https://mojaloop.github.io/helm/repo"
+    version: 0.1.0
